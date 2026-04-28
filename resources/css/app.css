@@ -1,0 +1,528 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --earth-espresso: #3c2a21;
+    --earth-walnut: #5b3a29;
+    --earth-teak: #8b4513;
+    --earth-ochre: #d4a373;
+    --earth-sand: #f5ebe0;
+    --earth-parchment: #fff7f0;
+    --earth-bronze: #b07d62;
+    --earth-overlay: rgba(60, 42, 33, 0.58);
+    --earth-overlay-soft: rgba(139, 69, 19, 0.18);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(255, 247, 240, 0.94), rgba(245, 235, 224, 0.84) 45%, rgba(212, 163, 115, 0.2)),
+      linear-gradient(180deg, #fffaf5 0%, #f5ebe0 100%);
+    color: var(--earth-espresso);
+  }
+}
+
+@layer components {
+  .warm-panel {
+    @apply border border-white/10 bg-wood-frost shadow-wood-glass backdrop-blur-2xl;
+  }
+
+  .warm-subpanel {
+    @apply border border-earth-espresso/10 bg-earth-mist p-5 shadow-sm backdrop-blur-xl;
+  }
+
+  .mini-bento {
+    @apply border border-white/10 p-5 backdrop-blur-xl;
+    background-color: rgb(255 255 255 / 0.08);
+  }
+
+  .bento-shell {
+    @apply border border-earth-espresso/10 p-4 shadow-wood-glass backdrop-blur-xl sm:p-6;
+    background-color: rgb(255 255 255 / 0.45);
+  }
+
+  .bento-grid {
+    @apply grid grid-cols-1 gap-4 lg:grid-cols-12;
+  }
+
+  .bento-card {
+    @apply border border-earth-espresso/10 p-5 shadow-sm backdrop-blur-xl sm:p-6;
+    background-color: rgb(255 255 255 / 0.55);
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-earth-teak;
+  }
+
+  .section-title {
+    @apply mt-2 font-serif text-2xl font-semibold tracking-tight text-earth-espresso sm:text-3xl;
+  }
+
+  .pill {
+    @apply inline-flex border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em];
+    border-color: color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  .pill-stay {
+    @apply bg-earth-ochre/25 text-earth-espresso;
+  }
+
+  .pill-sail {
+    @apply bg-earth-walnut/90 text-earth-sand;
+  }
+
+  .status-panel {
+    @apply border p-5;
+  }
+
+  .status-green {
+    @apply border-calamity-green/20 bg-calamity-green/10 text-earth-espresso;
+  }
+
+  .status-amber {
+    @apply border-calamity-amber/20 bg-calamity-amber/10 text-earth-espresso;
+  }
+
+  .status-red {
+    @apply border-calamity-red/20 bg-calamity-red/85 text-white;
+  }
+
+  .icon-stepper {
+    @apply flex items-center justify-between gap-3 border border-earth-espresso/10 bg-white/60 px-4 py-3 text-sm font-medium text-earth-espresso;
+  }
+
+  .stepper-controls {
+    @apply inline-flex items-center gap-3 border border-earth-espresso/10 bg-earth-parchment px-2 py-1;
+  }
+
+  .stepper-controls button {
+    @apply h-8 w-8 border border-earth-walnut bg-earth-walnut text-earth-sand transition hover:bg-earth-espresso;
+  }
+
+  .expand-card {
+    @apply border border-earth-espresso/10 bg-white/60 p-5 transition duration-300 hover:-translate-y-1 hover:shadow-wood-glow;
+  }
+
+  .expand-drawer {
+    @apply mt-4 max-h-0 overflow-hidden border-t border-earth-espresso/0 pt-0 text-sm leading-7 transition-all duration-300;
+    color: rgb(60 42 33 / 0.72);
+  }
+
+  .expand-card:hover .expand-drawer {
+    @apply max-h-40 border-earth-espresso/10 pt-4;
+  }
+
+  .stat-chip {
+    @apply flex items-center justify-between border border-earth-espresso/10 bg-earth-parchment px-4 py-3 text-sm font-medium text-earth-espresso;
+  }
+
+  .warm-action {
+    @apply border border-earth-ochre bg-cta-ochre px-4 py-3 text-sm font-semibold tracking-[0.08em] text-earth-espresso transition hover:-translate-y-0.5 hover:shadow-wood-glow;
+  }
+
+  .sticky-booking-bar {
+    @apply sticky bottom-3 z-40 flex items-center justify-between gap-4 border border-white/10 bg-wood-frost px-4 py-3 shadow-wood-glass backdrop-blur-2xl;
+  }
+
+  .reserve-button {
+    @apply border border-earth-ochre bg-cta-ochre px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-earth-espresso shadow-wood-glow transition hover:brightness-105;
+  }
+
+  .mobile-stack-card {
+    @apply border border-earth-espresso/10 bg-white/70 p-4 shadow-sm;
+  }
+}
+
+[x-cloak] {
+  display: none;
+}
+
+
+/* --- Stylesheet (e.g., public/css/app.css) --- */
+
+/* [Existing Tailwind/App CSS above] */
+
+/* ROOM IMAGE CONTAINER (to manage overflow/positioning) */
+.room-image-container {
+  overflow: hidden;
+  position: relative;
+  /* ensure absolute badges position relative to this container */
+}
+
+/* ROOM BADGE - Horizontal top banner (full width of image) */
+.room-badge {
+  position: absolute;
+  top: 10px;
+  /* move down slightly */
+  left: 10px;
+  /* move right slightly */
+  height: auto;
+  background: red;
+  /* whatever color you use */
+  border-radius: 20px;
+  /* rounded oblong shape */
+  padding: 4px 12px;
+  z-index: 15;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* TEXT (no rotation) */
+.room-badge span {
+  transform: none;
+  white-space: nowrap;
+  display: block;
+}
+
+/* small helper animations used by the Uiverse-style loader */
+@keyframes progressBar {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progressBar {
+  animation: progressBar 2.2s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeInUp 850ms ease forwards;
+}
+
+
+
+
+/* araw */
+@keyframes spin {
+  from {
+    /* Start at 0 degrees rotation */
+    transform: rotate(0deg);
+  }
+
+  to {
+    /* End at 360 degrees rotation, completing one full turn */
+    transform: rotate(360deg);
+  }
+}
+
+/* 2. Apply the animation to the SVG element */
+#spinning-sun {
+  /* Apply the 'spin' animation */
+  animation-name: spin;
+
+  /* The duration for one full rotation */
+  animation-duration: 4s;
+
+  /* The motion is linear (constant speed) */
+  animation-timing-function: linear;
+
+  /* The animation runs forever */
+  animation-iteration-count: infinite;
+}
+
+
+/* ulap */
+/* 1. Define the rotation keyframes (only needs to be done once) */
+@keyframes spin {
+  from {
+    /* Start at 0 degrees rotation */
+    transform: rotate(0deg);
+  }
+
+  to {
+    /* End at 360 degrees rotation, completing one full turn */
+    transform: rotate(360deg);
+  }
+}
+
+/* 2. Apply the animation to the SVG element */
+#spinning-cloud {
+  /* Apply the 'spin' animation */
+  animation-name: spin;
+
+  /* Duration for one rotation (e.g., 5 seconds) */
+  animation-duration: 5s;
+
+  /* Constant speed */
+  animation-timing-function: linear;
+
+  /* Run forever */
+  animation-iteration-count: infinite;
+}
+
+
+
+/* hangin */
+@keyframes spin {
+  from {
+    /* Start with no rotation */
+    transform: rotate(0deg);
+  }
+
+  to {
+    /* End with a full rotation */
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the animation to the specific SVG */
+#wind-spin-icon {
+  /* Apply the 'spin' keyframes */
+  animation-name: spin;
+
+  /* Time for one rotation (e.g., 6 seconds) */
+  animation-duration: 6s;
+
+  /* Constant speed */
+  animation-timing-function: linear;
+
+  /* Run without stopping */
+  animation-iteration-count: infinite;
+
+  /* Ensures the rotation is smooth and not jumpy */
+  transform-origin: center;
+}
+
+
+/* vortex*/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the animation to the specific SVG */
+#vortex-spin-icon {
+  /* Apply the 'spin' keyframes */
+  animation-name: spin;
+
+  /* Set the duration for one rotation (e.g., 3 seconds for a noticeable spin) */
+  animation-duration: 3s;
+
+  /* Constant speed for smooth rotation */
+  animation-timing-function: linear;
+
+  /* Run the animation endlessly */
+  animation-iteration-count: infinite;
+
+  /* Ensure the rotation is centered */
+  transform-origin: center;
+}
+
+
+/* araw */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the animation to the specific SVG */
+#sun-spin-icon {
+  /* Apply the 'spin' keyframes */
+  animation-name: spin;
+
+  /* Set the duration for one rotation (e.g., 4 seconds) */
+  animation-duration: 4s;
+
+  /* Constant speed for smooth rotation */
+  animation-timing-function: linear;
+
+  /* Run the animation endlessly */
+  animation-iteration-count: infinite;
+
+  /* Ensure the rotation is centered */
+  transform-origin: center;
+}
+
+
+
+/* When the mobile drawer OR a modal is open, hide floating chat and alerts so they appear behind overlays */
+body.drawer-open #alerts-toggle-button,
+body.modal-open #alerts-toggle-button,
+body.drawer-open #alerts-sidebar,
+body.modal-open #alerts-sidebar {
+  display: none !important;
+}
+
+body.drawer-open #chatbot-wrapper,
+body.modal-open #chatbot-wrapper,
+body.drawer-open .guest-chat-button,
+body.modal-open .guest-chat-button {
+  display: none !important;
+}
+
+body.drawer-open #chatbot-unread-global,
+body.modal-open #chatbot-unread-global {
+  display: none !important;
+}
+
+
+/* Custom styles for full height on mobile and desktop */
+.carousel-slide {
+  transition: opacity 1000ms ease-in-out;
+}
+
+
+
+
+
+/* chatbot css */
+/* Note: For a real-world application, the utility classes (e.g., bg-gray-100, flex, text-sm) would need a framework like Tailwind CSS, but the custom classes below handle the animation. */
+
+/* Updated Chat Container Styles for Animation */
+#ai-chat-container {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  /* Set transition time */
+  transform-origin: bottom right;
+  /* Start transformation from the FAB corner */
+  z-index: 9999;
+}
+
+/* Class for the fully closed state (used during animation) */
+.ai-chat-closed {
+  opacity: 0;
+  /* Fully transparent when closed */
+  transform: scale(0.95) translateY(10px);
+  /* Slightly smaller and lower */
+  pointer-events: none;
+  /* Crucial: Prevents interaction when invisible */
+}
+
+/* Use display: none only to fully hide it from screen readers/tab index once animation is complete */
+.hidden-chat {
+  display: none;
+}
+
+/* Typing Indicator Styles */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+  /* Equivalent to bg-gray-100 */
+  max-width: fit-content;
+}
+
+.typing-indicator .dot {
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background-color: #4b5563;
+  /* Equivalent to text-gray-600 */
+  border-radius: 50%;
+  animation: bounce 1s infinite;
+}
+
+.typing-indicator .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+}
+
+
+/* Custom styles for the chat state transitions */
+.hidden-chat {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  /* For desktop/tablet, push it off-screen slightly */
+  transform: translateY(100px);
+}
+
+.ai-chat-open {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Mobile full-screen override for open state */
+.ai-chat-open.hidden-chat {
+  /* On mobile, open state should always be visible (inset-0 is key) */
+  transform: none;
+}
+
+/* Ensure smooth transition of size/position on desktop */
+#ai-chat-container {
+  transition: all 0.3s ease-in-out;
+  /* Use flex to manage height of internal elements */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure the input box doesn't cause overflow on mobile */
+#chat-input {
+  min-width: 0;
+}
+
+/* Styling for the focus state on the input */
+#chat-input:focus {
+  outline: 2px solid #ea580c;
+  /* orange-600 */
+  border-color: transparent;
+}
+
+
+
+
+
+
+/* nav css */
+/* Custom styles for select/date to match Luxen image look */
+.luxen-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3e%3cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5rem;
+  padding-right: 2.5rem;
+}
+
