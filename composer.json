@@ -75,6 +75,4 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true
-}git add composer.json
-git commit -m "Fix: Clean invalid JSON and restore requirements"
-git push origin prod:main --force
+}
