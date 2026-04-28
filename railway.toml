@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "composer install && npm install && npm run build"
+
+[deploy]
+startCommand = "php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=$PORT"
+restartPolicyType = "ON_FAILURE"
