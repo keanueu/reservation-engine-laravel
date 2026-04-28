@@ -1,7 +1,14 @@
 [build]
-builder = "NIXPACKS"
-buildCommand = "composer install && npm install && npm run build"
+  builder = "RAILPACK"
 
 [deploy]
-startCommand = "php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=$PORT"
-restartPolicyType = "ON_FAILURE"
+  # 1. Runs migrations BEFORE the app goes live. 
+  # If this fails, your site stays up on the old version (safe).
+  preDeployCommand = "php artisan migrate --force"
+  
+  # 2. Starts the server only if the migration above succeeds.
+  startCommand = "php artisan serve --host=0.0.0.0 --port=$PORT"
+  
+  # 3. Tells Railway to wait until the app is responding.
+  healthcheckPath = "/health"
+  healthcheckTimeout = 100

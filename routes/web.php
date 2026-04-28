@@ -273,3 +273,8 @@ Route::post('/ai/chat', [AIChatController::class, 'chat']);
 // web.php
 
  Route::get('/room_detailsv2/{id}', [HomeController::class, 'room_detailsv2']);
+
+
+ Route::get('/health', function () {
+    return response('OK', 200);
+});
