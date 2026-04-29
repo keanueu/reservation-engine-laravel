@@ -41,8 +41,8 @@
                    class="inline-flex items-center gap-2 text-sm font-semibold text-gray-800 border-b-2 pb-0.5 transition-colors hover:text-[#964B00] hover:border-[#964B00]"
                    style="border-color:#964B00;">
                     Learn More
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                 </a>
             </div>

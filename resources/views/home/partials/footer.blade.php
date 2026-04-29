@@ -25,21 +25,31 @@
                 </p>
                 {{-- Trust badges --}}
                 <div class="space-y-2 mb-6">
-                    @php $trust = [['icon'=>'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z','label'=>'Verified & Trusted'],['icon'=>'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z','label'=>'Secure Payments']]; @endphp
+                    @php $trust = [
+                        ['icon'=>'fa-shield-halved','label'=>'Verified & Trusted'],
+                        ['icon'=>'fa-lock','label'=>'Secure Payments']
+                    ]; @endphp
                     @foreach($trust as $t)
                         <div class="flex items-center gap-2 text-white/50">
-                            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $t['icon'] }}"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 flex-shrink-0 text-[#964B00]">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                            </svg>
                             <span class="text-xs font-semibold">{{ $t['label'] }}</span>
                         </div>
                     @endforeach
                 </div>
                 {{-- Socials --}}
                 <div class="flex gap-3">
-                    @php $socials = [['label'=>'Facebook','d'=>'M22 12a10 10 0 1 0-11.6 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12z'],['label'=>'Instagram','d'=>'M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.8-.8a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4z']]; @endphp
+                    @php $socials = [
+                        ['label'=>'Facebook','icon'=>'fa-facebook-f'],
+                        ['label'=>'Instagram','icon'=>'fa-instagram']
+                    ]; @endphp
                     @foreach($socials as $s)
                         <a href="#" aria-label="{{ $s['label'] }}"
                            class="w-9 h-9 flex items-center justify-center border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-all">
-                            <svg fill="currentColor" class="w-4 h-4" viewBox="0 0 24 24"><path d="{{ $s['d'] }}"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
                         </a>
                     @endforeach
                 </div>
@@ -65,11 +75,18 @@
             <div>
                 <h3 class="text-xs font-bold tracking-[.25em] uppercase text-white mb-6">Contact</h3>
                 <ul class="space-y-4">
-                    @php $contacts = [['M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z','Tambobong, Dasol, Pangasinan'],['M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498A1 1 0 0121 15v2a2 2 0 01-2 2h-1C9.716 19 3 12.284 3 6V5z','+63 912 345 6789'],['M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z','cabanasresort@gmail.com']]; @endphp
-                    @foreach($contacts as [$icon,$text])
+                    @php $contacts = [
+                        ['icon'=>'fa-location-dot','text'=>'Tambobong, Dasol, Pangasinan'],
+                        ['icon'=>'fa-phone','text'=>'+63 912 345 6789'],
+                        ['icon'=>'fa-envelope','text'=>'cabanasresort@gmail.com']
+                    ]; @endphp
+                    @foreach($contacts as $c)
                         <li class="flex items-start gap-3">
-                            <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-[#964B00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}"/></svg>
-                            <span class="text-sm text-white/55 leading-relaxed">{{ $text }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mt-0.5 flex-shrink-0 text-[#964B00]">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                            <span class="text-sm text-white/55 leading-relaxed">{{ $c['text'] }}</span>
                         </li>
                     @endforeach
                 </ul>
@@ -106,7 +123,10 @@
                 <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
                 <a href="#" class="hover:text-white/70 transition-colors">Terms of Service</a>
                 <span class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-[#964B00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-[#964B00]">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
                     Dasol, Pangasinan
                 </span>
             </div>
