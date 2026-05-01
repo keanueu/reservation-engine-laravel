@@ -11,11 +11,17 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->boolean('requires_admin')->default(false)->after('message');
-            $table->unsignedBigInteger('admin_id')->nullable()->after('user_id');
+            // Check if requires_admin exists before adding it
+            if (!Schema::hasColumn('messages', 'requires_admin')) {
+                $table->boolean('requires_admin')->default(false)->after('message');
+            }
+
+            // Check if admin_id exists before adding it
+            if (!Schema::hasColumn('messages', 'admin_id')) {
+                $table->unsignedBigInteger('admin_id')->nullable()->after('user_id');
+            }
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -23,7 +29,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            //
+            $table->dropColumn(['requires_admin', 'admin_id']);
         });
     }
 };
