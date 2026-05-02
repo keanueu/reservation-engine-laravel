@@ -77,20 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (form) form.addEventListener("submit", checkGuests);
 
-    // ---------- PAGE LOADER ----------
-    const loader = document.getElementById("cabanas-loader");
-    const main = document.getElementById("main-content");
-
-    if (main) main.classList.remove('opacity-0');
-
-    setTimeout(() => {
-        if (loader) {
-            loader.classList.add('opacity-0');
-            loader.style.pointerEvents = 'none';
-            setTimeout(() => loader.classList.add('hidden'), 500);
-        }
-    }, 800);
-
     // ---------- AMENITIES DRAWER ----------
     const amenitiesBtn = document.getElementById('amenitiesBtn');
     const mobileDrawer = document.getElementById('mobileDrawer');
@@ -211,8 +197,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showAvailabilityLoader() {
-        const el = document.getElementById('cabanas-loader');
+        let el = document.getElementById('cabanas-loader');
+        if (!el) {
+            const loaderHTML = `<div id="cabanas-loader" class="fixed inset-0 z-[9999] flex items-center justify-center transition-opacity duration-500" style="background: rgba(255,255,255,0.92);">
+                <div class="mx-auto max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl overflow-hidden drop-shadow-2xl bg-transparent font-[Manrope]">
+                    <div class="flex p-6 sm:p-8 justify-center items-center min-h-[60vh] sm:h-[450px] bg-transparent">
+                        <div class="text-center space-y-6">
+                            <div class="loader-spinner mx-auto h-16 w-16 animate-spin border-4 border-gray-300 border-t-[#964B00] sm:h-20 sm:w-20 md:h-24 md:h-24"></div>
+                            <div class="text-[#964B00] font-medium text-2xl sm:text-3xl md:text-4xl opacity-90 animate-fadeIn">Checking Availability...</div>
+                            <div class="text-black text-xs sm:text-sm md:text-base opacity-80 animate-fadeIn space-y-1">
+                                <p>Please wait while we check room availability...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            document.body.insertAdjacentHTML('beforeend', loaderHTML);
+            el = document.getElementById('cabanas-loader');
+        }
         if (!el) return;
+        document.body.classList.add('loader-active');
         el.classList.remove('hidden', 'opacity-0');
         el.style.pointerEvents = 'auto';
     }
@@ -222,7 +226,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!el) return;
         el.classList.add('opacity-0');
         el.style.pointerEvents = 'none';
-        setTimeout(() => el.classList.add('hidden'), 400);
+        setTimeout(() => {
+            el.classList.add('hidden');
+            document.body.classList.remove('loader-active');
+        }, 400);
     }
 
     function workerRun(startDateVal, endDateVal) {

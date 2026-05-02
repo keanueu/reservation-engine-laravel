@@ -19,9 +19,9 @@
 
         {{-- Settings Form Card --}}
         <div
-            class="bg-white dark:bg-gray-800 p-4 sm:p-6  shadow-lg border dark:border-gray-700 max-w-4xl mx-auto">
+            class="bg-white dark:bg-black p-4 sm:p-6  shadow-lg border dark:border-black max-w-4xl mx-auto">
 
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-6 border-b pb-4 dark:border-gray-700">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-6 border-b pb-4 dark:border-black">
                 Configure Parameters</h2>
 
             <form method="POST" action="{{ route('frontdesk.settings.update') }}" class="space-y-6">
@@ -35,7 +35,7 @@
                     </label>
                     <div class="md:col-span-2">
                         <select name="deposit_percentage" id="deposit_percentage"
-                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600  shadow-sm py-2 px-3 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            class="mt-1 block w-full border border-gray-300 dark:border-black  shadow-sm py-2 px-3 text-gray-900 dark:text-gray-100 bg-white dark:bg-black focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="30" {{ $deposit == 30 ? 'selected' : '' }}>30%</option>
                             <option value="40" {{ $deposit == 40 ? 'selected' : '' }}>40%</option>
                             <option value="50" {{ $deposit == 50 ? 'selected' : '' }}>50%</option>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <hr class="dark:border-gray-700">
+                <hr class="dark:border-black">
 
                 {{-- Refund Fee Percentage Field --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-4 md:gap-6">
@@ -55,7 +55,7 @@
                     </label>
                     <div class="md:col-span-2">
                         <select name="refund_fee_percentage" id="refund_fee_percentage"
-                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600  shadow-sm py-2 px-3 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            class="mt-1 block w-full border border-gray-300 dark:border-black  shadow-sm py-2 px-3 text-gray-900 dark:text-gray-100 bg-white dark:bg-black focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="0" {{ $refundFee == 0 ? 'selected' : '' }}>0%</option>
                             <option value="5" {{ $refundFee == 5 ? 'selected' : '' }}>5%</option>
                             <option value="10" {{ $refundFee == 10 ? 'selected' : '' }}>10%</option>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-                <hr class="dark:border-gray-700">
+                <hr class="dark:border-black">
 
                 {{-- Include Refund Fee Checkbox --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-4 md:gap-6">
@@ -76,7 +76,7 @@
                     <div class="md:col-span-2">
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="checkbox" name="include_refund_fee_in_form" value="1"
-                                class="form-checkbox h-4 w-4 text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 focus:ring-indigo-500"
+                                class="form-checkbox h-4 w-4 text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-black rounded dark:bg-black focus:ring-indigo-500"
                                 {{ $includeRefundFeeInForm ? 'checked' : '' }}>
                             <span class="ml-2 text-sm text-gray-900 dark:text-gray-200">Include refund fee percentage in
                                 refund request form</span>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
 
-                <hr class="dark:border-gray-700">
+                <hr class="dark:border-black">
 
                 {{-- Save Button --}}
                 <div class="flex justify-end pt-4">

@@ -210,17 +210,12 @@
                         <div class="flex flex-wrap gap-x-4 gap-y-3 text-gray-600 text-xs  mb-4 pt-3 border-t border-gray-200">
 
                             <div class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                    <circle cx="9" cy="7" r="4" />
-                                </svg>
+                                <span class="material-symbols-outlined text-base">group</span>
                                 <span class="font-medium text-xs text-gray-600">{{ $room->accommodates }}</span>
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 18H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2zM9 10a1 1 0 100 2 1 1 0 000-2z" />
-                                </svg>
+                                <span class="material-symbols-outlined text-base">bed</span>
                                 <span class="text-xs">{{ $room->beds }}</span>
                             </div>
                         </div>
@@ -230,7 +225,7 @@
                                 View Details
                             </a>
                             <button type="button"
-                                onclick="openBookingModal('{{ $room->id }}', '{{ addslashes($room->room_name) }}', {{ $room->price }}, {{ (int)$room->accommodates }})"
+                                onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
                                 class="bg-[#964B00] px-6 py-2.5 text-xs text-white hover:bg-black transition flex items-center justify-center tracking-wide">
                                 Book Now
                             </button>

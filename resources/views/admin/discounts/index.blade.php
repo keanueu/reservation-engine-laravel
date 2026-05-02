@@ -22,10 +22,10 @@
       </div>
     @endif
 
-    <div class="bg-white dark:bg-gray-800  shadow-lg overflow-hidden">
+    <div class="bg-white dark:bg-black  shadow-lg overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-700">
+        <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
+          <thead class="bg-gray-50 dark:bg-black">
             <tr>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
@@ -38,7 +38,7 @@
             </tr>
           </thead>
 
-          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
             @foreach($discounts as $discount)
               <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">{{ $discount->name }}</td>

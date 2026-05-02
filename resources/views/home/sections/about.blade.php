@@ -12,7 +12,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {{-- Left: Text --}}
-            <div>
+            <div data-reveal>
                 <p class="text-sm font-semibold tracking-[.25em] uppercase mb-3" style="color:#964B00;">About Us</p>
 
                 <h2 class="text-4xl md:text-5xl leading-tight mb-5 text-gray-900" style="font-family:'Playfair Display',serif;">
@@ -41,14 +41,12 @@
                    class="inline-flex items-center gap-2 text-sm font-semibold text-gray-800 border-b-2 pb-0.5 transition-colors hover:text-[#964B00] hover:border-[#964B00]"
                    style="border-color:#964B00;">
                     Learn More
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
                 </a>
             </div>
 
             {{-- Right: Images --}}
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4" data-reveal data-reveal-delay="2">
                 {{-- Tall left image --}}
                 <div class="col-span-2 h-56 overflow-hidden shadow-md">
                     <img src="{{ asset('images/1758952332.jpg') }}"

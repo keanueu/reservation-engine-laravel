@@ -62,6 +62,21 @@ class Booking extends Model
         return $this->hasMany(\App\Models\BookingExtension::class);
     }
 
+    public function scopeForDate($query, $date, string $column = 'created_at')
+    {
+        return $query->whereDate($column, $date);
+    }
+
+    public function scopeBetweenDates($query, $from, $to, string $column = 'created_at')
+    {
+        return $query->whereBetween($column, [$from, $to]);
+    }
+
+    public function scopeWithStatus($query, string $status)
+    {
+        return $query->where('status', $status);
+    }
+
     /**
      * Insert all bookings from a cart array (session 'booking_cart').
      */

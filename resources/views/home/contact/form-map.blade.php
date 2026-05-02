@@ -20,30 +20,17 @@
             </p>
             <div class="space-y-8">
               <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-center flex-shrink-0" viewBox="0 0 20 20"
-                  fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                </svg>
+                <span class="material-symbols-outlined text-2xl mr-4 text-center flex-shrink-0">call</span>
                 <span class="text-sm">+1-316-555-1258</span>
               </div>
 
               <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-center flex-shrink-0" viewBox="0 0 20 20"
-                  fill="currentColor" aria-hidden="true">
-                  <path d="M2.003 5.884L10 11.884l7.997-6.001A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 6-8-6V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
+                <span class="material-symbols-outlined text-2xl mr-4 text-center flex-shrink-0">mail</span>
                 <span class="text-sm">hadams@gmail.com</span>
               </div>
 
               <div class="flex items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-1 mr-4 text-center flex-shrink-0"
-                  viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd"
-                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                    clip-rule="evenodd" />
-                </svg>
+                <span class="material-symbols-outlined text-2xl mt-1 mr-4 text-center flex-shrink-0">location_on</span>
                 <span class="text-sm">802 Pension Rd, Maine 96812, USA</span>
               </div>
             </div>
@@ -92,7 +79,7 @@
 
               <button type="submit"
                 class="w-full bg-[#964B00] hover:bg-[#7a3c00] text-white py-3 font-normal text-sm transition-colors flex items-center justify-center shadow-lg hover:shadow-xl font-normal text-sm">
-                Send Message <i class="fas fa-paper-plane ml-2" aria-hidden="true"></i>
+                Send Message <span class="material-symbols-outlined text-base ml-2">send</span>
               </button>
             </form>
           </div>

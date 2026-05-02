@@ -24,12 +24,12 @@
         </div>
 
         <!-- User Table Card -->
-        <div class="bg-white dark:bg-gray-800  shadow-lg overflow-hidden">
+        <div class="bg-white dark:bg-black  shadow-lg overflow-hidden">
 
             <!-- Responsive table wrapper -->
             <div class="overflow-x-auto">
-                <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
+                <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
+                    <thead class="bg-gray-50 dark:bg-black">
                         <tr>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -42,7 +42,7 @@
                                 Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
 
                         @foreach ($users as $user)
                             <tr>
@@ -131,7 +131,7 @@
 
             <!-- Pagination -->
             @if ($users->hasPages())
-                <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-t border-gray-200 dark:border-black">
                     <!-- Laravel's default pagination links will need to be styled for Tailwind -->
                     <!-- Publish pagination views with `php artisan vendor:publish --tag=laravel-pagination` and select tailwind.css -->
                     {{ $users->links() }}

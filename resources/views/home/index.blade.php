@@ -1,8 +1,6 @@
 @extends('home.layouts.app')
 @section('content')
 
-    @include('home.partials.chatbot')
-
     {{-- Hero: cinematic carousel + search bar --}}
     @include('home.sections.hero')
 

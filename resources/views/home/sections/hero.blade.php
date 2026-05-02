@@ -58,17 +58,13 @@
         <div class="flex items-center gap-0 mb-4 w-fit border-b border-white/20">
             <button id="tab-stay" class="mode-tab active" onclick="setMode('stay')">
                 <span class="flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                    </svg>
+                    <span class="material-symbols-outlined" style="font-size: 14px;">home</span>
                     Stay
                 </span>
             </button>
             <button id="tab-sail" class="mode-tab" onclick="setMode('sail')">
                 <span class="flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                    </svg>
+                    <span class="material-symbols-outlined" style="font-size: 14px;">sailing</span>
                     Sail
                 </span>
             </button>
@@ -113,9 +109,7 @@
                 <div class="flex items-center px-4 py-3">
                     <button type="submit"
                        class="btn-primary w-full md:w-auto px-8 py-3.5 text-xs font-bold tracking-widest uppercase flex items-center gap-2 justify-center whitespace-nowrap">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
+                        <span class="material-symbols-outlined text-base">search</span>
                         Search
                     </button>
                 </div>
@@ -147,9 +141,7 @@
                 <div class="flex items-center px-4 py-3">
                     <button type="submit"
                        class="btn-primary w-full md:w-auto px-8 py-3.5 text-xs font-bold tracking-widest uppercase flex items-center gap-2 justify-center whitespace-nowrap">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                        </svg>
+                        <span class="material-symbols-outlined text-base">sailing</span>
                         Find Vessel
                     </button>
                 </div>
@@ -161,13 +153,13 @@
             {{-- Trust badges --}}
             <div class="flex items-center gap-5">
                 @php $badges = [
-                    ['icon'=>'fa-circle-check','label'=>'Verified Resort'],
-                    ['icon'=>'fa-lock','label'=>'Secure Booking'],
-                    ['icon'=>'fa-credit-card','label'=>'PayMongo Payments']
+                    ['icon'=>'verified','label'=>'Verified Resort'],
+                    ['icon'=>'lock','label'=>'Secure Booking'],
+                    ['icon'=>'credit_card','label'=>'PayMongo Payments']
                 ]; @endphp
                 @foreach($badges as $b)
                     <div class="flex items-center gap-1.5 text-white/75">
-                        <i class="{{ $b['icon'] }} w-4 h-4"></i>
+                        <span class="material-symbols-outlined" style="font-size: 16px;">{{ $b['icon'] }}</span>
                         <span class="text-xs font-semibold">{{ $b['label'] }}</span>
                     </div>
                 @endforeach
@@ -186,9 +178,7 @@
 
     {{-- Scroll cue --}}
     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 scroll-cue">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white/50">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
+        <span class="material-symbols-outlined text-2xl text-white/50">expand_more</span>
     </div>
 </section>
 

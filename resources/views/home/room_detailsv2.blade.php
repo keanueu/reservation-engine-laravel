@@ -17,10 +17,7 @@
 
         {{-- Back Button --}}
         <a href="{{ url('/home/promos') }}" class="flex items-center text-sm text-gray-600 mb-4">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                      d="M10.5 19.5L3 12l7.5-7.5M3 12h18" />
-            </svg>
+            <span class="material-symbols-outlined mr-1" style="font-size: 16px;">arrow_back</span>
             Back to Promos
         </a>
 
@@ -70,7 +67,7 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('home.booking', $room->id) }}"
+                    <a href="{{ route('booking.dates') }}"
                        class="block text-center mt-4 bg-red-600 text-white py-2  text-sm">
                         Book Now
                     </a>

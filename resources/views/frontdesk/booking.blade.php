@@ -7,9 +7,9 @@
 
         <div class="overflow-x-auto  shadow lg:overflow-visible"> {{-- Added lg:overflow-visible to match boat
             table --}}
-            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
+            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
 
-                <thead class="bg-gray-50 dark:bg-gray-700">
+                <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -42,7 +42,7 @@
 
                 @foreach ($datas as $data)
                     <tbody id="booking-{{ $data->id }}" x-data="{ open: false }"
-                        class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
 
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -244,7 +244,7 @@
                         </tr>
 
                         {{-- Apply text-xs to the detail row container and adjust font weights --}}
-                        <tr x-show="open" x-cloak class="bg-gray-50 dark:bg-gray-900">
+                        <tr x-show="open" x-cloak class="bg-gray-50 dark:bg-black">
                             {{-- Increased colspan to 8 to match table columns. --}} 
                             <td colspan="8" class="px-6 py-4">
                                 {{-- Changed text-sm to text-xs, font-semibold remains --}}
@@ -351,7 +351,7 @@
                                     <h5 class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Extensions</h5>
                                     <div class="space-y-2 text-xs">
                                         @foreach(optional($data->extensions)->sortByDesc('created_at') ?? [] as $ext)
-                                               <div class="flex items-center justify-between bg-white dark:bg-gray-800 p-2 rounded extension-row"
+                                               <div class="flex items-center justify-between bg-white dark:bg-black p-2 rounded extension-row"
                                                          data-extension-id="{{ $ext->id }}" data-booking-id="{{ $data->id }}" data-price="{{ $ext->price }}">
                                                 <div>
                                                     <div>Hours: <strong>{{ $ext->hours }}</strong></div>

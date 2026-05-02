@@ -1,11 +1,11 @@
-<div id="typhoon-card" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4  shadow-sm">
+<div id="typhoon-card" class="bg-white dark:bg-black border border-gray-200 dark:border-black p-4  shadow-sm">
   <div class="flex items-start justify-between gap-4">
     <div class="flex items-start gap-3 flex-1 min-w-0">
       <div id="typhoon-icon" class="w-10 h-10  flex-shrink-0 flex items-center justify-center text-white bg-green-500">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16z"/></svg>
       </div>
       <div class="min-w-0">
-        <h2 class="font-semibold text-base text-gray-900 dark:text-gray-100 truncate"> Typhoon Status <span class="text-sm text-gray-500 dark:text-gray-400">(Pangasinan)</span></h2>
+        <h2 class="font-semibold text-base text-gray-900 dark:text-white truncate"> Typhoon Status <span class="text-sm text-gray-500 dark:text-gray-400">(Pangasinan)</span></h2>
         <div id="typhoon-sub" class="mt-1 text-xs text-gray-600 dark:text-gray-400 truncate">Loading latest advisory…</div>
       </div>
           <div class="flex items-center gap-2">
@@ -35,8 +35,8 @@
 </div>
 
 <!-- OpenWeather embed: map + small status note -->
-<div id="openweather-embed" class="mt-4 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-3 ">
-  <h3 class="text-sm font-medium text-gray-800 dark:text-gray-100">Local Weather (OpenWeather)</h3>
+<div id="openweather-embed" class="mt-4 bg-white dark:bg-black border border-gray-100 dark:border-black p-3 ">
+  <h3 class="text-sm font-medium text-gray-800 dark:text-white">Local Weather (OpenWeather)</h3>
   <div class="mt-2">
     <iframe id="owm-iframe" src="https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=15.95&lon=119.97&zoom=8" style="width:100%;height:260px;border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>

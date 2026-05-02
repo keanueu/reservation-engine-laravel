@@ -25,3 +25,14 @@
     </div>
 
 </div>
+
+<style>
+    #cabanas-loader {
+        overflow: hidden;
+    }
+    body.loader-active {
+        overflow: hidden !important;
+        height: 100vh !important;
+        padding-right: 0 !important;
+    }
+</style>

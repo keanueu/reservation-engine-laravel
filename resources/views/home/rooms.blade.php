@@ -136,35 +136,17 @@
             <div class="flex items-center space-x-4 text-sm text-gray-700 mb-5 pt-4 border-t border-gray-100">
 
               <div class="flex items-center" title="Accommodates">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 mr-1.5 text-gray-500" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
-                  </path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
+                <span class="material-symbols-outlined text-base mr-1.5 text-gray-500">group</span>
                 <span class="font-medium text-xs text-gray-600">{{ $room->accommodates }}</span>
               </div>
 
               <div class="flex items-center" title="Airconditioned">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 mr-1.5" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                  <g>
-                    <path
-                      d="M8 16a3 3 0 0 1-3 3m11-3a3 3 0 0 0 3 3m-7-3v4M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <path d="M7 13v-3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3" />
-                  </g>
-                </svg>
+                <span class="material-symbols-outlined text-base mr-1.5 text-gray-500">ac_unit</span>
                 <span class="font-medium text-xs text-gray-600">Aircon</span>
               </div>
 
               <div class="flex items-center" title="Seaview">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-4 mr-1.5 text-gray-500" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M4 13v8m4-8v8m8-8v8m-4-8v8m8-8v8M2 21h20M2 13h20m-4-3V3.6a.6.6 0 0 0-.6-.6H6.6a.6.6 0 0 0-.6.6V10" />
-                </svg>
+                <span class="material-symbols-outlined text-base mr-1.5 text-gray-500">apartment</span>
                 <span class="font-medium text-xs text-gray-600">Seaview</span>
               </div>
             </div>

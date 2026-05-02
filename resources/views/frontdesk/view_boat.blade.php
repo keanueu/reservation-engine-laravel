@@ -9,9 +9,9 @@
         </h1>
 
         <div class="overflow-x-auto  shadow">
-            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
+            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
 
-                <thead class="bg-gray-50 dark:bg-gray-700">
+                <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -36,9 +36,9 @@
 
                 @foreach ($boats as $boat)
                     <tbody x-data="{ open: false }"
-                        class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
 
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition duration-150">
 
                             {{-- Boat Name / Info --}}
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -126,7 +126,7 @@
                         </tr>
 
                         {{-- Description Row --}}
-                        <tr x-show="open" x-transition.opacity.duration.200ms x-cloak class="bg-gray-50 dark:bg-gray-900">
+                        <tr x-show="open" x-transition.opacity.duration.200ms x-cloak class="bg-gray-50 dark:bg-black">
                             <td colspan="6" class="px-6 py-4">
                                 {{-- Changed text-sm font-semibold to text-xs font-normal --}}
                                 <h4 class="text-xs font-normal text-gray-700 dark:text-gray-200 mb-3">
