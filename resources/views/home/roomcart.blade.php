@@ -22,9 +22,7 @@
     <div class="lg:hidden space-y-2 mb-8">
       <a href="{{ url('/') }}"
         class="flex items-center text-sm text-black hover:text-yellow-700 transition font-[Manrope]">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-        </svg>
+        <span class="material-symbols-outlined mr-2" style="font-size: 16px;">arrow_back</span>
         Back to Home
       </a>
 
@@ -75,9 +73,7 @@
         <div class="hidden lg:block space-y-2">
           <a href="{{ url('/') }}"
             class="flex items-center text-sm font-[Manrope] text-black hover:text-yellow-700 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
+            <span class="material-symbols-outlined mr-2" style="font-size: 16px;">arrow_back</span>
             Back to Home
           </a>
           <h1 class="text-2xl sm:text-3xl font-normal tracking-wide text-black font-[Manrope]">

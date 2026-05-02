@@ -9,13 +9,13 @@
             </h1>
 
             <form action="{{ url('upload_images') }}" method="POST" enctype="multipart/form-data"
-                class="w-full md:w-auto bg-white dark:bg-gray-800 p-4  shadow-md border border-gray-200 dark:border-gray-700">
+                class="w-full md:w-auto bg-white dark:bg-black p-4  shadow-md border border-gray-200 dark:border-black">
                 @csrf
 
                 <div class="flex items-center gap-3">
                     <div class="relative flex-1 min-w-[200px]">
                         <input type="file" name="image" id="upload_image" required
-                            class="block w-full text-sm h-[40px] px-4 py-2 text-slate-900 dark:text-gray-100 bg-white dark:bg-gray-700  border border-gray-300 dark:border-gray-600 appearance-none
+                            class="block w-full text-sm h-[40px] px-4 py-2 text-slate-900 dark:text-gray-100 bg-white dark:bg-black  border border-gray-300 dark:border-black appearance-none
                                     focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-400 dark:focus:border-blue-400 transition duration-150 cursor-pointer" />
                     </div>
 
@@ -31,12 +31,12 @@
             </form>
         </div>
 
-        <hr class="border-gray-200 dark:border-gray-700">
+        <hr class="border-gray-200 dark:border-black">
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             @foreach ($images as $image)
                 <div
-                    class="flex flex-col bg-white dark:bg-gray-800  shadow-lg hover:shadow-xl overflow-hidden transition duration-300 transform hover:-translate-y-1 group">
+                    class="flex flex-col bg-white dark:bg-black  shadow-lg hover:shadow-xl overflow-hidden transition duration-300 transform hover:-translate-y-1 group">
 
                     <div class="relative w-full h-40 overflow-hidden flex-shrink-0">
                         <img src="{{ asset('images/' . $image->image) }}" alt="{{ $image->image }}"

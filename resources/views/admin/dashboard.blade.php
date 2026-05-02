@@ -49,9 +49,9 @@
       }
     @endphp
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-      <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  shadow-lg flex justify-between items-center">
+      <div class="bg-white dark:bg-black p-5 sm:p-6  shadow-lg flex justify-between items-center">
         <div>
-          <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Bookings</div>
+          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">Total Bookings</div>
           <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-1">
             {{ $totalBookings }}
           </div>
@@ -68,9 +68,9 @@
           </svg>
         </div>
       </div>
-      <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  shadow-lg flex justify-between items-center">
+      <div class="bg-white dark:bg-black p-5 sm:p-6  shadow-lg flex justify-between items-center">
         <div>
-          <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Revenue</div>
+          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">Total Revenue</div>
           <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-1">
             ₱{{ number_format($calculatedRevenue, 2) }}
           </div>
@@ -93,9 +93,9 @@
 
 
 
-      <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  shadow-lg flex justify-between items-center">
+      <div class="bg-white dark:bg-black p-5 sm:p-6  shadow-lg flex justify-between items-center">
         <div>
-          <div class="text-sm font-medium text-gray-500 dark:text-gray-400">New Guest</div>
+          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">New Guest</div>
           <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-1">
             {{ $currentCustomers }}
           </div>
@@ -112,9 +112,9 @@
         </div>
       </div>
 
-      <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  shadow-lg flex justify-between items-center">
+      <div class="bg-white dark:bg-black p-5 sm:p-6  shadow-lg flex justify-between items-center">
         <div>
-          <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Occupancy Rate</div>
+          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">Occupancy Rate</div>
           <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-1">
             {{ number_format($occupancyRate, 1) }}%
           </div>
@@ -136,7 +136,7 @@
 
     {{-- 2. New Action Bar: Export Controls (MOVED HERE) --}}
     <div
-      class="bg-white dark:bg-gray-800 p-4  shadow-lg border dark:border-gray-700 flex items-center justify-end">
+      class="bg-white dark:bg-black p-4  shadow-lg border dark:border-black flex items-center justify-end">
       <div class="hidden md:flex items-center gap-4">
 
         {{-- 1. Primary Button (Download All) --}}
@@ -146,28 +146,28 @@
         </a>
 
         {{-- 2. Filtered Exports Group --}}
-        <div class="flex items-center gap-2 border-l border-gray-300 dark:border-gray-700 pl-4">
+        <div class="flex items-center gap-2 border-l border-gray-300 dark:border-black pl-4">
           {{-- Preset Buttons --}}
           <a href="{{ route('admin.export.sales', ['from' => $weekStart->toDateString(), 'to' => $weekEnd->toDateString()]) }}"
-            class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-100 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">This
+            class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
             Week</a>
           <a href="{{ route('admin.export.sales', ['from' => $monthStart->toDateString(), 'to' => $monthEnd->toDateString()]) }}"
-            class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-100 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">This
+            class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
             Month</a>
           <a href="{{ route('admin.export.sales', ['from' => $quarterStart->toDateString(), 'to' => $quarterEnd->toDateString()]) }}"
-            class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-100 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">This
+            class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
             Quarter</a>
           <a href="{{ route('admin.export.sales', ['from' => $yearStart->toDateString(), 'to' => $yearEnd->toDateString()]) }}"
-            class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-100 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">This
+            class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
             Year</a>
 
           {{-- Custom Form --}}
           <form method="GET" action="{{ route('admin.export.sales') }}" class="ml-2 inline-flex items-center gap-2">
             <input type="date" name="from"
-              class="border border-gray-300 dark:border-gray-700 rounded px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+              class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
               required>
             <input type="date" name="to"
-              class="border border-gray-300 dark:border-gray-700 rounded px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+              class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
               required>
             <button type="submit"
               class="px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white rounded text-sm transition duration-150 ease-in-out">Export</button>
@@ -182,38 +182,38 @@
           Export Sales
         </summary>
         <div
-          class="absolute right-0 z-10 mt-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg w-64 text-gray-800 dark:text-gray-100">
+          class="absolute right-0 z-10 mt-2 p-3 bg-white dark:bg-black border border-gray-200 dark:border-black rounded shadow-lg w-64 text-gray-800 dark:text-white">
           <div class="flex flex-col gap-2">
             {{-- All Sales Button --}}
             <a href="{{ route('admin.export.sales') }}"
-              class="px-3 py-2 bg-indigo-50 dark:bg-gray-700 rounded text-sm text-center font-medium text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-gray-600">
+              class="px-3 py-2 bg-indigo-50 dark:bg-black rounded text-sm text-center font-medium text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-gray-900">
               Download ALL Sales (.xlsx)</a>
 
-            <div class="h-px bg-gray-200 dark:bg-gray-700 my-0"></div>
+            <div class="h-px bg-gray-200 dark:bg-black my-0"></div>
 
             {{-- Preset Buttons --}}
             <a href="{{ route('admin.export.sales', ['from' => $weekStart->toDateString(), 'to' => $weekEnd->toDateString()]) }}"
-              class="px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-600">This
+              class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
               Week</a>
             <a href="{{ route('admin.export.sales', ['from' => $monthStart->toDateString(), 'to' => $monthEnd->toDateString()]) }}"
-              class="px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-600">This
+              class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
               Month</a>
             <a href="{{ route('admin.export.sales', ['from' => $quarterStart->toDateString(), 'to' => $quarterEnd->toDateString()]) }}"
-              class="px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-600">This
+              class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
               Quarter</a>
             <a href="{{ route('admin.export.sales', ['from' => $yearStart->toDateString(), 'to' => $yearEnd->toDateString()]) }}"
-              class="px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-600">This
+              class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
               Year</a>
 
             {{-- Custom Form --}}
             <form method="GET" action="{{ route('admin.export.sales') }}"
-              class="mt-2 flex flex-col gap-2 border-t border-gray-200 dark:border-gray-700 pt-2">
-              <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">Custom Range:</p>
+              class="mt-2 flex flex-col gap-2 border-t border-gray-200 dark:border-black pt-2">
+              <p class="text-xs font-semibold text-gray-500 dark:text-gray-300">Custom Range:</p>
               <input type="date" name="from"
-                class="border border-gray-300 dark:border-gray-700 rounded px-2 py-1 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 required>
               <input type="date" name="to"
-                class="border border-gray-300 dark:border-gray-700 rounded px-2 py-1 text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:ring-indigo-500 focus:border-indigo-500"
+                class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 required>
               <button type="submit"
                 class="px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white rounded text-sm transition duration-150 ease-in-out">Export
@@ -232,7 +232,7 @@
         window.boatChartData = @json($boatChartData ?? []);
         window.adminRecentBookingsEndpoint = @json(route('admin.api.recent_bookings'));
       </script>
-      <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6  shadow-lg">
+      <div class="lg:col-span-2 bg-white dark:bg-black p-6  shadow-lg">
         <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
           Bookings Overview (Last 30 Days)
         </h2>
@@ -242,7 +242,7 @@
       </div>
 
 
-      <div class="lg:col-span-1 bg-white dark:bg-gray-800 p-6  shadow-lg">
+      <div class="lg:col-span-1 bg-white dark:bg-black p-6  shadow-lg">
         <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Recent Bookings</h2>
         <div class="space-y-5">
           @foreach ($datas as $data)
@@ -259,7 +259,7 @@
                 onerror="this.src='https://placehold.co/40x40/EC4899/FFFFFF?text={{ $initial }}'" alt="{{ $data->name }}">
               <div class="flex-1">
                 <div class="font-medium text-sm text-gray-800 dark:text-white">{{ $data->name }}</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">{{ optional($data->room)->room_name }}</div>
+                <div class="text-xs text-gray-500 dark:text-gray-300">{{ optional($data->room)->room_name }}</div>
               </div>
               @php
                 $depositAmount = ($data->total_amount ?? 0) * ($depositPercent / 100);
@@ -288,14 +288,14 @@
 
   </div>
   <div class="p-4 sm:p-6 space-y-6">
-    <div class="bg-white dark:bg-gray-800  shadow-lg overflow-hidden">
-      <h2 class="text-lg font-semibold text-gray-800 dark:text-white p-6 border-b dark:border-gray-700">
+    <div class="bg-white dark:bg-black  shadow-lg overflow-hidden">
+      <h2 class="text-lg font-semibold text-gray-800 dark:text-white p-6 border-b dark:border-black">
         Latest Reservations
       </h2>
 
       <div class="overflow-x-auto">
-        <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-700">
+        <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
+          <thead class="bg-gray-50 dark:bg-black">
             <tr>
               <th scope="col"
                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -323,7 +323,7 @@
 
           @foreach ($datas as $data)
             <tbody id="booking-{{ $data->id }}" x-data="{ open: false }"
-              class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
@@ -343,7 +343,7 @@
 
                     <div class="ml-4">
                       <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $data->name }}</div>
-                      <div class="text-sm text-gray-500 dark:text-gray-400">{{ $data->email }}</div>
+                      <div class="text-sm text-gray-500 dark:text-gray-300">{{ $data->email }}</div>
                     </div>
                   </div>
                 </td>
@@ -407,14 +407,8 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
                   <button @click="open = !open"
                     class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-200">
-                    <svg x-show="!open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <svg x-show="open" x-cloak class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                    <span x-show="!open" class="material-symbols-outlined text-xl">add_circle</span>
+                    <span x-show="open" x-cloak class="material-symbols-outlined text-xl">remove_circle</span>
                   </button>
                 </td>
                 <td class="relative px-6 py-4">
@@ -422,7 +416,7 @@
                 </td>
               </tr>
 
-              <tr x-show="open" x-cloak class="bg-gray-50 dark:bg-gray-900">
+              <tr x-show="open" x-cloak class="bg-gray-50 dark:bg-black">
                 <td colspan="7" class="px-6 py-4">
                   <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Booking Details</h4>
                   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">

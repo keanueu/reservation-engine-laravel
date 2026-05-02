@@ -1,5 +1,5 @@
-<div class="bg-white dark:bg-gray-800 p-4 sm:p-6  shadow-xl mb-4 max-w-4xl mx-auto mt-4">
-  <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 border-b pb-2">Create Alert</h3>
+<div class="bg-white dark:bg-black p-4 sm:p-6  shadow-xl mb-4 max-w-4xl mx-auto mt-4">
+  <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4 border-b pb-2">Create Alert</h3>
   <form method="POST" action="{{ url('/admin/alerts') }}">
     @csrf
 
@@ -8,13 +8,13 @@
         type="text" 
         name="title" 
         placeholder="Title (optional)" 
-        class="border border-gray-300 dark:border-gray-600 p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400" 
+        class="border border-gray-300 dark:border-black p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-black text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300" 
       />
       
       <select 
         name="severity" 
         required 
-        class="border border-gray-300 dark:border-gray-600 p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+        class="border border-gray-300 dark:border-black p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-black text-gray-900 dark:text-white"
       >
         <option value="clear">Clear</option>
         <option value="advisory">Advisory</option>
@@ -26,7 +26,7 @@
         type="text" 
         name="location" 
         placeholder="Location (optional)" 
-        class="border border-gray-300 dark:border-gray-600 p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400" 
+        class="border border-gray-300 dark:border-black p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-black text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300" 
       />
       
       <div class="flex items-center sm:col-start-2">
@@ -48,7 +48,7 @@
         rows="4" 
         placeholder="Message" 
         required 
-        class="w-full border border-gray-300 dark:border-gray-600 p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 resize-y"
+        class="w-full border border-gray-300 dark:border-black p-3  focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-black text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300 resize-y"
       ></textarea>
     </div>
 
@@ -59,13 +59,13 @@
           type="datetime-local" 
           name="starts_at" 
           aria-label="Alert Start Time"
-          class="flex-1 border border-gray-300 dark:border-gray-600 p-3  bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-orange-500 focus:border-orange-500" 
+          class="flex-1 border border-gray-300 dark:border-black p-3  bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-orange-500 focus:border-orange-500" 
         />
         <input 
           type="datetime-local" 
           name="ends_at" 
           aria-label="Alert End Time"
-          class="flex-1 border border-gray-300 dark:border-gray-600 p-3  bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-orange-500 focus:border-orange-500" 
+          class="flex-1 border border-gray-300 dark:border-black p-3  bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-orange-500 focus:border-orange-500" 
         />
       </div>
 

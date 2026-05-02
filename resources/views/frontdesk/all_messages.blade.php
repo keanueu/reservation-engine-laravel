@@ -8,10 +8,10 @@
             Customer Contact Messages
         </h1>
 
-        <div class="overflow-x-auto  shadow-md border border-gray-200 dark:border-gray-700">
-            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
+        <div class="overflow-x-auto  shadow-md border border-gray-200 dark:border-black">
+            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
 
-                <thead class="bg-gray-50 dark:bg-gray-700">
+                <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -31,9 +31,9 @@
                     </tr>
                 </thead>
 
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
                     @foreach ($contacts as $contact)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition duration-150">
 
                             {{-- Name (Changed to text-xs and font-normal) --}}
                             <td class="px-6 py-4 text-xs font-normal text-gray-900 dark:text-white whitespace-nowrap">

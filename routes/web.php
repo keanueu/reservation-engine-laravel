@@ -14,6 +14,9 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomAvailabilityController;
 use App\Http\Controllers\Api\ChatbotController;
 use App\Http\Controllers\Admin\ChatController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\BoatController;
+use App\Http\Controllers\FrontdeskController;
 use App\Models\BoatBooking;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WeatherAlertController;
@@ -22,6 +25,8 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AIChatController;
 use App\Http\Controllers\BookingExtensionController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\CartPageController;
+use App\Http\Controllers\BookingWizardController;
 use App\Http\Controllers\CollectionsController;
 
 Route::get('/dashboard', function () {
@@ -30,7 +35,7 @@ Route::get('/dashboard', function () {
 
 
 // frontdesk routes
-Route::middleware(['auth'])->get('/frontdesk/home', [AdminController::class, 'index'])->name('frontdesk.home');
+Route::middleware(['auth'])->get('/frontdesk/home', [FrontdeskController::class, 'index'])->name('frontdesk.home');
 Route::get('/frontdesk/boat_bookings', function () {
     $boatBookings = BoatBooking::with('boat')
         ->orderBy('booking_date', 'desc')
@@ -40,21 +45,21 @@ Route::get('/frontdesk/boat_bookings', function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [AdminController::class, 'index']);
-    Route::get('/create_room', [AdminController::class, 'create_room']);
-    Route::post('/add_room', [AdminController::class, 'add_room']);
-    Route::get('/view_room', [AdminController::class, 'view_room']);
-    Route::get('/view_boat', [AdminController::class, 'view_boat']);
+    Route::get('/create_room', [RoomController::class, 'create']);
+    Route::post('/add_room', [RoomController::class, 'store']);
+    Route::get('/view_room', [RoomController::class, 'index']);
+    Route::get('/view_boat', [BoatController::class, 'index']);
     // Frontdesk settings (booking & refund percentages)
     Route::get('/frontdesk/settings', [SettingsController::class, 'index'])->name('frontdesk.settings');
     Route::post('/frontdesk/settings', [SettingsController::class, 'update'])->name('frontdesk.settings.update');
-    Route::get('/create_boat', [AdminController::class, 'create_boat']);
-    Route::post('/add_boat', [AdminController::class, 'add_boat'])->name('add_boat');
-    Route::get('/update_boat/{id}', [AdminController::class, 'update_boat']);
-    Route::post('/edit_boat/{id}', [AdminController::class, 'edit_boat']);
-    Route::get('/delete_boat/{id}', [AdminController::class, 'delete_boat']);
-    Route::get('/delete_room/{id}', [AdminController::class, 'delete_room']);
-    Route::get('/update_room/{id}', [AdminController::class, 'update_room']);
-    Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
+    Route::get('/create_boat', [BoatController::class, 'create']);
+    Route::post('/add_boat', [BoatController::class, 'store'])->name('add_boat');
+    Route::get('/update_boat/{id}', [BoatController::class, 'edit']);
+    Route::post('/edit_boat/{id}', [BoatController::class, 'update']);
+    Route::get('/delete_boat/{id}', [BoatController::class, 'destroy']);
+    Route::get('/delete_room/{id}', [RoomController::class, 'destroy']);
+    Route::get('/update_room/{id}', [RoomController::class, 'edit']);
+    Route::post('/edit_room/{id}', [RoomController::class, 'update']);
     Route::get('/images_pages', [AdminController::class, 'images_pages']);
     Route::post('/upload_images', [AdminController::class, 'upload_images']);
     Route::get('/delete_images/{id}', [AdminController::class, 'delete_images']);
@@ -105,7 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home/rooms', [PageController::class, 'home_rooms']);
     // User bookings (personal view for guests to see their bookings and request extensions)
     Route::get('/home/bookings', [PageController::class, 'home_bookings'])->name('home.bookings');
-    // API: return authenticated user's bookings as JSON for the My Bookings modal
+    // My Bookings page (dedicated page instead of modal)
+    Route::get('/my-bookings', [PageController::class, 'my_bookings_page'])->name('my.bookings');
+    // API: return authenticated user's bookings as JSON for the My Bookings page
     Route::get('/api/my-bookings', [PageController::class, 'api_my_bookings'])->name('api.my_bookings');
 
     // Alerts API and admin store
@@ -114,10 +121,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home/alerts', [PageController::class, 'home_alerts']);
     Route::get('/home/boat', [PageController::class, 'home_boat']);
-    Route::get('/home/roomcart', [PageController::class, 'home_roomcart']);
+    // Dedicated cart page (replaces /home/selectroom)
+    Route::get('/cart', [CartPageController::class, 'index'])->name('cart.show');
     Route::get('/home/checkout', [PageController::class, 'home_checkout']);
     Route::get('/checkout/{room_id}', [CheckoutController::class, 'show'])->name('checkout.show');
-    Route::get('/home/selectroom', [CartController::class, 'show'])->name('cart.show');
     Route::post('/add-boat-to-cart/{boat_id}', [CartController::class, 'addBoatToCart']);
     Route::get('/remove-boat-from-cart/{boat_id}', [CartController::class, 'removeBoatFromCart']);
     Route::post('/add-to-cart/{room_id}', [CartController::class, 'add'])->name('cart.add');
@@ -148,6 +155,16 @@ Route::post('/register/otp/resend', [RegistrationOtpController::class, 'resend']
 
 //payment method
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+
+// Booking Wizard (3-step pages replacing the modal)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/booking/dates',  [BookingWizardController::class, 'stepDates'])->name('booking.dates');
+    Route::post('/booking/dates', [BookingWizardController::class, 'postDates'])->name('booking.dates.post');
+    Route::get('/booking/guests',  [BookingWizardController::class, 'stepGuests'])->name('booking.guests');
+    Route::post('/booking/guests', [BookingWizardController::class, 'postGuests'])->name('booking.guests.post');
+    Route::get('/booking/review',  [BookingWizardController::class, 'stepReview'])->name('booking.review');
+    Route::post('/booking/review', [BookingWizardController::class, 'postReview'])->name('booking.review.post');
+});
 Route::get('/bookings/{booking}/pay', [PaymentController::class, 'payForBooking'])->name('bookings.pay');
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');

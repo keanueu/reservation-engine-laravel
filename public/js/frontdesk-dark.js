@@ -12,16 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Sidebar Toggle ---
     function toggleSidebar() {
         if (!sidebar) return;
+        const isOpen = sidebar.classList.contains('translate-x-0');
         sidebar.classList.toggle('-translate-x-full');
         sidebar.classList.toggle('translate-x-0');
         if (sidebarOverlay) sidebarOverlay.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
     }
 
     if (sidebarToggle && sidebar) sidebarToggle.addEventListener('click', toggleSidebar);
     if (sidebarOverlay) sidebarOverlay.addEventListener('click', () => {
-        // ensure sidebar closes when overlay is clicked
-        if (!sidebar.classList.contains('translate-x-0')) return;
-        toggleSidebar();
+        if (sidebar && sidebar.classList.contains('translate-x-0')) {
+            toggleSidebar();
+        }
     });
 
     // Close sidebar on Escape
@@ -33,23 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ensure sidebar is hidden when resizing to large screens
     window.addEventListener('resize', () => {
-        try {
-            if (window.innerWidth >= 1024 && sidebar && !sidebar.classList.contains('lg:translate-x-0')) {
-                // remove mobile-open classes if any
-                sidebar.classList.remove('translate-x-0');
-                sidebar.classList.add('-translate-x-full');
-                if (sidebarOverlay) sidebarOverlay.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-            }
-        } catch (err) {
-            // ignore
+        if (window.innerWidth >= 1024 && sidebar && sidebar.classList.contains('translate-x-0')) {
+            sidebar.classList.remove('translate-x-0');
+            sidebar.classList.add('-translate-x-full');
+            if (sidebarOverlay) sidebarOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
         }
     });
 
     // --- Dark Mode Icons ---
     function updateThemeIcons(isDark) {
-        themeIconLight.classList.toggle('hidden', isDark);
-        themeIconDark.classList.toggle('hidden', !isDark);
+        if (themeIconLight && themeIconDark) {
+            themeIconLight.classList.toggle('hidden', isDark);
+            themeIconDark.classList.toggle('hidden', !isDark);
+        }
     }
 
     // --- Initial Dark Mode Setup ---
@@ -116,14 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
     createBookingsChart();
 
     // --- Dark Mode Toggle ---
-    darkModeToggle.addEventListener('click', () => {
-        html.classList.toggle('dark');
-        const isDark = html.classList.contains('dark');
-        localStorage.theme = isDark ? 'dark' : 'light';
-        updateThemeIcons(isDark);
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            updateThemeIcons(isDark);
 
-        bookingsChart.destroy();
-        createBookingsChart();
-    });
+            if (bookingsChart) {
+                bookingsChart.destroy();
+                createBookingsChart();
+            }
+        });
+    }
 });
 

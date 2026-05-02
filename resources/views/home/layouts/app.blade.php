@@ -6,7 +6,8 @@
     <link rel="shortcut icon" href="{{ asset('LOGO-FINAL.png') }}" type="image/x-icon">
     <title>{{ config('app.name') }} — Luxury Beach & Boat Resort</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -43,24 +44,37 @@
 
         /* ── Typography ── */
         body { font-family: 'Manrope', sans-serif; background: var(--off-white); color: var(--gray-900); }
-        .font-playfair { font-family: 'Playfair Display', serif !important; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Manrope', sans-serif; }
         input, select, textarea, button { font-family: 'Manrope', sans-serif; }
 
         /* ── Scroll-reveal ── */
-        [data-reveal] { opacity: 0; transform: translateY(32px); transition: opacity .65s ease, transform .65s ease; }
+        [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .5s cubic-bezier(0.4, 0, 0.2, 1), transform .5s cubic-bezier(0.4, 0, 0.2, 1); }
         [data-reveal].revealed { opacity: 1; transform: translateY(0); }
-        [data-reveal-delay="1"] { transition-delay: .1s; }
-        [data-reveal-delay="2"] { transition-delay: .2s; }
-        [data-reveal-delay="3"] { transition-delay: .3s; }
+        [data-reveal-delay="1"] { transition-delay: .08s; }
+        [data-reveal-delay="2"] { transition-delay: .16s; }
+        [data-reveal-delay="3"] { transition-delay: .24s; }
+        [data-reveal-delay="4"] { transition-delay: .32s; }
 
         /* ── Skeleton loader ── */
         .skeleton { background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+        
+        /* ── Weather Skeleton Animation ── */
+        .weather-skeleton-item {
+            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: weatherShimmer 1.8s ease-in-out infinite;
+        }
+        
+        @keyframes weatherShimmer {
+            0% { background-position: 200% 0; }
+            50% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
 
         /* ── Primary button ── */
-        .btn-primary { background: var(--brand); color: #fff; transition: background .2s, transform .15s, box-shadow .2s; }
-        .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(150,75,0,.3); }
+        .btn-primary { background: var(--brand); color: #fff; transition: background .2s, transform .15s; }
+        .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
 
         /* ── Outline button ── */
         .btn-outline { background: transparent; color: var(--brand); border: 2px solid var(--brand); transition: all .2s; }
@@ -84,11 +98,18 @@
         /* ── Image lazy fade ── */
         img.lazy { opacity: 0; transition: opacity .4s ease; }
         img.lazy.loaded { opacity: 1; }
+
+        /* ── Loader scroll lock ── */
+        #cabanas-loader { overflow: hidden; }
+        body.loader-active {
+            overflow: hidden !important;
+            height: 100vh !important;
+            padding-right: 0 !important;
+        }
     </style>
 </head>
 <body>
-    @include('home.partials.loader')
-    <div id="main-content" class="opacity-0 transition-opacity duration-500">
+    <div id="main-content">
         @include('home.universal-modal')
         @include('home.modals.guest-limit')
         @include('home.partials.nav')
@@ -114,6 +135,7 @@
 
         @yield('content')
         @include('home.partials.footer')
+        @include('home.partials.chatbot-speeddial')
     </div>
 
     <script src="/js/home.js"></script>
@@ -137,7 +159,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
             document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
 
             // Lazy images

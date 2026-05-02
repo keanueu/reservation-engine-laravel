@@ -127,7 +127,15 @@ class PageController extends Controller
     }
 
     /**
-     * Return authenticated user's bookings as JSON for the My Bookings modal.
+     * Show the dedicated My Bookings page.
+     */
+    public function my_bookings_page()
+    {
+        return view('home.my-bookings');
+    }
+
+    /**
+     * Return authenticated user's bookings as JSON for the My Bookings page.
      */
     public function api_my_bookings()
     {
@@ -169,13 +177,21 @@ class PageController extends Controller
                     'room_name' => optional($b->room)->room_name,
                     'start_date' => $b->start_date,
                     'end_date' => $b->end_date,
+                    'checkin_date' => $b->start_date, // For compatibility
+                    'checkout_date' => $b->end_date, // For compatibility
+                    'checkin_time' => $b->start_time,
+                    'checkout_time' => $b->end_time,
                     'scheduled_checkin_at' => $b->scheduled_checkin_at ? $b->scheduled_checkin_at->toDateTimeString() : null,
                     'scheduled_checkout_at' => $b->scheduled_checkout_at ? $b->scheduled_checkout_at->toDateTimeString() : null,
                     'actual_checkin_at' => $b->actual_checkin_at ? $b->actual_checkin_at->toDateTimeString() : null,
                     'actual_checkout_at' => $b->actual_checkout_at ? $b->actual_checkout_at->toDateTimeString() : null,
                     'nights' => $b->nights,
+                    'adults' => $b->adults,
+                    'children' => $b->children,
                     'status' => $b->status,
                     'total_amount' => $b->total_amount,
+                    'total_price' => $b->total_amount, // For compatibility
+                    'created_at' => $b->created_at,
                     // deposit info (per-booking)
                     'deposit_amount' => $deposit,
                     'deposit_fee' => $depositFee,
@@ -203,7 +219,18 @@ class PageController extends Controller
                 ];
             });
 
-        return response()->json(['data' => $bookings]);
+        // Calculate stats
+        $stats = [
+            'total' => $bookings->count(),
+            'confirmed' => $bookings->where('status', 'confirmed')->count(),
+            'upcoming' => $bookings->whereIn('status', ['confirmed', 'pending'])
+                ->where('start_date', '>=', now()->toDateString())->count(),
+        ];
+
+        return response()->json([
+            'bookings' => $bookings,
+            'stats' => $stats
+        ]);
     }
 
 

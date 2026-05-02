@@ -1,7 +1,7 @@
 <section class="bg-white text-black py-6 mb-2 font-[Manrope]">
   <div class="max-w-6xl mx-auto px-6">
     <!-- Header -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-12" data-reveal>
       <p class="text-[#964B00] text-sm sm:  mb-2">What Our Guests Say</p>
       <h1 class="text-3xl sm:text-4xl md:text-5xl ">
         Guest Testimonials
@@ -15,7 +15,7 @@
     <!-- Testimonials Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
       <!-- Testimonial 1 -->
-      <div
+      <div data-reveal data-reveal-delay="1"
         class="border border-slate-200 p-8 bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-500 h-full min-h-[280px] flex flex-col justify-between">
         <p class="text-black text-sm  leading-relaxed">
           “Thank you Cabanas for this memorable experience. The owner and staff were so accommodating and helpful.
@@ -31,7 +31,7 @@
       </div>
 
       <!-- Testimonial 2 -->
-      <div
+      <div data-reveal data-reveal-delay="2"
         class="border border-slate-200 p-8 bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-500 h-full min-h-[280px] flex flex-col justify-between">
         <p class="text-black text-sm  leading-relaxed">
           “I will definitely recommend this place! It’s such a lovely spot with wonderful people — especially Ate Lyn
@@ -47,7 +47,7 @@
       </div>
 
       <!-- Testimonial 3 -->
-      <div
+      <div data-reveal data-reveal-delay="3"
         class="border border-slate-200 p-8 bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-500 h-full min-h-[280px] flex flex-col justify-between">
         <p class="text-black text-sm  leading-relaxed">
           “We had such a great time here! The place is beautiful and the rooms are spotless.

@@ -280,7 +280,7 @@
                 View Details
               </a>
               <button type="button"
-                onclick="addRoomToCart('{{ $room->id }}')"
+                onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
                 class="bg-[#964B00] px-6 py-2.5 text-xs text-white hover:bg-black transition flex items-center justify-center tracking-wide">
                 BOOK NOW
               </button>

@@ -36,5 +36,13 @@ class BoatBooking extends Model
         return $this->belongsTo(Boat::class);
     }
 
-    
+    public function scopeForDate($query, $date, string $column = 'created_at')
+    {
+        return $query->whereDate($column, $date);
+    }
+
+    public function scopeBetweenDates($query, $from, $to, string $column = 'created_at')
+    {
+        return $query->whereBetween($column, [$from, $to]);
+    }
 }

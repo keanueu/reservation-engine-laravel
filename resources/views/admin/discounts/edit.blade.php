@@ -17,24 +17,24 @@
               </div>
             @endif
 
-            <div class="bg-white dark:bg-gray-800  shadow-lg p-6">
+            <div class="bg-white dark:bg-black  shadow-lg p-6">
               <form action="{{ route('admin.discounts.update', $discount->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
-                    <input type="text" name="name" value="{{ old('name', $discount->name) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700" required>
+                    <input type="text" name="name" value="{{ old('name', $discount->name) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black" required>
                   </div>
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Slug (optional)</label>
-                    <input type="text" name="slug" value="{{ old('slug', $discount->slug) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700">
+                    <input type="text" name="slug" value="{{ old('slug', $discount->slug) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                   </div>
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Type</label>
-                    <select name="type" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700">
+                    <select name="type" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                       <option value="seasonal" {{ ($discount->type ?? '') === 'seasonal' ? 'selected' : '' }}>Seasonal</option>
                       <option value="special" {{ ($discount->type ?? '') === 'special' ? 'selected' : '' }}>Special</option>
                       <option value="other" {{ ($discount->type ?? '') === 'other' ? 'selected' : '' }}>Other</option>
@@ -43,12 +43,12 @@
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Amount</label>
-                    <input type="number" step="0.01" name="amount" value="{{ old('amount', $discount->amount) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700" required>
+                    <input type="number" step="0.01" name="amount" value="{{ old('amount', $discount->amount) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black" required>
                   </div>
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Amount Type</label>
-                    <select name="amount_type" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700">
+                    <select name="amount_type" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                       <option value="percent" {{ $discount->amount_type === 'percent' ? 'selected' : '' }}>Percent</option>
                       <option value="fixed" {{ $discount->amount_type === 'fixed' ? 'selected' : '' }}>Fixed</option>
                     </select>
@@ -56,17 +56,17 @@
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Start Date</label>
-                    <input type="date" name="start_date" value="{{ old('start_date', $discount->start_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700">
+                    <input type="date" name="start_date" value="{{ old('start_date', $discount->start_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                   </div>
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">End Date</label>
-                    <input type="date" name="end_date" value="{{ old('end_date', $discount->end_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700">
+                    <input type="date" name="end_date" value="{{ old('end_date', $discount->end_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                   </div>
 
                   <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Assign to Rooms</label>
-                    <select name="rooms[]" multiple class="w-full  border-gray-200 p-2 bg-white dark:bg-gray-700" size="6">
+                    <select name="rooms[]" multiple class="w-full  border-gray-200 p-2 bg-white dark:bg-black" size="6">
                       @foreach($rooms as $r)
                         <option value="{{ $r->id }}" {{ $discount->rooms->contains('id', $r->id) ? 'selected' : '' }}>{{ $r->room_name }}</option>
                       @endforeach

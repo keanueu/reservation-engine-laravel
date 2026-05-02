@@ -7,9 +7,9 @@
 
         {{-- REMOVED: overflow-x-auto class to prevent overflow behavior on desktop/large screens --}}
         <div class=" shadow-lg overflow-x-auto lg:overflow-visible">
-            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
+            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
 
-                <thead class="bg-gray-50 dark:bg-gray-700">
+                <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -39,7 +39,7 @@
 
                 @foreach ($boatBookings as $booking)
                     <tbody x-data="{ open: false }"
-                        class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
 
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -189,7 +189,7 @@
                         </tr>
 
                         {{-- Apply text-xs to the detail row container and adjust font weights --}}
-                        <tr x-show="open" x-cloak class="bg-gray-50 dark:bg-gray-900">
+                        <tr x-show="open" x-cloak class="bg-gray-50 dark:bg-black">
                             <td colspan="7" class="px-6 py-4">
                                 {{-- Changed text-sm to text-xs, font-semibold remains --}}
                                 <h4 class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-3">Additional Booking

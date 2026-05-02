@@ -11,7 +11,7 @@
 
 
 
-            <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  flex justify-between items-center">
+            <div class="bg-white dark:bg-black p-5 sm:p-6  flex justify-between items-center">
 
 
                 <div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  flex justify-between items-center">
+            <div class="bg-white dark:bg-black p-5 sm:p-6  flex justify-between items-center">
                 <div>
                     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">Today's Check-Outs</div>
                     <div class="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 mt-1">
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  flex justify-between items-center">
+            <div class="bg-white dark:bg-black p-5 sm:p-6  flex justify-between items-center">
                 <div>
                     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">In-House Guests</div>
                     <div class="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 p-5 sm:p-6  flex justify-between items-center">
+            <div class="bg-white dark:bg-black p-5 sm:p-6  flex justify-between items-center">
                 <div>
                     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">Available Rooms</div>
                     <div class="text-xl sm:text-2xl font-bold text-yellow-600 dark:text-yellow-400 mt-1">
@@ -111,9 +111,9 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
 
-            <div class="lg:col-span-2 bg-white dark:bg-gray-800  overflow-hidden">
+            <div class="lg:col-span-2 bg-white dark:bg-black  overflow-hidden">
                 <div x-data="{ tab: 'arrivals' }">
-                    <nav class="flex border-b border-gray-200 dark:border-gray-700">
+                    <nav class="flex border-b border-gray-200 dark:border-black">
                         <button @click="tab = 'arrivals'"
                             :class="{'border-blue-500 text-blue-600 dark:text-blue-400 dark:border-blue-400': tab === 'arrivals', 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200': tab !== 'arrivals'}"
                             class="w-1/3 py-4 px-1 text-center border-b-2 font-normal text-sm">
@@ -136,7 +136,7 @@
                             <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4">Today's Arrivals</h3>
                             <div class="space-y-4">
                                 @forelse ($todaysArrivals ?? [] as $arrival)
-                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 ">
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-black ">
                                         <div>
                                             <div class="font-normal text-gray-900 dark:text-white">{{ $arrival->name}}
                                             </div>
@@ -158,7 +158,7 @@
                             <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4">Today's Departures</h3>
                             <div class="space-y-4">
                                 @forelse ($todaysDepartures ?? [] as $departure)
-                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 ">
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-black ">
                                         <div>
                                             <div class="font-normal text-gray-900 dark:text-white">{{ $departure->name}}</div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">Room
@@ -193,7 +193,7 @@
                             <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4">In-House Guests</h3>
                             <div class="space-y-4">
                                 @forelse ($inHouseGuests ?? [] as $guest)
-                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 ">
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-black ">
                                         <div>
                                             <div class="font-normal text-gray-900 dark:text-white">{{ $guest->name}}</div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">
@@ -221,7 +221,7 @@
             </div>
 
             <div class="space-y-6">
-                <div class="bg-white dark:bg-gray-800  p-6">
+                <div class="bg-white dark:bg-black  p-6">
                     <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4">Today's Boat Schedule</h3>
                     <div class="space-y-4">
                         @forelse ($todaysBoatTrips ?? [] as $trip)
@@ -253,7 +253,7 @@
                         @endforelse
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800  p-6">
+                <div class="bg-white dark:bg-black  p-6">
                     <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4">Manage Inventory</h3>
                     <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                         {{-- Button 1: Aligned with 'Available Rooms' card color --}}
@@ -273,8 +273,9 @@
         </div>
     </div>
 
-    <div id="weather-app"
-        class="w-full max-w-6xl xl:max-w-6xl mx-auto p-3 sm:p-4 lg:p-6 bg-white dark:bg-gray-900/30 border-0 backdrop-blur-md ">
+    {{-- Weather widget removed for performance - can be re-added as separate lazy-loaded component if needed --}}
+    {{-- <div id="weather-app"
+        class="w-full max-w-6xl xl:max-w-6xl mx-auto p-3 sm:p-4 lg:p-6 bg-white dark:bg-black/30 border-0 backdrop-blur-md ">
 
 
         <!-- Main Layout: Current Day (Left) and Forecast (Right) -->
@@ -325,7 +326,7 @@
 
                         <!-- Col 1: Main Temp Block -->
                         <div
-                            class="xl:col-span-1 flex flex-row items-center justify-between xl:flex-col xl:items-start p-3 sm:p-4 bg-white/3 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 ">
+                            class="xl:col-span-1 flex flex-row items-center justify-between xl:flex-col xl:items-start p-3 sm:p-4 bg-white/3 dark:bg-black/40 border border-white/8 dark:border-black/40 ">
                             <!-- Temperature -->
                             <div class="text-center xl:text-left">
                                 <p class="text-3xl sm:text-4xl text-gray-900 dark:text-white  relative">
@@ -358,7 +359,7 @@
                             class="md:col-span-2 xl:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
                             <!-- Detail Card Component - Adjusted padding to p-3 -->
                             <div id="visibility"
-                                class="p-2 sm:p-3 bg-white/3 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 transition hover:bg-white/10 dark:hover:bg-gray-700/20 ">
+                                class="p-2 sm:p-3 bg-white/3 dark:bg-black/40 border border-white/8 dark:border-black/40 transition hover:bg-white/10 dark:hover:bg-gray-900/20 ">
                                 <div class="flex items-center text-xs  text-gray-600 dark:text-white/80 mb-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -374,7 +375,7 @@
                             </div>
 
                             <div id="wind-speed"
-                                class="p-2 sm:p-3 bg-white/3 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 transition hover:bg-white/10 dark:hover:bg-gray-700/20 ">
+                                class="p-2 sm:p-3 bg-white/3 dark:bg-black/40 border border-white/8 dark:border-black/40 transition hover:bg-white/10 dark:hover:bg-gray-900/20 ">
                                 <div class="flex items-center text-xs  text-gray-600 dark:text-white/80 mb-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -391,7 +392,7 @@
                             </div>
 
                             <div id="humidity"
-                                class="p-2 sm:p-3 bg-white/3 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 transition hover:bg-white/10 dark:hover:bg-gray-700/20 ">
+                                class="p-2 sm:p-3 bg-white/3 dark:bg-black/40 border border-white/8 dark:border-black/40 transition hover:bg-white/10 dark:hover:bg-gray-900/20 ">
                                 <div class="flex items-center text-xs  text-gray-600 dark:text-white/80 mb-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -407,7 +408,7 @@
                             </div>
 
                             <div id="pressure"
-                                class="p-2 sm:p-3 bg-white/3 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 transition hover:bg-white/10 dark:hover:bg-gray-700/20 ">
+                                class="p-2 sm:p-3 bg-white/3 dark:bg-black/40 border border-white/8 dark:border-black/40 transition hover:bg-white/10 dark:hover:bg-gray-900/20 ">
                                 <div class="flex items-center text-xs  text-gray-600 dark:text-white/80 mb-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -423,7 +424,7 @@
                             </div>
 
                             <div id="feels-like"
-                                class="p-2 sm:p-3 bg-white/3 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 transition hover:bg-white/10 dark:hover:bg-gray-700/20 ">
+                                class="p-2 sm:p-3 bg-white/3 dark:bg-black/40 border border-white/8 dark:border-black/40 transition hover:bg-white/10 dark:hover:bg-gray-900/20 ">
                                 <div class="flex items-center text-xs  text-gray-600 dark:text-white/80 mb-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -486,7 +487,7 @@
                 <div class="grid grid-cols-1 gap-4">
 
                     <div id="monthly-forecast-panel"
-                        class="p-2 sm:p-3 bg-white/5 dark:bg-gray-800/40 border border-white/8 dark:border-gray-800/40 ">
+                        class="p-2 sm:p-3 bg-white/5 dark:bg-black/40 border border-white/8 dark:border-black/40 ">
                         <h3 class="text-gray-900 dark:text-white font-normal mb-3 flex items-center text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -501,7 +502,7 @@
                         <div id="monthly-forecast-list" class="space-y-2">
 
                             <div
-                                class="monthly-item p-2 sm:p-3 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 dark:bg-gray-800/30 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition ">
+                                class="monthly-item p-2 sm:p-3 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 dark:bg-black/30 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition ">
                                 <div class="w-1/4 text-xs font-normal">Week 1 (Nov 1 - 7)</div>
                                 <div class="flex items-center w-1/2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-3 text-orange-400"
@@ -519,7 +520,7 @@
                             </div>
 
                             <div
-                                class="monthly-item p-1 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition">
+                                class="monthly-item p-1 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition">
                                 <div class="w-1/4 text-xs font-normal">Week 2 (Nov 8 - 14)</div>
                                 <div class="flex items-center w-1/2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-3 text-sky-400"
@@ -537,7 +538,7 @@
                             </div>
 
                             <div
-                                class="monthly-item p-1 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition">
+                                class="monthly-item p-1 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition">
                                 <div class="w-1/4 text-xs font-normal">Week 3 (Nov 15 - 21)</div>
                                 <div class="flex items-center w-1/2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-3 text-gray-300"
@@ -554,7 +555,7 @@
                             </div>
 
                             <div
-                                class="monthly-item p-1 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition">
+                                class="monthly-item p-1 flex text-gray-900 dark:text-white justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition">
                                 <div class="w-1/4 text-xs font-normal">Week 4 (Nov 22 - 30)</div>
                                 <div class="flex items-center w-1/2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-3 text-orange-400"
@@ -581,7 +582,7 @@
 
             <!-- RIGHT COLUMN: 5 Day Forecast (1/3 width on desktop) -->
             <div id="forecast-panel"
-                class="lg:col-span-1 flex flex-col gap-2 p-2 sm:p-3 bg-white dark:bg-gray-800/30 border border-gray-100 dark:border-gray-800/40 ">
+                class="lg:col-span-1 flex flex-col gap-2 p-2 sm:p-3 bg-white dark:bg-black/30 border border-gray-100 dark:border-black/40 ">
 
                 <h3 class="text-gray-900 dark:text-white font-normal mb-2 flex items-center text-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none"
@@ -598,7 +599,7 @@
                 <div id="forecast-list" class="space-y-2">
                     <!-- Forecast Item Component -->
                     <div
-                        class="forecast-item p-2 sm:p-3 flex justify-between items-center bg-white/50 dark:bg-gray-800/25 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition ">
+                        class="forecast-item p-2 sm:p-3 flex justify-between items-center bg-white/50 dark:bg-black/25 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition ">
                         <div class="flex items-center text-gray-900 dark:text-white">
                             <!-- Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 mr-3 text-sky-400"
@@ -608,7 +609,7 @@
                                 <path d="M10.45 15a4 4 0 0 0-4-4H4" />
                             </svg>
                             <div
-                                class="forecast-item p-1 flex justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition">
+                                class="forecast-item p-1 flex justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition">
                                 <div class="flex items-center text-gray-900 dark:text-white">
                                 </div>
                             </div>
@@ -618,7 +619,7 @@
                         </div>
 
                         <div
-                            class="forecast-item p-1 flex justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition">
+                            class="forecast-item p-1 flex justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition">
                             <div class="flex items-center text-gray-900 dark:text-white">
                                 <!-- Icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 mr-3 text-sky-400"
@@ -677,7 +678,7 @@
                         </div>
 
                         <div
-                            class="forecast-item p-1 flex justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-700/20 transition">
+                            class="forecast-item p-1 flex justify-between items-center bg-white/50 hover:bg-gray-100 dark:hover:bg-gray-900/20 transition">
                             <div class="flex items-center text-gray-900 dark:text-white">
                                 <!-- Icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 mr-3 text-orange-400"
@@ -702,6 +703,6 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection

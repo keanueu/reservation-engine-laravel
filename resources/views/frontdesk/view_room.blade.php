@@ -8,10 +8,10 @@
             Room Inventory Management
         </h1>
 
-        <div class="overflow-x-auto  shadow-md border border-gray-200 dark:border-gray-700">
-            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
+        <div class="overflow-x-auto  shadow-md border border-gray-200 dark:border-black">
+            <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
 
-                <thead class="bg-gray-50 dark:bg-gray-700">
+                <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -33,9 +33,9 @@
 
                 @foreach ($datas as $data)
                     <tbody x-data="{ open: false }"
-                        class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        class="bg-white dark:bg-black divide-y divide-gray-200 dark:divide-black">
 
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition duration-150">
 
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
@@ -113,7 +113,7 @@
 
                         {{-- Expanded Details Row --}}
                         <tr x-show="open" x-transition.opacity.duration.200ms x-cloak
-                            class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+                            class="bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-black">
                             <td colspan="5" class="px-6 py-3">
                                 {{-- Change: outer div is now text-xs --}}
                                 <div class="text-xs space-y-2 text-gray-600 dark:text-gray-300">

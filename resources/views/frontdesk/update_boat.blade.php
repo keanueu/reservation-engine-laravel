@@ -7,14 +7,14 @@
     <form action="{{ url('edit_boat', $boat->id) }}" method="POST" enctype="multipart/form-data">
       @csrf
 
-      <div class="bg-white dark:bg-gray-800 p-6  shadow-lg space-y-6">
+      <div class="bg-white dark:bg-black p-6  shadow-lg space-y-6">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {{-- 1. Boat Name --}}
           <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="name" id="boat_name_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
-                                     border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                                     border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->name }}" required />
             <label for="boat_name_input" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
@@ -29,7 +29,7 @@
           {{-- 2. Price --}}
           <div class="relative z-0 w-full mb-5 group">
             <input type="number" name="price" id="price_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
-                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->price }}" required />
             <label for="price_input" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
@@ -44,7 +44,7 @@
           {{-- 3. Capacity --}}
           <div class="relative z-0 w-full mb-5 group">
             <input type="number" name="capacity" id="capacity_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
-                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->capacity }}"
               required />
@@ -60,7 +60,7 @@
           {{-- 4. Status --}}
           <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="status" id="status_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
-                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->status }}" required />
             <label for="status_input" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
@@ -75,7 +75,7 @@
           {{-- 5. Start Time --}}
           <div class="relative z-0 w-full mb-5 group">
             <input type="time" name="start_time" id="start_time_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
-                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->start_time }}" />
             <label for="start_time_input" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
@@ -90,7 +90,7 @@
           {{-- 6. End Time --}}
           <div class="relative z-0 w-full mb-5 group">
             <input type="time" name="end_time" id="end_time_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
-                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                                     border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->end_time }}" />
             <label for="end_time_input" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
@@ -109,7 +109,7 @@
             </label>
             <input type="file" name="image" id="image_upload"
               class="block w-full text-sm text-gray-900 border border-gray-300  cursor-pointer 
-                                     bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 
+                                     bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-black dark:border-black 
                                      dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file: file:border-0 
                                      file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
             <p class="mt-1 text-xs text-gray-500 dark:text-gray-300">
@@ -121,7 +121,7 @@
             <div class="mt-4">
               <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Boat Description</h4>
               <textarea name="description" id="description_input" rows="3" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
-                  border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 
+                  border-gray-300 appearance-none dark:text-white dark:border-black dark:focus:border-blue-500 
                   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" ">{{ $boat->description }}</textarea>
               <label for="description_input" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 
