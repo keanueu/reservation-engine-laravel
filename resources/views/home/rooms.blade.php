@@ -5,8 +5,8 @@
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Manrope]">
-                Our Exclusive Stays
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Manrope] font-bold tracking-tight">
+                Our exclusive stays
             </h1>
         </div>
     </div>
@@ -22,11 +22,11 @@
 
 <div class="bg-white py-8 font-[Manrope]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
   <div class="text-center mb-12">
-      <p class="text-[oklch(66.6%_0.179_58.318)] text-sm sm:  mb-2">Our Accommodation</p>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl ">
-        Exclusive Stays
-      </h1>
-      <p class="text-black text-sm sm: mt-3  max-w-2xl mx-auto">
+      <p class="text-sm font-semibold tracking-wide mb-4 section-label">Our accommodation</p>
+      <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] tracking-tight text-gray-900">
+        Exclusive stays
+      </h2>
+      <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
        Discover the perfect space for your getaway, designed for comfort, relaxation, and lasting memories.
       </p>
     </div>
@@ -37,7 +37,7 @@
     <div class="mb-6">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between">
         <div class="md:flex-1">
-          <div class="text-xs text-gray-500">Filter by category</div>
+          <div class="text-xs font-medium text-gray-500 mb-2">Filter by category</div>
           <div class="mt-2 -mx-6 px-6 md:mx-0 md:px-0">
             <div class="flex items-center gap-2 overflow-x-auto md:overflow-visible py-2">
               <button @click.prevent="roomFilter='all'" :class="{ 'bg-[#964B00] text-white': roomFilter === 'all', 'bg-white text-black': roomFilter !== 'all' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">All</button>
@@ -49,12 +49,12 @@
         </div>
 
         <div class="mt-4 md:mt-0 md:ml-6 md:flex-none">
-          <div class="text-xs text-gray-500 text-right md:text-right">Filter by location</div>
+          <div class="text-xs font-medium text-gray-500 text-right md:text-right mb-2">Filter by location</div>
           <div class="mt-2 -mx-6 px-6 md:mx-0 md:px-0">
             <div class="flex items-center gap-2 justify-end overflow-x-auto md:overflow-visible py-2">
-              <button @click.prevent="roomLocation='all'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'all', 'bg-white text-black': roomLocation !== 'all' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">All Locations</button>
-              <button @click.prevent="roomLocation='beach'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'beach', 'bg-white text-black': roomLocation !== 'beach' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">Beach Front</button>
-              <button @click.prevent="roomLocation='nonbeach'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'nonbeach', 'bg-white text-black': roomLocation !== 'nonbeach' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">Non Beach Front</button>
+              <button @click.prevent="roomLocation='all'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'all', 'bg-white text-black': roomLocation !== 'all' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">All locations</button>
+              <button @click.prevent="roomLocation='beach'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'beach', 'bg-white text-black': roomLocation !== 'beach' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">Beach front</button>
+              <button @click.prevent="roomLocation='nonbeach'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'nonbeach', 'bg-white text-black': roomLocation !== 'nonbeach' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">Non beach front</button>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
                 <p class="text-lg font-bold text-white">
                   PHP <span class="text-white">{{ number_format($room->price ?? 0, 2) }}</span>
                 </p>
-                <span class="text-xs  text-gray-200 tracking-wide">PER NIGHT</span>
+                <span class="text-xs text-gray-200 tracking-wide">Per night</span>
               </div>
 
               <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 z-20 flex items-center gap-2">
@@ -125,11 +125,11 @@
 
           <div class="p-5 flex flex-col flex-grow">
 
-            <h3 class="text-lg  text-black tracking-tight mb-2">
+            <h3 class="text-lg font-semibold text-gray-900 tracking-tight mb-2">
               {{ $room->room_name }}
             </h3>
 
-            <p class="text-sm text-black  mb-4">
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">
               A brief, enticing description of the room can go here.
             </p>
 
@@ -154,8 +154,8 @@
             <div class="mt-auto">
               <button type="button"
                 onclick="openBookingModal('{{ $room->id }}', '{{ addslashes($room->room_name) }}', {{ $room->price }}, {{ (int)$room->accommodates }})"
-                class="flex justify-center items-center w-full bg-[#964B00] p-3 text-xs font-semibold text-white tracking-widest border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
-                Book Now
+                class="flex justify-center items-center w-full bg-[#964B00] p-3 text-xs font-semibold text-white tracking-wide border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
+                Book now
               </button>
             </div>
 

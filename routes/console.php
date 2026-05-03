@@ -23,8 +23,15 @@ Artisan::command('typhoon:check', function () {
     }
 })->describe('Check for typhoon alerts');
 
-// Schedule cleanup of abandoned bookings every 10 minutes
-Schedule::command('bookings:cleanup-abandoned')->everyTenMinutes();
+// Release expired pending/waiting bookings every minute so rooms free up instantly
+Schedule::command('bookings:cleanup-abandoned')
+    ->everyMinute()
+    ->withoutOverlapping()
+    ->runInBackground()
+    ->appendOutputTo(storage_path('logs/cleanup-abandoned.log'));
 
-// Schedule release of completed bookings every hour
-Schedule::command('bookings:release')->hourly();
+// Mark checked-out bookings as completed every 15 minutes
+Schedule::command('bookings:release')
+    ->everyFifteenMinutes()
+    ->withoutOverlapping()
+    ->runInBackground();

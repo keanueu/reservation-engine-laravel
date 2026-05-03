@@ -28,6 +28,8 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\CartPageController;
 use App\Http\Controllers\BookingWizardController;
 use App\Http\Controllers\CollectionsController;
+use App\Http\Controllers\HeroSearchController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/dashboard', function () {
     return redirect('/home');
@@ -95,19 +97,32 @@ Route::post('/boat-bookings/{id}/mark-deposit-paid', [AdminController::class, 'm
 |--------------------------------------------------------------------------
 */
 
-Route::post('/contact', [HomeController::class, 'contact']);
+use App\Http\Controllers\RoomPricingController;
+
+// Public real-time availability check (used by room detail widget — no auth required)
+Route::get('/check-room-availability', [RoomAvailabilityController::class, 'check'])->name('room.availability.check');
+Route::get('/check-boat-availability', [CartController::class, 'checkBoatAvailability'])->name('boat.availability.check');
+
+// Public dynamic pricing endpoint (used by room detail widget)
+Route::get('/room-pricing', [RoomPricingController::class, 'calculate'])->name('room.pricing');
 Route::post('/add_booking/{id}', [HomeController::class, 'add_booking']);
 Route::post('/add_boat_booking/{id}', [HomeController::class, 'add_boat_booking']);
 
 
 // user routes
 Route::get('/', [AdminController::class, 'home']);
+
+// Hero search form submissions
+Route::post('/search/stay', [HeroSearchController::class, 'searchStay'])->name('search.stay');
+Route::post('/search/sail', [HeroSearchController::class, 'searchSail'])->name('search.sail');
 // Weather proxy endpoints (use server-side to hide API key and enable caching)
 Route::get('/weather/current', [WeatherController::class, 'current']);
 Route::get('/weather/forecast', [WeatherController::class, 'forecast']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home/rooms', [PageController::class, 'home_rooms']);
+    // Custom profile page
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     // User bookings (personal view for guests to see their bookings and request extensions)
     Route::get('/home/bookings', [PageController::class, 'home_bookings'])->name('home.bookings');
     // My Bookings page (dedicated page instead of modal)

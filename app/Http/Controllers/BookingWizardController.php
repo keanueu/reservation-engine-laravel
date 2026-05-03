@@ -16,7 +16,7 @@ class BookingWizardController extends Controller
         $rooms = Room::with(['images', 'discounts.images'])->get();
         $boats = Boat::all();
 
-        // Pre-fill from query string (e.g. from "Book Now" buttons)
+        // Pre-fill from query string (e.g. from "Book Now" buttons or hero search)
         $prefill = [
             'room_id'       => $request->query('room_id'),
             'boat_id'       => $request->query('boat_id'),
@@ -25,6 +25,11 @@ class BookingWizardController extends Controller
             'checkin_time'  => $request->query('checkin_time', '13:00'),
             'checkout_time' => $request->query('checkout_time', '11:00'),
             'type'          => $request->query('type', 'room'), // 'room' or 'boat'
+            'guests'        => $request->query('guests', 1),
+            'booking_date'  => $request->query('booking_date'),
+            'start_time'    => $request->query('start_time'),
+            'end_time'      => $request->query('end_time'),
+            'passengers'    => $request->query('passengers', 1),
         ];
 
         // Merge with any existing wizard session so back-navigation restores values
@@ -96,7 +101,25 @@ class BookingWizardController extends Controller
             ? (int) $model->capacity
             : (int) $model->accommodates;
 
-        $prefill = $wizard['step2'] ?? ['adults' => 1, 'children' => 0];
+        // Pre-fill from wizard session or hero search session
+        $prefill = $wizard['step2'] ?? [];
+        
+        if (empty($prefill)) {
+            // Try to get from hero search session
+            if ($step1['type'] === 'boat') {
+                $passengers = session('hero_search_passengers', 1);
+                $prefill = ['adults' => $passengers, 'children' => 0];
+                session()->forget('hero_search_passengers');
+            } else {
+                $guests = session('hero_search_guests', 1);
+                $prefill = ['adults' => $guests, 'children' => 0];
+                session()->forget('hero_search_guests');
+            }
+        }
+        
+        if (empty($prefill)) {
+            $prefill = ['adults' => 1, 'children' => 0];
+        }
 
         return view('home.booking.step-guests', compact('step1', 'model', 'maxGuests', 'prefill'));
     }

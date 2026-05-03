@@ -19,4 +19,9 @@
         @include('home.sections.testimonials')
     </section>
 
+    {{-- Gallery --}}
+    <section data-reveal>
+        @include('home.sections.gallery')
+    </section>
+
 @endsection

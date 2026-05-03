@@ -24,19 +24,19 @@
                                     <img class="w-5 h-5 object-cover border border-white/30"
                                          src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/40x40/964B00/ffffff?text=U' }}"
                                          alt="{{ Auth::user()->name }}">
-                                    <span class="font-medium">{{ Auth::user()->name }}</span>
+                                    <span class="">{{ Auth::user()->name }}</span>
                                     <span class="material-symbols-outlined text-xs transition-transform" :class="{'rotate-180':open}">expand_more</span>
                                 </button>
                                 <div x-show="open" x-cloak @click.outside="open=false"
                                      class="absolute right-0 mt-2 w-44 bg-white shadow-xl z-[99999] overflow-hidden border border-gray-100">
-                                    <a href="{{ route('profile.show') }}" class="flex items-center gap-2 px-4 py-3 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                                    <a href="{{ route('profile.show') }}" class="flex items-center gap-2 px-4 py-3 text-xs text-gray-700 hover:bg-gray-50 transition-colors">
                                         <span class="material-symbols-outlined text-base">person</span>
                                         Profile
                                     </a>
                                     <div class="border-t border-gray-100"></div>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="flex items-center gap-2 w-full px-4 py-3 text-xs font-medium text-red-600 hover:bg-red-50 transition-colors text-left">
+                                        <button type="submit" class="flex items-center gap-2 w-full px-4 py-3 text-xs text-red-600 hover:bg-red-50 transition-colors text-left">
                                             <span class="material-symbols-outlined text-base">logout</span>
                                             Logout
                                         </button>
@@ -44,8 +44,8 @@
                                 </div>
                             </div>
                         @else
-                            <a href="{{ url('login') }}" class="text-white hover:text-white/70 font-medium transition-opacity">Login</a>
-                            <a href="{{ url('register') }}" class="text-white hover:text-white/70 font-medium transition-opacity">Register</a>
+                            <a href="{{ url('login') }}" class="text-white hover:text-white/70 transition-opacity">Login</a>
+                            <a href="{{ url('register') }}" class="text-white hover:text-white/70 transition-opacity">Register</a>
                         @endauth
                     @endif
                 </div>
@@ -79,7 +79,7 @@
                     @endphp
                     @foreach($navLinks as $link)
                         <a href="{{ $link['url'] }}"
-                           class="group relative text-xs font-semibold text-gray-600 transition-colors hover:text-[#964B00]">
+                           class="group relative text-xs text-gray-600 transition-colors hover:text-[#964B00]">
                             {{ $link['label'] }}
                             <span class="absolute -bottom-1 left-0 h-0.5 w-0 bg-[#964B00] transition-all duration-300 group-hover:w-full"></span>
                         </a>
@@ -93,7 +93,7 @@
 
                     {{-- Cart --}}
                     <a href="{{ route('cart.show') }}"
-                       class="hidden md:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border border-gray-200 text-gray-600 hover:border-[#964B00] hover:text-[#964B00] transition-colors">
+                       class="hidden md:flex items-center gap-1.5 px-3 py-2 text-xs border border-gray-200 text-gray-600 hover:border-[#964B00] hover:text-[#964B00] transition-colors">
                         <span class="material-symbols-outlined text-base">shopping_bag</span>
                         Cart
                     </a>
@@ -151,8 +151,8 @@
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-8 h-8 object-contain">
                     </div>
                     <div>
-                        <p class="font-bold text-base tracking-wider text-white">CABANAS</p>
-                        <p class="text-[10px] font-semibold text-white/70">Beach Resort</p>
+                        <p class="text-base tracking-wider text-white">CABANAS</p>
+                        <p class="text-[10px] text-white/70">Beach Resort</p>
                     </div>
                 </div>
                 <button @click="mobileOpen = false" class="p-2 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200">
@@ -168,7 +168,7 @@
                          src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/48x48/964B00/ffffff?text=U' }}"
                          alt="{{ Auth::user()->name }}">
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-bold text-gray-900 truncate">{{ Auth::user()->name }}</p>
+                        <p class="text-sm text-gray-900 truncate">{{ Auth::user()->name }}</p>
                         <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
                 @foreach($drawerLinks as $i => $link)
                     <a href="{{ $link['url'] }}"
                        @click="mobileOpen = false"
-                       class="flex items-center gap-4 px-6 py-4 text-sm font-semibold text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group"
+                       class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group"
                        x-transition:enter="transition ease-out duration-300 delay-{{ $i * 50 }}"
                        x-transition:enter-start="opacity-0 translate-x-4"
                        x-transition:enter-end="opacity-100 translate-x-0">
@@ -207,7 +207,7 @@
                 @auth
                     <a href="{{ route('profile.show') }}"
                        @click="mobileOpen = false"
-                       class="flex items-center gap-4 px-6 py-4 text-sm font-semibold text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group">
+                       class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group">
                         <span class="flex h-10 w-10 items-center justify-center bg-gray-100 text-[#964B00] transition-all duration-200 group-hover:bg-[#964B00] group-hover:text-white">
                             <span class="material-symbols-outlined text-xl">person</span>
                         </span>
@@ -218,16 +218,16 @@
 
                 {{-- Quick Actions --}}
                 <div class="px-6 py-3 bg-gray-50">
-                    <p class="text-xs font-bold text-gray-500 tracking-wider mb-3">Quick Actions</p>
+                    <p class="text-xs text-gray-500 tracking-wider mb-3">Quick actions</p>
                     <div class="space-y-2">
                         <a href="{{ route('cart.show') }}"
                            @click="mobileOpen = false"
-                           class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#964B00] transition-all duration-200 group">
+                           class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#964B00] transition-all duration-200 group">
                             <span class="material-symbols-outlined text-xl text-[#964B00]">shopping_bag</span>
                             <span>View Cart</span>
                         </a>
                         <button @click="weatherOpen = true; mobileOpen = false"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#964B00] transition-all duration-200 group">
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#964B00] transition-all duration-200 group">
                             <span class="material-symbols-outlined text-xl text-[#964B00]">partly_cloudy_day</span>
                             <span>Weather Forecast</span>
                         </button>
@@ -239,18 +239,18 @@
             <div class="px-6 py-5 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white space-y-3">
                 <a href="{{ route('booking.dates') }}"
                    @click="mobileOpen = false"
-                   class="block w-full bg-[#964B00] py-3.5 text-center text-sm font-bold tracking-wider text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#6b3500] hover:shadow-lg">
+                   class="block w-full bg-[#964B00] py-3.5 text-center text-sm tracking-wider text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#6b3500] hover:shadow-lg">
                     <span class="material-symbols-outlined text-xl inline-block mr-2 -mt-1">calendar_month</span>
                     Book Now
                 </a>
                 @guest
                     <div class="flex gap-2">
                         <a href="{{ url('login') }}" 
-                           class="flex-1 text-center py-3 text-xs font-bold tracking-wider border-2 border-gray-300 text-gray-700 hover:border-[#964B00] hover:text-[#964B00] transition-all duration-200">
+                           class="flex-1 text-center py-3 text-xs tracking-wider border-2 border-gray-300 text-gray-700 hover:border-[#964B00] hover:text-[#964B00] transition-all duration-200">
                             Login
                         </a>
                         <a href="{{ url('register') }}" 
-                           class="flex-1 text-center py-3 text-xs font-bold tracking-wider text-white bg-gray-900 hover:bg-gray-800 transition-all duration-200">
+                           class="flex-1 text-center py-3 text-xs tracking-wider text-white bg-gray-900 hover:bg-gray-800 transition-all duration-200">
                             Register
                         </a>
                     </div>
@@ -258,7 +258,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" 
-                                class="w-full flex items-center justify-center gap-2 py-3 text-sm font-bold tracking-wider text-red-600 border-2 border-red-200 hover:bg-red-50 hover:border-red-300 transition-all duration-200">
+                                class="w-full flex items-center justify-center gap-2 py-3 text-sm tracking-wider text-red-600 border-2 border-red-200 hover:bg-red-50 hover:border-red-300 transition-all duration-200">
                             <span class="material-symbols-outlined text-xl">logout</span>
                             Logout
                         </button>
@@ -266,7 +266,7 @@
                 @endguest
                 <div class="flex items-center justify-center gap-2 pt-2">
                     <span class="material-symbols-outlined text-base text-gray-400">location_on</span>
-                    <p class="text-[10px] text-gray-500 font-medium">Tambobong, Dasol, Pangasinan</p>
+                    <p class="text-[10px] text-gray-500">Tambobong, Dasol, Pangasinan</p>
                 </div>
             </div>
         </div>

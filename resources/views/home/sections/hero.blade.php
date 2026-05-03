@@ -72,8 +72,8 @@
 
         {{-- Headline --}}
         <div class="mb-6">
-            <p id="hero-sub" class="text-xs font-semibold tracking-[.3em] uppercase text-white/70 mb-2 transition-all duration-500">Where the sea meets serenity</p>
-            <h1 id="hero-label" class="font-playfair text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-tight transition-all duration-500">
+            <p id="hero-sub" class="text-sm font-semibold tracking-wide text-white/80 mb-3 transition-all duration-500">Where the sea meets serenity</p>
+            <h1 id="hero-label" class="text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1.1] tracking-tight transition-all duration-500">
                 Welcome to<br><span style="color:#f5c87a;">Cabanas</span>
             </h1>
         </div>
@@ -81,7 +81,8 @@
         {{-- Search bar --}}
         <div class="search-bar w-full max-w-5xl mb-6">
             {{-- Stay bar --}}
-            <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ url('/home/roomcart') }}" method="GET">
+            <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ route('search.stay') }}" method="POST">
+                @csrf
                 <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
                     <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-in</label>
                     <input type="date" class="search-input" id="hero-checkin" name="checkin" min="{{ date('Y-m-d') }}" required>
@@ -116,8 +117,8 @@
             </form>
 
             {{-- Sail bar --}}
-            <form id="sail-bar" class="hidden flex-col md:flex-row items-stretch" action="{{ url('/home/roomcart') }}" method="GET">
-                <input type="hidden" name="type" value="boat">
+            <form id="sail-bar" class="hidden flex-col md:flex-row items-stretch" action="{{ route('search.sail') }}" method="POST">
+                @csrf
                 <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
                     <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Departure Date</label>
                     <input type="date" class="search-input" id="hero-boat-date" name="departure_date" min="{{ date('Y-m-d') }}" required>
@@ -158,9 +159,9 @@
                     ['icon'=>'credit_card','label'=>'PayMongo Payments']
                 ]; @endphp
                 @foreach($badges as $b)
-                    <div class="flex items-center gap-1.5 text-white/75">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">{{ $b['icon'] }}</span>
-                        <span class="text-xs font-semibold">{{ $b['label'] }}</span>
+                    <div class="flex items-center gap-1.5" style="color: #ffffff;">
+                        <span class="material-symbols-outlined" style="font-size: 16px; color: #ffffff;">{{ $b['icon'] }}</span>
+                        <span class="text-xs" style="color: #ffffff;">{{ $b['label'] }}</span>
                     </div>
                 @endforeach
             </div>
@@ -181,14 +182,6 @@
         <span class="material-symbols-outlined text-2xl text-white/50">expand_more</span>
     </div>
 </section>
-
-{{-- Animated SVG wave divider --}}
-<div class="relative overflow-hidden bg-white" style="height:64px; margin-top:-2px;">
-    <svg class="wave-scroll absolute bottom-0" style="width:200%; height:64px;" viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,32 C180,64 360,0 540,32 C720,64 900,0 1080,32 C1260,64 1440,0 1440,32 L1440,64 L0,64 Z" fill="#faf9f7"/>
-        <path d="M1440,32 C1620,64 1800,0 1980,32 C2160,64 2340,0 2520,32 C2700,64 2880,0 2880,32 L2880,64 L1440,64 Z" fill="#faf9f7"/>
-    </svg>
-</div>
 
 <script>
     let currentIdx = 0;

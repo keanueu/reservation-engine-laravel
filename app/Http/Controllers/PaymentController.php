@@ -6,7 +6,8 @@ use App\Models\Booking;
 use App\Models\BoatBooking;
 use App\Services\PaymongoService;
 use Illuminate\Http\Request;
-use App\Models\Setting; 
+use App\Models\Setting;
+use Illuminate\Support\Facades\Log; 
 class PaymentController extends Controller
 {
     protected $paymongo;
@@ -68,14 +69,18 @@ class PaymentController extends Controller
 
         // --- Build metadata ---
         $metadata = [
-            'description' => "Booking Group {$groupId} - {$fullDescription}",
-            'customer_name' => $booking->name ?? 'Unknown',
+            'description'    => "Booking Group {$groupId} - {$fullDescription}",
+            'customer_name'  => $booking->name  ?? 'Unknown',
             'customer_email' => $booking->email ?? 'Unknown',
-            'group_id' => $groupId,
+            'group_id'       => $groupId,
         ];
 
+        // --- Redirect URLs so PayMongo returns the user to our site ---
+        $successUrl = route('payment.success', ['group_id' => $groupId]);
+        $cancelUrl  = route('payment.cancel',  ['group_id' => $groupId]);
+
         // --- Create PayMongo link ---
-        $response = $this->paymongo->createLink($amount, 'PHP', $metadata);
+        $response = $this->paymongo->createLink($amount, 'PHP', $metadata, $successUrl, $cancelUrl);
 
         // `createLink` returns a normalized wrapper: ['success'=>bool,'link_id'=>..., 'checkout_url'=>..., 'raw'=>...]
         $success = $response['success'] ?? false;
@@ -107,39 +112,55 @@ class PaymentController extends Controller
         return redirect()->back()->with('error', $errorMsg);
     }
 
-    public function success()
+    public function success(Request $request)
     {
-        // Clear any pending booking markers from session after successful payment
+        $groupId = $request->query('group_id', session('pending_booking_group'));
+
         try {
             session()->forget(['pending_booking_group', 'pending_booking_ids']);
         } catch (\Throwable $e) {
-            \Log::warning('Failed to clear pending booking session after success: ' . $e->getMessage());
+            Log::warning('Failed to clear pending booking session: ' . $e->getMessage());
         }
-        return view('payments.success');
+
+        // Load bookings for the summary view
+        // The webhook may not have fired yet, so we show whatever status is current
+        $roomBookings = collect();
+        $boatBookings = collect();
+        $depositPaid  = 0;
+
+        if ($groupId) {
+            $roomBookings = Booking::with('room')->where('group_id', $groupId)->get();
+            $boatBookings = BoatBooking::with('boat')->where('group_id', $groupId)->get();
+            $all          = $roomBookings->concat($boatBookings);
+            $depositPaid  = $all->sum('paid_amount') ?: $all->sum('deposit_amount');
+        }
+
+        $bookings = $roomBookings->concat($boatBookings);
+
+        return view('payments.success', compact('bookings', 'groupId', 'depositPaid'));
     }
 
-    public function cancel()
+    public function cancel(Request $request)
     {
-        // Clean up abandoned bookings when user cancels payment
+        $groupId = $request->query('group_id', session('pending_booking_group'));
+
         try {
-            $pendingGroup = session('pending_booking_group');
-            if ($pendingGroup) {
-                // Delete all unpaid bookings in this group
-                Booking::where('group_id', $pendingGroup)
+            if ($groupId) {
+                Booking::where('group_id', $groupId)
                     ->where('payment_status', 'pending')
                     ->whereIn('status', ['waiting', 'pending'])
                     ->delete();
-                
-                BoatBooking::where('group_id', $pendingGroup)
+
+                BoatBooking::where('group_id', $groupId)
                     ->where('payment_status', 'pending')
                     ->whereIn('status', ['waiting', 'pending'])
                     ->delete();
             }
-            
             session()->forget(['pending_booking_group', 'pending_booking_ids']);
         } catch (\Throwable $e) {
-            \Log::warning('Failed to clear pending booking session after cancel: ' . $e->getMessage());
+            Log::warning('Failed to clean up cancelled bookings: ' . $e->getMessage());
         }
+
         return view('payments.cancel');
     }
 }

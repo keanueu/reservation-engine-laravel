@@ -34,15 +34,10 @@ class CheckoutController extends Controller
                     $start = $item['start_date'];
                     $end = $item['end_date'];
 
-                    // Check for any overlapping bookings (exclude cancelled/rejected/waiting/pending)
-                    // Only count confirmed/paid bookings as blocking availability
-                    $overlap = Booking::where('room_id', $roomId)
-                        ->whereNotIn('status', ['cancelled', 'rejected', 'waiting'])
-                        ->where('payment_status', 'paid')
-                        ->where(function ($q) use ($start, $end) {
-                            $q->where('start_date', '<', $end)
-                                ->where('end_date', '>', $start);
-                        })->exists();
+                    // Use scopeAvailableBetween: active (non-expired) + overlapping dates
+                    $overlap = Booking::availableBetween($start, $end)
+                        ->where('room_id', $roomId)
+                        ->exists();
 
                     if ($overlap) {
                         // mark as removed and skip adding to filtered cart
