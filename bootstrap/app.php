@@ -12,7 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Exclude PayMongo webhook routes from CSRF verification
+        // PayMongo POSTs from their servers — no browser session/cookie exists
+        $middleware->validateCsrfTokens(except: [
+            'webhooks/paymongo',
+            'api/paymongo/webhook',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
