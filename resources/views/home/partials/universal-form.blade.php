@@ -33,7 +33,7 @@
         {{-- Header --}}
         <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
             <div>
-                <h2 id="ubm-title" class="text-lg font-bold text-gray-900" style="font-family:'Playfair Display',serif;">
+                <h2 id="ubm-title" class="text-lg font-bold text-gray-900">
                     Book Your Stay
                 </h2>
                 <p class="text-xs text-gray-500 mt-0.5" x-text="roomName ? 'Selected: ' + roomName : 'Choose a room and your dates'"></p>

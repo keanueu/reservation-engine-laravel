@@ -26,54 +26,55 @@ class PaymongoService
      * @param string $arg4 currency code
      * @return array
      */
-    public function createLink(int $amountInCents, $arg2 = null, $arg3 = null, string $arg4 = 'PHP'): array
+    public function createLink(int $amountInCents, $arg2 = null, $arg3 = null, ?string $successUrl = null, ?string $cancelUrl = null): array
     {
         $secret = env('PAYMONGO_SECRET');
 
         if (empty($secret)) {
-            return [
-                'success' => false,
-                'message' => 'PAYMONGO_SECRET not configured',
-                'raw' => null,
-            ];
+            return ['success' => false, 'message' => 'PAYMONGO_SECRET not configured', 'raw' => null];
         }
 
         $url = $this->baseUrl . '/links';
 
-        // Normalize args
+        // Normalize args (preserve backward compatibility)
         $description = '';
-        $currency = 'PHP';
-        $metadata = [];
+        $currency    = 'PHP';
+        $metadata    = [];
 
         if (is_array($arg2) && $arg3 === null) {
-            // createLink(amount, metadata)
             $metadata = $arg2;
         } elseif (is_string($arg2)) {
-            // If arg2 looks like a 3-letter currency code (e.g. PHP), treat it as currency
             if (strlen($arg2) === 3 && strtoupper($arg2) === $arg2) {
                 $currency = $arg2;
                 if (is_array($arg3)) $metadata = $arg3;
             } else {
-                // Treat as description
                 $description = $arg2;
                 if (is_array($arg3)) $metadata = $arg3;
-                if (!empty($arg4)) $currency = $arg4;
             }
         }
 
-        // If description not provided, try to use metadata.description when available
-        if (empty($description) && !empty($metadata) && is_array($metadata) && !empty($metadata['description'])) {
+        if (empty($description) && !empty($metadata['description'])) {
             $description = $metadata['description'];
+        }
+
+        $attributes = [
+            'amount'      => $amountInCents,
+            'currency'    => $currency,
+            'description' => $description ?: null,
+            'metadata'    => !empty($metadata) ? $metadata : null,
+        ];
+
+        // Add redirect URLs when provided
+        if ($successUrl) {
+            $attributes['redirect'] = [
+                'success' => $successUrl,
+                'failed'  => $cancelUrl ?? $successUrl,
+            ];
         }
 
         $body = [
             'data' => [
-                'attributes' => array_filter([
-                    'amount' => $amountInCents,
-                    'currency' => $currency,
-                    'description' => $description ?: null,
-                    'metadata' => !empty($metadata) ? $metadata : null,
-                ], function ($v) { return $v !== null; }),
+                'attributes' => array_filter($attributes, fn($v) => $v !== null),
             ],
         ];
 
@@ -86,26 +87,22 @@ class PaymongoService
 
             if ($response->successful() && isset($json['data']['id'])) {
                 return [
-                    'success' => true,
-                    'link_id' => $json['data']['id'],
+                    'success'      => true,
+                    'link_id'      => $json['data']['id'],
                     'checkout_url' => $json['data']['attributes']['checkout_url'] ?? null,
-                    'raw' => $json,
+                    'raw'          => $json,
                 ];
             }
 
             return [
-                'success' => false,
-                'message' => $json['errors'] ?? ($json['message'] ?? 'unknown error'),
-                'raw' => $json,
+                'success'     => false,
+                'message'     => $json['errors'] ?? ($json['message'] ?? 'unknown error'),
+                'raw'         => $json,
                 'status_code' => $response->status(),
             ];
 
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'message' => $e->getMessage(),
-                'raw' => null,
-            ];
+            return ['success' => false, 'message' => $e->getMessage(), 'raw' => null];
         }
     }
 

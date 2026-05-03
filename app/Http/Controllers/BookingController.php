@@ -6,258 +6,250 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\BoatBooking;
 use App\Models\Room;
+use App\Models\Boat;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Services\PaymongoService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\BookingReceiptNotification;
-
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
     public function store(Request $request)
     {
-        $hasRooms = $request->filled('room_ids') && is_array($request->room_ids) && count($request->room_ids) > 0;
-        $hasBoats = $request->filled('boat_ids') && is_array($request->boat_ids) && count($request->boat_ids) > 0;
+        // -------------------------------------------------------
+        // 1. Validate guest info fields
+        // -------------------------------------------------------
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:50',
+        ]);
 
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-        ];
+        // -------------------------------------------------------
+        // 2. Read the cart — this is the single source of truth
+        // -------------------------------------------------------
+        $cart = session('cart', []);
 
-        // Validate room fields
-        if ($hasRooms) {
-            $rules = array_merge($rules, [
-                'room_ids' => 'required|array',
-                'start_dates' => 'required|array',
-                'end_dates' => 'required|array',
-                'adults' => 'required|array',
-                'children' => 'required|array',
-                'nights' => 'required|array',
-            ]);
+        $roomItems = collect($cart)->filter(fn($i) => isset($i['room_id']))->values();
+        $boatItems = collect($cart)->filter(fn($i) => isset($i['boat_id']))->values();
+
+        if ($roomItems->isEmpty() && $boatItems->isEmpty()) {
+            return back()->withErrors(['booking' => 'Your cart is empty. Please add a room or boat first.']);
         }
 
-        // Validate boat fields
-        if ($hasBoats) {
-            $rules = array_merge($rules, [
-                'boat_ids' => 'required|array',
-                'booking_dates' => 'required|array',
-                'start_times' => 'required|array',
-                'end_times' => 'required|array',
-                'boat_guests' => 'required|array',
-                'boat_prices' => 'required|array',
-            ]);
+        // Hard cap: max 5 rooms + 3 boats per checkout
+        if ($roomItems->count() > 5) {
+            return back()->with('error', 'You can book a maximum of 5 rooms per checkout.');
         }
 
-        if (!$hasRooms && !$hasBoats) {
-            return back()->withErrors(['booking' => 'Please select at least one room or boat to book.']);
-        }
-
-        $request->validate($rules);
-
-        // Shared group ID for this checkout session (rooms + boats)
-        $groupId = Str::uuid();
-
-        $total = 0;
+        $groupId  = \Illuminate\Support\Str::uuid()->toString();
+        $total    = 0.0;
         $bookings = [];
 
-        // --- ROOM BOOKINGS ---
-        if ($hasRooms) {
-            $roomIds = array_slice($request->room_ids, 0, 3); // limit to 3 rooms max
-            foreach ($roomIds as $i => $room_id) {
-                $room = Room::find($room_id);
-                if (!$room)
-                    continue;
+        // -------------------------------------------------------
+        // 3. Single atomic transaction — ALL rooms + boats or NONE
+        // -------------------------------------------------------
+        try {
+            DB::transaction(function () use (
+                $request, $roomItems, $boatItems,
+                $groupId, &$total, &$bookings
+            ) {
+                // ---------------------------------------------------
+                // PHASE A: Lock ALL room rows first (sorted by ID to
+                // prevent deadlocks between concurrent transactions)
+                // ---------------------------------------------------
+                $sortedRoomItems = $roomItems->sortBy('room_id');
 
-                $adults = (int) ($request->adults[$i] ?? 1);
-                $children = (int) ($request->children[$i] ?? 0);
-                $totalGuests = $adults + $children;
-                $maxGuests = (int) $room->accommodates;
+                foreach ($sortedRoomItems as $cartItem) {
+                    $room_id   = $cartItem['room_id'];
+                    $startDate = $cartItem['start_date'] ?? null;
+                    $endDate   = $cartItem['end_date']   ?? null;
 
-                if ($totalGuests > $maxGuests) {
-                    return back()->with('error', 'Guest count for room "' . $room->room_name . '" exceeds accommodates (' . $maxGuests . '). Please adjust guest count.');
-                }
-
-                $nights = (int) ($request->nights[$i] ?? 1);
-                // Prefer pricing from session cart (line_total / unit_price) so discounts/promos apply
-                $sessionCart = session('cart', []);
-                $cartItem = collect($sessionCart)->firstWhere('room_id', $room->id) ?: [];
-                $subtotal = $cartItem['line_total'] ?? ((($cartItem['unit_price'] ?? $room->price) * $nights));
-                $total += $subtotal;
-                // capture applied discount (if any) for this room so we can show promo type later
-                $appliedDiscount = $room->discounts->first() ?? null;
-                $promoLabel = optional($appliedDiscount)->name ?? null;
-                $appliedDiscountId = optional($appliedDiscount)->id ?? null;
-
-                // Prefer scheduled checkin/checkout datetimes from the session cart (guest preferred times)
-                // Fallback to request-provided times or business defaults when cart values are missing.
-                $startDate = $request->start_dates[$i] ?? null;
-                $endDate = $request->end_dates[$i] ?? null;
-                $scheduledCheckin = null;
-                $scheduledCheckout = null;
-
-                // cartItem may contain pre-computed scheduled datetimes (from CartController)
-                $cartScheduledIn = $cartItem['scheduled_checkin_at'] ?? null;
-                $cartScheduledOut = $cartItem['scheduled_checkout_at'] ?? null;
-
-                try {
-                    if ($cartScheduledIn) {
-                        $scheduledCheckin = \Illuminate\Support\Carbon::parse($cartScheduledIn);
-                    } else {
-                        $checkinTime = $request->input('checkin_time') ?? config('booking.checkin_time', '13:00');
-                        if ($startDate) {
-                            $scheduledCheckin = \Illuminate\Support\Carbon::parse($startDate . ' ' . $checkinTime);
-                        }
+                    if (!$startDate || !$endDate) {
+                        throw new \RuntimeException('Missing dates for one of the rooms in your cart.');
                     }
 
-                    if ($cartScheduledOut) {
-                        $scheduledCheckout = \Illuminate\Support\Carbon::parse($cartScheduledOut);
-                    } else {
-                        $checkoutTime = $request->input('checkout_time') ?? config('booking.checkout_time', '11:00');
-                        if ($endDate) {
-                            $scheduledCheckout = \Illuminate\Support\Carbon::parse($endDate . ' ' . $checkoutTime);
-                        }
+                    // Lock the room row — blocks concurrent transactions on same room
+                    $room = Room::lockForUpdate()->find($room_id);
+                    if (!$room) {
+                        throw new \RuntimeException('A room in your cart no longer exists.');
                     }
-                } catch (\Exception $e) {
-                    // ignore parse errors and leave datetime null
+
+                    // Guest capacity check
+                    $adults      = (int) ($cartItem['adults']   ?? 1);
+                    $children    = (int) ($cartItem['children'] ?? 0);
+                    $maxGuests   = (int) $room->accommodates;
+
+                    if (($adults + $children) > $maxGuests) {
+                        throw new \RuntimeException(
+                            'Guest count for "' . $room->room_name . '" exceeds capacity (' . $maxGuests . ').'
+                        );
+                    }
+
+                    // Atomic availability check — lock conflicting booking rows too
+                    $conflict = Booking::availableBetween($startDate, $endDate)
+                        ->where('room_id', $room->id)
+                        ->lockForUpdate()
+                        ->exists();
+
+                    if ($conflict) {
+                        throw new \RuntimeException(
+                            'Room "' . $room->room_name . '" is no longer available for ' .
+                            $startDate . ' – ' . $endDate . '. Please choose different dates.'
+                        );
+                    }
+
+                    // Pricing — trust the cart (already has discount applied)
+                    $nights   = (int) ($cartItem['nights'] ?? 1);
+                    $subtotal = (float) ($cartItem['line_total'] ?? (($cartItem['unit_price'] ?? $room->price) * $nights));
+                    $total   += $subtotal;
+
+                    // Scheduled datetimes
+                    $scheduledCheckin  = null;
+                    $scheduledCheckout = null;
+                    try {
+                        $scheduledCheckin  = $cartItem['scheduled_checkin_at']  ? Carbon::parse($cartItem['scheduled_checkin_at'])  : Carbon::parse($startDate . ' ' . ($cartItem['start_time'] ?? '13:00'));
+                        $scheduledCheckout = $cartItem['scheduled_checkout_at'] ? Carbon::parse($cartItem['scheduled_checkout_at']) : Carbon::parse($endDate   . ' ' . ($cartItem['end_time']   ?? '11:00'));
+                    } catch (\Exception $e) { /* leave null */ }
+
+                    $appliedDiscount   = $room->discounts->first() ?? null;
+
+                    $booking = Booking::create([
+                        'group_id'              => $groupId,
+                        'room_id'               => $room->id,
+                        'name'                  => $request->name,
+                        'email'                 => $request->email,
+                        'phone'                 => $request->phone,
+                        'adults'                => $adults,
+                        'children'              => $children,
+                        'start_date'            => $startDate,
+                        'end_date'              => $endDate,
+                        'scheduled_checkin_at'  => $scheduledCheckin,
+                        'scheduled_checkout_at' => $scheduledCheckout,
+                        'nights'                => $nights,
+                        'status'                => 'waiting',
+                        'payment_status'        => 'pending',
+                        'total_amount'          => $subtotal,
+                        'promo_label'           => optional($appliedDiscount)->name,
+                        'discount_id'           => optional($appliedDiscount)->id,
+                        'expires_at'            => now()->addMinutes(Booking::PENDING_TTL_MINUTES),
+                    ]);
+
+                    $bookings[] = $booking;
                 }
 
-                $booking = Booking::create([
-                    'group_id' => $groupId,
-                    'room_id' => $room->id,
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'adults' => $adults,
-                    'children' => $children,
-                    'start_date' => $startDate ?? null,
-                    'end_date' => $endDate ?? null,
-                    'scheduled_checkin_at' => $scheduledCheckin,
-                    'scheduled_checkout_at' => $scheduledCheckout,
-                    'nights' => $nights,
-                    'status' => 'waiting',
-                    'payment_status' => 'pending',
-                    'total_amount' => $subtotal,
-                    'promo_label' => $promoLabel,
-                    'discount_id' => $appliedDiscountId,
-                ]);
+                // ---------------------------------------------------
+                // PHASE B: Lock ALL boat rows (sorted by ID)
+                // ---------------------------------------------------
+                $sortedBoatItems = $boatItems->sortBy('boat_id');
 
-                $bookings[] = $booking;
-            }
-        }
+                foreach ($sortedBoatItems as $cartItem) {
+                    $boat_id     = $cartItem['boat_id'];
+                    $bookingDate = $cartItem['booking_date'] ?? null;
+                    $startTime   = $cartItem['start_time']   ?? null;
+                    $endTime     = $cartItem['end_time']     ?? null;
 
-        // --- BOAT BOOKINGS ---
-        if ($hasBoats) {
-            $boatIds = $request->boat_ids ?? [];
-            $bookingDates = $request->booking_dates ?? [];
-            $startTimes = $request->start_times ?? [];
-            $endTimes = $request->end_times ?? [];
-            $boatGuests = $request->boat_guests ?? [];
-            $boatPrices = $request->boat_prices ?? [];
+                    $boat = Boat::lockForUpdate()->find($boat_id);
+                    if (!$boat) {
+                        throw new \RuntimeException('A boat in your cart no longer exists.');
+                    }
 
-            foreach ($boatIds as $i => $boat_id) {
-                $boatPrice = (float) ($boatPrices[$i] ?? 0);
-                $total += $boatPrice;
+                    $boatConflict = BoatBooking::where('boat_id', $boat_id)
+                        ->where('booking_date', $bookingDate)
+                        ->whereNotIn('status', ['cancelled', 'rejected'])
+                        ->where(fn($q) => $q->where('start_time', '<', $endTime)->where('end_time', '>', $startTime))
+                        ->lockForUpdate()
+                        ->exists();
 
-                $boatBooking = BoatBooking::create([
-                    'group_id' => $groupId,
-                    'boat_id' => $boat_id,
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'booking_date' => $bookingDates[$i] ?? null,
-                    'start_time' => $startTimes[$i] ?? null,
-                    'end_time' => $endTimes[$i] ?? null,
-                    'guests' => $boatGuests[$i] ?? 1,
-                    'status' => 'waiting',
-                    'payment_status' => 'pending',
-                    'total_amount' => $boatPrice,
-                ]);
-                // ensure we have a reference booking for redirect (supports boats-only checkout)
-                $bookings[] = $boatBooking;
-            }
-        }
+                    if ($boatConflict) {
+                        throw new \RuntimeException(
+                            'Boat "' . $boat->name . '" is not available for the selected time slot.'
+                        );
+                    }
 
-        // --- Minimum amount check ---
-        if ($total < 100) {
-            return back()->with('error', 'Minimum total amount is ₱100. Please add more rooms or boats.');
-        }
+                    $boatPrice = (float) ($cartItem['price'] ?? $boat->price);
+                    $total    += $boatPrice;
 
-        // --- Redirect to unified payment link ---
-        if (count($bookings) > 0) {
-            // Charge only the configured deposit percentage at checkout
-            // Charge deposit + deposit fee at checkout
-            // Use dynamic settings (frontdesk editable) when available
-            $depositPercent = (float) \App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50));
-            // Booking-time deposit fee disabled by default; refund fee is applied on refund flows
-            $depositFeePercent = (float) \App\Models\Setting::get('deposit_fee_percentage', config('booking.deposit_fee_percentage', 0));
+                    $boatBooking = BoatBooking::create([
+                        'group_id'       => $groupId,
+                        'boat_id'        => $boat_id,
+                        'name'           => $request->name,
+                        'email'          => $request->email,
+                        'phone'          => $request->phone,
+                        'booking_date'   => $bookingDate,
+                        'start_time'     => $startTime,
+                        'end_time'       => $endTime,
+                        'guests'         => $cartItem['guests'] ?? 1,
+                        'status'         => 'waiting',
+                        'payment_status' => 'pending',
+                        'total_amount'   => $boatPrice,
+                    ]);
 
-            // Calculate deposit
-            $depositAmount = $total * ($depositPercent / 100);
+                    $bookings[] = $boatBooking;
+                }
 
-            // Calculate deposit fee
-            $depositFee = $depositAmount * ($depositFeePercent / 100);
+                // ---------------------------------------------------
+                // PHASE C: Minimum amount guard
+                // ---------------------------------------------------
+                if ($total < 100) {
+                    throw new \RuntimeException('Minimum total is ₱100. Please add more items.');
+                }
 
-            // Total amount to charge now (deposit + fee)
-            $totalToCharge = round($depositAmount + $depositFee, 2);
+                // ---------------------------------------------------
+                // PHASE D: Persist deposit fields on every booking
+                // ---------------------------------------------------
+                $depositPercent    = (float) \App\Models\Setting::get('deposit_percentage',     config('booking.deposit_percentage',     50));
+                $depositFeePercent = (float) \App\Models\Setting::get('deposit_fee_percentage', config('booking.deposit_fee_percentage', 0));
 
-            // Optional: store deposit/fee per booking for reference
-            // Calculate deposit per booking based on that booking's total_amount
-            foreach ($bookings as $booking) {
-                $ba = (float) ($booking->total_amount ?? 0);
-                $depositForBooking = round($ba * ($depositPercent / 100), 2);
-                $depositFeeForBooking = round($depositForBooking * ($depositFeePercent / 100), 2);
-                $totalToChargeForBooking = round($depositForBooking + $depositFeeForBooking, 2);
+                foreach ($bookings as $b) {
+                    $ba  = (float) ($b->total_amount ?? 0);
+                    $dep = round($ba * ($depositPercent    / 100), 2);
+                    $fee = round($dep * ($depositFeePercent / 100), 2);
 
-                $booking->deposit_amount = $depositForBooking;
-                $booking->deposit_fee = $depositFeeForBooking;
-                $booking->total_to_charge = $totalToChargeForBooking;
-                $booking->save();
-            }
+                    $b->deposit_amount  = $dep;
+                    $b->deposit_fee     = $fee;
+                    $b->total_to_charge = round($dep + $fee, 2);
+                    $b->save();
+                }
 
-            // Persist pending booking group and booking IDs in session so they can be
-            // cleaned up if the user cancels/returns without completing payment.
-            try {
-                $bookingIds = collect($bookings)->pluck('id')->all();
-                session([
-                    'pending_booking_group' => $groupId,
-                    'pending_booking_ids' => $bookingIds,
-                ]);
-                
-                // Clear the cart since bookings have been created
-                session()->forget('cart');
-            } catch (\Throwable $e) {
-                // non-fatal: session store failed — continue to redirect to payment
-            }
+            }); // end DB::transaction — ALL committed or ALL rolled back
 
-
-            // --- SEND NOTIF HERE ---
-            try {
-                Notification::route('mail', $request->email)
-                    ->notify(new BookingReceiptNotification($bookings, 'booking'));
-            } catch (\Throwable $e) {
-                Log::error('Booking receipt email failed', [
-                    'error' => $e->getMessage(),
-                    'email' => $request->email
-                ]);
-            }
-
-            // Redirect to payment link
-            return redirect()->route('bookings.pay', [
-                'booking' => $bookings[0]->id,
-                'group_id' => $groupId,
-                'amount' => $totalToCharge
+        } catch (\RuntimeException $e) {
+            return back()->with('error', $e->getMessage());
+        } catch (\Throwable $e) {
+            Log::error('BookingController@store failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
-
-
-        } else {
-            return back()->with('error', 'No room bookings were created.');
+            return back()->with('error', 'An unexpected error occurred. Please try again.');
         }
 
+        // -------------------------------------------------------
+        // 4. Post-transaction: session cleanup then redirect to payment
+        // NOTE: Receipt email is sent by the webhook ONLY after payment_status = 'paid'
+        // -------------------------------------------------------
+        try {
+            session([
+                'pending_booking_group' => $groupId,
+                'pending_booking_ids'   => collect($bookings)->pluck('id')->all(),
+            ]);
+            session()->forget('cart');
+        } catch (\Throwable $e) { /* non-fatal */ }
+
+        $depositPercent    = (float) \App\Models\Setting::get('deposit_percentage',     config('booking.deposit_percentage',     50));
+        $depositFeePercent = (float) \App\Models\Setting::get('deposit_fee_percentage', config('booking.deposit_fee_percentage', 0));
+        $depositAmount     = $total * ($depositPercent    / 100);
+        $depositFee        = $depositAmount * ($depositFeePercent / 100);
+        $totalToCharge     = round($depositAmount + $depositFee, 2);
+
+        return redirect()->route('bookings.pay', [
+            'booking'  => $bookings[0]->id,
+            'group_id' => $groupId,
+            'amount'   => $totalToCharge,
+        ]);
     }
 
     /**

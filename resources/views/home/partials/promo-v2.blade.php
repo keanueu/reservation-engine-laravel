@@ -249,20 +249,20 @@
                     @endif
 
                     {{-- PRICE OVERLAY (Bottom-Left) --}}
-                    <div class="absolute bottom-4 left-4 z-10 text-white">
+                    <div class="absolute bottom-4 left-4 z-10">
                         @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
-                            <span class="text-sm  text-gray-200 line-through tracking-wide block mb-1">
+                            <span class="text-sm line-through tracking-wide block mb-1" style="color: #ffffff;">
                                 PHP {{ number_format($room->price ?? 0, 2) }}
                             </span>
-                            <p class="text-lg font-extrabold">
+                            <p class="text-lg font-extrabold" style="color: #ffffff;">
                                 PHP {{ number_format($discountedPrice, 2) }}
                             </p>
                         @else
-                            <p class="text-2xl font-extrabold">
+                            <p class="text-2xl font-extrabold" style="color: #ffffff;">
                                 PHP {{ number_format($room->price ?? 0, 2) }}
                             </p>
                         @endif
-                        <span class="text-xs  text-gray-300 tracking-wide block mt-0.5">PER NIGHT</span>
+                        <span class="text-xs tracking-wide block mt-0.5" style="color: #ffffff;">Per night</span>
                     </div>
 
                 </div>

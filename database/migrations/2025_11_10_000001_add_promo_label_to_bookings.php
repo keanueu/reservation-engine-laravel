@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bookings', function (Blueprint $table) {
-            // store a human-friendly label (eg: "Senior Citizen", "PWD", "Xmas Sale")
-            $table->string('promo_label')->nullable()->after('total_amount');
-            // reference to discounts table when applicable
-            $table->unsignedBigInteger('discount_id')->nullable()->after('promo_label');
+            if (!Schema::hasColumn('bookings', 'promo_label')) {
+                $table->string('promo_label')->nullable()->after('total_amount');
+            }
+            if (!Schema::hasColumn('bookings', 'discount_id')) {
+                $table->unsignedBigInteger('discount_id')->nullable()->after('promo_label');
+            }
         });
     }
 

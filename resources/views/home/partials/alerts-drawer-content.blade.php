@@ -33,7 +33,7 @@
 
             <!-- Global banner (preserve existing Alpine bindings if available) -->
             <div id="global-alert-banner"
-                class="mb-6 shadow p-4 transition-all text-white  duration-500 text-xs"
+                class="mb-6 shadow p-4 transition-all text-white duration-500 text-xs"
                 x-data="{ status: 'Normal', message: 'All clear. No current disaster warnings for Cabanas Beach Resort.', severity: 'normal' }"
                 :class="{
                     'bg-green-500 text-md font-normal text-black': status === 'Normal',

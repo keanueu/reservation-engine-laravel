@@ -98,7 +98,10 @@
                 <div class="lg:col-span-1 flex flex-col space-y-8">
 
                     {{-- Sticky Booking Widget --}}
-                    <div class="sticky top-24 p-6 bg-white shadow-lg border border-gray-200">
+                    <div class="sticky top-24 p-6 bg-white shadow-lg border border-gray-200"
+                         x-data="roomBookingWidget({{ $room->id }}, {{ (float) $room->price }})">
+
+                        {{-- Price header --}}
                         <div class="flex items-end justify-between mb-4 pb-4 border-b border-gray-100">
                             <div>
                                 <p class="text-xs font-bold tracking-widest uppercase text-gray-400">Price</p>
@@ -107,28 +110,176 @@
                                     <span class="text-sm font-normal text-gray-400">/ night</span>
                                 </p>
                             </div>
-                            <div class="flex items-center gap-1 text-xs font-semibold text-[#964B00]">
-                                <span class="material-symbols-outlined" style="font-size: 16px;">check_circle</span>
-                                Available
+                            {{-- Availability badge --}}
+                            <div>
+                                <span x-show="status === 'idle'" class="flex items-center gap-1 text-xs font-semibold text-gray-400">
+                                    <span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>
+                                    Select dates
+                                </span>
+                                <span x-show="status === 'checking'" class="flex items-center gap-1 text-xs font-semibold text-amber-500">
+                                    <svg class="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                                    </svg>
+                                    Checking...
+                                </span>
+                                <span x-show="status === 'available'" class="flex items-center gap-1 text-xs font-semibold text-green-600">
+                                    <span class="material-symbols-outlined" style="font-size:16px;">check_circle</span>
+                                    Available
+                                </span>
+                                <span x-show="status === 'unavailable'" class="flex items-center gap-1 text-xs font-semibold text-red-600">
+                                    <span class="material-symbols-outlined" style="font-size:16px;">cancel</span>
+                                    Not available
+                                </span>
+                                <span x-show="status === 'error'" class="flex items-center gap-1 text-xs font-semibold text-gray-400">
+                                    <span class="material-symbols-outlined" style="font-size:16px;">warning</span>
+                                    Check failed
+                                </span>
                             </div>
                         </div>
 
-                        {{-- Quick date preview --}}
+                        {{-- Date inputs --}}
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div class="border border-gray-200 px-3 py-2.5">
+                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-in</p>
+                                <input type="date" x-model="checkin"
+                                       :min="today"
+                                       @change="onCheckinChange"
+                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
+                            </div>
+                            <div class="border border-gray-200 px-3 py-2.5">
+                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-out</p>
+                                <input type="date" x-model="checkout"
+                                       :min="minCheckout"
+                                       @change="runChecks"
+                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
+                            </div>
+                        </div>
+
+                        {{-- Time inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400">Check-in</p>
-                                <p class="text-xs font-semibold text-gray-700 mt-1">Select date</p>
+                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-in time</p>
+                                <input type="time" x-model="checkinTime"
+                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400">Check-out</p>
-                                <p class="text-xs font-semibold text-gray-700 mt-1">Select date</p>
+                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-out time</p>
+                                <input type="time" x-model="checkoutTime"
+                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
                             </div>
                         </div>
 
-                        <a href="{{ route('booking.dates') }}"
-                            class="w-full btn-primary py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">calendar_month</span>
-                            Book This Room
+                        {{-- Price breakdown --}}
+                        <div x-show="nights > 0" class="mb-4 p-3 bg-gray-50 border border-gray-100 text-xs space-y-1.5">
+
+                            {{-- Loading state --}}
+                            <div x-show="priceStatus === 'loading'" class="flex items-center gap-2 text-amber-500 py-1">
+                                <svg class="animate-spin w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                                </svg>
+                                <span>Calculating price...</span>
+                            </div>
+
+                            {{-- Dynamic pricing badge --}}
+                            <div x-show="priceStatus === 'done' && hasDynamicPricing"
+                                 class="flex items-center gap-1 text-[#964B00] mb-2">
+                                <span class="material-symbols-outlined" style="font-size:14px;">local_offer</span>
+                                <span class="font-bold tracking-wide">Special rate applied</span>
+                            </div>
+
+                            {{-- Applied rules summary --}}
+                            <template x-if="priceStatus === 'done' && appliedRules.length > 0">
+                                <div class="space-y-1 mb-2">
+                                    <template x-for="rule in appliedRules" :key="rule.label">
+                                        <div class="flex justify-between text-[#964B00]">
+                                            <span x-text="rule.label"></span>
+                                            <span x-text="formatCurrency(rule.price) + '/night'"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+
+                            {{-- Base rate line --}}
+                            <div x-show="priceStatus === 'done'" class="flex justify-between text-gray-600">
+                                <span x-text="'Base rate'"></span>
+                                <span x-text="formatCurrency(pricePerNight) + '/night'"></span>
+                            </div>
+
+                            {{-- Nights × rate --}}
+                            <div x-show="priceStatus === 'done'" class="flex justify-between text-gray-600">
+                                <span x-text="nights + ' night' + (nights > 1 ? 's' : '')"></span>
+                                <span x-text="formatCurrency(subtotal)"></span>
+                            </div>
+
+                            {{-- Total --}}
+                            <div x-show="priceStatus === 'done'"
+                                 class="flex justify-between font-bold text-gray-900 pt-1.5 border-t border-gray-200">
+                                <span>Total</span>
+                                <span x-text="formatCurrency(subtotal)"></span>
+                            </div>
+
+                            <p class="text-gray-400 text-[10px]">Deposit (50%) charged at checkout</p>
+                        </div>
+
+                        {{-- Unavailability panel with blocked dates --}}
+                        <div x-show="availStatus === 'unavailable'" class="mb-3 text-xs">
+
+                            {{-- Header --}}
+                            <div class="flex items-center gap-2 p-3 bg-red-50 border border-red-200 text-red-700 mb-2">
+                                <span class="material-symbols-outlined flex-shrink-0" style="font-size:16px;">event_busy</span>
+                                <span x-text="availMessage"></span>
+                            </div>
+
+                            {{-- Blocked ranges list --}}
+                            <template x-if="blockedRanges.length > 0">
+                                <div class="space-y-1 mb-2">
+                                    <p class="text-gray-500 mb-1">Conflicting reservations:</p>
+                                    <template x-for="(range, i) in blockedRanges" :key="i">
+                                        <div class="flex items-center gap-2 px-3 py-2 bg-red-50 border border-red-100 text-red-700">
+                                            <span class="material-symbols-outlined flex-shrink-0" style="font-size:14px;">block</span>
+                                            <span x-text="range.label"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+
+                            {{-- Blocked dates chips --}}
+                            <template x-if="blockedDates.length > 0">
+                                <div>
+                                    <p class="text-gray-500 mb-1.5">Blocked dates in your range:</p>
+                                    <div class="flex flex-wrap gap-1">
+                                        <template x-for="date in blockedDates" :key="date">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-semibold">
+                                                <span class="material-symbols-outlined" style="font-size:11px;">close</span>
+                                                <span x-text="new Date(date + 'T00:00:00').toLocaleDateString('en-PH', { month: 'short', day: 'numeric' })"></span>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <p class="text-gray-500 mt-2">Please select different dates to continue.</p>
+                        </div>
+
+                        {{-- CTA Button --}}
+                        <a :href="bookingUrl"
+                           :class="{
+                               'opacity-50 pointer-events-none cursor-not-allowed': availStatus === 'unavailable' || availStatus === 'checking',
+                               'btn-primary': availStatus === 'available' || availStatus === 'idle'
+                           }"
+                           class="w-full btn-primary py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+                            <span x-show="availStatus === 'checking' || priceStatus === 'loading'">
+                                <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                                </svg>
+                            </span>
+                            <span class="material-symbols-outlined"
+                                  x-show="availStatus !== 'checking' && priceStatus !== 'loading'"
+                                  style="font-size:16px;">calendar_month</span>
+                            <span x-text="(availStatus === 'checking' || priceStatus === 'loading') ? 'Checking...' : 'Book This Room'"></span>
                         </a>
 
                         <p class="text-center text-xs text-gray-400 mt-3">No charge until checkout</p>
@@ -136,15 +287,15 @@
                         {{-- Trust signals --}}
                         <div class="mt-4 pt-4 border-t border-gray-100 space-y-2">
                             <div class="flex items-center gap-2 text-xs text-gray-500">
-                                <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size: 16px;">verified</span>
+                                <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size:16px;">verified</span>
                                 Verified & Secure Booking
                             </div>
                             <div class="flex items-center gap-2 text-xs text-gray-500">
-                                <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size: 16px;">lock</span>
+                                <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size:16px;">lock</span>
                                 Free cancellation policy
                             </div>
                             <div class="flex items-center gap-2 text-xs text-gray-500">
-                                <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size: 16px;">credit_card</span>
+                                <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size:16px;">credit_card</span>
                                 PayMongo secure payment
                             </div>
                         </div>
@@ -217,4 +368,174 @@
             </div>
         </div>
     </section>
+
+<script>
+function roomBookingWidget(roomId, pricePerNight) {
+    return {
+        roomId:        roomId,
+        pricePerNight: pricePerNight,
+
+        checkin:       '',
+        checkout:      '',
+        checkinTime:   '13:00',
+        checkoutTime:  '11:00',
+
+        nights:             0,
+        subtotal:           0,
+        hasDynamicPricing:  false,
+        appliedRules:       [],
+        breakdown:          [],
+
+        // 'idle' | 'checking' | 'available' | 'unavailable' | 'error'
+        availStatus:   'idle',
+        // 'idle' | 'loading' | 'done' | 'error'
+        priceStatus:   'idle',
+
+        blockedDates:  [],   // ['Y-m-d', ...]
+        blockedRanges: [],   // [{ start, end, label }, ...]
+        availMessage:  '',
+
+        debounceAvail: null,
+        debouncePrice: null,
+
+        get today() {
+            return new Date().toISOString().split('T')[0];
+        },
+
+        get minCheckout() {
+            if (!this.checkin) return this.today;
+            const d = new Date(this.checkin);
+            d.setDate(d.getDate() + 1);
+            return d.toISOString().split('T')[0];
+        },
+
+        get status() { return this.availStatus; }, // alias for badge
+
+        get bookingUrl() {
+            const base = '{{ route("booking.dates") }}';
+            if (!this.checkin || !this.checkout) return base;
+            const p = new URLSearchParams({
+                type:          'room',
+                room_id:       this.roomId,
+                checkin:       this.checkin,
+                checkout:      this.checkout,
+                checkin_time:  this.checkinTime,
+                checkout_time: this.checkoutTime,
+            });
+            return base + '?' + p.toString();
+        },
+
+        onCheckinChange() {
+            if (this.checkout && this.checkout <= this.checkin) {
+                this.checkout = '';
+                this.reset();
+            }
+            if (this.checkout) this.runChecks();
+        },
+
+        reset() {
+            this.nights            = 0;
+            this.subtotal          = 0;
+            this.hasDynamicPricing = false;
+            this.appliedRules      = [];
+            this.breakdown         = [];
+            this.availStatus       = 'idle';
+            this.priceStatus       = 'idle';
+            this.blockedDates      = [];
+            this.blockedRanges     = [];
+            this.availMessage      = '';
+        },
+
+        runChecks() {
+            if (!this.checkin || !this.checkout) { this.reset(); return; }
+            this.checkAvailability();
+            this.fetchPricing();
+        },
+
+        // -------------------------------------------------------
+        // Availability check (debounced 400ms)
+        // -------------------------------------------------------
+        checkAvailability() {
+            clearTimeout(this.debounceAvail);
+            this.availStatus = 'checking';
+
+            this.debounceAvail = setTimeout(async () => {
+                try {
+                    const params = new URLSearchParams({
+                        room_id:    this.roomId,
+                        start_date: this.checkin,
+                        end_date:   this.checkout,
+                        start_time: this.checkinTime,
+                        end_time:   this.checkoutTime,
+                    });
+                    const res  = await fetch('/check-room-availability?' + params, {
+                        headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                        credentials: 'same-origin',
+                    });
+                    const data = await res.json();
+
+                    if (data.available) {
+                        this.availStatus   = 'available';
+                        this.blockedDates  = [];
+                        this.blockedRanges = [];
+                        this.availMessage  = '';
+                    } else {
+                        this.availStatus   = 'unavailable';
+                        this.blockedDates  = data.blocked_dates  || [];
+                        this.blockedRanges = data.blocked_ranges || [];
+                        this.availMessage  = data.message        || 'Room is not available for the selected dates.';
+                    }
+                } catch (e) {
+                    this.availStatus = 'error';
+                }
+            }, 400);
+        },
+
+        // -------------------------------------------------------
+        // Dynamic pricing fetch (debounced 500ms)
+        // -------------------------------------------------------
+        async fetchPricing() {
+            clearTimeout(this.debouncePrice);
+            this.priceStatus = 'loading';
+
+            this.debouncePrice = setTimeout(async () => {
+                try {
+                    const params = new URLSearchParams({
+                        room_id:  this.roomId,
+                        checkin:  this.checkin,
+                        checkout: this.checkout,
+                    });
+                    const res  = await fetch('/room-pricing?' + params, {
+                        headers: { 'Accept': 'application/json' },
+                        credentials: 'same-origin',
+                    });
+                    const data = await res.json();
+
+                    if (data.error) throw new Error(data.error);
+
+                    this.nights            = data.nights;
+                    this.subtotal          = data.total;
+                    this.hasDynamicPricing = data.has_dynamic_pricing;
+                    this.appliedRules      = data.applied_rules  || [];
+                    this.breakdown         = data.breakdown      || [];
+                    this.priceStatus       = 'done';
+                } catch (e) {
+                    // Fallback to client-side calculation
+                    const diff = (new Date(this.checkout) - new Date(this.checkin)) / 86400000;
+                    this.nights   = diff > 0 ? Math.round(diff) : 0;
+                    this.subtotal = this.nights * this.pricePerNight;
+                    this.hasDynamicPricing = false;
+                    this.appliedRules      = [];
+                    this.breakdown         = [];
+                    this.priceStatus       = 'done';
+                }
+            }, 500);
+        },
+
+        formatCurrency(val) {
+            return 'PHP ' + parseFloat(val).toLocaleString('en-PH', { minimumFractionDigits: 2 });
+        },
+    };
+}
+</script>
 @endsection

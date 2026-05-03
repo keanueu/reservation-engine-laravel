@@ -171,7 +171,7 @@
                 <div x-show="(roomFilter === 'all' || roomFilter === '{{ $type }}') && (roomLocation === 'all' || roomLocation === '{{ $location }}')"
                     x-cloak
                     data-room-id="{{ $room->id }}"
-                    class="room-card snap-start min-w-full sm:min-w-0 sm:w-full bg-white border border-gray-100 shadow-lg transition duration-300 hover:shadow-xl overflow-hidden flex flex-col md:flex-row h-full">
+                    class="room-card snap-start min-w-full sm:min-w-0 sm:w-full bg-gradient-to-br from-[#964B00] to-[#7a3c00] border border-[#964B00]/20 shadow-lg transition duration-300 hover:shadow-xl overflow-hidden flex flex-col md:flex-row h-full">
 
                     {{-- Start: Image (left) + Details (right) layout to match roomcart UI --}}
                     {{-- Image / Carousel column --}}
@@ -224,27 +224,27 @@
                             @endphp
                             <div class="absolute top-3 right-3 z-10">
                                 <span
-                                    class="inline-block bg-[#964B00] text-white text-sm font-bold py-1 px-3 tracking-wider uppercase  shadow-lg">
+                                    class="inline-block bg-[#964B00] text-white text-sm py-1 px-3 tracking-wider uppercase shadow-lg">
                                     {{ $badgeText }}
                                 </span>
                             </div>
                         @endif
 
                         {{-- PRICE OVERLAY (Bottom-Left) --}}
-                        <div class="absolute bottom-4 left-4 z-10 text-white">
+                        <div class="absolute bottom-4 left-4 z-10">
                             @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
-                                <span class="text-sm  text-gray-200 line-through tracking-wide block mb-1">
+                                <span class="text-sm line-through tracking-wide block mb-1" style="color: #ffffff;">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </span>
-                                <p class="text-lg font-extrabold">
+                                <p class="text-lg font-extrabold" style="color: #ffffff;">
                                     PHP {{ number_format($discountedPrice, 2) }}
                                 </p>
                             @else
-                                <p class="text-2xl font-extrabold">
+                                <p class="text-2xl font-extrabold" style="color: #ffffff;">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </p>
                             @endif
-                            <span class="text-xs  text-gray-300 tracking-wide block mt-0.5">PER NIGHT</span>
+                            <span class="text-xs tracking-wide block mt-0.5" style="color: #ffffff;">Per night</span>
                         </div>
 
                     </div>
@@ -252,11 +252,11 @@
                     {{-- Details column --}}
                     <div class="p-4 flex flex-col flex-grow md:w-3/5">
 
-                        <h3 class="text-lg  text-black tracking-tight mb-2">
+                        <h3 class="text-lg font-medium text-white tracking-tight mb-2">
                             {{ $room->room_name }}
                         </h3>
 
-                        <p class="text-xs text-black  mb-4">
+                        <p class="text-sm text-white leading-relaxed mb-4">
                             {{ \Illuminate\Support\Str::limit($room->description ?? 'An exquisite room offering premium comfort and luxury for your stay.', 100) }}
                         </p>
 
@@ -269,26 +269,26 @@
                             </div>
                         @endif
 
-                        <div class="flex flex-wrap gap-x-4 gap-y-3 text-gray-600 text-xs  mb-4 pt-3 border-t border-gray-200">
+                        <div class="flex flex-wrap gap-x-4 gap-y-3 text-white text-sm mb-4 pt-3 border-t border-white/20">
 
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-gray-600" style="font-size: 16px;">group</span>
-                                <span class="font-medium text-xs text-gray-600">{{ $room->accommodates }}</span>
+                                <span class="material-symbols-outlined text-white" style="font-size: 16px;">group</span>
+                                <span class="text-sm text-white">{{ $room->accommodates }}</span>
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-gray-600" style="font-size: 16px;">bed</span>
-                                <span class="text-xs">{{ $room->beds }}</span>
+                                <span class="material-symbols-outlined text-white" style="font-size: 16px;">bed</span>
+                                <span class="text-sm text-white">{{ $room->beds }}</span>
                             </div>
                         </div>
 
                         <div class="mt-auto flex justify-between items-center">
-                            <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] underline text-xs hover:text-black">
-                                View Details
+                            <a href="{{ url('room_details', $room->id) }}" class="text-white underline text-sm hover:text-white/80">
+                                View details
                             </a>
                             <a href="{{ url('/home/roomcart') }}"
-                                class="bg-[#964B00] px-6 py-2.5 text-xs text-white hover:bg-black transition  flex items-center justify-center tracking-wide">
-                                <span class="btn-text">Check Availability</span>
+                                class="bg-white px-6 py-2.5 text-sm text-[#964B00] hover:bg-gray-100 transition flex items-center justify-center tracking-wide">
+                                <span class="btn-text">Check availability</span>
                             </a> 
                         </div>
 

@@ -1,9 +1,9 @@
 <section class="relative bg-white font-[Manrope] py-20 overflow-hidden">
 
-    {{-- Logo watermark — centered, large, very faint --}}
+    {{-- Logo watermark — centered, large, more visible --}}
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
         <img src="{{ asset('LOGO-FINAL.png') }}"
-             class="w-[900px] h-[900px] object-contain opacity-[0.07]"
+             class="w-[900px] h-[900px] object-contain opacity-[0.15]"
              aria-hidden="true" />
     </div>
 
@@ -13,14 +13,14 @@
 
             {{-- Left: Text --}}
             <div data-reveal>
-                <p class="text-sm font-semibold tracking-[.25em] uppercase mb-3" style="color:#964B00;">About Us</p>
+                <p class="text-sm font-semibold tracking-wide mb-4 section-label">About us</p>
 
-                <h2 class="text-4xl md:text-5xl leading-tight mb-5 text-gray-900" style="font-family:'Playfair Display',serif;">
+                <h2 class="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight mb-6 text-gray-900">
                     Welcome to Cabanas<br>
                     Beach Resort &amp; Hotel
                 </h2>
 
-                <p class="text-sm text-gray-600 leading-relaxed mb-6 max-w-md">
+                <p class="text-base text-gray-600 leading-relaxed mb-8 max-w-md">
                     The Cabanas Family Resort is a family-owned getaway built on land that has
                     been passed down through generations. Nestled in Tambobong, Dasol,
                     Pangasinan, we take pride in sharing our hidden gem with you.
@@ -30,15 +30,15 @@
                 <div class="grid grid-cols-3 gap-4 mb-8">
                     @php $stats = [['15+','Room Types'],['5★','Guest Rating'],['10+','Years Open']]; @endphp
                     @foreach($stats as [$val,$lbl])
-                        <div class="border border-gray-100 px-4 py-3 text-center shadow-sm">
-                            <p class="text-xl font-bold" style="color:#964B00;">{{ $val }}</p>
-                            <p class="text-[11px] font-semibold text-gray-400 tracking-wide mt-0.5">{{ $lbl }}</p>
+                        <div class="border border-gray-200 px-4 py-4 text-center shadow-sm bg-white">
+                            <p class="text-2xl font-bold mb-1" style="color:#964B00;">{{ $val }}</p>
+                            <p class="text-xs font-semibold text-gray-500 tracking-wide">{{ $lbl }}</p>
                         </div>
                     @endforeach
                 </div>
 
                 <a href="{{ url('/home/amenities') }}"
-                   class="inline-flex items-center gap-2 text-sm font-semibold text-gray-800 border-b-2 pb-0.5 transition-colors hover:text-[#964B00] hover:border-[#964B00]"
+                   class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 border-b-2 pb-1 transition-all hover:text-[#964B00] hover:border-[#964B00] hover:gap-3"
                    style="border-color:#964B00;">
                     Learn More
                     <span class="material-symbols-outlined text-base">arrow_forward</span>

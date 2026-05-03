@@ -42,10 +42,38 @@
         [x-cloak] { display: none !important; }
         html { scroll-behavior: smooth; }
 
-        /* ── Typography ── */
-        body { font-family: 'Manrope', sans-serif; background: var(--off-white); color: var(--gray-900); }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Manrope', sans-serif; }
+        /* ── Typography System ── */
+        body { font-family: 'Manrope', sans-serif; background: var(--off-white); color: #1f2937; line-height: 1.6; }
+        
+        /* Headings Hierarchy */
+        h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: #111827; }
+        h2 { font-size: 2rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; color: #111827; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: #1f2937; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.35; color: #1f2937; }
+        h5 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; color: #374151; }
+        h6 { font-size: 1rem; font-weight: 600; line-height: 1.5; color: #374151; }
+        
+        /* Body Text */
+        p { color: #4b5563; line-height: 1.7; margin-bottom: 1rem; }
+        .text-lead { font-size: 1.125rem; color: #374151; line-height: 1.75; }
+        .text-small { font-size: 0.875rem; color: #6b7280; line-height: 1.6; }
+        .text-xs { font-size: 0.75rem; color: #6b7280; line-height: 1.5; }
+        
+        /* Labels & Captions */
+        label { font-size: 0.875rem; font-weight: 500; color: #374151; }
+        .caption { font-size: 0.75rem; color: #9ca3af; letter-spacing: 0.025em; }
+        .section-label { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; color: #964B00; }
+        
+        /* Form Elements */
         input, select, textarea, button { font-family: 'Manrope', sans-serif; }
+        input::placeholder, textarea::placeholder { color: #9ca3af; }
+        
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.25rem; }
+        }
 
         /* ── Scroll-reveal ── */
         [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .5s cubic-bezier(0.4, 0, 0.2, 1), transform .5s cubic-bezier(0.4, 0, 0.2, 1); }

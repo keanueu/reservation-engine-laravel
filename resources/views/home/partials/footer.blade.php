@@ -16,8 +16,8 @@
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <p class="text-base font-bold tracking-widest text-white" style="font-family:'Playfair Display',serif;">CABANAS</p>
-                        <p class="text-[10px] font-semibold tracking-[.25em] text-white/40 mt-0.5">HOTEL & RESORT</p>
+                        <p class="text-base tracking-widest text-white">CABANAS</p>
+                        <p class="text-[10px] tracking-[.25em] text-white/40 mt-0.5">HOTEL & RESORT</p>
                     </div>
                 </div>
                 <p class="text-sm text-white/60 leading-relaxed mb-6">
@@ -32,7 +32,7 @@
                     @foreach($trust as $t)
                         <div class="flex items-center gap-2 text-white/50">
                             <span class="material-symbols-outlined text-base flex-shrink-0 text-[#964B00]">{{ $t['icon'] }}</span>
-                            <span class="text-xs font-semibold">{{ $t['label'] }}</span>
+                            <span class="text-xs">{{ $t['label'] }}</span>
                         </div>
                     @endforeach
                 </div>
@@ -53,7 +53,7 @@
 
             {{-- Quick Links --}}
             <div>
-                <h3 class="text-xs font-bold tracking-[.25em] uppercase text-white mb-6">Quick Links</h3>
+                <h3 class="text-xs tracking-[.25em] uppercase text-white mb-6">Quick links</h3>
                 <ul class="space-y-3">
                     @php $links = [['Home',url('/')],['Rooms',url('/home/rooms')],['Book Now',url('/home/roomcart')],['Amenities',url('/home/amenities')],['Contact',url('/home/contact')]]; @endphp
                     @foreach($links as [$label,$url])
@@ -69,7 +69,7 @@
 
             {{-- Contact --}}
             <div>
-                <h3 class="text-xs font-bold tracking-[.25em] uppercase text-white mb-6">Contact</h3>
+                <h3 class="text-xs tracking-[.25em] uppercase text-white mb-6">Contact</h3>
                 <ul class="space-y-4">
                     @php $contacts = [
                         ['icon'=>'location_on','text'=>'Tambobong, Dasol, Pangasinan'],
@@ -87,32 +87,32 @@
 
             {{-- Newsletter --}}
             <div>
-                <h3 class="text-xs font-bold tracking-[.25em] uppercase text-white mb-6">Stay Updated</h3>
+                <h3 class="text-xs tracking-[.25em] uppercase text-white mb-6">Stay updated</h3>
                 <p class="text-sm text-white/55 mb-5 leading-relaxed">Get exclusive offers, seasonal promos, and resort news.</p>
                 <form class="space-y-3" onsubmit="return false;">
                     <input type="email" placeholder="your@email.com"
-                           class="w-full px-4 py-3 text-sm font-medium text-white placeholder-white/30 outline-none transition-all"
+                           class="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
                            style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);"
                            onfocus="this.style.borderColor='#964B00'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
                     <button type="submit"
-                            class="w-full btn-primary py-3 text-xs font-bold tracking-widest uppercase">
+                            class="w-full btn-primary py-3 text-xs tracking-widest uppercase">
                         Subscribe
                     </button>
                 </form>
                 {{-- Safe to sail badge --}}
                 <div class="mt-5 flex items-center gap-2 px-4 py-3" style="background:rgba(150,75,0,0.15); border:1px solid rgba(150,75,0,0.3);">
                     <span class="w-2 h-2 bg-green-400 animate-pulse flex-shrink-0"></span>
-                    <span class="text-xs font-semibold text-white/70">Safe to Sail — Conditions Normal</span>
+                    <span class="text-xs text-white/70">Safe to Sail — Conditions Normal</span>
                 </div>
             </div>
         </div>
 
         {{-- Bottom bar --}}
         <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style="border-color:rgba(255,255,255,0.08);">
-            <p class="text-xs font-medium text-white/35">
+            <p class="text-xs text-white/35">
                 © {{ date('Y') }} Cabanas Beach Resort. All Rights Reserved.
             </p>
-            <div class="flex items-center gap-6 text-xs font-medium text-white/35">
+            <div class="flex items-center gap-6 text-xs text-white/35">
                 <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
                 <a href="#" class="hover:text-white/70 transition-colors">Terms of Service</a>
                 <span class="flex items-center gap-1.5">

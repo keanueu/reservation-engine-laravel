@@ -9,7 +9,7 @@
         {{-- Header --}}
         <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100 flex-shrink-0">
             <div>
-                <h2 class="text-xl font-bold text-gray-900" style="font-family:'Playfair Display',serif;">My Bookings</h2>
+                <h2 class="text-xl font-bold text-gray-900">My Bookings</h2>
                 <p class="text-xs text-gray-400 mt-0.5 font-medium">Your reservations at Cabanas</p>
             </div>
             <button data-close-mybookings
