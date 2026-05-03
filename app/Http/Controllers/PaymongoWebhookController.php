@@ -30,6 +30,10 @@ class PaymongoWebhookController extends Controller
         $rawPayload = $request->getContent();
         $header     = $request->header('Paymongo-Signature', '');
 
+        // Debug: log full payload for inspection
+        Log::info('PayMongo Webhook payload:', $request->all());
+        Log::info('PayMongo Webhook raw:', ['body' => $rawPayload, 'signature_header' => $header]);
+
         // -------------------------------------------------------
         // 1. Verify HMAC signature
         // -------------------------------------------------------
@@ -188,9 +192,8 @@ class PaymongoWebhookController extends Controller
         $paymentId = data_get($resource, 'attributes.payments.data.0.id')
             ?? data_get($resource, 'id');
 
-        // If payment_id doesn't start with pay_, try to look up by link id
+        // If it's a checkout session id (cs_) or link id, look up booking by payment_id
         if ($paymentId && !str_starts_with((string) $paymentId, 'pay_')) {
-            // It's a link id — find the booking by payment_id (we stored link id there)
             $booking = Booking::where('payment_id', $paymentId)->first()
                 ?? BoatBooking::where('payment_id', $paymentId)->first();
 

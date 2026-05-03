@@ -107,6 +107,87 @@ class PaymongoService
     }
 
     /**
+     * Create a PayMongo Checkout Session.
+     *
+     * Uses the /checkout_sessions endpoint which natively supports
+     * success_url and cancel_url inside data.attributes — this is
+     * what shows the 'Return to Merchant' button on the PayMongo page.
+     *
+     * @param int    $amountInCents
+     * @param string $description
+     * @param array  $metadata
+     * @param string $successUrl
+     * @param string $cancelUrl
+     * @return array
+     */
+    public function createCheckoutSession(
+        int    $amountInCents,
+        string $description,
+        array  $metadata,
+        string $successUrl,
+        string $cancelUrl
+    ): array {
+        $secret = env('PAYMONGO_SECRET');
+
+        if (empty($secret)) {
+            return ['success' => false, 'message' => 'PAYMONGO_SECRET not configured', 'raw' => null];
+        }
+
+        $url = $this->baseUrl . '/checkout_sessions';
+
+        $body = [
+            'data' => [
+                'attributes' => [
+                    'billing'           => null,
+                    'cancel_url'        => $cancelUrl,
+                    'description'       => $description,
+                    'line_items'        => [
+                        [
+                            'currency'   => 'PHP',
+                            'amount'     => $amountInCents,
+                            'name'       => $description,
+                            'quantity'   => 1,
+                        ],
+                    ],
+                    'metadata'          => $metadata,
+                    'payment_method_types' => ['card', 'gcash', 'paymaya', 'grab_pay', 'dob', 'brankas_bdo', 'brankas_landbank', 'brankas_metrobank'],
+                    'send_email_receipt'   => false, // we send our own
+                    'show_description'     => true,
+                    'show_line_items'      => true,
+                    'success_url'          => $successUrl,
+                ],
+            ],
+        ];
+
+        try {
+            $response = Http::withBasicAuth($secret, '')
+                ->acceptJson()
+                ->post($url, $body);
+
+            $json = $response->json();
+
+            if ($response->successful() && isset($json['data']['id'])) {
+                return [
+                    'success'      => true,
+                    'session_id'   => $json['data']['id'],
+                    'checkout_url' => $json['data']['attributes']['checkout_url'] ?? null,
+                    'raw'          => $json,
+                ];
+            }
+
+            return [
+                'success'     => false,
+                'message'     => $json['errors'] ?? ($json['message'] ?? 'unknown error'),
+                'raw'         => $json,
+                'status_code' => $response->status(),
+            ];
+
+        } catch (\Exception $e) {
+            return ['success' => false, 'message' => $e->getMessage(), 'raw' => null];
+        }
+    }
+
+    /**
      * Get a PayMongo Link resource by id.
      * Used to inspect link/payment status.
      *

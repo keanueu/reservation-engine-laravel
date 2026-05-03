@@ -30,6 +30,7 @@ use App\Http\Controllers\BookingWizardController;
 use App\Http\Controllers\CollectionsController;
 use App\Http\Controllers\HeroSearchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymongoWebhookController;
 
 Route::get('/dashboard', function () {
     return redirect('/home');
@@ -105,6 +106,15 @@ Route::get('/check-boat-availability', [CartController::class, 'checkBoatAvailab
 
 // Public dynamic pricing endpoint (used by room detail widget)
 Route::get('/room-pricing', [RoomPricingController::class, 'calculate'])->name('room.pricing');
+
+// PayMongo webhook — CSRF exempt because it is excluded via withoutMiddleware
+// This is the /webhooks/paymongo alias (the canonical endpoint is POST /api/paymongo/webhook)
+Route::post('/webhooks/paymongo', [PaymongoWebhookController::class, 'handle'])
+    ->name('webhooks.paymongo')
+    ->withoutMiddleware([
+        \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+        'web',
+    ]);
 Route::post('/add_booking/{id}', [HomeController::class, 'add_booking']);
 Route::post('/add_boat_booking/{id}', [HomeController::class, 'add_boat_booking']);
 
@@ -183,6 +193,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/bookings/{booking}/pay', [PaymentController::class, 'payForBooking'])->name('bookings.pay');
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+Route::get('/booking/success', [PaymentController::class, 'bookingSuccess'])->name('booking.success');
 
 // Booking extension endpoints (minimal implementation)
 Route::middleware(['auth'])->post('/bookings/{booking}/extension', [BookingExtensionController::class, 'store'])->name('bookings.extension.store');

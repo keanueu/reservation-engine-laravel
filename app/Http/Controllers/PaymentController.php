@@ -75,26 +75,31 @@ class PaymentController extends Controller
             'group_id'       => $groupId,
         ];
 
-        // --- Redirect URLs so PayMongo returns the user to our site ---
-        $successUrl = route('payment.success', ['group_id' => $groupId]);
+        // --- Redirect URLs ---
+        $successUrl = route('booking.success', ['group_id' => $groupId]);
         $cancelUrl  = route('payment.cancel',  ['group_id' => $groupId]);
 
-        // --- Create PayMongo link ---
-        $response = $this->paymongo->createLink($amount, 'PHP', $metadata, $successUrl, $cancelUrl);
+        // --- Create PayMongo Checkout Session (supports native success/cancel redirect) ---
+        $response = $this->paymongo->createCheckoutSession(
+            amountInCents: $amount,
+            description:   $fullDescription ?: 'Cabanas Beach Resort Booking',
+            metadata:      $metadata,
+            successUrl:    $successUrl,
+            cancelUrl:     $cancelUrl,
+        );
 
-        // `createLink` returns a normalized wrapper: ['success'=>bool,'link_id'=>..., 'checkout_url'=>..., 'raw'=>...]
-        $success = $response['success'] ?? false;
-        $id = $response['link_id'] ?? null;
+        $success     = $response['success']      ?? false;
+        $sessionId   = $response['session_id']   ?? null;
         $checkoutUrl = $response['checkout_url'] ?? null;
 
         if (!$success) {
-            \Log::error('PayMongo createLink failed', ['group_id' => $groupId, 'resp' => $response]);
+            Log::error('PayMongo createCheckoutSession failed', ['group_id' => $groupId, 'resp' => $response]);
         }
 
-        // --- Save payment_id ---
-        if ($groupId && $id) {
-            Booking::where('group_id', $groupId)->update(['payment_id' => $id]);
-            BoatBooking::where('group_id', $groupId)->update(['payment_id' => $id]);
+        // --- Save session id as payment_id for webhook lookup ---
+        if ($groupId && $sessionId) {
+            Booking::where('group_id', $groupId)->update(['payment_id' => $sessionId]);
+            BoatBooking::where('group_id', $groupId)->update(['payment_id' => $sessionId]);
         }
 
         // --- Redirect to PayMongo Checkout ---
@@ -112,7 +117,7 @@ class PaymentController extends Controller
         return redirect()->back()->with('error', $errorMsg);
     }
 
-    public function success(Request $request)
+    public function bookingSuccess(Request $request)
     {
         $groupId = $request->query('group_id', session('pending_booking_group'));
 
@@ -122,8 +127,6 @@ class PaymentController extends Controller
             Log::warning('Failed to clear pending booking session: ' . $e->getMessage());
         }
 
-        // Load bookings for the summary view
-        // The webhook may not have fired yet, so we show whatever status is current
         $roomBookings = collect();
         $boatBookings = collect();
         $depositPaid  = 0;
@@ -137,7 +140,13 @@ class PaymentController extends Controller
 
         $bookings = $roomBookings->concat($boatBookings);
 
-        return view('payments.success', compact('bookings', 'groupId', 'depositPaid'));
+        return view('payments.booking-success', compact('bookings', 'groupId', 'depositPaid'));
+    }
+
+    public function success(Request $request)
+    {
+        // Legacy redirect — forward to the new booking success page
+        return redirect()->route('booking.success', $request->query());
     }
 
     public function cancel(Request $request)
