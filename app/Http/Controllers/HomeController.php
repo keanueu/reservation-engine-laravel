@@ -7,8 +7,8 @@ use App\Models\Room;
 use App\Models\Booking;
 use App\Models\Boat;
 use App\Models\Contact;
-use App\Services\PaymongoService;
 use App\Models\Setting;
+use Illuminate\Support\Str;
 class HomeController extends Controller
 {
     // Boat details page
@@ -86,7 +86,15 @@ class HomeController extends Controller
             return redirect()->back()->with('message', 'This room is already booked for the selected dates.');
         }
 
+        $groupId = Str::uuid()->toString();
+        $depositPercent = (float) Setting::get('deposit_percentage', config('booking.deposit_percentage', 50));
+        $depositFeePercent = (float) Setting::get('deposit_fee_percentage', config('booking.deposit_fee_percentage', 0));
+        $depositAmount = round($totalAmount * ($depositPercent / 100), 2);
+        $depositFee = round($depositAmount * ($depositFeePercent / 100), 2);
+        $totalToCharge = round($depositAmount + $depositFee, 2);
+
         $booking = new Booking();
+        $booking->group_id = $groupId;
         $booking->room_id = $id;
         $booking->name = $request->name;
         $booking->email = $request->email;
@@ -99,36 +107,21 @@ class HomeController extends Controller
         $booking->total_amount = $totalAmount;
         $booking->status = 'waiting';
         $booking->payment_status = 'pending';
+        $booking->deposit_amount = $depositAmount;
+        $booking->deposit_fee = $depositFee;
+        $booking->total_to_charge = $totalToCharge;
         $booking->save();
 
-        // Integrate PayMongo payment for this booking
-        $paymongo = app(PaymongoService::class);
-        $metadata = [
-            'booking_id' => $booking->id,
-            'description' => "Room booking #{$booking->id}",
-            'customer_name' => $booking->name,
-            'customer_email' => $booking->email,
-        ];
-        // Charge the configured deposit percentage (default 50%) at booking time
-        $depositPercent = (float) Setting::get('deposit_percentage', config('booking.deposit_percentage', 50));
-        $depositAmount = $totalAmount * ($depositPercent / 100);
-        $amount = max(10000, (int) round($depositAmount * 100)); // PayMongo expects centavos, min 10000
-        $metadata['deposit_percent'] = $depositPercent;
-        $metadata['deposit_amount'] = $depositAmount;
-        $response = $paymongo->createLink($amount, 'PHP', $metadata);
-        $paymentId = $response['data']['id'] ?? null;
-        $checkoutUrl = $response['data']['attributes']['checkout_url'] ?? ($response['data']['attributes']['url'] ?? null);
+        session([
+            'pending_booking_group' => $groupId,
+            'pending_booking_ids' => [$booking->id],
+        ]);
 
-        if ($paymentId) {
-            $booking->payment_id = $paymentId;
-            $booking->save();
-        }
-
-        if ($checkoutUrl) {
-            return redirect($checkoutUrl);
-        }
-
-        return redirect()->back()->with('message', 'Booking request sent successfully, but payment link could not be generated.');
+        return redirect()->route('bookings.pay', [
+            'booking' => $booking->id,
+            'group_id' => $groupId,
+            'amount' => $totalToCharge,
+        ]);
     }
 
 
@@ -199,5 +192,4 @@ class HomeController extends Controller
 
 
 }
-
 

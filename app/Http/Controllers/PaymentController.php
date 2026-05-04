@@ -4,22 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\BoatBooking;
+use App\Services\BookingPaymentFinalizer;
 use App\Services\PaymongoService;
 use Illuminate\Http\Request;
 use App\Models\Setting;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+
 class PaymentController extends Controller
 {
     protected $paymongo;
+    protected $payments;
 
-    public function __construct(PaymongoService $paymongo)
+    public function __construct(PaymongoService $paymongo, BookingPaymentFinalizer $payments)
     {
         $this->paymongo = $paymongo;
+        $this->payments = $payments;
     }
 
     public function payForBooking(Request $request)
     {
         $groupId = $request->query('group_id');
+        $routeBookingId = $request->route('booking');
         $amountPhp = (float) $request->query('amount', 0);
 
         $roomBookings = collect();
@@ -28,6 +34,19 @@ class PaymentController extends Controller
         if ($groupId) {
             $roomBookings = Booking::with('room')->where('group_id', $groupId)->get();
             $boatBookings = BoatBooking::with('boat')->where('group_id', $groupId)->get();
+        } elseif ($routeBookingId) {
+            $singleBooking = Booking::with('room')->find($routeBookingId);
+
+            if ($singleBooking) {
+                if (!$singleBooking->group_id) {
+                    $singleBooking->group_id = Str::uuid()->toString();
+                    $singleBooking->save();
+                }
+
+                $groupId = $singleBooking->group_id;
+                $roomBookings = Booking::with('room')->where('group_id', $groupId)->get();
+                $boatBookings = BoatBooking::with('boat')->where('group_id', $groupId)->get();
+            }
         }
 
         // Use either a room booking or a boat booking as the main reference
@@ -39,12 +58,17 @@ class PaymentController extends Controller
 
         // --- Compute total ---
         if (!$amountPhp) {
-            $fullTotal = $roomBookings->sum('total_amount') + $boatBookings->sum('total_amount');
-            $depositPercent = (float) Setting::get('deposit_percentage', config('booking.deposit_percentage', 50));
-            $amountPhp = $fullTotal * ($depositPercent / 100);
-            // Attach deposit info to logs/metadata
+            $storedTotalToCharge = $roomBookings->sum('total_to_charge') + $boatBookings->sum('total_to_charge');
 
-
+            if ($storedTotalToCharge > 0) {
+                $amountPhp = $storedTotalToCharge;
+            } else {
+                $fullTotal = $roomBookings->sum('total_amount') + $boatBookings->sum('total_amount');
+                $depositPercent = (float) Setting::get('deposit_percentage', config('booking.deposit_percentage', 50));
+                $depositFeePercent = (float) Setting::get('deposit_fee_percentage', config('booking.deposit_fee_percentage', 0));
+                $depositAmount = $fullTotal * ($depositPercent / 100);
+                $amountPhp = $depositAmount + ($depositAmount * ($depositFeePercent / 100));
+            }
         }
 
         $amount = max(10000, (int) round($amountPhp * 100));
@@ -76,8 +100,16 @@ class PaymentController extends Controller
         ];
 
         // --- Redirect URLs ---
-        $successUrl = route('booking.success', ['group_id' => $groupId]);
-        $cancelUrl  = route('payment.cancel',  ['group_id' => $groupId]);
+        $successUrl = $this->returnUrl(
+            config('services.paymongo.success_url'),
+            route('booking.success', ['group_id' => $groupId]),
+            ['group_id' => $groupId]
+        );
+        $cancelUrl = $this->returnUrl(
+            config('services.paymongo.cancel_url'),
+            route('payment.cancel', ['group_id' => $groupId]),
+            ['group_id' => $groupId]
+        );
 
         // --- Create PayMongo Checkout Session (supports native success/cancel redirect) ---
         $response = $this->paymongo->createCheckoutSession(
@@ -100,6 +132,11 @@ class PaymentController extends Controller
         if ($groupId && $sessionId) {
             Booking::where('group_id', $groupId)->update(['payment_id' => $sessionId]);
             BoatBooking::where('group_id', $groupId)->update(['payment_id' => $sessionId]);
+
+            session([
+                'pending_booking_group' => $groupId,
+                'pending_booking_ids' => $roomBookings->concat($boatBookings)->pluck('id')->all(),
+            ]);
         }
 
         // --- Redirect to PayMongo Checkout ---
@@ -120,6 +157,10 @@ class PaymentController extends Controller
     public function bookingSuccess(Request $request)
     {
         $groupId = $request->query('group_id', session('pending_booking_group'));
+
+        if ($groupId) {
+            $this->syncCheckoutSessionPayment($groupId);
+        }
 
         try {
             session()->forget(['pending_booking_group', 'pending_booking_ids']);
@@ -145,8 +186,9 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
-        // Legacy redirect — forward to the new booking success page
-        return redirect()->route('booking.success', $request->query());
+        // PayMongo may return guests here via the configured success URL.
+        // Render the same success page directly so verification runs on this request.
+        return $this->bookingSuccess($request);
     }
 
     public function cancel(Request $request)
@@ -171,5 +213,69 @@ class PaymentController extends Controller
         }
 
         return view('payments.cancel');
+    }
+
+    private function syncCheckoutSessionPayment(string $groupId): void
+    {
+        try {
+            $sessionId = Booking::where('group_id', $groupId)->value('payment_id')
+                ?: BoatBooking::where('group_id', $groupId)->value('payment_id');
+
+            if (!$sessionId || !str_starts_with($sessionId, 'cs_')) {
+                Log::info('Payment success sync skipped: no checkout session id found', [
+                    'group_id' => $groupId,
+                    'payment_id' => $sessionId,
+                ]);
+                return;
+            }
+
+            $response = $this->paymongo->getCheckoutSession($sessionId);
+            if (empty($response['success'])) {
+                Log::warning('Payment success sync could not retrieve checkout session', [
+                    'group_id' => $groupId,
+                    'session_id' => $sessionId,
+                    'message' => $response['message'] ?? null,
+                ]);
+                return;
+            }
+
+            $paid = $this->paymongo->paidCheckoutSessionDetails($response['raw'] ?? []);
+            if (!$paid) {
+                Log::info('Payment success sync found checkout not paid yet', [
+                    'group_id' => $groupId,
+                    'session_id' => $sessionId,
+                ]);
+                return;
+            }
+
+            $result = $this->payments->markPaid(
+                groupId: $groupId,
+                sessionId: $sessionId,
+                paymentId: $paid['payment_id'] ?? null,
+                amountPaid: (float) ($paid['amount_php'] ?? 0)
+            );
+
+            if (($result['newly_paid_count'] ?? 0) > 0) {
+                $this->payments->sendConfirmationMail($groupId);
+            }
+        } catch (\Throwable $e) {
+            Log::error('Payment success sync failed', [
+                'group_id' => $groupId,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
+    }
+
+    private function returnUrl(?string $configuredUrl, string $fallbackUrl, array $query): string
+    {
+        $url = $configuredUrl ?: $fallbackUrl;
+        $filteredQuery = array_filter($query, fn ($value) => $value !== null && $value !== '');
+
+        if (empty($filteredQuery)) {
+            return $url;
+        }
+
+        return $url . (str_contains($url, '?') ? '&' : '?') . http_build_query($filteredQuery);
     }
 }

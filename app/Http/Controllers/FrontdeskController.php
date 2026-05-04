@@ -17,7 +17,7 @@ class FrontdeskController extends Controller
 
         $todaysArrivals = Booking::with('room')
             ->forDate($today, 'start_date')
-            ->withStatus('approve')
+            ->whereIn('status', ['approve', 'confirmed'])
             ->get();
 
         $todaysDepartures = Booking::with('room')

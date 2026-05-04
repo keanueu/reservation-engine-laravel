@@ -93,6 +93,9 @@
                                             class="px-2 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800">Paid</span>
                                     @elseif($data->payment_status == 'pending')
                                         <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold  bg-yellow-100 text-yellow-800">Pending</span>
+                                    @elseif($data->payment_status == 'failed')
+                                        <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold  bg-red-100 text-red-800">Failed</span>
                                     @else
                                         {{-- Changed text-sm (default weight) to text-xs  --}}
@@ -104,9 +107,9 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    @if($data->status == 'approve')
+                                    @if(in_array($data->status, ['approve', 'confirmed']))
                                         <span
-                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Approved</span>
+                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Confirmed</span>
                                     @elseif($data->status == 'rejected')
                                         <span
                                             class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Rejected</span>
