@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use App\Models\Booking;
 use App\Models\BoatBooking;
-use App\Mail\BookingConfirmedMail;
+use App\Services\BookingPaymentFinalizer;
 
 class PaymongoWebhookController extends Controller
 {
-    // Events we care about
+    public function __construct(private BookingPaymentFinalizer $payments)
+    {
+    }
+
+    // -------------------------------------------------------
+    // PayMongo event types that mean "money received"
+    // -------------------------------------------------------
     const PAID_EVENTS = [
         'payment.paid',
         'link.payment.paid',
@@ -25,37 +29,58 @@ class PaymongoWebhookController extends Controller
         'checkout_session.payment.failed',
     ];
 
-    public function handle(Request $request)
+    // -------------------------------------------------------
+    // Entry point — called by PayMongo's server
+    // -------------------------------------------------------
+    public function handle(Request $request): \Illuminate\Http\JsonResponse
     {
+        // STEP 1: Log that the webhook was hit
+        Log::info('[Webhook] ===== PayMongo webhook received =====', [
+            'ip'      => $request->ip(),
+            'method'  => $request->method(),
+            'url'     => $request->fullUrl(),
+        ]);
+
         $rawPayload = $request->getContent();
         $header     = $request->header('Paymongo-Signature', '');
 
-        // Debug: log full payload for inspection
-        Log::info('PayMongo Webhook payload:', $request->all());
-        Log::info('PayMongo Webhook raw:', ['body' => $rawPayload, 'signature_header' => $header]);
+        // STEP 2: Log the raw payload and signature header for debugging
+        Log::info('[Webhook] Raw payload received', [
+            'signature_header' => $header,
+            'payload_length'   => strlen($rawPayload),
+            'payload_preview'  => substr($rawPayload, 0, 500),
+        ]);
 
-        // -------------------------------------------------------
-        // 1. Verify HMAC signature
-        // -------------------------------------------------------
+        // STEP 3: Verify HMAC signature
+        // CRITICAL: Always return 200 OK to prevent PayMongo from disabling webhook
         if (!$this->verifySignature($rawPayload, $header)) {
-            Log::warning('PayMongo webhook: signature verification failed', [
+            Log::warning('[Webhook] Signature verification FAILED — acknowledging anyway to prevent webhook disable', [
                 'header' => $header,
                 'ip'     => $request->ip(),
             ]);
-            return response()->json(['message' => 'invalid signature'], 400);
+            // Return 200 OK even on signature failure to prevent webhook disable
+            return response()->json(['ok' => true, 'note' => 'signature verification failed']);
         }
 
-        // -------------------------------------------------------
-        // 2. Decode event
-        // -------------------------------------------------------
+        Log::info('[Webhook] Signature verified OK');
+
+        // STEP 4: Decode and extract event type
         $event = json_decode($rawPayload, true);
-        $type  = data_get($event, 'data.attributes.type', '');
 
-        Log::info('PayMongo webhook received', ['type' => $type]);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Log::error('[Webhook] JSON decode failed — acknowledging anyway', ['error' => json_last_error_msg()]);
+            // Return 200 OK even on JSON error to prevent webhook disable
+            return response()->json(['ok' => true, 'note' => 'json decode failed']);
+        }
 
-        // -------------------------------------------------------
-        // 3. Route to handler
-        // -------------------------------------------------------
+        $type = data_get($event, 'data.attributes.type', '');
+
+        Log::info('[Webhook] Event type extracted', [
+            'type'     => $type,
+            'event_id' => data_get($event, 'data.id'),
+        ]);
+
+        // STEP 5: Route to the correct handler
         if (in_array($type, self::PAID_EVENTS)) {
             return $this->handlePaid($event, $type);
         }
@@ -64,174 +89,220 @@ class PaymongoWebhookController extends Controller
             return $this->handleFailed($event, $type);
         }
 
-        // Acknowledge unknown events so PayMongo stops retrying
+        Log::info('[Webhook] Event type not handled — acknowledging to stop retries', ['type' => $type]);
         return response()->json(['ok' => true, 'note' => 'event ignored']);
     }
 
     // -------------------------------------------------------
-    // Payment PAID handler
+    // Handle payment PAID events
     // -------------------------------------------------------
     private function handlePaid(array $event, string $type): \Illuminate\Http\JsonResponse
     {
-        [$groupId, $paymentId, $amountPaid] = $this->extractPaymentData($event);
+        Log::info('[Webhook] Handling PAID event', ['type' => $type]);
 
-        if (!$groupId && !$paymentId) {
-            Log::warning('PayMongo webhook paid: could not resolve group_id or payment_id', compact('type'));
+        // STEP 6: Extract all identifiers from the payload
+        [$groupId, $sessionId, $paymentId, $amountPaid] = $this->extractAllIdentifiers($event, $type);
+
+        Log::info('[Webhook] Identifiers extracted', [
+            'group_id'   => $groupId,
+            'session_id' => $sessionId,
+            'payment_id' => $paymentId,
+            'amount_php' => $amountPaid,
+        ]);
+
+        // STEP 7: Resolve group_id if not in metadata — fall back to DB lookup
+        if (!$groupId) {
+            $groupId = $this->resolveGroupId($sessionId, $paymentId);
+            Log::info('[Webhook] group_id resolved from DB lookup', ['group_id' => $groupId]);
+        }
+
+        if (!$groupId && !$paymentId && !$sessionId) {
+            Log::error('[Webhook] CRITICAL: Could not resolve any identifier — cannot update DB');
             return response()->json(['ok' => true, 'note' => 'no identifiers found']);
         }
 
+        // STEP 8: Update the database atomically
         try {
-            DB::transaction(function () use ($groupId, $paymentId, $amountPaid) {
+            $result = $this->payments->markPaid($groupId, $sessionId, $paymentId, $amountPaid);
+            $groupId = $result['group_id'] ?? $groupId;
 
-                $roomQuery = Booking::query();
-                $boatQuery = BoatBooking::query();
-
-                if ($groupId) {
-                    $roomQuery->where('group_id', $groupId);
-                    $boatQuery->where('group_id', $groupId);
-                } else {
-                    $roomQuery->where('payment_id', $paymentId);
-                    $boatQuery->where('payment_id', $paymentId);
-                }
-
-                // Update both tables atomically
-                $roomQuery->update([
-                    'payment_status' => 'paid',
-                    'status'         => 'confirmed',
-                    'paid_at'        => now(),
-                    'paid_amount'    => $amountPaid > 0 ? $amountPaid : DB::raw('deposit_amount'),
-                    'expires_at'     => null, // clear the hold expiry — booking is now confirmed
-                ]);
-
-                $boatQuery->update([
-                    'payment_status' => 'paid',
-                    'status'         => 'confirmed',
-                    'paid_at'        => now(),
-                    'paid_amount'    => $amountPaid > 0 ? $amountPaid : DB::raw('total_amount'),
-                ]);
-            });
-
-            Log::info('PayMongo webhook: bookings confirmed', [
-                'group_id'   => $groupId,
-                'payment_id' => $paymentId,
-                'amount_php' => $amountPaid,
-            ]);
+            Log::info('[Webhook] DB update SUCCESS', $result);
 
         } catch (\Throwable $e) {
-            Log::error('PayMongo webhook: DB update failed', [
+            Log::error('[Webhook] DB transaction FAILED — acknowledging anyway to prevent webhook disable', [
                 'error'      => $e->getMessage(),
+                'trace'      => $e->getTraceAsString(),
                 'group_id'   => $groupId,
-                'payment_id' => $paymentId,
+                'session_id' => $sessionId,
             ]);
-            // Return 500 so PayMongo retries
-            return response()->json(['message' => 'db error'], 500);
+            // CRITICAL: Return 200 OK even on DB error to prevent webhook disable
+            // PayMongo will NOT retry, but webhook stays enabled
+            return response()->json(['ok' => true, 'note' => 'db error occurred']);
         }
 
-        // -------------------------------------------------------
-        // Send BookingConfirmedMail (non-critical — don't fail webhook)
-        // -------------------------------------------------------
-        if ($groupId) {
-            $this->sendConfirmationMail($groupId, $amountPaid);
+        // STEP 10: Send confirmation email (non-critical — never fail the webhook)
+        if ($groupId && (($result['newly_paid_count'] ?? 0) > 0)) {
+            $this->payments->sendConfirmationMail($groupId);
         }
 
+        Log::info('[Webhook] ===== PAID event handled successfully =====', ['group_id' => $groupId]);
         return response()->json(['ok' => true]);
     }
 
     // -------------------------------------------------------
-    // Payment FAILED handler
+    // Handle payment FAILED events
     // -------------------------------------------------------
     private function handleFailed(array $event, string $type): \Illuminate\Http\JsonResponse
     {
-        [$groupId, $paymentId] = $this->extractPaymentData($event);
+        Log::info('[Webhook] Handling FAILED event', ['type' => $type]);
 
-        if (!$groupId && !$paymentId) {
+        [$groupId, $sessionId, $paymentId] = $this->extractAllIdentifiers($event, $type);
+
+        if (!$groupId) {
+            $groupId = $this->resolveGroupId($sessionId, $paymentId);
+        }
+
+        if (!$groupId && !$sessionId && !$paymentId) {
+            Log::warning('[Webhook] FAILED event: no identifiers found');
             return response()->json(['ok' => true, 'note' => 'no identifiers found']);
         }
 
         try {
-            $roomQuery = Booking::query();
-            $boatQuery = BoatBooking::query();
+            $result = $this->payments->markFailed($groupId, $sessionId, $paymentId);
 
-            if ($groupId) {
-                $roomQuery->where('group_id', $groupId);
-                $boatQuery->where('group_id', $groupId);
-            } else {
-                $roomQuery->where('payment_id', $paymentId);
-                $boatQuery->where('payment_id', $paymentId);
-            }
-
-            $roomQuery->update(['payment_status' => 'failed']);
-            $boatQuery->update(['payment_status' => 'failed']);
-
-            Log::info('PayMongo webhook: payment failed', [
-                'group_id'   => $groupId,
-                'payment_id' => $paymentId,
-            ]);
+            Log::info('[Webhook] FAILED event DB update done', $result);
 
         } catch (\Throwable $e) {
-            Log::error('PayMongo webhook: failed-update DB error', ['error' => $e->getMessage()]);
-            return response()->json(['message' => 'db error'], 500);
+            Log::error('[Webhook] FAILED event DB error — acknowledging anyway', ['error' => $e->getMessage()]);
+            // CRITICAL: Return 200 OK even on error to prevent webhook disable
+            return response()->json(['ok' => true, 'note' => 'db error occurred']);
         }
 
         return response()->json(['ok' => true]);
     }
 
     // -------------------------------------------------------
-    // Extract group_id, payment_id, amount from event payload
+    // Extract ALL identifiers from the PayMongo payload.
+    //
+    // PayMongo checkout_session.payment.paid payload structure:
+    //
+    // data.attributes.type = "checkout_session.payment.paid"
+    // data.attributes.data = { checkout session object }
+    //   .id                = "cs_xxxx"  ← checkout session id
+    //   .attributes.metadata.group_id  ← our group_id
+    //   .attributes.payments.data[0].id = "pay_xxxx"  ← actual payment id
+    //   .attributes.payments.data[0].attributes.amount = centavos
     // -------------------------------------------------------
-    private function extractPaymentData(array $event): array
+    private function extractAllIdentifiers(array $event, string $type): array
     {
-        // PayMongo wraps the actual resource inside data.attributes.data
+        // The checkout session / payment / link object lives here
         $resource = data_get($event, 'data.attributes.data', data_get($event, 'data', []));
+
+        Log::info('[Webhook] Resource object keys', [
+            'resource_id'   => data_get($resource, 'id'),
+            'resource_type' => data_get($resource, 'type'),
+        ]);
+
+        // --- group_id from metadata ---
         $metadata = data_get($resource, 'attributes.metadata', []);
+        $groupId  = $metadata['group_id'] ?? null;
 
-        // group_id stored in metadata when we created the link
-        $groupId = $metadata['group_id'] ?? null;
+        Log::info('[Webhook] Metadata extracted', [
+            'metadata' => $metadata,
+            'group_id' => $groupId,
+        ]);
 
-        // Resolve payment_id: prefer nested pay_xxx from payments array
-        $paymentId = data_get($resource, 'attributes.payments.data.0.id')
-            ?? data_get($resource, 'id');
-
-        // If it's a checkout session id (cs_) or link id, look up booking by payment_id
-        if ($paymentId && !str_starts_with((string) $paymentId, 'pay_')) {
-            $booking = Booking::where('payment_id', $paymentId)->first()
-                ?? BoatBooking::where('payment_id', $paymentId)->first();
-
-            if ($booking && $booking->group_id) {
-                $groupId = $booking->group_id;
-            }
+        // --- Checkout session id (cs_xxxx) ---
+        $sessionId = null;
+        $resourceId = data_get($resource, 'id', '');
+        if (str_starts_with((string) $resourceId, 'cs_')) {
+            $sessionId = $resourceId;
         }
 
-        // If still no group_id, try looking up by payment_id
-        if (!$groupId && $paymentId) {
-            $booking = Booking::where('payment_id', $paymentId)->first()
-                ?? BoatBooking::where('payment_id', $paymentId)->first();
+        // --- Payment id (pay_xxxx) from nested payments array ---
+        $paymentId = data_get($resource, 'attributes.payments.0.id')
+            ?: data_get($resource, 'attributes.payments.data.0.id')
+            ?: data_get($resource, 'attributes.payment_intent.attributes.payments.0.id')
+            ?: data_get($resource, 'attributes.payment_intent.attributes.payments.data.0.id');
 
-            $groupId = $booking?->group_id;
+        // If resource itself is a payment (payment.paid event)
+        if (!$paymentId && str_starts_with((string) $resourceId, 'pay_')) {
+            $paymentId = $resourceId;
         }
 
-        // Amount paid in PHP (PayMongo sends centavos)
-        $amountCentavos = (int) data_get($resource, 'attributes.amount', 0)
-            ?: (int) data_get($resource, 'attributes.payments.data.0.attributes.amount', 0);
+        // --- Amount in PHP ---
+        $amountCentavos = (int) (
+            data_get($resource, 'attributes.payments.0.attributes.amount')
+            ?: data_get($resource, 'attributes.payments.data.0.attributes.amount')
+            ?: data_get($resource, 'attributes.payment_intent.attributes.payments.0.attributes.amount')
+            ?: data_get($resource, 'attributes.payment_intent.attributes.payments.data.0.attributes.amount')
+            ?: data_get($resource, 'attributes.amount', 0)
+        );
 
         $amountPhp = $amountCentavos > 0 ? round($amountCentavos / 100, 2) : 0.0;
 
-        return [$groupId, $paymentId, $amountPhp];
+        Log::info('[Webhook] Identifiers from payload', [
+            'group_id'   => $groupId,
+            'session_id' => $sessionId,
+            'payment_id' => $paymentId,
+            'amount_php' => $amountPhp,
+        ]);
+
+        return [$groupId, $sessionId, $paymentId, $amountPhp];
+    }
+
+    // -------------------------------------------------------
+    // Resolve group_id from DB when metadata lookup fails
+    // -------------------------------------------------------
+    private function resolveGroupId(?string $sessionId, ?string $paymentId): ?string
+    {
+        // Try checkout session id first (stored as payment_id when we created the session)
+        if ($sessionId) {
+            $b = Booking::where('payment_id', $sessionId)->first()
+              ?? BoatBooking::where('payment_id', $sessionId)->first();
+            if ($b?->group_id) {
+                Log::info('[Webhook] group_id resolved via session_id DB lookup', [
+                    'session_id' => $sessionId,
+                    'group_id'   => $b->group_id,
+                ]);
+                return $b->group_id;
+            }
+        }
+
+        // Try payment id
+        if ($paymentId) {
+            $b = Booking::where('payment_id', $paymentId)->first()
+              ?? BoatBooking::where('payment_id', $paymentId)->first();
+            if ($b?->group_id) {
+                Log::info('[Webhook] group_id resolved via payment_id DB lookup', [
+                    'payment_id' => $paymentId,
+                    'group_id'   => $b->group_id,
+                ]);
+                return $b->group_id;
+            }
+        }
+
+        Log::warning('[Webhook] Could not resolve group_id from DB', [
+            'session_id' => $sessionId,
+            'payment_id' => $paymentId,
+        ]);
+
+        return null;
     }
 
     // -------------------------------------------------------
     // HMAC-SHA256 signature verification
+    // PayMongo header format: t=<timestamp>,te=<test_sig>,li=<live_sig>
     // -------------------------------------------------------
     private function verifySignature(string $payload, string $header): bool
     {
         $secret = config('services.paymongo.webhook_secret');
 
         if (empty($secret)) {
-            Log::error('PayMongo webhook: PAYMONGO_WEBHOOK_SECRET not set in .env');
+            Log::error('[Webhook] PAYMONGO_WEBHOOK_SECRET is not set in .env — cannot verify signature');
             return false;
         }
 
-        // Header format: t=<timestamp>,te=<test_sig>,li=<live_sig>
         $parts = [];
         foreach (explode(',', $header) as $part) {
             $segments = explode('=', $part, 2);
@@ -240,61 +311,31 @@ class PaymongoWebhookController extends Controller
             }
         }
 
-        $timestamp = $parts['t'] ?? null;
-        // 'te' = test mode signature, 'li' = live mode signature
-        $signature = $parts['li'] ?? $parts['te'] ?? null;
+        $timestamp = $parts['t']  ?? null;
+        $signature = $parts['li'] ?? $parts['te'] ?? null; // li=live, te=test
+
+        Log::info('[Webhook] Signature parts', [
+            'timestamp'      => $timestamp,
+            'has_signature'  => !empty($signature),
+            'mode'           => isset($parts['li']) ? 'live' : (isset($parts['te']) ? 'test' : 'unknown'),
+        ]);
 
         if (!$timestamp || !$signature) {
-            Log::warning('PayMongo webhook: missing t or signature in header', ['header' => $header]);
+            Log::warning('[Webhook] Missing timestamp or signature in header', ['header' => $header]);
             return false;
         }
 
         $computed = hash_hmac('sha256', $timestamp . '.' . $payload, $secret);
+        $match    = hash_equals($computed, $signature);
 
-        return hash_equals($computed, $signature);
-    }
-
-    // -------------------------------------------------------
-    // Send BookingConfirmedMail after successful payment
-    // -------------------------------------------------------
-    private function sendConfirmationMail(string $groupId, float $amountPaid): void
-    {
-        try {
-            $roomBookings = Booking::with('room')
-                ->where('group_id', $groupId)
-                ->where('payment_status', 'paid')
-                ->get();
-
-            $boatBookings = BoatBooking::with('boat')
-                ->where('group_id', $groupId)
-                ->where('payment_status', 'paid')
-                ->get();
-
-            $allBookings = $roomBookings->concat($boatBookings);
-            $first       = $allBookings->first();
-
-            if (!$first || empty($first->email)) return;
-
-            $totalPaid = $amountPaid > 0
-                ? $amountPaid
-                : ($allBookings->sum('paid_amount') ?: $allBookings->sum('deposit_amount'));
-
-            Mail::to($first->email)->send(new BookingConfirmedMail(
-                bookings:  $allBookings->all(),
-                totalPaid: (float) $totalPaid,
-                groupId:   $groupId,
-            ));
-
-            Log::info('PayMongo webhook: BookingConfirmedMail sent', [
-                'group_id' => $groupId,
-                'email'    => $first->email,
-            ]);
-
-        } catch (\Throwable $e) {
-            Log::error('PayMongo webhook: BookingConfirmedMail failed', [
-                'group_id' => $groupId,
-                'error'    => $e->getMessage(),
+        if (!$match) {
+            Log::warning('[Webhook] HMAC mismatch', [
+                'computed_prefix'  => substr($computed, 0, 8) . '...',
+                'received_prefix'  => substr($signature, 0, 8) . '...',
             ]);
         }
+
+        return $match;
     }
+
 }

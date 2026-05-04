@@ -3,14 +3,21 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class BookingConfirmedMail extends Mailable
+class BookingConfirmedMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    // Retry up to 3 times if SMTP fails
+    public int $tries = 3;
+
+    // Wait 60 seconds between retries
+    public int $backoff = 60;
 
     /**
      * @param  array  $bookings   All Booking / BoatBooking models in this group
@@ -21,12 +28,13 @@ class BookingConfirmedMail extends Mailable
         public readonly array  $bookings,
         public readonly float  $totalPaid,
         public readonly string $groupId,
-    ) {}
+    ) {
+        // Send on the 'mail' queue so it doesn't block the default queue
+        $this->onQueue('mail');
+    }
 
     public function envelope(): Envelope
     {
-        $name = $this->bookings[0]->name ?? 'Guest';
-
         return new Envelope(
             subject: 'Your booking is confirmed — Cabanas Beach Resort',
         );

@@ -12,14 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Example: create one test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create default admin, frontdesk, and user accounts
+        $this->call(\Database\Seeders\DefaultUsersSeeder::class);
 
-        // ✅ Call other seeders here
-            $this->call(\Database\Seeders\KayakSeeder::class);
-            // You can add more seeders here if needed
+        // Call other seeders
+        $this->call(\Database\Seeders\KayakSeeder::class);
     }
 }

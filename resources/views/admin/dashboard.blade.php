@@ -275,6 +275,9 @@
                     class="text-xs inline-flex items-center px-2 py-0.5  bg-green-100 text-green-800">Paid</span>
                 @elseif($data->payment_status == 'pending')
                   <span
+                    class="text-xs inline-flex items-center px-2 py-0.5  bg-yellow-100 text-yellow-800">Pending</span>
+                @elseif($data->payment_status == 'failed')
+                  <span
                     class="text-xs inline-flex items-center px-2 py-0.5  bg-red-100 text-red-800">Failed</span>
                 @endif
               </div>
@@ -383,6 +386,9 @@
                       class="px-2 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800">Paid</span>
                   @elseif($data->payment_status == 'pending')
                     <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold  bg-yellow-100 text-yellow-800">Pending</span>
+                  @elseif($data->payment_status == 'failed')
+                    <span
                       class="px-2 inline-flex text-xs leading-5 font-semibold  bg-red-100 text-red-800">Failed</span>
                   @else
                     <div class="text-sm text-gray-900">Deposit Due: ₱{{ number_format($depositAmount, 2) }}</div>
@@ -393,9 +399,9 @@
                   @endif
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  @if($data->status == 'approve')
+                  @if(in_array($data->status, ['approve', 'confirmed']))
                     <span
-                      class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Approved</span>
+                      class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Confirmed</span>
                   @elseif($data->status == 'rejected')
                     <span
                       class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Rejected</span>

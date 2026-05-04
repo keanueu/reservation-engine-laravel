@@ -3,14 +3,15 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PaymongoService
 {
-    protected $baseUrl = 'https://api.paymongo.com/v1';
+    protected string $baseUrl;
 
     public function __construct()
     {
-        // Nothing needed here; we read PAYMONGO_SECRET from env each request
+        $this->baseUrl = rtrim(config('services.paymongo.base', 'https://api.paymongo.com/v1'), '/');
     }
 
     /**
@@ -28,7 +29,7 @@ class PaymongoService
      */
     public function createLink(int $amountInCents, $arg2 = null, $arg3 = null, ?string $successUrl = null, ?string $cancelUrl = null): array
     {
-        $secret = env('PAYMONGO_SECRET');
+        $secret = config('services.paymongo.key');
 
         if (empty($secret)) {
             return ['success' => false, 'message' => 'PAYMONGO_SECRET not configured', 'raw' => null];
@@ -127,7 +128,7 @@ class PaymongoService
         string $successUrl,
         string $cancelUrl
     ): array {
-        $secret = env('PAYMONGO_SECRET');
+        $secret = config('services.paymongo.key');
 
         if (empty($secret)) {
             return ['success' => false, 'message' => 'PAYMONGO_SECRET not configured', 'raw' => null];
@@ -135,23 +136,28 @@ class PaymongoService
 
         $url = $this->baseUrl . '/checkout_sessions';
 
+        // Ensure group_id is always at the top level of metadata
+        // so the webhook can find it at data.attributes.data.attributes.metadata.group_id
+        $safeMetadata = array_merge($metadata, [
+            'group_id' => $metadata['group_id'] ?? null,
+        ]);
+
         $body = [
             'data' => [
                 'attributes' => [
-                    'billing'           => null,
-                    'cancel_url'        => $cancelUrl,
-                    'description'       => $description,
-                    'line_items'        => [
+                    'cancel_url'           => $cancelUrl,
+                    'description'          => $description,
+                    'line_items'           => [
                         [
-                            'currency'   => 'PHP',
-                            'amount'     => $amountInCents,
-                            'name'       => $description,
-                            'quantity'   => 1,
+                            'currency' => 'PHP',
+                            'amount'   => $amountInCents,
+                            'name'     => $description,
+                            'quantity' => 1,
                         ],
                     ],
-                    'metadata'          => $metadata,
-                    'payment_method_types' => ['card', 'gcash', 'paymaya', 'grab_pay', 'dob', 'brankas_bdo', 'brankas_landbank', 'brankas_metrobank'],
-                    'send_email_receipt'   => false, // we send our own
+                    'metadata'             => $safeMetadata,
+                    'payment_method_types' => ['card', 'gcash', 'paymaya', 'grab_pay'],
+                    'send_email_receipt'   => true,
                     'show_description'     => true,
                     'show_line_items'      => true,
                     'success_url'          => $successUrl,
@@ -159,12 +165,24 @@ class PaymongoService
             ],
         ];
 
+        Log::info('PayMongo createCheckoutSession request', [
+            'url'      => $url,
+            'group_id' => $safeMetadata['group_id'] ?? null,
+            'amount'   => $amountInCents,
+        ]);
+
         try {
             $response = Http::withBasicAuth($secret, '')
                 ->acceptJson()
                 ->post($url, $body);
 
             $json = $response->json();
+
+            Log::info('PayMongo createCheckoutSession response', [
+                'status' => $response->status(),
+                'id'     => $json['data']['id'] ?? null,
+                'errors' => $json['errors'] ?? null,
+            ]);
 
             if ($response->successful() && isset($json['data']['id'])) {
                 return [
@@ -196,7 +214,7 @@ class PaymongoService
      */
     public function getLink(string $linkId): ?array
     {
-        $secret = env('PAYMONGO_SECRET');
+        $secret = config('services.paymongo.key');
         if (empty($secret)) return null;
 
         $url = $this->baseUrl . '/links/' . $linkId;
@@ -206,6 +224,104 @@ class PaymongoService
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+    public function getCheckoutSession(string $sessionId): array
+    {
+        $secret = config('services.paymongo.key');
+
+        if (empty($secret)) {
+            return ['success' => false, 'message' => 'PAYMONGO_SECRET not configured', 'raw' => null];
+        }
+
+        $url = $this->baseUrl . '/checkout_sessions/' . $sessionId;
+
+        try {
+            $response = Http::withBasicAuth($secret, '')
+                ->acceptJson()
+                ->get($url);
+
+            $json = $response->json();
+
+            Log::info('PayMongo getCheckoutSession response', [
+                'status' => $response->status(),
+                'session_id' => $sessionId,
+                'payment_status' => data_get($json, 'data.attributes.payment_intent.attributes.status'),
+                'payments_count' => count($this->paymentsFromCheckoutSession($json)),
+                'errors' => $json['errors'] ?? null,
+            ]);
+
+            return [
+                'success' => $response->successful() && isset($json['data']['id']),
+                'message' => $json['errors'] ?? ($json['message'] ?? null),
+                'raw' => $json,
+                'status_code' => $response->status(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('PayMongo getCheckoutSession failed', [
+                'session_id' => $sessionId,
+                'error' => $e->getMessage(),
+            ]);
+
+            return ['success' => false, 'message' => $e->getMessage(), 'raw' => null];
+        }
+    }
+
+    public function paidCheckoutSessionDetails(array $checkoutSession): ?array
+    {
+        $attributes = data_get($checkoutSession, 'data.attributes', data_get($checkoutSession, 'attributes', []));
+        $payments = $this->paymentsFromCheckoutSession($checkoutSession);
+        $payment = collect($payments)->first(function ($payment) {
+            return data_get($payment, 'attributes.status') === 'paid';
+        }) ?: ($payments[0] ?? null);
+
+        $paymentStatus = data_get($payment, 'attributes.status');
+        $intentStatus = data_get($attributes, 'payment_intent.attributes.status');
+
+        if ($paymentStatus !== 'paid' && $intentStatus !== 'succeeded') {
+            return null;
+        }
+
+        $paymentId = data_get($payment, 'id')
+            ?: data_get($attributes, 'payment_intent.attributes.payments.0.id')
+            ?: data_get($attributes, 'payment_intent.attributes.payments.data.0.id');
+
+        $amountCentavos = (int) (
+            data_get($payment, 'attributes.amount')
+            ?: data_get($attributes, 'payment_intent.attributes.amount')
+            ?: data_get($attributes, 'line_items.0.amount', 0)
+        );
+
+        return [
+            'payment_id' => $paymentId,
+            'amount_php' => $amountCentavos > 0 ? round($amountCentavos / 100, 2) : 0.0,
+            'payment_status' => $paymentStatus,
+            'intent_status' => $intentStatus,
+        ];
+    }
+
+    private function paymentsFromCheckoutSession(array $checkoutSession): array
+    {
+        $attributes = data_get($checkoutSession, 'data.attributes', data_get($checkoutSession, 'attributes', []));
+
+        $payments = data_get($attributes, 'payments', []);
+        if (is_array($payments) && array_is_list($payments)) {
+            return $payments;
+        }
+
+        $payments = data_get($attributes, 'payments.data', []);
+        if (is_array($payments) && array_is_list($payments)) {
+            return $payments;
+        }
+
+        $payments = data_get($attributes, 'payment_intent.attributes.payments', []);
+        if (is_array($payments) && array_is_list($payments)) {
+            return $payments;
+        }
+
+        $payments = data_get($attributes, 'payment_intent.attributes.payments.data', []);
+
+        return is_array($payments) ? $payments : [];
     }
 
     /**
@@ -218,7 +334,7 @@ class PaymongoService
      */
     public function refundPayment(string $paymentId, int $amountInCents, ?string $reason = null): array
     {
-        $secret = env('PAYMONGO_SECRET');
+        $secret = config('services.paymongo.key');
 
         if (empty($secret)) {
             return [
