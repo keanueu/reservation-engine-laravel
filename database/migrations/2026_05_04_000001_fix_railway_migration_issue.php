@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     /**
@@ -10,7 +11,22 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        // bookings table
+        // First, mark the problematic migration as complete if it exists in migrations table
+        try {
+            DB::table('migrations')
+                ->where('migration', '2025_11_15_090000_ensure_payment_and_refund_columns')
+                ->delete();
+            
+            // Insert it as completed
+            DB::table('migrations')->insert([
+                'migration' => '2025_11_15_090000_ensure_payment_and_refund_columns',
+                'batch' => DB::table('migrations')->max('batch') ?: 1
+            ]);
+        } catch (\Exception $e) {
+            // Ignore if migrations table doesn't exist or other issues
+        }
+
+        // Now add all the columns that the problematic migration was supposed to add
         if (Schema::hasTable('bookings')) {
             Schema::table('bookings', function (Blueprint $table) {
                 if (!Schema::hasColumn('bookings', 'payment_id')) {
@@ -49,7 +65,6 @@ return new class extends Migration {
             });
         }
 
-        // booking_extensions table
         if (Schema::hasTable('booking_extensions')) {
             Schema::table('booking_extensions', function (Blueprint $table) {
                 if (!Schema::hasColumn('booking_extensions', 'payment_id')) {
@@ -61,7 +76,6 @@ return new class extends Migration {
             });
         }
 
-        // boat_bookings table
         if (Schema::hasTable('boat_bookings')) {
             Schema::table('boat_bookings', function (Blueprint $table) {
                 if (!Schema::hasColumn('boat_bookings', 'payment_id')) {
@@ -88,57 +102,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        if (Schema::hasTable('bookings')) {
-            Schema::table('bookings', function (Blueprint $table) {
-                if (Schema::hasColumn('bookings', 'paymongo_refund_id')) {
-                    $table->dropColumn('paymongo_refund_id');
-                }
-                foreach ([
-                    'refunded_at',
-                    'refund_reason',
-                    'refund_amount',
-                    'refund_fee',
-                    'refund_requested_amount',
-                    'refund_status',
-                    'total_to_charge',
-                    'deposit_fee',
-                    'deposit_amount',
-                ] as $column) {
-                    if (Schema::hasColumn('bookings', $column)) {
-                        $table->dropColumn($column);
-                    }
-                }
-                if (Schema::hasColumn('bookings', 'payment_id')) {
-                    $table->dropColumn('payment_id');
-                }
-            });
-        }
-
-        if (Schema::hasTable('booking_extensions')) {
-            Schema::table('booking_extensions', function (Blueprint $table) {
-                if (Schema::hasColumn('booking_extensions', 'paymongo_refund_id')) {
-                    $table->dropColumn('paymongo_refund_id');
-                }
-                if (Schema::hasColumn('booking_extensions', 'payment_id')) {
-                    $table->dropColumn('payment_id');
-                }
-            });
-        }
-
-        if (Schema::hasTable('boat_bookings')) {
-            Schema::table('boat_bookings', function (Blueprint $table) {
-                if (Schema::hasColumn('boat_bookings', 'paymongo_refund_id')) {
-                    $table->dropColumn('paymongo_refund_id');
-                }
-                foreach (['total_to_charge', 'deposit_fee', 'deposit_amount'] as $column) {
-                    if (Schema::hasColumn('boat_bookings', $column)) {
-                        $table->dropColumn($column);
-                    }
-                }
-                if (Schema::hasColumn('boat_bookings', 'payment_id')) {
-                    $table->dropColumn('payment_id');
-                }
-            });
-        }
+        // Remove the migration record
+        DB::table('migrations')
+            ->where('migration', '2025_11_15_090000_ensure_payment_and_refund_columns')
+            ->delete();
     }
 };
