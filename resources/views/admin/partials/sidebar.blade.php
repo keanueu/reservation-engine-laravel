@@ -66,7 +66,7 @@
 
         <!-- Bottom Section -->
         <div class="px-4 py-4 border-t border-gray-200 dark:border-black flex-shrink-0">
-            <a href="{{ route('profile.show') }}" class="block">
+            <a href="{{ route('user.profile') }}" class="block">
                 <div
                     class="flex items-center p-2 mb-2  hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
                     <img class="w-10 h-10  mr-3" src="https://placehold.co/40x40/10B981/FFFFFF?text=AD"

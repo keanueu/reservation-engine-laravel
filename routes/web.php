@@ -131,8 +131,8 @@ Route::get('/weather/forecast', [WeatherController::class, 'forecast']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home/rooms', [PageController::class, 'home_rooms']);
-    // Custom profile page
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    // Custom profile page (renamed to avoid conflict with Jetstream's profile.show)
+    Route::get('/profile', [ProfileController::class, 'show'])->name('user.profile');
     // User bookings (personal view for guests to see their bookings and request extensions)
     Route::get('/home/bookings', [PageController::class, 'home_bookings'])->name('home.bookings');
     // My Bookings page (dedicated page instead of modal)

@@ -29,7 +29,7 @@
                                 </button>
                                 <div x-show="open" x-cloak @click.outside="open=false"
                                      class="absolute right-0 mt-2 w-44 bg-white shadow-xl z-[99999] overflow-hidden border border-gray-100">
-                                    <a href="{{ route('profile.show') }}" class="flex items-center gap-2 px-4 py-3 text-xs text-gray-700 hover:bg-gray-50 transition-colors">
+                                    <a href="{{ route('user.profile') }}" class="flex items-center gap-2 px-4 py-3 text-xs text-gray-700 hover:bg-gray-50 transition-colors">
                                         <span class="material-symbols-outlined text-base">person</span>
                                         Profile
                                     </a>
@@ -205,7 +205,7 @@
                 @endforeach
 
                 @auth
-                    <a href="{{ route('profile.show') }}"
+                    <a href="{{ route('user.profile') }}"
                        @click="mobileOpen = false"
                        class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group">
                         <span class="flex h-10 w-10 items-center justify-center bg-gray-100 text-[#964B00] transition-all duration-200 group-hover:bg-[#964B00] group-hover:text-white">
