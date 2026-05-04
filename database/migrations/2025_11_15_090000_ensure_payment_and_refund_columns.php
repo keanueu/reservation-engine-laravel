@@ -14,7 +14,7 @@ return new class extends Migration {
         if (Schema::hasTable('bookings')) {
             Schema::table('bookings', function (Blueprint $table) {
                 if (!Schema::hasColumn('bookings', 'payment_id')) {
-                    $table->string('payment_id')->nullable()->after('id');
+                    $table->string('payment_id')->nullable();
                 }
                 if (!Schema::hasColumn('bookings', 'deposit_amount')) {
                     $table->decimal('deposit_amount', 10, 2)->nullable();
@@ -53,7 +53,7 @@ return new class extends Migration {
         if (Schema::hasTable('booking_extensions')) {
             Schema::table('booking_extensions', function (Blueprint $table) {
                 if (!Schema::hasColumn('booking_extensions', 'payment_id')) {
-                    $table->string('payment_id')->nullable()->after('id');
+                    $table->string('payment_id')->nullable();
                 }
                 if (!Schema::hasColumn('booking_extensions', 'paymongo_refund_id')) {
                     $table->string('paymongo_refund_id')->nullable();
@@ -65,7 +65,7 @@ return new class extends Migration {
         if (Schema::hasTable('boat_bookings')) {
             Schema::table('boat_bookings', function (Blueprint $table) {
                 if (!Schema::hasColumn('boat_bookings', 'payment_id')) {
-                    $table->string('payment_id')->nullable()->after('status');
+                    $table->string('payment_id')->nullable();
                 }
                 if (!Schema::hasColumn('boat_bookings', 'deposit_amount')) {
                     $table->decimal('deposit_amount', 10, 2)->nullable();
