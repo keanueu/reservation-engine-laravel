@@ -75,7 +75,7 @@
                     class="absolute right-0 mt-2 w-48 bg-white dark:bg-black  shadow-lg py-1 border border-gray-200 dark:border-black z-50"
                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
 
-                    <a href="{{ route('profile.show') }}"
+                    <a href="{{ route('user.profile') }}"
                         class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
                         role="menuitem">Profile</a>
 

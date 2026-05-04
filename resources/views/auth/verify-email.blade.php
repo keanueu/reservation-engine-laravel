@@ -63,7 +63,7 @@
                                 Verification Email</button>
                         </form>
                         <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-between">
-                            <a href="{{ route('profile.show') }}"
+                            <a href="{{ route('user.profile') }}"
                                 class="underline text-sm text-[#964B00] hover:text-orange-400 font-semibold">Edit
                                 Profile</a>
                             <form method="POST" action="{{ route('logout') }}" class="inline">
