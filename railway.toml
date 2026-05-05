@@ -1,5 +1,5 @@
 [build]
-  builder = "RAILPACK"
+  builder = "NIXPACKS"
 
 [deploy]
   # 1. Runs migrations BEFORE the app goes live. 
