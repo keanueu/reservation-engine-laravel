@@ -6,14 +6,14 @@
          class="absolute inset-0 w-full h-full object-cover" />
 
     <div class="absolute inset-0 bg-black/50 flex items-end justify-center pb-12">
-        <h1 class="text-5xl  text-white font-[Manrope] tracking-wide">
+        <h1 class="text-5xl  text-white font-[Inter] tracking-wide">
             Promo Room Details
         </h1>
     </div>
 </div>
 
 <section class="pt-10 pb-16">
-    <div class="max-w-6xl mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4">
 
         {{-- Back Button --}}
         <a href="{{ url('/home/promos') }}" class="flex items-center text-sm text-gray-600 mb-4">

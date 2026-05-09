@@ -7,7 +7,7 @@
 
     /* Search bar */
     .search-bar { background:rgba(255,255,255,0.97); box-shadow:0 8px 40px rgba(0,0,0,0.18); }
-    .search-input { border:none; outline:none; background:transparent; font-family:'Manrope',sans-serif; font-size:.875rem; color:#111827; width:100%; }
+    .search-input { border:none; outline:none; background:transparent; font-family:'Inter',sans-serif; font-size:.875rem; color:#111827; width:100%; }
     .search-input::placeholder { color:#9ca3af; }
     .search-divider { width:1px; height:36px; background:#e5e7eb; flex-shrink:0; }
 
@@ -52,7 +52,7 @@
     </div>
 
     {{-- Hero content --}}
-    <div class="relative z-10 h-full flex flex-col justify-end pb-20 px-6 max-w-6xl mx-auto w-full">
+    <div class="relative z-10 h-full flex flex-col justify-end pb-20 px-6 max-w-7xl mx-auto w-full">
 
         {{-- Mode toggle --}}
         <div class="flex items-center gap-0 mb-4 w-fit border-b border-white/20">
@@ -70,16 +70,33 @@
             </button>
         </div>
 
-        {{-- Headline --}}
-        <div class="mb-6">
-            <p id="hero-sub" class="text-sm font-semibold tracking-wide text-white/80 mb-3 transition-all duration-500">Where the sea meets serenity</p>
-            <h1 id="hero-label" class="text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1.1] tracking-tight transition-all duration-500">
-                Welcome to<br><span style="color:#f5c87a;">Cabanas</span>
-            </h1>
+        {{-- Main Content Layout --}}
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-12 mb-12">
+            
+            {{-- Left Side: Dynamic Headline --}}
+            <div class="flex-1 min-w-0" data-reveal>
+                <p id="hero-sub" class="text-sm font-semibold tracking-widest uppercase text-white/70 mb-4 transition-all duration-500">
+                    Where the sea meets serenity
+                </p>
+                <h1 id="hero-label" class="text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1.1] tracking-tight transition-all duration-500">
+                    Welcome to<br><span style="color:#f5c87a;">Cabanas</span>
+                </h1>
+            </div>
+
+            {{-- Right Side: Luxurious Lifestyle Box --}}
+            <div class="max-w-2xl bg-black/70 text-white p-12 hidden lg:block mr-[5%]" data-reveal>
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4 leading-tight">Live a Luxurious Lifestyle</h2>
+                <p class="text-white/90 mb-8 leading-relaxed text-lg">
+                    Curabitur molestie luctus odio et consectetur. Donec cursus elementum arcu eget blandit.
+                </p>
+                <a href="{{ url('/home/rooms') }}" class="inline-block px-10 py-3 font-semibold bg-white text-black text-sm uppercase tracking-wide hover:bg-gray-200 transition">
+                    View More
+                </a>
+            </div>
         </div>
 
         {{-- Search bar --}}
-        <div class="search-bar w-full max-w-5xl mb-6">
+        <div class="search-bar w-full max-w-7xl mb-6">
             {{-- Stay bar --}}
             <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ route('search.stay') }}" method="POST">
                 @csrf
@@ -181,6 +198,42 @@
     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 scroll-cue">
         <span class="material-symbols-outlined text-2xl text-white/50">expand_more</span>
     </div>
+
+      <div class="w-full bg-[#777777]"> <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div class="bg-black text-white p-12 flex flex-col items-center text-center">
+                <div class="mb-6">
+                    <svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Check-in & Check-out Time</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">It is a long established fact that a reader will be distracted</p>
+            </div>
+
+            <div class="bg-[#333333] text-white p-12 flex flex-col items-center text-center">
+                <div class="mb-6">
+                    <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-4">High Speed Internet</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">It is a long established fact that a reader will be distracted</p>
+            </div>
+
+            <div class="bg-[#555555] text-white p-12 flex flex-col items-center text-center">
+                <div class="mb-6">
+                    <svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Simple Booking</h3>
+                <p class="text-gray-200 text-sm leading-relaxed">It is a long established fact that a reader will be distracted</p>
+            </div>
+
+            <div class="bg-[#777777] text-white p-12 flex flex-col items-center text-center">
+                <div class="mb-6">
+                    <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Helpful Staff</h3>
+                <p class="text-gray-100 text-sm leading-relaxed">It is a long established fact that a reader will be distracted</p>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <script>

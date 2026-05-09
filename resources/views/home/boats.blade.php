@@ -7,14 +7,14 @@
       alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Manrope] tracking-wide">
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter] tracking-wide">
         Our Exclusive Stays
       </h1>
     </div>
   </div>
 
   <!-- Boat Card Grid -->
-  <div class="max-w-6xl mx-auto px-6 mt-16 font-[Manrope]">
+  <div class="max-w-7xl mx-auto px-6 mt-16 font-[Inter]">
     <div class="flex flex-wrap justify-center gap-10 lg:gap-16 mb-12">
       @foreach ($boats as $boat)
         <div

@@ -7,7 +7,7 @@
 @endphp
 
 <div id="cart-summary"
-    class="border border-gray-300 p-6 sticky top-24 bg-white shadow-lg h-fit font-[Manrope] text-gray-800"
+    class="border border-gray-300 p-6 sticky top-24 bg-white shadow-lg h-fit font-[Inter] text-gray-800"
     style="min-height: 320px; display: flex; flex-direction: column;">
 
     <h2 class="text-lg font-normal text-black tracking-tight mb-4 flex items-center">

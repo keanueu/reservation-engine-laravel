@@ -5,11 +5,11 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
          alt="Your Cart" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black/50 px-4 pb-10 md:pb-14">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center font-[Manrope]">Your Cart</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center font-[Inter]">Your Cart</h1>
     </div>
 </div>
 
-<div class="max-w-6xl mx-auto px-6 py-10">
+<div class="max-w-7xl mx-auto px-6 py-10">
 
     @if(session('error'))
         <div class="mb-6 p-4 bg-red-50 border border-red-200 text-sm text-red-700">{{ session('error') }}</div>
@@ -21,7 +21,7 @@
     @if($cartRooms->isEmpty() && $cartBoats->isEmpty())
         <div class="text-center py-20">
             <span class="material-symbols-outlined text-gray-300 mb-6" style="font-size: 96px;">shopping_cart</span>
-            <h2 class="text-2xl font-normal text-gray-700 mb-3 font-[Manrope]">Your cart is empty</h2>
+            <h2 class="text-2xl font-normal text-gray-700 mb-3 font-[Inter]">Your cart is empty</h2>
             <p class="text-gray-500 mb-8">Start adding rooms or boats to your cart to begin your booking.</p>
             <a href="{{ route('booking.dates') }}" class="inline-block btn-primary px-8 py-3 text-xs font-bold tracking-widest uppercase">
                 Browse Rooms & Boats
@@ -33,7 +33,7 @@
             {{-- Cart Items --}}
             <div class="lg:col-span-2 space-y-6">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-normal text-gray-900 font-[Manrope]">
+                    <h2 class="text-2xl font-normal text-gray-900 font-[Inter]">
                         Cart Items ({{ $cartRooms->count() + $cartBoats->count() }})
                     </h2>
                     <a href="{{ route('booking.dates') }}" class="text-xs text-[#964B00] hover:text-black font-semibold tracking-widest uppercase">
@@ -170,7 +170,7 @@
             {{-- Summary Sidebar --}}
             <div class="lg:col-span-1">
                 <div class="bg-white border border-gray-200 shadow-sm p-6 sticky top-28">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-6 font-[Manrope]">Order Summary</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6 font-[Inter]">Order Summary</h3>
 
                     <div class="space-y-3 mb-6">
                         <div class="flex justify-between text-sm">

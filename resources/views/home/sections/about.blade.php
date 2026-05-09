@@ -1,4 +1,4 @@
-<section class="relative bg-white font-[Manrope] py-20 overflow-hidden">
+<section class="relative bg-white font-[Inter] py-20 overflow-hidden">
 
     {{-- Logo watermark — centered, large, more visible --}}
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
@@ -8,7 +8,7 @@
     </div>
 
     {{-- Content --}}
-    <div class="relative max-w-6xl mx-auto px-6 lg:px-8">
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {{-- Left: Text --}}

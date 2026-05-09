@@ -1,9 +1,9 @@
-<section class="bg-white text-black py-16 font-[Manrope]">
+<section class="bg-white text-black py-16 font-[Inter]">
     @php
         $galleryImages = \App\Models\Images::orderBy('created_at', 'desc')->take(12)->get();
     @endphp
 
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-12" data-reveal>
             <p class="text-sm font-semibold tracking-wide mb-4 section-label">Memories</p>
             <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] tracking-tight text-gray-900">Gallery</h2>
@@ -52,7 +52,7 @@
     </button>
 
     <!-- Image Container -->
-    <div class="relative max-w-5xl max-h-[80vh] flex items-center justify-center" onclick="event.stopPropagation()">
+    <div class="relative max-w-7xl max-h-[80vh] flex items-center justify-center" onclick="event.stopPropagation()">
         <img id="galleryModalImage" src="" alt="Gallery Image" class="max-w-full max-h-[80vh] object-contain">
     </div>
 

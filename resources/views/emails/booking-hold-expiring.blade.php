@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete your booking</title>
     <style>
-        body { margin: 0; padding: 0; background: #f5f5f5; font-family: 'Manrope', Arial, sans-serif; color: #111827; }
+        body { margin: 0; padding: 0; background: #f5f5f5; font-family:'Inter', Arial, sans-serif; color: #111827; }
         .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border: 1px solid #e5e7eb; }
         .header { background: #111827; padding: 32px 40px; text-align: center; }
         .header h1 { margin: 0; color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: 0.05em; }

@@ -1,7 +1,7 @@
 @extends('home.layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto py-12">
+<div class="max-w-7xl mx-auto py-12">
     <h1 class="text-2xl font-bold mb-6">My Bookings</h1>
 
     @if(count($bookings) === 0)

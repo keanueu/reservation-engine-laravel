@@ -1,4 +1,4 @@
-﻿import defaultTheme from 'tailwindcss/defaultTheme';
+import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 
@@ -38,10 +38,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Manrope', ...defaultTheme.fontFamily.sans],
-        serif: ['Manrope', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        serif: ['Inter', ...defaultTheme.fontFamily.sans],
         montserrat: ['Montserrat', 'sans-serif'],
-        display: ['Manrope', ...defaultTheme.fontFamily.sans],
+        display: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'wood-glass': '0 24px 60px rgba(60, 42, 33, 0.16)',

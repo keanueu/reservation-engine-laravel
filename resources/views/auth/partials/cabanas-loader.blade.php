@@ -2,7 +2,7 @@
     style="background: rgba(255,255,255,0.92);">
 
     <div
-        class="mx-auto max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl  overflow-hidden drop-shadow-2xl bg-transparent font-[Manrope]">
+        class="mx-auto max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl  overflow-hidden drop-shadow-2xl bg-transparent font-[Inter]">
         <div class="flex p-6 sm:p-8 justify-center items-center min-h-[60vh] sm:h-[450px] bg-transparent">
             <div class="text-center space-y-6">
                 <!-- Spinner -->

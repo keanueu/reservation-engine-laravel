@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
         <!-- Styles -->
         <style>

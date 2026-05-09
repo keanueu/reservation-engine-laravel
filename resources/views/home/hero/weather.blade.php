@@ -1,5 +1,5 @@
 <div id="weather-side-panel"
-    class="w-full max-w-sm mx-auto p-4 bg-white shadow-lg font-[Manrope] h-full overflow-y-auto border border-gray-200">
+    class="w-full max-w-sm mx-auto p-4 bg-white shadow-lg font-[Inter] h-full overflow-y-auto border border-gray-200">
 
     <div class="grid grid-cols-1 gap-4">
 

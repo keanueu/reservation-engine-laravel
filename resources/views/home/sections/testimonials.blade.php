@@ -1,5 +1,5 @@
-<section class="bg-white text-black py-6 mb-2 font-[Manrope]">
-  <div class="max-w-6xl mx-auto px-6">
+<section class="bg-white text-black py-6 mb-2 font-[Inter]">
+  <div class="max-w-7xl mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-12" data-reveal>
       <p class="text-sm font-semibold tracking-wide mb-4 section-label">What our guests say</p>

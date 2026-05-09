@@ -3,9 +3,9 @@
   $boats = $boats ?? collect();
 @endphp
 
-<div class="bg-white py-16 font-[Manrope] mt-16">
+<div class="bg-white py-16 font-[Inter] mt-16">
   <!-- Featured Boats Header -->
-  <div class="max-w-6xl mx-auto px-6 mb-12">
+  <div class="max-w-7xl mx-auto px-6 mb-12">
     <h1 class="text-3xl sm:text-4xl md:text-5xl text-center  text-black tracking-wider">
       Featured Boats
     </h1>
@@ -13,7 +13,7 @@
   </div>
 
   <!-- Boat Card Grid -->
-  <div class="max-w-6xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-6">
     <div class="flex flex-wrap justify-center gap-10 lg:gap-16">
       @foreach ($boats as $boat)
         <div

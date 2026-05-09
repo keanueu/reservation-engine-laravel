@@ -7,12 +7,12 @@
     <title>@yield('title', '')</title>
        <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/build/assets/app.css">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/auth-custom.css">
     <script src="/js/tailwind-config.js"></script>
     @stack('styles')
 </head>
-<body class="font-[Manrope] antialiased bg-dark-bg">
+<body class="font-[Inter] antialiased bg-dark-bg">
     @include('auth.partials.cabanas-loader')
     <div id="main-content" class="opacity-0">
         @yield('content')

@@ -1,12 +1,12 @@
 <div x-show="tab === 'rooms'" x-transition>
 
 
-  <div class="max-w-4xl mx-auto mb-10">
-    <h2 class="text-3xl  font-[Manrope] text-black tracking-wider mb-6">
+  <div class="max-w-7xl mx-auto mb-10">
+    <h2 class="text-3xl  font-[Inter] text-black tracking-wider mb-6">
       Check Room Availability
     </h2>
     <div
-      class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 font-[Manrope] bg-white p-6 border border-gray-200 shadow-sm">
+      class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 font-[Inter] bg-white p-6 border border-gray-200 shadow-sm">
 
       <div>
         <label class="block text-sm text-gray-600 mb-1 flex items-center gap-1">
@@ -71,7 +71,7 @@
     <input type="hidden" name="children" id="room_children_input">
   </form>
 
-  <div class="mt-6 font-[Manrope] text-black">
+  <div class="mt-6 font-[Inter] text-black">
     <div x-cloak class="mb-4">
 
       <div class="flex items-center justify-between">
