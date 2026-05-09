@@ -5,7 +5,7 @@
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Manrope] font-bold tracking-tight">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-bold tracking-tight">
                 Our exclusive stays
             </h1>
         </div>
@@ -20,7 +20,7 @@
   $placeholderImage = "https://placehold.co/400x300/f3f4f6/1f2937?text=Minimal+Suite";
 @endphp
 
-<div class="bg-white py-8 font-[Manrope]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
+<div class="bg-white py-8 font-[Inter]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
   <div class="text-center mb-12">
       <p class="text-sm font-semibold tracking-wide mb-4 section-label">Our accommodation</p>
       <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] tracking-tight text-gray-900">
@@ -31,7 +31,7 @@
       </p>
     </div>
 
-  <div class="max-w-6xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-6">
 
     <!-- Filters -->
     <div class="mb-6">

@@ -1,27 +1,21 @@
 <div x-data="{ mobileOpen: false, weatherOpen: false }"
      @keydown.escape.window="mobileOpen = false; weatherOpen = false;">
-
-    {{-- ── Sticky header wrapper ── --}}
-    <div class="fixed inset-x-0 top-0 z-50 shadow-sm">
-        {{-- ── Top utility bar ── --}}
-        <div class="hidden bg-[#964B00] text-xs md:block">
-            <div class="max-w-6xl mx-auto px-6 py-2 flex justify-between items-center">
-                <div class="flex items-center gap-6 text-white/80">
-                    <span class="flex items-center gap-1.5 text-white">
+     <div class="w-full bg-white border-b">
+        <div class="max-w-7xl mx-auto py-2 px-6 flex justify-between items-center text-xs md:text-sm">
+            <div class="text-gray-900 font-semibold"> <span class="flex items-center gap-1.5 text-black">
                         <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
                         Tambobong, Dasol, Pangasinan
-                    </span>
-                    <span class="flex items-center gap-1.5 text-white">
-                        <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
-                        +63 912 345 6789
-                    </span>
-                </div>
-                <div class="flex items-center gap-5 text-white/80">
+                    </span></div>
+            <div class="flex items-center gap-2">
+                <span class="text-gray-900 font-semibold">Use Code <span class="bg-[#4ade80] text-white px-2 py-0.5 font-bold uppercase">"QUICKBUY"</span> and Get Extra <span class="text-green-500 font-bold">15%</span> Discount Today!</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-5 text-gray-600 font-medium">
                     @if(Route::has('login'))
                         @auth
                             <div class="relative" x-data="{ open: false }">
-                                <button @click.stop="open = !open" class="flex items-center gap-2 text-white hover:text-white/70 transition-opacity">
-                                    <img class="w-5 h-5 object-cover border border-white/30"
+                                <button @click.stop="open = !open" class="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-opacity">
+                                    <img class="w-5 h-5 object-cover border border-gray-200"
                                          src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/40x40/964B00/ffffff?text=U' }}"
                                          alt="{{ Auth::user()->name }}">
                                     <span class="">{{ Auth::user()->name }}</span>
@@ -44,77 +38,98 @@
                                 </div>
                             </div>
                         @else
-                            <a href="{{ url('login') }}" class="text-white hover:text-white/70 transition-opacity">Login</a>
-                            <a href="{{ url('register') }}" class="text-white hover:text-white/70 transition-opacity">Register</a>
+                            <a href="{{ url('login') }}" class="hover:text-gray-900 transition-opacity">Login</a>
+                            <a href="{{ url('register') }}" class="hover:text-gray-900 transition-opacity border-l pl-4 border-gray-200">Register</a>
                         @endauth
                     @endif
                 </div>
+
+                <a href="{{ route('cart.show') }}" class="bg-[#ff5a3c] text-white px-4 py-1 rounded flex items-center gap-1 hover:bg-red-600 transition text-xs font-bold uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-sm">shopping_bag</span>
+                    Cart
+                </a>
             </div>
         </div>
+    </div>
 
-        {{-- ── Main navbar ── --}}
-        <nav id="navbar" class="w-full bg-white border-b border-gray-100">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex items-center justify-between h-20">
+ 
+    @php
+        $navLinks = [
+            ['label'=>'Home',      'url'=>url('/')],
+            ['label'=>'Bookings',  'url'=>route('my.bookings')],
+            ['label'=>'Rooms',     'url'=>url('/home/rooms')],
+            ['label'=>'Amenities', 'url'=>url('/home/amenities')],
+            ['label'=>'Contact',   'url'=>url('/home/contact')],
+        ];
+    @endphp
 
-                {{-- Logo --}}
-                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                    <div class="w-14 h-14 overflow-hidden">
+    {{-- Only show hero on homepage or authenticated home --}}
+    @if(Request::is('/') || Request::is('home'))
+        <div class="relative">
+            {{-- Header overlay --}}
+            <div class="absolute top-0 left-0 w-full z-30">
+                <header class="max-w-7xl mx-auto flex justify-between items-center px-6 py-6">
+                    {{-- Logo --}}
+                    <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                        <div class="w-14 h-14 overflow-hidden">
+                            <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
+                        </div>
+                    </a>
+
+                    <div class="flex items-center gap-6">
+                        {{-- Right actions (Weather) --}}
+                        <div class="hidden lg:flex items-center gap-3">
+                            @include('home.partials.weather-popover')
+                        </div>
+
+                        {{-- Main Nav --}}
+                        <nav class="hidden lg:flex items-center bg-[#A15D1A] text-white rounded-sm overflow-hidden">
+                            @foreach($navLinks as $link)
+                                <a href="{{ $link['url'] }}"
+                                   class="px-6 py-3 hover:text-gray-300 transition-colors">
+                                    {{ $link['label'] }}
+                                </a>
+                            @endforeach
+                            <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black font-semibold">Book Now</a>
+                        </nav>
+
+                        {{-- Mobile Toggle --}}
+                        <div class="lg:hidden flex items-center gap-4">
+                             @include('home.partials.weather-popover')
+                             <button @click="mobileOpen = true" class="p-2 text-white">
+                                <span class="material-symbols-outlined text-2xl">menu</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+            </div>
+
+            @include('home.sections.hero')
+        </div>
+    @else
+        {{-- For other pages, show a simpler static header --}}
+        <div class="bg-white border-b shadow-sm">
+            <header class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+                <a href="{{ url('/') }}" class="flex items-center gap-3">
+                    <div class="w-12 h-12">
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
                     </div>
                 </a>
-
-                {{-- Desktop nav links --}}
-                <div class="hidden lg:flex items-center gap-8">
-                    @php
-                        $navLinks = [
-                            ['label'=>'Home',      'url'=>url('/')],
-                            ['label'=>'Rooms',     'url'=>url('/home/rooms')],
-                            ['label'=>'Amenities', 'url'=>url('/home/amenities')],
-                            ['label'=>'Contact',   'url'=>url('/home/contact')],
-                        ];
-                        if(auth()->check()) {
-                            $navLinks[] = ['label'=>'Bookings', 'url'=>route('my.bookings')];
-                        }
-                    @endphp
-                    @foreach($navLinks as $link)
-                        <a href="{{ $link['url'] }}"
-                           class="group relative text-xs text-gray-600 transition-colors hover:text-[#964B00]">
-                            {{ $link['label'] }}
-                            <span class="absolute -bottom-1 left-0 h-0.5 w-0 bg-[#964B00] transition-all duration-300 group-hover:w-full"></span>
-                        </a>
-                    @endforeach
+                
+                <div class="flex items-center gap-6">
+                    <div class="hidden lg:flex items-center gap-3">
+                        @include('home.partials.weather-popover')
+                    </div>
+                    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-600">
+                        @foreach($navLinks as $link)
+                            <a href="{{ $link['url'] }}" class="hover:text-[#A15D1A] transition-colors">{{ $link['label'] }}</a>
+                        @endforeach
+                        <a href="{{ route('booking.dates') }}" class="bg-[#A15D1A] text-white px-6 py-2 rounded-sm hover:bg-[#8B4E14] transition-colors">Book Now</a>
+                    </nav>
                 </div>
-
-                {{-- Right actions --}}
-                <div class="flex items-center gap-3">
-                    {{-- Weather Popover --}}
-                    @include('home.partials.weather-popover')
-
-                    {{-- Cart --}}
-                    <a href="{{ route('cart.show') }}"
-                       class="hidden md:flex items-center gap-1.5 px-3 py-2 text-xs border border-gray-200 text-gray-600 hover:border-[#964B00] hover:text-[#964B00] transition-colors">
-                        <span class="material-symbols-outlined text-base">shopping_bag</span>
-                        Cart
-                    </a>
-
-                    {{-- Book Now CTA --}}
-                    <a href="{{ route('booking.dates') }}"
-                       class="hidden md:block btn-primary px-6 py-2.5 text-xs 
-             
-                       ">
-                        Book Now
-                    </a>
-
-                    {{-- Mobile toggle --}}
-                    <button @click="mobileOpen = true" class="lg:hidden p-2 text-gray-700 hover:text-[#964B00] transition-colors">
-                        <span class="material-symbols-outlined text-2xl">menu</span>
-                    </button>
-                </div>
-            </div>
+            </header>
         </div>
-        </nav>
-    </div>
+    @endif
 
     {{-- ── Mobile drawer (slide from right) ── --}}
     <div class="h-20 md:h-28"></div>
@@ -180,13 +195,11 @@
                 @php
                     $drawerLinks = [
                         ['label'=>'Home',      'url'=>url('/'),                'icon'=>'home'],
+                        ['label'=>'Bookings',  'url'=>route('my.bookings'),    'icon'=>'receipt_long'],
                         ['label'=>'Rooms',     'url'=>url('/home/rooms'),      'icon'=>'hotel'],
                         ['label'=>'Amenities', 'url'=>url('/home/amenities'), 'icon'=>'pool'],
                         ['label'=>'Contact',   'url'=>url('/home/contact'),   'icon'=>'mail'],
                     ];
-                    if(auth()->check()) {
-                        $drawerLinks[] = ['label'=>'Bookings', 'url'=>route('my.bookings'), 'icon'=>'receipt_long'];
-                    }
                 @endphp
 
                 @foreach($drawerLinks as $i => $link)

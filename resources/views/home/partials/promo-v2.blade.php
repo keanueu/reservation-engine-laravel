@@ -10,7 +10,7 @@
     // Control whether this template should render promo badges/carousels.
     $showPromos = $showPromos ?? true;
 @endphp
-<div class="max-w-6xl mx-auto px-6">
+<div class="max-w-7xl mx-auto px-6">
 
    {{-- Room Card Grid --}}
     <div class="
@@ -18,7 +18,7 @@
     sm:overflow-visible sm:snap-none sm:space-x-0
     sm:grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1
     sm:gap-6 items-stretch
-    mt-6 overscroll-auto font-[Manrope]" style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
+    mt-6 overscroll-auto font-[Inter]" style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
 
 
         {{-- Only show rooms that currently have an active promotion (admin can remove promos) --}}

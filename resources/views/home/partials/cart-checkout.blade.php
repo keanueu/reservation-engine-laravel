@@ -5,7 +5,7 @@ $total = 0;
 // Combine and sort items if needed, but keeping them separate for distinct styling is simpler
 @endphp
 
-<div class="font-[Manrope] text-black w-full lg:max-w-md">
+<div class="font-[Inter] text-black w-full lg:max-w-md">
     <h2 class="text-lg font-normal tracking-tight mb-6 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#964B00]" fill="none" viewBox="0 0 24 24"
             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -151,7 +151,7 @@ $total = 0;
     <div class="mt-6 pt-4 border-t border-gray-200">
         <div class="flex justify-between items-center mb-5">
             <p class="text-sm font-medium text-black">Total Due:</p>
-            <p class="text-sm font-medium text-black font-[Manrope]">
+            <p class="text-sm font-medium text-black font-[Inter]">
                 PHP {{ number_format($total, 2) }}
             </p>
         </div>

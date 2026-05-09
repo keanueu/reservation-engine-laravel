@@ -2,12 +2,12 @@
 <div x-data="weatherPopover()" class="relative">
     {{-- Minimalist Trigger Button --}}
     <button @click="toggle()" 
-            class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 border border-transparent hover:border-slate-200"
+            class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 border border-transparent hover:border-slate-200 font-[Inter]"
             :class="{ 'bg-slate-50 border-slate-200': isOpen }">
         {{-- Weather Icon --}}
-        <span id="navbar-weather-icon" class="material-symbols-outlined text-slate-600 text-base">wb_sunny</span>
+        <span id="navbar-weather-icon" class="material-symbols-outlined text-white text-base">wb_sunny</span>
         {{-- Current Temperature --}}
-        <span id="navbar-temp" class="font-sans font-semibold text-slate-900">--°</span>
+        <span id="navbar-temp" class="font-[Inter] font-semibold text-white">--°</span>
     </button>
 
     {{-- Popover Dropdown --}}
@@ -26,7 +26,7 @@
         <div class="px-6 py-3 border-b border-slate-100 bg-slate-50">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-slate-500 text-base">location_on</span>
+                    <span class="material-symbols-outlined text-white text-base">location_on</span>
                     <span id="popover-city" class="text-sm font-semibold text-slate-900">Dasol</span>
                     <span id="popover-country" class="text-xs text-slate-500">PH</span>
                 </div>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="w-16 h-16 flex items-center justify-center">
-                    <span id="weather-main-icon" class="material-symbols-outlined text-slate-400 text-4xl">wb_sunny</span>
+                    <span id="weather-main-icon" class="material-symbols-outlined text-white text-4xl">wb_sunny</span>
                 </div>
             </div>
 

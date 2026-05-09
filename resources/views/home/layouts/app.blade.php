@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="{{ asset('LOGO-FINAL.png') }}" type="image/x-icon">
     <title>{{ config('app.name') }} — Luxury Beach & Boat Resort</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,7 +43,7 @@
         html { scroll-behavior: smooth; }
 
         /* ── Typography System ── */
-        body { font-family: 'Manrope', sans-serif; background: var(--off-white); color: #1f2937; line-height: 1.6; }
+        body { font-family:'Inter', sans-serif; background: var(--off-white); color: #1f2937; line-height: 1.6; }
         
         /* Headings Hierarchy */
         h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: #111827; }
@@ -65,7 +65,7 @@
         .section-label { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; color: #964B00; }
         
         /* Form Elements */
-        input, select, textarea, button { font-family: 'Manrope', sans-serif; }
+        input, select, textarea, button { font-family:'Inter', sans-serif; }
         input::placeholder, textarea::placeholder { color: #9ca3af; }
         
         /* Responsive Typography */

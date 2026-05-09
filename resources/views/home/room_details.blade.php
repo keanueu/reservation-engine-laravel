@@ -6,7 +6,7 @@
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
             <h1
-                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Manrope] tracking-wide">
+                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter] tracking-wide">
                 Our Exclusive Stays
             </h1>
         </div>
@@ -14,9 +14,9 @@
 
 
     <section class="pt-12 pb-12">
-        <div class="max-w-6xl mx-auto px-4" id="booking-section">
+        <div class="max-w-7xl mx-auto px-4" id="booking-section">
 
-            <div class="pb-3 font-[Manrope]">
+            <div class="pb-3 font-[Inter]">
                 <a href="{{ url('/home/rooms') }}"
                     class="flex items-center text-sm text-gray-600 hover:text-gray-900 transition mb-1">
                     <span class="material-symbols-outlined mr-1" style="font-size: 16px;">arrow_back</span>
@@ -27,7 +27,7 @@
                 </h1>
             </div>
 
-            {{-- We keep the max-w-6xl alignment from the parent div. --}}
+            {{-- We keep the max-w-7xl alignment from the parent div. --}}
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
                 <div class="lg:col-span-2 flex flex-col space-y-8">
@@ -85,10 +85,10 @@
                     </div>
 
                     <div>
-                        <h2 class="text-xl  font-[Manrope] text-gray-900 pb-2 flex items-center gap-2">
+                        <h2 class="text-xl  font-[Inter] text-gray-900 pb-2 flex items-center gap-2">
                             Description
                         </h2>
-                        <p class="mt-2 text-gray-700 font-[Manrope] text-sm  leading-relaxed">
+                        <p class="mt-2 text-gray-700 font-[Inter] text-sm  leading-relaxed">
                             {{ $room->description }}
                         </p>
                     </div>
@@ -300,7 +300,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-5 bg-white shadow-sm border border-gray-300 font-[Manrope]">
+                    <div class="p-5 bg-white shadow-sm border border-gray-300 font-[Inter]">
                         <h3 class="text-xl  text-gray-900 mb-4 flex items-center gap-2">
                             Properties
                         </h3>
@@ -333,7 +333,7 @@
 
                     {{-- Amenities Section --}}
                     <div>
-                        <h3 class="text-xl  text-gray-900 pb-2 flex items-center gap-2 font-[Manrope]">
+                        <h3 class="text-xl  text-gray-900 pb-2 flex items-center gap-2 font-[Inter]">
                             Amenities
                         </h3>
 
@@ -353,7 +353,7 @@
                                 ];
                             @endphp
 
-                            <div class="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-2 mt-2 font-[Manrope]">
+                            <div class="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-2 mt-2 font-[Inter]">
                                 @foreach(explode(',', $room->amenities) as $amenity)
                                     @php $name = trim($amenity); @endphp
                                     <span class="flex items-center gap-1 bg-white text-black text-xs px-3 py-1.5 border border-gray-200 shadow-sm hover:bg-gray-100">

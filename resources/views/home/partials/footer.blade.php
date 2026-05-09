@@ -6,7 +6,7 @@
         </svg>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-6 pt-16 pb-10">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-14">
 
             {{-- Brand --}}

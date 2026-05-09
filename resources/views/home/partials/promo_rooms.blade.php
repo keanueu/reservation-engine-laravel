@@ -11,10 +11,10 @@
     $showPromos = $showPromos ?? true;
 @endphp
 
-<div class="bg-white py-2 font-[Manrope]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
+<div class="bg-white py-2 font-[Inter]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
     
     @include('home.partials.xmas_collection')
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
 
 
 

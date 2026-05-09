@@ -1,6 +1,6 @@
 <div x-show="tab === 'boats'" x-transition>
 
-  <div class="max-w-4xl font-[Manrope] mx-auto mb-10">
+  <div class="max-w-7xl font-[Inter] mx-auto mb-10">
     <h2 class="text-3xl  text-black tracking-wider mb-6">
       Schedule Your Boat Trip
     </h2>
@@ -37,7 +37,7 @@
     <input type="hidden" name="end_time" id="boat_end_time_input">
   </form>
 
-  <div class="mt-6 space-y-8 font-[Manrope] text-black">
+  <div class="mt-6 space-y-8 font-[Inter] text-black">
     @foreach ($boats as $boat)
       <div class="group bg-white border border-gray-200 shadow-sm overflow-hidden flex flex-col md:flex-row h-full">
         <div class="relative overflow-hidden h-56 md:h-auto md:w-2/5">

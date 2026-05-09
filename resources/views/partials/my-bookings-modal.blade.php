@@ -1,5 +1,5 @@
 <div id="my-bookings-modal"
-     class="fixed inset-0 hidden items-center justify-end z-[9999] font-[Manrope]"
+     class="fixed inset-0 hidden items-center justify-end z-[9999] font-[Inter]"
      style="background:rgba(0,0,0,0.55);">
 
     {{-- Slide-over panel --}}

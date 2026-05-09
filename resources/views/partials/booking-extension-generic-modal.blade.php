@@ -1,5 +1,5 @@
 <!-- Generic Booking Extension Modal (single instance) -->
-<div id="extension-generic-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 font-[Manrope]">
+<div id="extension-generic-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 font-[Inter]">
   <div class="bg-white w-full max-w-md p-6">
     <h3 class="text-lg font-semibold mb-4">Request Extension</h3>
 

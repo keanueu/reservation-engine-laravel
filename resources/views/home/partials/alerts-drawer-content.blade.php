@@ -1,7 +1,7 @@
-<div class="font-[Manrope]">
+<div class="font-[Inter]">
     <button id="alerts-toggle-button" aria-controls="alerts-sidebar" aria-expanded="false" class="fixed top-1/4 z-[60] transition-all duration-300 ease-in-out 
                    focus:outline-none p-3 rounded-r-lg 
-                   bg-[#964B00] border border-white border-1 text-white shadow-xl 
+                   bg-[#A15D1A] text-white shadow-xl 
                    hover:bg-[#7a3c00] active:ring-4 active:ring-orange-700 active:ring-opacity-50">
         <!-- Menu Icon -->
         <svg id="alerts-menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
