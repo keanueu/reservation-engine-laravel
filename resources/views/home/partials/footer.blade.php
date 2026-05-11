@@ -31,7 +31,7 @@
                     ]; @endphp
                     @foreach($trust as $t)
                         <div class="flex items-center gap-2 text-white/50">
-                            <span class="material-symbols-outlined text-base flex-shrink-0 text-[#964B00]">{{ $t['icon'] }}</span>
+                            <span class="material-symbols-outlined text-base flex-shrink-0 text-[#63360D]">{{ $t['icon'] }}</span>
                             <span class="text-xs">{{ $t['label'] }}</span>
                         </div>
                     @endforeach
@@ -59,7 +59,7 @@
                     @foreach($links as [$label,$url])
                         <li>
                             <a href="{{ $url }}" class="flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors group">
-                                <span class="w-0 h-px bg-[#964B00] transition-all duration-300 group-hover:w-4"></span>
+                                <span class="w-0 h-px bg-[#63360D] transition-all duration-300 group-hover:w-4"></span>
                                 {{ $label }}
                             </a>
                         </li>
@@ -78,7 +78,7 @@
                     ]; @endphp
                     @foreach($contacts as $c)
                         <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-base mt-0.5 flex-shrink-0 text-[#964B00]">{{ $c['icon'] }}</span>
+                            <span class="material-symbols-outlined text-base mt-0.5 flex-shrink-0 text-[#63360D]">{{ $c['icon'] }}</span>
                             <span class="text-sm text-white/55 leading-relaxed">{{ $c['text'] }}</span>
                         </li>
                     @endforeach
@@ -93,14 +93,14 @@
                     <input type="email" placeholder="your@email.com"
                            class="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
                            style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);"
-                           onfocus="this.style.borderColor='#964B00'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                           onfocus="this.style.borderColor='#63360D'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
                     <button type="submit"
                             class="w-full btn-primary py-3 text-xs tracking-widest uppercase">
                         Subscribe
                     </button>
                 </form>
                 {{-- Safe to sail badge --}}
-                <div class="mt-5 flex items-center gap-2 px-4 py-3" style="background:rgba(150,75,0,0.15); border:1px solid rgba(150,75,0,0.3);">
+                <div class="mt-5 flex items-center gap-2 px-4 py-3" style="background:rgba(99,54,13,0.15); border:1px solid rgba(99,54,13,0.3);">
                     <span class="w-2 h-2 bg-green-400 animate-pulse flex-shrink-0"></span>
                     <span class="text-xs text-white/70">Safe to Sail — Conditions Normal</span>
                 </div>
@@ -116,7 +116,7 @@
                 <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
                 <a href="#" class="hover:text-white/70 transition-colors">Terms of Service</a>
                 <span class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-base text-[#964B00]">location_on</span>
+                    <span class="material-symbols-outlined text-base text-[#63360D]">location_on</span>
                     Dasol, Pangasinan
                 </span>
             </div>

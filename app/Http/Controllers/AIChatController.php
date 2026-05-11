@@ -83,7 +83,7 @@ PROMPT;
 
                 $stream = $resp->toPsrResponse()->getBody();
             } catch (\Throwable $e) {
-                $send(['error' => 'Failed to contact local model: ' . $e->getMessage()]);
+                $send(['error' => 'Failed to contact local model. Please ensure Ollama is running on your machine and the model is pulled. Error: ' . $e->getMessage()]);
                 $send(['done' => true]);
                 return;
             }

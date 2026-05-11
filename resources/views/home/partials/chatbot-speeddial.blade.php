@@ -2,7 +2,7 @@
 <div x-data="chatbotSpeedDial()" class="fixed bottom-6 right-6 z-50">
     {{-- Speed Dial Button --}}
     <button @click="toggle()" 
-            class="group relative flex items-center justify-center w-14 h-14 bg-gradient-to-br from-[#964B00] to-[#7a3d00] hover:from-black hover:to-gray-800 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110"
+            class="group relative flex items-center justify-center w-14 h-14 bg-gradient-to-br from-[#63360D] to-[#8B4E14] hover:from-black hover:to-gray-800 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110"
             :class="{ 'scale-110 shadow-2xl': isOpen }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300" :class="{ 'rotate-90': isOpen }">
             <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
@@ -22,7 +22,7 @@
          class="absolute bottom-16 right-0 w-96 h-[600px] bg-white border border-slate-200 shadow-2xl flex flex-col overflow-hidden">
         
         {{-- Header --}}
-        <div class="px-4 py-3 bg-gradient-to-r from-[#964B00] to-[#7a3d00] border-b border-slate-200">
+        <div class="px-4 py-3 bg-gradient-to-r from-[#63360D] to-[#8B4E14] border-b border-slate-200">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -65,11 +65,12 @@
                 <input x-model="message" 
                        type="text" 
                        placeholder="Type your message..." 
-                       class="flex-1 px-3 py-2 text-sm border border-slate-300 focus:border-[#964B00] focus:ring-1 focus:ring-[#964B00] outline-none transition-colors"
+                       class="flex-1 px-3 py-2 text-sm border border-slate-300 focus:border-[#A15D1A] focus:ring-1 focus:ring-[#A15D1A] outline-none transition-colors"
                        :disabled="isSending">
                 <button type="submit" 
                         :disabled="!message.trim() || isSending"
-                        class="px-4 py-2 bg-[#964B00] text-white hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="px-4 py-2 bg-[#63360D]
+                         text-white hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="22" y1="2" x2="11" y2="13"></line>
                         <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -133,7 +134,7 @@ function chatbotSpeedDial() {
             const div = document.createElement('div');
             div.className = 'flex gap-2 items-start justify-end';
             div.innerHTML = `
-                <div class="bg-[#964B00] text-white px-3 py-2 max-w-[80%]">
+                <div class="bg-[#63360D] text-white px-3 py-2 max-w-[80%]">
                     <p class="text-sm">${this.escapeHtml(text)}</p>
                 </div>`;
             container.appendChild(div);

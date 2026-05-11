@@ -16,7 +16,7 @@
                             <div class="relative" x-data="{ open: false }">
                                 <button @click.stop="open = !open" class="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-opacity">
                                     <img class="w-5 h-5 object-cover border border-gray-200"
-                                         src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/40x40/964B00/ffffff?text=U' }}"
+                                         src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/40x40/A15D1A/ffffff?text=U' }}"
                                          alt="{{ Auth::user()->name }}">
                                     <span class="">{{ Auth::user()->name }}</span>
                                     <span class="material-symbols-outlined text-xs transition-transform" :class="{'rotate-180':open}">expand_more</span>
@@ -83,21 +83,21 @@
                         </div>
 
                         {{-- Main Nav --}}
-                        <nav class="hidden lg:flex items-center bg-[#A15D1A] text-white rounded-sm overflow-hidden">
+                        <nav class="hidden lg:flex items-center bg-[#63360D] text-white rounded-sm overflow-hidden shadow-md">
                             @foreach($navLinks as $link)
                                 <a href="{{ $link['url'] }}"
-                                   class="px-6 py-3 hover:text-gray-300 transition-colors">
+                                   class="px-6 py-3 hover:text-gray-300 transition-colors text-sm">
                                     {{ $link['label'] }}
                                 </a>
                             @endforeach
-                            <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black font-semibold">Book Now</a>
+                            <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black font-semibold hover:bg-gray-100 transition">Book Now</a>
                         </nav>
 
                         {{-- Mobile Toggle --}}
                         <div class="lg:hidden flex items-center gap-4">
                              @include('home.partials.weather-popover')
-                             <button @click="mobileOpen = true" class="p-2 text-white">
-                                <span class="material-symbols-outlined text-2xl">menu</span>
+                             <button @click="mobileOpen = true" class="p-2 text-white hover:text-gray-300 transition-colors">
+                                <span class="material-symbols-outlined text-3xl">menu</span>
                             </button>
                         </div>
                     </div>
@@ -107,25 +107,40 @@
             @include('home.sections.hero')
         </div>
     @else
-        {{-- For other pages, show a simpler static header --}}
-        <div class="bg-white border-b shadow-sm">
+        {{-- For other pages, show a consistent premium header with white background --}}
+        <div class="bg-white border-b shadow-sm relative z-30">
             <header class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-                <a href="{{ url('/') }}" class="flex items-center gap-3">
-                    <div class="w-12 h-12">
+                {{-- Logo --}}
+                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                    <div class="w-14 h-14 overflow-hidden">
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
                     </div>
                 </a>
                 
                 <div class="flex items-center gap-6">
+                    {{-- Right actions (Weather) --}}
                     <div class="hidden lg:flex items-center gap-3">
                         @include('home.partials.weather-popover')
                     </div>
-                    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-600">
+
+                    {{-- Main Nav --}}
+                    <nav class="hidden lg:flex items-center bg-[#63360D] text-white rounded-sm overflow-hidden shadow-md">
                         @foreach($navLinks as $link)
-                            <a href="{{ $link['url'] }}" class="hover:text-[#A15D1A] transition-colors">{{ $link['label'] }}</a>
+                            <a href="{{ $link['url'] }}"
+                               class="px-6 py-3 hover:text-gray-300 transition-colors text-sm">
+                                {{ $link['label'] }}
+                            </a>
                         @endforeach
-                        <a href="{{ route('booking.dates') }}" class="bg-[#A15D1A] text-white px-6 py-2 rounded-sm hover:bg-[#8B4E14] transition-colors">Book Now</a>
+                        <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black font-semibold hover:bg-gray-100 transition">Book Now</a>
                     </nav>
+
+                    {{-- Mobile Toggle --}}
+                    <div class="lg:hidden flex items-center gap-4">
+                         @include('home.partials.weather-popover')
+                         <button @click="mobileOpen = true" class="p-2 text-gray-900 hover:text-[#63360D] transition-colors">
+                            <span class="material-symbols-outlined text-3xl">menu</span>
+                        </button>
+                    </div>
                 </div>
             </header>
         </div>
@@ -160,7 +175,7 @@
              x-transition:leave-end="translate-x-full">
 
             {{-- Drawer header --}}
-            <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-[#964B00] to-[#bf6b1a]">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-[#63360D] to-[#8B4E14]">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/10 backdrop-blur-sm flex items-center justify-center overflow-hidden">
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-8 h-8 object-contain">
@@ -179,8 +194,8 @@
             @auth
             <div class="px-6 py-4 bg-gradient-to-br from-gray-50 to-white border-b border-gray-100">
                 <div class="flex items-center gap-3">
-                    <img class="w-12 h-12 object-cover border-2 border-[#964B00]/20"
-                         src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/48x48/964B00/ffffff?text=U' }}"
+                    <img class="w-12 h-12 object-cover border-2 border-[#63360D]/20"
+                         src="{{ Auth::user()->profile_photo_url ?? 'https://placehold.co/48x48/63360D/ffffff?text=U' }}"
                          alt="{{ Auth::user()->name }}">
                     <div class="flex-1 min-w-0">
                         <p class="text-sm text-gray-900 truncate">{{ Auth::user()->name }}</p>
@@ -205,27 +220,27 @@
                 @foreach($drawerLinks as $i => $link)
                     <a href="{{ $link['url'] }}"
                        @click="mobileOpen = false"
-                       class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group"
+                       class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#63360D] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group"
                        x-transition:enter="transition ease-out duration-300 delay-{{ $i * 50 }}"
                        x-transition:enter-start="opacity-0 translate-x-4"
                        x-transition:enter-end="opacity-100 translate-x-0">
-                        <span class="flex h-10 w-10 items-center justify-center bg-gray-100 text-[#964B00] transition-all duration-200 group-hover:bg-[#964B00] group-hover:text-white">
+                        <span class="flex h-10 w-10 items-center justify-center bg-gray-100 text-[#63360D] transition-all duration-200 group-hover:bg-[#63360D] group-hover:text-white">
                             <span class="material-symbols-outlined text-xl">{{ $link['icon'] }}</span>
                         </span>
                         <span class="flex-1">{{ $link['label'] }}</span>
-                        <span class="material-symbols-outlined text-base text-gray-300 group-hover:text-[#964B00] group-hover:translate-x-1 transition-all duration-200">chevron_right</span>
+                        <span class="material-symbols-outlined text-base text-gray-300 group-hover:text-[#63360D] group-hover:translate-x-1 transition-all duration-200">chevron_right</span>
                     </a>
                 @endforeach
 
                 @auth
                     <a href="{{ route('user.profile') }}"
                        @click="mobileOpen = false"
-                       class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#964B00] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group">
-                        <span class="flex h-10 w-10 items-center justify-center bg-gray-100 text-[#964B00] transition-all duration-200 group-hover:bg-[#964B00] group-hover:text-white">
+                       class="flex items-center gap-4 px-6 py-4 text-sm text-gray-700 hover:text-[#63360D] hover:bg-orange-50/50 transition-all duration-200 border-b border-gray-50 group">
+                        <span class="flex h-10 w-10 items-center justify-center bg-gray-100 text-[#63360D] transition-all duration-200 group-hover:bg-[#63360D] group-hover:text-white">
                             <span class="material-symbols-outlined text-xl">person</span>
                         </span>
                         <span class="flex-1">Profile</span>
-                        <span class="material-symbols-outlined text-base text-gray-300 group-hover:text-[#964B00] group-hover:translate-x-1 transition-all duration-200">chevron_right</span>
+                        <span class="material-symbols-outlined text-base text-gray-300 group-hover:text-[#63360D] group-hover:translate-x-1 transition-all duration-200">chevron_right</span>
                     </a>
                 @endauth
 
@@ -235,13 +250,13 @@
                     <div class="space-y-2">
                         <a href="{{ route('cart.show') }}"
                            @click="mobileOpen = false"
-                           class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#964B00] transition-all duration-200 group">
-                            <span class="material-symbols-outlined text-xl text-[#964B00]">shopping_bag</span>
+                           class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#63360D] transition-all duration-200 group">
+                            <span class="material-symbols-outlined text-xl text-[#63360D]">shopping_bag</span>
                             <span>View Cart</span>
                         </a>
                         <button @click="weatherOpen = true; mobileOpen = false"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#964B00] transition-all duration-200 group">
-                            <span class="material-symbols-outlined text-xl text-[#964B00]">partly_cloudy_day</span>
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 bg-white hover:bg-orange-50 border border-gray-200 hover:border-[#63360D] transition-all duration-200 group">
+                            <span class="material-symbols-outlined text-xl text-[#63360D]">partly_cloudy_day</span>
                             <span>Weather Forecast</span>
                         </button>
                     </div>
@@ -252,7 +267,7 @@
             <div class="px-6 py-5 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white space-y-3">
                 <a href="{{ route('booking.dates') }}"
                    @click="mobileOpen = false"
-                   class="block w-full bg-[#964B00] py-3.5 text-center text-sm tracking-wider text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#6b3500] hover:shadow-lg">
+                   class="block w-full bg-[#63360D] py-3.5 text-center text-sm tracking-wider text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#4D290A] hover:shadow-lg">
                     <span class="material-symbols-outlined text-xl inline-block mr-2 -mt-1">calendar_month</span>
                     Book Now
                 </a>
