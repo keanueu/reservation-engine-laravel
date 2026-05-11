@@ -9,6 +9,17 @@ class HeroSearchController extends Controller
 {
     public function searchStay(Request $request)
     {
+        // Parse date_range if checkin/checkout are missing (common with range pickers)
+        if ($request->has('date_range') && !empty($request->date_range)) {
+            $dates = explode(' to ', $request->date_range);
+            if (count($dates) === 2) {
+                $request->merge([
+                    'checkin'  => trim($dates[0]),
+                    'checkout' => trim($dates[1]),
+                ]);
+            }
+        }
+
         $request->validate([
             'checkin'       => 'required|date|after_or_equal:today',
             'checkin_time'  => 'required',

@@ -1,8 +1,8 @@
 <div class="font-[Inter]">
     <button id="alerts-toggle-button" aria-controls="alerts-sidebar" aria-expanded="false" class="fixed top-1/4 z-[60] transition-all duration-300 ease-in-out 
                    focus:outline-none p-3 rounded-r-lg 
-                   bg-[#A15D1A] text-white shadow-xl 
-                   hover:bg-[#7a3c00] active:ring-4 active:ring-orange-700 active:ring-opacity-50">
+                   bg-[#63360D] text-white shadow-xl 
+                   hover:bg-[#8B4E14] active:ring-4 active:ring-[#A15D1A]/50">
         <!-- Menu Icon -->
         <svg id="alerts-menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
@@ -16,7 +16,7 @@
         </svg>
         <!-- Unread badge (updated in JS) -->
         <span id="alerts-unread-badge"
-            class="absolute -right-0.5 top-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium leading-none text-white bg-[#964B00]  hidden">0</span>
+            class="absolute -right-0.5 top-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium leading-none text-white bg-[#A15D1A]  hidden">0</span>
     </button>
 
     <!-- Side Panel -->
