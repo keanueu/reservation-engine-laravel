@@ -6,7 +6,7 @@
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
             <h1
-                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter] tracking-wide">
+                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter]">
                 Our Exclusive Stays
             </h1>
         </div>
@@ -22,7 +22,7 @@
                     <span class="material-symbols-outlined mr-1" style="font-size: 16px;">arrow_back</span>
                     Back to Rooms
                 </a>
-                <h1 class="text-2xl md:text-3xl  text-gray-900 uppercase tracking-wide">
+                <h1 class="text-2xl md:text-3xl  text-gray-900">
                     {{ $room->room_name ?? 'Room Details' }}
                 </h1>
             </div>
@@ -104,7 +104,7 @@
                         {{-- Price header --}}
                         <div class="flex items-end justify-between mb-4 pb-4 border-b border-gray-100">
                             <div>
-                                <p class="text-xs font-bold tracking-widest uppercase text-gray-400">Price</p>
+                                <p class="text-xs font-bold text-gray-400">Price</p>
                                 <p class="text-2xl font-bold text-gray-900 mt-1">
                                     PHP {{ number_format($room->price, 2) }}
                                     <span class="text-sm font-normal text-gray-400">/ night</span>
@@ -141,14 +141,14 @@
                         {{-- Date inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-3">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-in</p>
+                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-in</p>
                                 <input type="date" x-model="checkin"
                                        :min="today"
                                        @change="onCheckinChange"
                                        class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-out</p>
+                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-out</p>
                                 <input type="date" x-model="checkout"
                                        :min="minCheckout"
                                        @change="runChecks"
@@ -159,12 +159,12 @@
                         {{-- Time inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-in time</p>
+                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-in time</p>
                                 <input type="time" x-model="checkinTime"
                                        class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-out time</p>
+                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-out time</p>
                                 <input type="time" x-model="checkoutTime"
                                        class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
                             </div>
@@ -186,7 +186,7 @@
                             <div x-show="priceStatus === 'done' && hasDynamicPricing"
                                  class="flex items-center gap-1 text-[#964B00] mb-2">
                                 <span class="material-symbols-outlined" style="font-size:14px;">local_offer</span>
-                                <span class="font-bold tracking-wide">Special rate applied</span>
+                                <span class="font-bold">Special rate applied</span>
                             </div>
 
                             {{-- Applied rules summary --}}
@@ -269,7 +269,7 @@
                                'opacity-50 pointer-events-none cursor-not-allowed': availStatus === 'unavailable' || availStatus === 'checking',
                                'btn-primary': availStatus === 'available' || availStatus === 'idle'
                            }"
-                           class="w-full btn-primary py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+                           class="w-full btn-primary py-3.5 text-sm font-bold flex items-center justify-center gap-2">
                             <span x-show="availStatus === 'checking' || priceStatus === 'loading'">
                                 <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>

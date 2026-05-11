@@ -165,7 +165,7 @@
                             @endphp
                             <div class="absolute top-3 right-3 z-30">
                                 <span
-                                    class="inline-block bg-[#964B00] text-white text-sm py-1 px-3 tracking-wider uppercase shadow-lg">
+                                    class="inline-block bg-[#964B00] text-white text-sm py-1 px-3 shadow-lg">
                                     {{ $badgeText }}
                                 </span>
                             </div>
@@ -173,7 +173,7 @@
 
                         <div class="absolute bottom-4 left-4 z-20 text-white">
                             @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
-                                <span class="text-sm  text-gray-200 line-through tracking-wide block mb-1">
+                                <span class="text-sm text-gray-200 line-through block mb-1">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </span>
                                 <p class="text-white text-lg font-extrabold">
@@ -184,14 +184,14 @@
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </p>
                             @endif
-                            <span class="text-xs text-white tracking-wide block mt-0.5">Per night</span>
+                            <span class="text-xs text-white block mt-0.5">Per night</span>
                         </div>
 
                     </div>
 
                     <div class="p-4 flex flex-col flex-grow w-full">
 
-                        <h3 class="text-lg font-medium text-gray-900 tracking-tight mb-2">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">
                             {{ $room->room_name }}
                         </h3>
 
@@ -201,7 +201,7 @@
 
                         @if($isActive && $expiryDate)
                             <div class="py-1 mb-2">
-                                <p class="text-xs font-normal text-[#964B00] tracking-wider">
+                                <p class="text-xs font-normal text-[#964B00]">
                                     Offer Ends: {{ Carbon::parse($expiryDate)->format('M d, Y') }}
                                 </p>
                             </div>
@@ -226,7 +226,7 @@
                             </a>
                             <button type="button"
                                 onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
-                                class="bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black transition flex items-center justify-center tracking-wide">
+                                class="bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black transition flex items-center justify-center">
                                 Book now
                             </button>
                         </div>

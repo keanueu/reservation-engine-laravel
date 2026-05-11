@@ -8,7 +8,7 @@
         <div class="mb-8" data-reveal>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-4xl text-gray-900 tracking-tight">My bookings</h1>
+                    <h1 class="text-4xl text-gray-900">My bookings</h1>
                     <p class="text-base text-gray-600 mt-3 leading-relaxed">Manage your reservations and booking history</p>
                 </div>
                 <a href="{{ route('booking.dates') }}" 
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <p class="text-xs text-gray-500 tracking-wide">Total bookings</p>
+                            <p class="text-xs text-gray-500">Total bookings</p>
                             <p class="text-3xl text-gray-900 mt-1" id="total-bookings">--</p>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <p class="text-xs text-gray-500 tracking-wide">Confirmed</p>
+                            <p class="text-xs text-gray-500">Confirmed</p>
                             <p class="text-3xl text-gray-900 mt-1" id="confirmed-bookings">--</p>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <p class="text-xs text-gray-500 tracking-wide">Upcoming</p>
+                            <p class="text-xs text-gray-500">Upcoming</p>
                             <p class="text-3xl text-gray-900 mt-1" id="upcoming-bookings">--</p>
                         </div>
                     </div>
@@ -259,15 +259,15 @@ function createBookingCard(booking) {
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
-                    <p class="text-xs text-gray-500 tracking-wide mb-1.5">Check-in</p>
+                    <p class="text-xs text-gray-500 mb-1.5">Check-in</p>
                     <p class="text-sm text-gray-900">${formatDate(booking.checkin_date)} ${booking.checkin_time || ''}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 tracking-wide mb-1.5">Check-out</p>
+                    <p class="text-xs text-gray-500 mb-1.5">Check-out</p>
                     <p class="text-sm text-gray-900">${formatDate(booking.checkout_date)} ${booking.checkout_time || ''}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-500 tracking-wide mb-1.5">Total amount</p>
+                    <p class="text-xs text-gray-500 mb-1.5">Total amount</p>
                     <p class="text-base text-gray-900">₱${parseFloat(booking.total_price || 0).toLocaleString()}</p>
                 </div>
             </div>

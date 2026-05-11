@@ -6,7 +6,7 @@
       alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter] tracking-wide">
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter]">
         Our Exclusive Stays
       </h1>
     </div>
@@ -24,7 +24,7 @@
           </svg>
           Back to Cart
         </a>
-        <h1 class="text-2xl md:text-3xl  text-gray-900 uppercase tracking-wide"> {{-- Size and styling change to match room blade --}}
+        <h1 class="text-2xl md:text-3xl  text-gray-900"> {{-- Size and styling change to match room blade --}}
           {{ $boat->name ?? 'Boat Details' }}
         </h1>
       </div>

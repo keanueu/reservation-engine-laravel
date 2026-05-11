@@ -5,7 +5,7 @@
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-bold tracking-tight">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-bold">
                 Our exclusive stays
             </h1>
         </div>
@@ -22,8 +22,8 @@
 
 <div class="bg-white py-8 font-[Inter]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
   <div class="text-center mb-12">
-      <p class="text-sm font-semibold tracking-wide mb-4 section-label">Our accommodation</p>
-      <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] tracking-tight text-gray-900">
+      <p class="text-sm font-semibold mb-4 section-label">Our accommodation</p>
+      <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] text-gray-900">
         Exclusive stays
       </h2>
       <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
@@ -112,7 +112,7 @@
                 <p class="text-lg font-bold text-white">
                   PHP <span class="text-white">{{ number_format($room->price ?? 0, 2) }}</span>
                 </p>
-                <span class="text-xs text-gray-200 tracking-wide">Per night</span>
+                <span class="text-xs text-gray-200">Per night</span>
               </div>
 
               <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 z-20 flex items-center gap-2">
@@ -125,7 +125,7 @@
 
           <div class="p-5 flex flex-col flex-grow">
 
-            <h3 class="text-lg font-semibold text-gray-900 tracking-tight mb-2">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
               {{ $room->room_name }}
             </h3>
 
@@ -154,7 +154,7 @@
             <div class="mt-auto">
               <button type="button"
                 onclick="openBookingModal('{{ $room->id }}', '{{ addslashes($room->room_name) }}', {{ $room->price }}, {{ (int)$room->accommodates }})"
-                class="flex justify-center items-center w-full bg-[#964B00] p-3 text-xs font-semibold text-white tracking-wide border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
+                class="flex justify-center items-center w-full bg-[#964B00] p-3 text-xs font-semibold text-white border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
                 Book now
               </button>
             </div>

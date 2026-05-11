@@ -1,5 +1,5 @@
  <div class="py-2">
-        <h3 class="text-2xl  text-black tracking-wide mb-8 text-center">
+        <h3 class="text-2xl text-black mb-8 text-center">
            Water Activities & Coastal Exploration
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">

@@ -23,7 +23,7 @@
             <span class="material-symbols-outlined text-gray-300 mb-6" style="font-size: 96px;">shopping_cart</span>
             <h2 class="text-2xl font-normal text-gray-700 mb-3 font-[Inter]">Your cart is empty</h2>
             <p class="text-gray-500 mb-8">Start adding rooms or boats to your cart to begin your booking.</p>
-            <a href="{{ route('booking.dates') }}" class="inline-block btn-primary px-8 py-3 text-xs font-bold tracking-widest uppercase">
+            <a href="{{ route('booking.dates') }}" class="inline-block btn-primary px-8 py-3 text-xs font-bold">
                 Browse Rooms & Boats
             </a>
         </div>
@@ -36,7 +36,7 @@
                     <h2 class="text-2xl font-normal text-gray-900 font-[Inter]">
                         Cart Items ({{ $cartRooms->count() + $cartBoats->count() }})
                     </h2>
-                    <a href="{{ route('booking.dates') }}" class="text-xs text-[#964B00] hover:text-black font-semibold tracking-widest uppercase">
+                    <a href="{{ route('booking.dates') }}" class="text-xs text-[#964B00] hover:text-black font-semibold">
                         + Add More
                     </a>
                 </div>
@@ -71,7 +71,7 @@
                                 <div class="flex justify-between items-start mb-3">
                                     <div>
                                         <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ $room->room_name }}</h3>
-                                        <p class="text-xs text-gray-500 uppercase tracking-wider">Room Stay</p>
+                                        <p class="text-xs text-gray-500">Room Stay</p>
                                     </div>
                                     <button class="remove-room-btn text-gray-400 hover:text-red-600 transition-colors p-2"
                                             data-room-id="{{ $room->id }}" title="Remove from cart">
@@ -135,7 +135,7 @@
                                 <div class="flex justify-between items-start mb-3">
                                     <div>
                                         <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ $boat->name }}</h3>
-                                        <p class="text-xs text-gray-500 uppercase tracking-wider">Boat Adventure</p>
+                                        <p class="text-xs text-gray-500">Boat Adventure</p>
                                     </div>
                                     <button class="remove-boat-btn text-gray-400 hover:text-red-600 transition-colors p-2"
                                             data-boat-id="{{ $boat->id }}" title="Remove from cart">
@@ -186,12 +186,12 @@
                     <p class="text-xs text-gray-400 mb-6">* Remaining balance due at check-in</p>
 
                     <a href="{{ route('checkout.show', ['room_id' => $cartRooms->first()->id ?? 0]) }}"
-                       class="block w-full btn-primary py-3 text-xs font-bold tracking-widest uppercase text-center">
+                       class="block w-full btn-primary py-3 text-xs font-bold text-center">
                         Proceed to Checkout
                     </a>
 
                     <a href="{{ route('booking.dates') }}"
-                       class="block w-full mt-3 py-3 text-xs font-bold tracking-widest uppercase text-center border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">
+                       class="block w-full mt-3 py-3 text-xs font-bold text-center border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">
                         Continue Booking
                     </a>
                 </div>

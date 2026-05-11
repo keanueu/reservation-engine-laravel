@@ -6,7 +6,7 @@
         
         {{-- Page Header --}}
         <div class="mb-8" data-reveal>
-            <h1 class="text-4xl text-gray-900 tracking-tight">Account settings</h1>
+            <h1 class="text-4xl text-gray-900">Account settings</h1>
             <p class="text-base text-gray-600 mt-3 leading-relaxed">Manage your profile information and account security</p>
         </div>
 
@@ -138,8 +138,6 @@
     display: block;
     font-size: 0.75rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.05em !important;
-    text-transform: uppercase !important;
     color: #6b7280 !important;
     margin-bottom: 0.5rem !important;
 }
@@ -154,8 +152,6 @@
     padding: 0.75rem 1.5rem !important;
     font-size: 0.75rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
     border: none !important;
     cursor: pointer;
     transition: background 0.2s;
@@ -177,8 +173,6 @@
     padding: 0.75rem 1.5rem !important;
     font-size: 0.75rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
     border: 1px solid #e5e7eb !important;
     cursor: pointer;
     transition: all 0.2s;
@@ -202,8 +196,6 @@
     padding: 0.75rem 1.5rem !important;
     font-size: 0.75rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
     border: none !important;
     cursor: pointer;
     transition: background 0.2s;
@@ -226,8 +218,6 @@
     padding: 0.75rem 1.5rem !important;
     font-size: 0.75rem !important;
     font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
     border: none !important;
     cursor: pointer;
     transition: background 0.2s;

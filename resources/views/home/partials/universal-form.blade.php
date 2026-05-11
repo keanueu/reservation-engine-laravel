@@ -76,7 +76,7 @@
             <div x-show="step === 1" x-transition>
                 {{-- Room selector (shown only when no room pre-selected) --}}
                 <div x-show="!roomId" class="mb-5">
-                    <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Select Room</label>
+                    <label class="block text-xs font-bold  text-gray-500 mb-2">Select Room</label>
                     <select x-model="roomId" @change="updateRoomFromSelect($event)"
                             class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                         <option value="">— Choose a room —</option>
@@ -96,7 +96,7 @@
                 {{-- Selected room pill --}}
                 <div x-show="roomId" class="mb-5 flex items-center justify-between px-4 py-3 border border-[#964B00] bg-[#964B00]/5">
                     <div>
-                        <p class="text-xs font-bold tracking-widest uppercase text-[#964B00]">Selected Room</p>
+                        <p class="text-xs font-bold  text-[#964B00]">Selected Room</p>
                         <p class="text-sm font-semibold text-gray-900 mt-0.5" x-text="roomName"></p>
                     </div>
                     <div class="text-right">
@@ -108,22 +108,22 @@
                 {{-- Date grid --}}
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-in Date</label>
+                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-in Date</label>
                         <input type="date" x-model="checkin" :min="today"
                                class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-out Date</label>
+                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-out Date</label>
                         <input type="date" x-model="checkout" :min="checkin || today"
                                class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-in Time</label>
+                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-in Time</label>
                         <input type="time" x-model="checkinTime"
                                class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-out Time</label>
+                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-out Time</label>
                         <input type="time" x-model="checkoutTime"
                                class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
@@ -145,7 +145,7 @@
             <div x-show="step === 2" x-transition>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Adults</label>
+                        <label class="block text-xs font-bold  text-gray-500 mb-2">Adults</label>
                         <div class="flex items-center border border-gray-200">
                             <button @click="adults = Math.max(1, adults - 1)" type="button"
                                     class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors text-xl font-bold">−</button>
@@ -156,7 +156,7 @@
                         <p class="text-xs text-gray-400 mt-1">Max <span x-text="maxGuests"></span> guests total for this room</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Children</label>
+                        <label class="block text-xs font-bold  text-gray-500 mb-2">Children</label>
                         <div class="flex items-center border border-gray-200">
                             <button @click="children = Math.max(0, children - 1)" type="button"
                                     class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors text-xl font-bold">−</button>
@@ -209,27 +209,27 @@
         {{-- Footer actions --}}
         <div class="px-6 py-5 border-t border-gray-100 flex items-center justify-between gap-3 bg-white">
             <button x-show="step > 1" @click="step--" type="button"
-                    class="px-5 py-2.5 text-xs font-bold tracking-widest uppercase border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">
+                    class="px-5 py-2.5 text-xs font-bold  border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">
                 ← Back
             </button>
             <div x-show="step === 1" class="text-xs text-gray-400">Step 1 of 3</div>
 
             {{-- Next: step 1 → 2 --}}
             <button x-show="step === 1" @click="nextStep1()" type="button"
-                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold tracking-widest uppercase">
+                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold ">
                 Continue →
             </button>
 
             {{-- Next: step 2 → 3 --}}
             <button x-show="step === 2" @click="nextStep2()" type="button"
-                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold tracking-widest uppercase">
+                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold ">
                 Review →
             </button>
 
             {{-- Submit: step 3 → cart --}}
             <button x-show="step === 3" @click="submitToCart()" type="button"
                     :disabled="loading"
-                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold tracking-widest uppercase flex items-center gap-2 disabled:opacity-60">
+                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold  flex items-center gap-2 disabled:opacity-60">
                 <svg x-show="loading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>

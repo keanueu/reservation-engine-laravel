@@ -5,7 +5,7 @@
 
     <div>
         <button type="button" onclick="document.getElementById('delete-account-modal').classList.remove('hidden')"
-                class="px-6 py-3 text-xs font-bold tracking-widest uppercase bg-red-600 text-white hover:bg-red-700 transition-colors">
+                class="px-6 py-3 text-xs font-bold  bg-red-600 text-white hover:bg-red-700 transition-colors">
             Delete account
         </button>
     </div>
@@ -28,7 +28,7 @@
                         </p>
 
                         <div class="mb-4">
-                            <label for="delete_password" class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Password</label>
+                            <label for="delete_password" class="block text-xs font-bold  text-gray-500 mb-2">Password</label>
                             <input id="delete_password" type="password" name="password" required
                                    class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors"
                                    placeholder="Password">
@@ -39,11 +39,11 @@
 
                         <div class="flex items-center justify-end gap-3">
                             <button type="button" onclick="document.getElementById('delete-account-modal').classList.add('hidden')"
-                                    class="px-4 py-2 text-xs font-bold tracking-widest uppercase border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+                                    class="px-4 py-2 text-xs font-bold  border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
                                 Cancel
                             </button>
                             <button type="submit"
-                                    class="px-6 py-3 text-xs font-bold tracking-widest uppercase bg-red-600 text-white hover:bg-red-700 transition-colors">
+                                    class="px-6 py-3 text-xs font-bold  bg-red-600 text-white hover:bg-red-700 transition-colors">
                                 Delete account
                             </button>
                         </div>
