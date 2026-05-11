@@ -68,7 +68,7 @@
                             {{ $slide['sub'] }}
                         </p>
                         <div class="hero-btn">
-                            <a href="{{ url('/home/rooms') }}" class="inline-block px-10 py-3 font-semibold bg-white text-black text-sm uppercase tracking-wide hover:bg-gray-200 transition">
+                            <a href="{{ url('/home/rooms') }}" class="inline-block px-10 py-3 font-semibold bg-white text-black text-sm hover:bg-gray-200 transition">
                                 View More
                             </a>
                         </div>

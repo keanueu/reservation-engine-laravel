@@ -6,7 +6,7 @@
 <div class="bg-white py-16 font-[Inter] mt-16">
   <!-- Featured Boats Header -->
   <div class="max-w-7xl mx-auto px-6 mb-12">
-    <h1 class="text-3xl sm:text-4xl md:text-5xl text-center  text-black tracking-wider">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl text-center  text-black">
       Featured Boats
     </h1>
     <div class="w-16 h-0.5 bg-gray-900 mx-auto mt-4"></div>
@@ -28,12 +28,12 @@
           <!-- Content Area -->
           <div class="p-4 flex flex-col flex-grow">
             <div class="mb-3">
-              <h3 class="text-md  text-black tracking-wide uppercase">
+              <h3 class="text-md  text-black">
                 {{ $boat->name }}
               </h3>
               <p class="mt-1 text-md  text-black">
                 ₱{{ number_format($boat->price ?? 0, 2) }}
-                <span class="text-sm text-black tracking-tight">/ HOUR</span>
+                <span class="text-sm text-black">/ HOUR</span>
               </p>
             </div>
 
@@ -44,11 +44,11 @@
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M3 13h18l-2 8H5l-2-8zm9-9a4 4 0 110 8 4 4 0 010-8z" />
                 </svg>
-                <span class="tracking-widest">CAPACITY: {{ $boat->capacity }}</span>
+                <span>CAPACITY: {{ $boat->capacity }}</span>
               </div>
 
               <a href="{{ url('boat_details', $boat->id) }}"
-                class="flex justify-center items-center w-full bg-white p-3 text-sm font-normal text-black tracking-wider border border-gray-900 transition duration-300 hover:bg-gray-900 hover:text-white hover:border-gray-900">
+                class="flex justify-center items-center w-full bg-white p-3 text-sm font-normal text-black border border-gray-900 transition duration-300 hover:bg-gray-900 hover:text-white hover:border-gray-900">
                 View Details
               </a>
             </div>

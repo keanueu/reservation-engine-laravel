@@ -7,7 +7,7 @@
                         Tambobong, Dasol, Pangasinan
                     </span></div>
             <div class="flex items-center gap-2">
-                <span class="text-gray-900 font-semibold">Use Code <span class="bg-[#4ade80] text-white px-2 py-0.5 font-bold uppercase">"QUICKBUY"</span> and Get Extra <span class="text-green-500 font-bold">15%</span> Discount Today!</span>
+                <span class="text-gray-900 font-semibold">Use Code <span class="bg-[#4ade80] text-white px-2 py-0.5 font-bold">"QUICKBUY"</span> and Get Extra <span class="text-green-500 font-bold">15%</span> Discount Today!</span>
             </div>
             <div class="flex items-center gap-6">
                 <div class="flex items-center gap-5 text-gray-600 font-medium">
@@ -44,7 +44,7 @@
                     @endif
                 </div>
 
-                <a href="{{ route('cart.show') }}" class="bg-[#ff5a3c] text-white px-4 py-1 rounded flex items-center gap-1 hover:bg-red-600 transition text-xs font-bold uppercase tracking-wider">
+                <a href="{{ route('cart.show') }}" class="bg-[#ff5a3c] text-white px-4 py-1 rounded flex items-center gap-1 hover:bg-red-600 transition text-xs font-bold">
                     <span class="material-symbols-outlined text-sm">shopping_bag</span>
                     Cart
                 </a>
@@ -181,7 +181,7 @@
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-8 h-8 object-contain">
                     </div>
                     <div>
-                        <p class="text-base tracking-wider text-white">CABANAS</p>
+                        <p class="text-base text-white">Cabanas</p>
                         <p class="text-[10px] text-white/70">Beach Resort</p>
                     </div>
                 </div>
@@ -246,7 +246,7 @@
 
                 {{-- Quick Actions --}}
                 <div class="px-6 py-3 bg-gray-50">
-                    <p class="text-xs text-gray-500 tracking-wider mb-3">Quick actions</p>
+                    <p class="text-xs text-gray-500 mb-3">Quick actions</p>
                     <div class="space-y-2">
                         <a href="{{ route('cart.show') }}"
                            @click="mobileOpen = false"
@@ -267,18 +267,18 @@
             <div class="px-6 py-5 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white space-y-3">
                 <a href="{{ route('booking.dates') }}"
                    @click="mobileOpen = false"
-                   class="block w-full bg-[#63360D] py-3.5 text-center text-sm tracking-wider text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#4D290A] hover:shadow-lg">
+                   class="block w-full bg-[#63360D] py-3.5 text-center text-sm text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#4D290A] hover:shadow-lg">
                     <span class="material-symbols-outlined text-xl inline-block mr-2 -mt-1">calendar_month</span>
                     Book Now
                 </a>
                 @guest
                     <div class="flex gap-2">
                         <a href="{{ url('login') }}" 
-                           class="flex-1 text-center py-3 text-xs tracking-wider border-2 border-gray-300 text-gray-700 hover:border-[#964B00] hover:text-[#964B00] transition-all duration-200">
+                           class="flex-1 text-center py-3 text-xs border-2 border-gray-300 text-gray-700 hover:border-[#964B00] hover:text-[#964B00] transition-all duration-200">
                             Login
                         </a>
                         <a href="{{ url('register') }}" 
-                           class="flex-1 text-center py-3 text-xs tracking-wider text-white bg-gray-900 hover:bg-gray-800 transition-all duration-200">
+                           class="flex-1 text-center py-3 text-xs text-white bg-gray-900 hover:bg-gray-800 transition-all duration-200">
                             Register
                         </a>
                     </div>
@@ -286,7 +286,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" 
-                                class="w-full flex items-center justify-center gap-2 py-3 text-sm tracking-wider text-red-600 border-2 border-red-200 hover:bg-red-50 hover:border-red-300 transition-all duration-200">
+                                class="w-full flex items-center justify-center gap-2 py-3 text-sm text-red-600 border-2 border-red-200 hover:bg-red-50 hover:border-red-300 transition-all duration-200">
                             <span class="material-symbols-outlined text-xl">logout</span>
                             Logout
                         </button>

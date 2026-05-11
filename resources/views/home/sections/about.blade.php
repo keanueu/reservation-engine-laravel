@@ -15,7 +15,7 @@
         .flatpickr-day:hover { background: #63360D !important; color: #fff !important; border-color: #63360D !important; }
         .flatpickr-months .flatpickr-month { background: #63360D; color: #fff; }
         .flatpickr-current-month .flatpickr-monthDropdown-months { font-weight: 700; }
-        .flatpickr-weekday { color: rgba(0,0,0,0.5); font-weight: 700; font-size: 10px; text-transform: uppercase; }
+        .flatpickr-weekday { color: rgba(0,0,0,0.5); font-weight: 700; font-size: 10px; }
 
         /* ── Hide Default Browser Icons ── */
         input::-webkit-calendar-picker-indicator { display: none !important; opacity: 0; -webkit-appearance: none; }
@@ -88,10 +88,10 @@
                     <style>
                         .booking-tab.active { border-bottom-color: #A15D1A !important; color: #A15D1A !important; background: #fdfaf7; }
                     </style>
-                    <button id="tab-stay" class="booking-tab flex-1 py-5 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 border-b-2 border-transparent transition-all active" onclick="setMode('stay')">
+                    <button id="tab-stay" class="booking-tab flex-1 py-5 text-xs font-bold flex items-center justify-center gap-2 border-b-2 border-transparent transition-all active" onclick="setMode('stay')">
                         <span class="material-symbols-outlined text-base">home</span> Stay
                     </button>
-                    <button id="tab-sail" class="booking-tab flex-1 py-5 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 border-b-2 border-transparent transition-all" onclick="setMode('sail')">
+                    <button id="tab-sail" class="booking-tab flex-1 py-5 text-xs font-bold flex items-center justify-center gap-2 border-b-2 border-transparent transition-all" onclick="setMode('sail')">
                         <span class="material-symbols-outlined text-base">sailing</span> Sail
                     </button>
                 </div>
@@ -100,11 +100,11 @@
                 <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ route('search.stay') }}" method="POST">
                     @csrf
                     <div class="flex-[2] flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Stay Duration</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Stay Duration</label>
                         <input type="text" id="stay-range" name="date_range" class="search-input cursor-pointer" placeholder="Select Dates..." readonly>
                     </div>
                     <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-in Time</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Check-in Time</label>
                         <select name="checkin_time" class="search-input minimal-select bg-transparent cursor-pointer">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
@@ -112,7 +112,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Check-out Time</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Check-out Time</label>
                         <select name="checkout_time" class="search-input minimal-select bg-transparent cursor-pointer">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
@@ -120,7 +120,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Guests</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Guests</label>
                         <select class="search-input" id="hero-guests" name="guests">
                             @for($i=1;$i<=10;$i++)
                                 <option value="{{ $i }}">{{ $i }} Guest{{ $i>1?'s':'' }}</option>
@@ -128,7 +128,7 @@
                         </select>
                     </div>
                     <div class="flex items-center px-4 py-3">
-                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3.5 text-xs font-bold tracking-widest uppercase flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition">
+                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3.5 text-xs font-bold flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition">
                             <span class="material-symbols-outlined text-base">search</span> Search
                         </button>
                     </div>
@@ -138,11 +138,11 @@
                 <form id="sail-bar" class="hidden flex-col md:flex-row items-stretch" action="{{ route('search.sail') }}" method="POST">
                     @csrf
                     <div class="flex-[2] flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Departure Date</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Departure Date</label>
                         <input type="text" id="sail-date" name="departure_date" class="search-input cursor-pointer" placeholder="Select Date..." readonly>
                     </div>
                     <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Duration</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Duration</label>
                         <select class="search-input" id="hero-boat-duration" name="duration" required>
                             <option value="half">Half Day (4h)</option>
                             <option value="full">Full Day (8h)</option>
@@ -150,7 +150,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Passengers</label>
+                        <label class="text-[10px] font-bold text-gray-400 mb-1">Passengers</label>
                         <select class="search-input" id="hero-boat-passengers" name="passengers" required>
                             @for($i=1;$i<=20;$i++)
                                 <option value="{{ $i }}">{{ $i }} Passenger{{ $i>1?'s':'' }}</option>
@@ -158,7 +158,7 @@
                         </select>
                     </div>
                     <div class="flex items-center px-4 py-3">
-                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3.5 text-xs font-bold tracking-widest uppercase flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition">
+                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3.5 text-xs font-bold flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition">
                             <span class="material-symbols-outlined text-base">sailing</span> Find Vessel
                         </button>
                     </div>
@@ -168,15 +168,15 @@
                 <div class="bg-gray-50 px-6 py-2 flex items-center gap-6 border-t border-gray-100">
                     <div class="flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-green-600" style="font-size: 14px;">verified</span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">Verified Resort</span>
+                        <span class="text-[10px] font-bold text-gray-500">Verified Resort</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-gray-400" style="font-size: 14px;">lock</span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">Secure Booking</span>
+                        <span class="text-[10px] font-bold text-gray-500">Secure Booking</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-gray-400" style="font-size: 14px;">credit_card</span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">PayMongo Payments</span>
+                        <span class="text-[10px] font-bold text-gray-500">PayMongo Payments</span>
                     </div>
                 </div>
 
@@ -185,7 +185,7 @@
                     <div class="bg-red-50 px-6 py-3 border-t border-red-100">
                         <ul class="list-disc list-inside">
                             @foreach($errors->all() as $error)
-                                <li class="text-[10px] font-bold uppercase tracking-wider text-red-600">{{ $error }}</li>
+                                <li class="text-[10px] font-bold text-red-600">{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -206,7 +206,7 @@
 
             {{-- Left: Text --}}
             <div data-reveal>
-                <p class="text-sm font-semibold tracking-wide mb-4 section-label">About us</p>
+                <p class="text-sm font-semibold mb-4 section-label">About us</p>
 
                 <h2 class="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight mb-6 text-gray-900">
                     Welcome to Cabanas<br>
@@ -225,7 +225,7 @@
                     @foreach($stats as [$val,$lbl])
                         <div class="border border-gray-200 px-4 py-4 text-center shadow-sm bg-white">
                             <p class="text-2xl font-bold mb-1" style="color:#63360D;">{{ $val }}</p>
-                            <p class="text-xs font-semibold text-gray-500 tracking-wide">{{ $lbl }}</p>
+                            <p class="text-xs font-semibold text-gray-500">{{ $lbl }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -258,7 +258,7 @@
                          alt="Cabanas Sign" />
                     {{-- Location badge --}}
                     <div class="absolute bottom-0 left-0 right-0 px-3 py-2" style="background:rgba(99,54,13,0.85);">
-                        <p class="text-white text-xs font-semibold tracking-wide">Tambobong, Dasol</p>
+                        <p class="text-white text-xs font-semibold">Tambobong, Dasol</p>
                         <p class="text-white/70 text-[11px]">Pangasinan, Philippines</p>
                     </div>
                 </div>

@@ -16,8 +16,8 @@
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <p class="text-base tracking-widest text-white">CABANAS</p>
-                        <p class="text-[10px] tracking-[.25em] text-white/40 mt-0.5">HOTEL & RESORT</p>
+                        <p class="text-base text-white">CABANAS</p>
+                        <p class="text-[10px] text-white/40 mt-0.5">HOTEL & RESORT</p>
                     </div>
                 </div>
                 <p class="text-sm text-white/60 leading-relaxed mb-6">
@@ -53,7 +53,7 @@
 
             {{-- Quick Links --}}
             <div>
-                <h3 class="text-xs tracking-[.25em] uppercase text-white mb-6">Quick links</h3>
+                <h3 class="text-xs text-white mb-6">Quick links</h3>
                 <ul class="space-y-3">
                     @php $links = [['Home',url('/')],['Rooms',url('/home/rooms')],['Book Now',url('/home/roomcart')],['Amenities',url('/home/amenities')],['Contact',url('/home/contact')]]; @endphp
                     @foreach($links as [$label,$url])
@@ -69,7 +69,7 @@
 
             {{-- Contact --}}
             <div>
-                <h3 class="text-xs tracking-[.25em] uppercase text-white mb-6">Contact</h3>
+                <h3 class="text-xs text-white mb-6">Contact</h3>
                 <ul class="space-y-4">
                     @php $contacts = [
                         ['icon'=>'location_on','text'=>'Tambobong, Dasol, Pangasinan'],
@@ -87,7 +87,7 @@
 
             {{-- Newsletter --}}
             <div>
-                <h3 class="text-xs tracking-[.25em] uppercase text-white mb-6">Stay updated</h3>
+                <h3 class="text-xs text-white mb-6">Stay updated</h3>
                 <p class="text-sm text-white/55 mb-5 leading-relaxed">Get exclusive offers, seasonal promos, and resort news.</p>
                 <form class="space-y-3" onsubmit="return false;">
                     <input type="email" placeholder="your@email.com"
@@ -95,7 +95,7 @@
                            style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);"
                            onfocus="this.style.borderColor='#63360D'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
                     <button type="submit"
-                            class="w-full btn-primary py-3 text-xs tracking-widest uppercase">
+                            class="w-full btn-primary py-3 text-xs">
                         Subscribe
                     </button>
                 </form>

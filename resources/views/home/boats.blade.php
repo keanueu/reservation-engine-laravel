@@ -7,7 +7,7 @@
       alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter] tracking-wide">
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter]">
         Our Exclusive Stays
       </h1>
     </div>
@@ -29,12 +29,12 @@
           <!-- Content Area -->
           <div class="p-4 flex flex-col flex-grow">
             <div class="mb-3">
-              <h3 class="text-md  text-black tracking-wide uppercase">
+              <h3 class="text-md  text-black">
                 {{ $boat->name }}
               </h3>
               <p class="mt-1 text-md  text-black">
                 PHP {{ number_format($boat->price ?? 0, 2) }}
-                <span class="text-sm text-black tracking-tight">/ HOUR</span>
+                <span class="text-sm text-black">/ HOUR</span>
               </p>
             </div>
 
@@ -45,11 +45,11 @@
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M3 13h18l-2 8H5l-2-8zm9-9a4 4 0 110 8 4 4 0 010-8z" />
                 </svg>
-                <span class="tracking-widest">CAPACITY: {{ $boat->capacity }}</span>
+                <span>CAPACITY: {{ $boat->capacity }}</span>
               </div>
 
               <a href="{{ url('boat_details', $boat->id) }}"
-                class="flex justify-center items-center w-full bg-white p-3 text-sm font-normal text-black tracking-wider border border-gray-900 transition duration-300 hover:bg-gray-900 hover:text-white hover:border-gray-900">
+                class="flex justify-center items-center w-full bg-white p-3 text-sm font-normal text-black border border-gray-900 transition duration-300 hover:bg-gray-900 hover:text-white hover:border-gray-900">
                 View Details
               </a>
             </div>

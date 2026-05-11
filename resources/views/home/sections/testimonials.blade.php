@@ -2,8 +2,8 @@
   <div class="max-w-7xl mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-12" data-reveal>
-      <p class="text-sm font-semibold tracking-wide mb-4 section-label">What our guests say</p>
-      <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] tracking-tight text-gray-900">
+      <p class="text-sm font-semibold mb-4 section-label">What our guests say</p>
+      <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] text-gray-900">
         Guest Testimonials
       </h2>
       <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">

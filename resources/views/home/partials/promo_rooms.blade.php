@@ -224,7 +224,7 @@
                             @endphp
                             <div class="absolute top-3 right-3 z-10">
                                 <span
-                                    class="inline-block bg-[#964B00] text-white text-sm py-1 px-3 tracking-wider uppercase shadow-lg">
+                                    class="inline-block bg-[#964B00] text-white text-sm py-1 px-3 shadow-lg">
                                     {{ $badgeText }}
                                 </span>
                             </div>
@@ -233,7 +233,7 @@
                         {{-- PRICE OVERLAY (Bottom-Left) --}}
                         <div class="absolute bottom-4 left-4 z-10">
                             @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
-                                <span class="text-sm line-through tracking-wide block mb-1" style="color: #ffffff;">
+                                <span class="text-sm line-through block mb-1" style="color: #ffffff;">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </span>
                                 <p class="text-lg font-extrabold" style="color: #ffffff;">
@@ -244,7 +244,7 @@
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </p>
                             @endif
-                            <span class="text-xs tracking-wide block mt-0.5" style="color: #ffffff;">Per night</span>
+                            <span class="text-xs block mt-0.5" style="color: #ffffff;">Per night</span>
                         </div>
 
                     </div>
@@ -252,7 +252,7 @@
                     {{-- Details column --}}
                     <div class="p-4 flex flex-col flex-grow md:w-3/5">
 
-                        <h3 class="text-lg font-medium text-white tracking-tight mb-2">
+                        <h3 class="text-lg font-medium text-white mb-2">
                             {{ $room->room_name }}
                         </h3>
 
@@ -263,7 +263,7 @@
                         {{-- Offer ends info --}}
                         @if($isActive && $expiryDate)
                             <div class="py-1 mb-2">
-                                <p class="text-xs font-normal text-[#964B00] tracking-wider">
+                                <p class="text-xs font-normal text-[#964B00]">
                                     Offer Ends: {{ Carbon::parse($expiryDate)->format('M d, Y') }}
                                 </p>
                             </div>
@@ -287,7 +287,7 @@
                                 View details
                             </a>
                             <a href="{{ url('/home/roomcart') }}"
-                                class="bg-white px-6 py-2.5 text-sm text-[#964B00] hover:bg-gray-100 transition flex items-center justify-center tracking-wide">
+                                class="bg-white px-6 py-2.5 text-sm text-[#964B00] hover:bg-gray-100 transition flex items-center justify-center">
                                 <span class="btn-text">Check availability</span>
                             </a> 
                         </div>
