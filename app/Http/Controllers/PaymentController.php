@@ -157,9 +157,14 @@ class PaymentController extends Controller
     public function bookingSuccess(Request $request)
     {
         $groupId = $request->query('group_id', session('pending_booking_group'));
+        $extensionId = $request->query('extension_id');
 
         if ($groupId) {
             $this->syncCheckoutSessionPayment($groupId);
+        }
+
+        if ($extensionId) {
+            app(BookingExtensionController::class)->refresh($request, $extensionId);
         }
 
         try {
@@ -177,6 +182,12 @@ class PaymentController extends Controller
             $boatBookings = BoatBooking::with('boat')->where('group_id', $groupId)->get();
             $all          = $roomBookings->concat($boatBookings);
             $depositPaid  = $all->sum('paid_amount') ?: $all->sum('deposit_amount');
+        } elseif ($extensionId) {
+            $ext = \App\Models\BookingExtension::with('booking.room')->find($extensionId);
+            if ($ext && $ext->booking) {
+                $roomBookings = collect([$ext->booking]);
+                $depositPaid = $ext->price;
+            }
         }
 
         $bookings = $roomBookings->concat($boatBookings);

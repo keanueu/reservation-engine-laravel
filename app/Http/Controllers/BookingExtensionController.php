@@ -272,28 +272,39 @@ class BookingExtensionController extends Controller
 
         $amountPhp = (float) $extension->price;
         $amount = max(10000, (int) round($amountPhp * 100)); // centavos
+        $description = "Extension for Booking #{$booking->id} ({$extension->hours}h)";
 
-        // Build metadata so webhook or link can be mapped back to this extension
+        // Build metadata so webhook can be mapped back to this extension
         $metadata = [
             'type' => 'extension',
             'extension_id' => $extension->id,
             'booking_id' => $booking->id,
             'customer_name' => $booking->name,
             'customer_email' => $booking->email,
-            'description' => "Extension #{$extension->id} for Booking {$booking->id} ({$extension->hours}h)",
         ];
 
-        // Create PayMongo link directly and save payment_id to extension
+        // Redirect URLs
+        $successUrl = config('services.paymongo.success_url') ?: route('payment.success');
+        $successUrl .= (str_contains($successUrl, '?') ? '&' : '?') . http_build_query(['extension_id' => $extension->id]);
+        
+        $cancelUrl = config('services.paymongo.cancel_url') ?: route('payment.cancel');
+        $cancelUrl .= (str_contains($cancelUrl, '?') ? '&' : '?') . http_build_query(['extension_id' => $extension->id]);
+
+        // Create PayMongo Checkout Session
         $paymongo = app(PaymongoService::class);
-        $resp = $paymongo->createLink($amount, 'PHP', $metadata);
+        $resp = $paymongo->createCheckoutSession(
+            amountInCents: $amount,
+            description:   $description,
+            metadata:      $metadata,
+            successUrl:    $successUrl,
+            cancelUrl:     $cancelUrl,
+        );
 
-        // createLink returns a wrapper with 'success' and 'raw' keys.
-        // Prefer returned direct values but fall back to raw API shape for compatibility.
-        $linkId = $resp['link_id'] ?? data_get($resp, 'raw.data.id');
-        $checkoutUrl = $resp['checkout_url'] ?? data_get($resp, 'raw.data.attributes.checkout_url') ?? data_get($resp, 'raw.data.attributes.url');
+        $sessionId = $resp['session_id'] ?? null;
+        $checkoutUrl = $resp['checkout_url'] ?? null;
 
-        if ($linkId) {
-            $extension->payment_id = $linkId;
+        if ($sessionId) {
+            $extension->payment_id = $sessionId;
             $extension->save();
         }
 
@@ -303,17 +314,10 @@ class BookingExtensionController extends Controller
 
         // If the service returned an error, stringify it safely and log for debugging
         $rawErr = $resp['message'] ?? ($resp['raw'] ?? null);
-        if (is_array($rawErr) || is_object($rawErr)) {
-            $errMsg = json_encode($rawErr);
-        } elseif (!empty($rawErr) || $rawErr === '0') {
-            $errMsg = (string) $rawErr;
-        } else {
-            $errMsg = null;
-        }
+        $errMsg = is_array($rawErr) || is_object($rawErr) ? json_encode($rawErr) : (string)$rawErr;
 
-        // Log the failure for easier debugging
-        \Illuminate\Support\Facades\Log::error('PayMongo createLink failed for extension', ['extension_id' => $extension->id, 'resp' => $resp]);
+        \Illuminate\Support\Facades\Log::error('PayMongo createCheckoutSession failed for extension', ['extension_id' => $extension->id, 'resp' => $resp]);
 
-        return redirect()->back()->with('error', 'Unable to create payment link for extension.' . ($errMsg ? ' ' . $errMsg : ''));
+        return redirect()->back()->with('error', 'Unable to create payment session for extension.' . ($errMsg ? ' ' . $errMsg : ''));
     }
 }
