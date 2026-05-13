@@ -6,38 +6,57 @@
         position: absolute; 
         inset: 0; 
         visibility: hidden; /* Use visibility instead of display:none for better performance */
+        opacity: 0;
         overflow: hidden;
         z-index: 1;
-        will-change: transform; /* Hardware acceleration hint */
+        pointer-events: none;
+        transform: translate3d(0, 0, 0) scale(1.025);
+        transition:
+            opacity 1200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+            transform 6500ms cubic-bezier(0.16, 1, 0.3, 1),
+            visibility 0s linear 1200ms;
+        will-change: opacity, transform; /* Hardware acceleration hint */
+        backface-visibility: hidden;
+        contain: paint;
     }
 
     /* Hardware Accelerated Slides */
     .hero-slide.active { 
         visibility: visible;
+        opacity: 1;
         z-index: 10;
-        animation: revealDown 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-    }
-
-    .hero-slide.active img {
-        will-change: transform;
-        animation: imageCounter 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-    }
-
-    @keyframes revealDown {
-        0% { transform: translate3d(0, -100%, 0); }
-        100% { transform: translate3d(0, 0, 0); }
-    }
-
-    @keyframes imageCounter {
-        0% { transform: translate3d(0, 100%, 0) scale(1.1); }
-        100% { transform: translate3d(0, 0, 0) scale(1); }
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0) scale(1);
+        transition:
+            opacity 1200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+            transform 6500ms cubic-bezier(0.16, 1, 0.3, 1),
+            visibility 0s linear 0s;
     }
 
     /* Staggered Text Reveal - REMOVED for instant change */
     .hero-h2, .hero-p, .hero-btn { opacity: 1; transform: none; }
 
     /* Basic Styles */
-    .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: translate3d(0, 0, 0) scale(1.04);
+        transition: transform 6500ms cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+        backface-visibility: hidden;
+    }
+
+    .hero-slide.active img {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-slide,
+        .hero-slide img {
+            transition: none;
+        }
+    }
 </style>
 
 <section id="hero-section" aria-label="Hero">
@@ -80,40 +99,59 @@
 </section>
 
 <script>
-    let currentIdx = 0;
-    let heroSlides;
-    let isAnimating = false;
+    (() => {
+        const intervalMs = 6500;
+        const transitionMs = 1200;
+        let currentIdx = 0;
+        let heroSlides = [];
+        let timer = null;
+        let isAnimating = false;
 
-    function goToSlide(idx) {
-        if (isAnimating || !heroSlides) return;
-        if (idx === currentIdx) return;
+        function goToSlide(idx) {
+            if (isAnimating || heroSlides.length < 2) return;
 
-        isAnimating = true;
-        const nextIdx = (idx + heroSlides.length) % heroSlides.length;
-        const oldSlide = heroSlides[currentIdx];
-        const nextSlide = heroSlides[nextIdx];
+            const nextIdx = (idx + heroSlides.length) % heroSlides.length;
+            if (nextIdx === currentIdx) return;
 
-        // Prepare next slide (it's hidden by visibility:hidden)
-        nextSlide.classList.remove('active'); // reset class if needed
-        void nextSlide.offsetWidth; // force reflow once
-        
-        // Switch slides
-        oldSlide.style.zIndex = "5";
-        nextSlide.style.zIndex = "10";
-        nextSlide.classList.add('active');
-
-        setTimeout(() => {
-            oldSlide.classList.remove('active');
-            oldSlide.style.zIndex = "1";
+            isAnimating = true;
+            heroSlides[nextIdx].classList.add('active');
+            heroSlides[currentIdx].classList.remove('active');
             currentIdx = nextIdx;
-            isAnimating = false;
-        }, 1400); 
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        heroSlides = document.querySelectorAll('.hero-slide');
-        setInterval(() => {
-            if (!document.hidden) goToSlide(currentIdx + 1);
-        }, 6500);
-    });
+            window.setTimeout(() => {
+                isAnimating = false;
+            }, transitionMs);
+        }
+
+        function stopCarousel() {
+            if (!timer) return;
+            window.clearInterval(timer);
+            timer = null;
+        }
+
+        function startCarousel() {
+            stopCarousel();
+            timer = window.setInterval(() => {
+                if (!document.hidden) goToSlide(currentIdx + 1);
+            }, intervalMs);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopCarousel();
+                return;
+            }
+
+            startCarousel();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            heroSlides = Array.from(document.querySelectorAll('#hero-section .hero-slide'));
+            heroSlides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === 0);
+            });
+
+            startCarousel();
+        });
+    })();
 </script>

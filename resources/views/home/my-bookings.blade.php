@@ -256,6 +256,17 @@ function createBookingCard(booking) {
                     ${booking.status || 'Pending'}
                 </span>
             </div>
+
+            ${booking.refund_status ? `
+                <div class="mb-4 p-3 bg-gray-50 border-l-4 ${booking.refund_status === 'refunded' ? 'border-green-500' : 'border-amber-500'}">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wide ${booking.refund_status === 'refunded' ? 'text-green-700' : 'text-amber-700'}">
+                            ${booking.refund_status === 'refunded' ? 'Refund Processed' : 'Refund ' + booking.refund_status}
+                        </span>
+                        ${booking.refund_amount ? `<span class="text-xs font-bold text-gray-900">₱${parseFloat(booking.refund_amount).toLocaleString()}</span>` : ''}
+                    </div>
+                </div>
+            ` : ''}
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>

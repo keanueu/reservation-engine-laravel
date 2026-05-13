@@ -110,9 +110,9 @@
                                     @if(in_array($data->status, ['approve', 'confirmed']))
                                         <span
                                             class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Confirmed</span>
-                                    @elseif($data->status == 'rejected')
+                                    @elseif($data->status == 'rejected' || $data->status == 'cancelled')
                                         <span
-                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Rejected</span>
+                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">{{ ucfirst($data->status) }}</span>
                                     @else
                                         <span
                                             class="px-3 py-1 inline-flex text-xs leading-5 font-semibold  bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Waiting</span>
@@ -121,21 +121,42 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap text-xs">
                                     @if(!empty($data->refund_status))
-                                        <div class="text-xs ">{{ $data->refund_status }}@if($data->refund_amount) · ₱{{ number_format($data->refund_amount,2) }}@endif</div>
-                                        @if($data->refund_status === 'requested')
-                                            <div class="mt-2 flex space-x-2">
-                                                <form method="POST" action="{{ route('admin.bookings.refund.approve', $data->id) }}">
-                                                    @csrf
-                                                    <button class="px-3 py-1 bg-green-600 text-white rounded text-xs">Approve Refund</button>
-                                                </form>
-                                                <form method="POST" action="{{ route('admin.bookings.refund.reject', $data->id) }}">
-                                                    @csrf
-                                                    <button class="px-3 py-1 bg-red-600 text-white rounded text-xs">Reject</button>
-                                                </form>
+                                        @if($data->refund_status === 'refunded')
+                                            <div class="flex flex-col items-start space-y-1">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                                    <svg class="mr-1 w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    REFUNDED
+                                                </span>
+                                                <span class="text-sm font-bold text-gray-900">₱{{ number_format($data->refund_amount, 2) }}</span>
+                                                <span class="text-[10px] text-gray-400 font-medium uppercase">{{ $data->refunded_at ? \Carbon\Carbon::parse($data->refunded_at)->format('M d, Y') : '' }}</span>
+                                            </div>
+                                        @elseif($data->refund_status === 'requested')
+                                            <div class="flex flex-col items-start space-y-2">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 animate-pulse">
+                                                    REQUESTED
+                                                </span>
+                                                <div class="text-xs font-semibold text-gray-700">Amt: ₱{{ number_format($data->refund_amount, 2) }}</div>
+                                                <div class="flex space-x-1">
+                                                    <form method="POST" action="{{ route('admin.bookings.refund.approve', $data->id) }}">
+                                                        @csrf
+                                                        <button class="px-2 py-1 bg-emerald-600 text-white rounded-md text-[10px] font-bold hover:bg-emerald-700 shadow-sm transition-all">APPROVE</button>
+                                                    </form>
+                                                    <form method="POST" action="{{ route('admin.bookings.refund.reject', $data->id) }}">
+                                                        @csrf
+                                                        <button class="px-2 py-1 bg-rose-600 text-white rounded-md text-[10px] font-bold hover:bg-rose-700 shadow-sm transition-all">REJECT</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="flex flex-col">
+                                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{{ $data->refund_status }}</span>
+                                                <span class="text-xs font-medium text-gray-700">₱{{ number_format($data->refund_amount ?? 0, 2) }}</span>
                                             </div>
                                         @endif
                                     @else
-                                        <div class="text-xs text-gray-500">-</div>
+                                        <span class="text-gray-300 text-[10px] uppercase tracking-widest font-medium">No activity</span>
                                     @endif
                                 </td>
 

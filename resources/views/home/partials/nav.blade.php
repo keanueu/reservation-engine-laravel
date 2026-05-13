@@ -63,60 +63,17 @@
         ];
     @endphp
 
-    {{-- Only show hero on homepage or authenticated home --}}
-    @if(Request::is('/') || Request::is('home'))
-        <div class="relative">
-            {{-- Header overlay --}}
-            <div class="absolute top-0 left-0 w-full z-30">
-                <header class="max-w-7xl mx-auto flex justify-between items-center px-6 py-6">
-                    {{-- Logo --}}
-                    <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                        <div class="w-14 h-14 overflow-hidden">
-                            <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
-                        </div>
-                    </a>
-
-                    <div class="flex items-center gap-6">
-                        {{-- Right actions (Weather) --}}
-                        <div class="hidden lg:flex items-center gap-3">
-                            @include('home.partials.weather-popover')
-                        </div>
-
-                        {{-- Main Nav --}}
-                        <nav class="hidden lg:flex items-center bg-[#63360D] text-white rounded-sm overflow-hidden shadow-md">
-                            @foreach($navLinks as $link)
-                                <a href="{{ $link['url'] }}"
-                                   class="px-6 py-3 hover:text-gray-300 transition-colors text-sm">
-                                    {{ $link['label'] }}
-                                </a>
-                            @endforeach
-                            <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black font-semibold hover:bg-gray-100 transition">Book Now</a>
-                        </nav>
-
-                        {{-- Mobile Toggle --}}
-                        <div class="lg:hidden flex items-center gap-4">
-                             @include('home.partials.weather-popover')
-                             <button @click="mobileOpen = true" class="p-2 text-white hover:text-gray-300 transition-colors">
-                                <span class="material-symbols-outlined text-3xl">menu</span>
-                            </button>
-                        </div>
-                    </div>
-                </header>
-            </div>
-
-            @include('home.sections.hero')
-        </div>
-    @else
-        {{-- For other pages, show a consistent premium header with white background --}}
-        <div class="bg-white border-b shadow-sm relative z-30">
-            <header class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+    <div class="relative">
+        {{-- Header overlay --}}
+        <div class="absolute top-0 left-0 w-full z-30">
+            <header class="max-w-7xl mx-auto flex justify-between items-center px-6 py-6">
                 {{-- Logo --}}
                 <a href="{{ url('/') }}" class="flex items-center gap-3 group">
                     <div class="w-14 h-14 overflow-hidden">
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
                     </div>
                 </a>
-                
+
                 <div class="flex items-center gap-6">
                     {{-- Right actions (Weather) --}}
                     <div class="hidden lg:flex items-center gap-3">
@@ -137,14 +94,19 @@
                     {{-- Mobile Toggle --}}
                     <div class="lg:hidden flex items-center gap-4">
                          @include('home.partials.weather-popover')
-                         <button @click="mobileOpen = true" class="p-2 text-gray-900 hover:text-[#63360D] transition-colors">
+                         <button @click="mobileOpen = true" class="p-2 text-white hover:text-gray-300 transition-colors">
                             <span class="material-symbols-outlined text-3xl">menu</span>
                         </button>
                     </div>
                 </div>
             </header>
         </div>
-    @endif
+
+        {{-- Only show hero on homepage or authenticated home --}}
+        @if(Request::is('/') || Request::is('home'))
+            @include('home.sections.hero')
+        @endif
+    </div>
 
     {{-- ── Mobile drawer (slide from right) ── --}}
     <div class="h-20 md:h-28"></div>

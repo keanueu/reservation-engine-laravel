@@ -344,6 +344,7 @@ class BookingController extends Controller
         $booking->refund_fee = $fee;
         $booking->refund_amount = $net; // net amount to be refunded if approved
         $booking->refund_reason = $request->input('reason');
+        $booking->status = 'cancelled'; // Automatically cancel booking when refund is requested
         $booking->save();
 
         if ($request->ajax() || $request->wantsJson()) {
@@ -390,6 +391,7 @@ class BookingController extends Controller
                     $booking->paymongo_refund_id = $result['refund_id'] ?? null;
                 }
                 $booking->refund_status = 'refunded';
+                $booking->status = 'cancelled'; // Ensure status is cancelled
                 $booking->refunded_at = now();
                 $booking->save();
 
@@ -406,6 +408,7 @@ class BookingController extends Controller
 
         // No gateway refund attempted (either disabled or no payment id): mark as refunded locally only
         $booking->refund_status = 'refunded';
+        $booking->status = 'cancelled'; // Ensure status is cancelled
         $booking->refunded_at = now();
         $booking->save();
 

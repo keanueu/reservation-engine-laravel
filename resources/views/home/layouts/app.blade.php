@@ -165,11 +165,9 @@
 
         @yield('content')
         @include('home.partials.footer')
-        @include('home.partials.chatbot-speeddial')
     </div>
 
     <script src="/js/home.js"></script>
-    <script src="/js/chatbot.js"></script>
     <script src="/js/room-tab.js"></script>
     <script src="/js/room-cart.js"></script>
     <script src="/js/weather.js"></script>
