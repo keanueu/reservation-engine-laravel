@@ -221,12 +221,12 @@
                         </div>
 
                         <div class="mt-auto flex justify-between items-center">
-                            <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] underline text-sm hover:text-black">
+                            <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] font-bold text-xs uppercase tracking-widest hover:text-black transition-colors">
                                 View details
                             </a>
                             <button type="button"
                                 onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
-                                class="bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black transition flex items-center justify-center">
+                                class="magnetic-btn bg-[#964B00] px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
                                 Book now
                             </button>
                         </div>

@@ -12,10 +12,20 @@
         <link href="https://fonts.bunny.net/css?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/js/tailwind-config.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            window.axios = axios;
+            window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        </script>
 
         <!-- Styles -->
         @livewireStyles
+        <style>
+            *, *::before, *::after { border-radius: 0 !important; }
+        </style>
     </head>
     <body class="font-sans antialiased">
         <x-banner />

@@ -21,16 +21,16 @@ $width = match ($width) {
     </div>
 
     <div x-show="open"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="transform opacity-0 scale-95"
-            x-transition:enter-end="transform opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-75"
-            x-transition:leave-start="transform opacity-100 scale-100"
-            x-transition:leave-end="transform opacity-0 scale-95"
-            class="absolute z-50 mt-2 {{ $width }}  shadow-lg {{ $alignmentClasses }} {{ $dropdownClasses }}"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="transform opacity-0 -translate-y-2 scale-[0.98]"
+            x-transition:enter-end="transform opacity-100 translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="transform opacity-100 translate-y-0 scale-100"
+            x-transition:leave-end="transform opacity-0 -translate-y-2 scale-[0.98]"
+            class="absolute z-50 mt-2 {{ $width }} shadow-2xl border border-gray-100 {{ $alignmentClasses }} {{ $dropdownClasses }}"
             style="display: none;"
             @click="open = false">
-        <div class=" ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
+        <div class="bg-white ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
             {{ $content }}
         </div>
     </div>

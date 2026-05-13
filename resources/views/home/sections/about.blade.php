@@ -40,39 +40,39 @@
     <div class="max-w-7xl mx-auto -mt-64 relative z-30 mb-12 ribbon-animate">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {{-- Card 1 --}}
-            <div class="bg-[#261405] text-white p-12 flex flex-col items-center text-center">
-                <div class="mb-4">
-                    <span class="material-symbols-outlined text-6xl">schedule</span>
+            <div class="group bg-[#261405] text-white p-12 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl">
+                <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                    <span class="material-symbols-outlined text-6xl text-white/90">schedule</span>
                 </div>
-                <h3 class="text-2xl font-medium mb-4 text-white">Check-in & Check-out Time</h3>
-                <p class="text-white text-md leading-relaxed max-w-xs">It is a long established fact that a reader will be distracted</p>
+                <h3 class="text-2xl font-medium mb-4 text-white">Check-in & Check-out</h3>
+                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Experience seamless transitions with our flexible scheduling.</p>
             </div>
 
             {{-- Card 2 --}}
-            <div class="bg-[#63360D] text-white p-12 flex flex-col items-center text-center">
-                <div class="mb-4">
-                    <span class="material-symbols-outlined text-6xl">wifi</span>
+            <div class="group bg-[#63360D] text-white p-12 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl">
+                <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+                    <span class="material-symbols-outlined text-6xl text-white/90">wifi</span>
                 </div>
                 <h3 class="text-2xl font-medium mb-4 text-white">High Speed Internet</h3>
-                <p class="text-white text-md leading-relaxed max-w-xs">It is a long established fact that a reader will be distracted</p>
+                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Stay connected in paradise with our dedicated fiber network.</p>
             </div>
 
             {{-- Card 3 --}}
-            <div class="bg-[#A15D1A] text-white p-12 flex flex-col items-center text-center">
-                <div class="mb-4">
-                    <span class="material-symbols-outlined text-6xl">calendar_month</span>
+            <div class="group bg-[#A15D1A] text-white p-12 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl">
+                <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                    <span class="material-symbols-outlined text-6xl text-white/90">calendar_month</span>
                 </div>
                 <h3 class="text-2xl font-medium mb-4 text-white">Simple Booking</h3>
-                <p class="text-white text-md leading-relaxed max-w-xs">It is a long established fact that a reader will be distracted</p>
+                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Book your dream vacation in just a few simple clicks.</p>
             </div>
 
             {{-- Card 4 --}}
-            <div class="bg-[#B87431] text-white p-12 flex flex-col items-center text-center">
-                <div class="mb-4">
-                    <span class="material-symbols-outlined text-6xl">support_agent</span>
+            <div class="group bg-[#B87431] text-white p-12 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl">
+                <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+                    <span class="material-symbols-outlined text-6xl text-white/90">support_agent</span>
                 </div>
                 <h3 class="text-2xl font-medium mb-4 text-white">Helpful Staff</h3>
-                <p class="text-white text-md leading-relaxed max-w-xs">It is a long established fact that a reader will be distracted</p>
+                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Our professional team is here to assist you 24/7.</p>
             </div>
         </div>
     </div>
@@ -82,53 +82,53 @@
         {{-- Search Form Section --}}
         <div class="max-w-7xl mx-auto px-6 -mt-16 relative z-40 mb-20">
             {{-- Search bar container --}}
-            <div class="w-full bg-white shadow-2xl overflow-hidden mb-6">
+            <div class="w-full bg-white shadow-2xl overflow-hidden mb-6 border border-gray-100">
                 {{-- Tabs --}}
                 <div class="flex border-b border-gray-100">
                     <style>
                         .booking-tab.active { border-bottom-color: #A15D1A !important; color: #A15D1A !important; background: #fdfaf7; }
                     </style>
-                    <button id="tab-stay" class="booking-tab flex-1 py-5 text-xs font-bold flex items-center justify-center gap-2 border-b-2 border-transparent transition-all active" onclick="setMode('stay')">
-                        <span class="material-symbols-outlined text-base">home</span> Stay
+                    <button id="tab-stay" class="booking-tab flex-1 py-6 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-3 border-b-2 border-transparent transition-all active hover:bg-gray-50" onclick="setMode('stay')">
+                        <span class="material-symbols-outlined text-lg">home</span> Stay
                     </button>
-                    <button id="tab-sail" class="booking-tab flex-1 py-5 text-xs font-bold flex items-center justify-center gap-2 border-b-2 border-transparent transition-all" onclick="setMode('sail')">
-                        <span class="material-symbols-outlined text-base">sailing</span> Sail
+                    <button id="tab-sail" class="booking-tab flex-1 py-6 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-3 border-b-2 border-transparent transition-all hover:bg-gray-50" onclick="setMode('sail')">
+                        <span class="material-symbols-outlined text-lg">sailing</span> Sail
                     </button>
                 </div>
 
                 {{-- Stay bar --}}
                 <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ route('search.stay') }}" method="POST">
                     @csrf
-                    <div class="flex-[2] flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Stay Duration</label>
-                        <input type="text" id="stay-range" name="date_range" class="search-input cursor-pointer" placeholder="Select Dates..." readonly>
+                    <div class="flex-[2] flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Stay Duration</label>
+                        <input type="text" id="stay-range" name="date_range" class="search-input cursor-pointer font-medium text-gray-800" placeholder="Select Dates..." readonly>
                     </div>
-                    <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Check-in Time</label>
-                        <select name="checkin_time" class="search-input minimal-select bg-transparent cursor-pointer">
+                    <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Check-in</label>
+                        <select name="checkin_time" class="search-input minimal-select bg-transparent cursor-pointer font-medium text-gray-800">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
                             @endfor
                         </select>
                     </div>
-                    <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Check-out Time</label>
-                        <select name="checkout_time" class="search-input minimal-select bg-transparent cursor-pointer">
+                    <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Check-out</label>
+                        <select name="checkout_time" class="search-input minimal-select bg-transparent cursor-pointer font-medium text-gray-800">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
                             @endfor
                         </select>
                     </div>
-                    <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Guests</label>
-                        <select class="search-input" id="hero-guests" name="guests">
+                    <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Guests</label>
+                        <select class="search-input font-medium text-gray-800" id="hero-guests" name="guests">
                             @for($i=1;$i<=10;$i++)
                                 <option value="{{ $i }}">{{ $i }} Guest{{ $i>1?'s':'' }}</option>
                             @endfor
                         </select>
                     </div>
-                    <div class="flex items-center px-4 py-3">
-                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3.5 text-xs font-bold flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition">
+                    <div class="flex items-center px-6 py-4">
+                        <button type="submit" class="magnetic-btn bg-[#63360D] text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
                             <span class="material-symbols-outlined text-base">search</span> Search
                         </button>
                     </div>
@@ -137,114 +137,74 @@
                 {{-- Sail bar --}}
                 <form id="sail-bar" class="hidden flex-col md:flex-row items-stretch" action="{{ route('search.sail') }}" method="POST">
                     @csrf
-                    <div class="flex-[2] flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Departure Date</label>
-                        <input type="text" id="sail-date" name="departure_date" class="search-input cursor-pointer" placeholder="Select Date..." readonly>
+                    <div class="flex-[2] flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Departure Date</label>
+                        <input type="text" id="sail-date" name="departure_date" class="search-input cursor-pointer font-medium text-gray-800" placeholder="Select Date..." readonly>
                     </div>
-                    <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Duration</label>
-                        <select class="search-input" id="hero-boat-duration" name="duration" required>
+                    <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Duration</label>
+                        <select class="search-input font-medium text-gray-800" id="hero-boat-duration" name="duration" required>
                             <option value="half">Half Day (4h)</option>
                             <option value="full">Full Day (8h)</option>
                             <option value="overnight">Overnight</option>
                         </select>
                     </div>
-                    <div class="flex-1 flex flex-col px-5 py-4 border-b md:border-b-0 md:border-r border-gray-100">
-                        <label class="text-[10px] font-bold text-gray-400 mb-1">Passengers</label>
-                        <select class="search-input" id="hero-boat-passengers" name="passengers" required>
+                    <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Passengers</label>
+                        <select class="search-input font-medium text-gray-800" id="hero-boat-passengers" name="passengers" required>
                             @for($i=1;$i<=20;$i++)
                                 <option value="{{ $i }}">{{ $i }} Passenger{{ $i>1?'s':'' }}</option>
                             @endfor
                         </select>
                     </div>
-                    <div class="flex items-center px-4 py-3">
-                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3.5 text-xs font-bold flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition">
+                    <div class="flex items-center px-6 py-4">
+                        <button type="submit" class="magnetic-btn bg-[#63360D] text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
                             <span class="material-symbols-outlined text-base">sailing</span> Find Vessel
                         </button>
                     </div>
                 </form>
-
-                {{-- Trust Badges Bar --}}
-                <div class="bg-gray-50 px-6 py-2 flex items-center gap-6 border-t border-gray-100">
-                    <div class="flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-green-600" style="font-size: 14px;">verified</span>
-                        <span class="text-[10px] font-bold text-gray-500">Verified Resort</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-gray-400" style="font-size: 14px;">lock</span>
-                        <span class="text-[10px] font-bold text-gray-500">Secure Booking</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-gray-400" style="font-size: 14px;">credit_card</span>
-                        <span class="text-[10px] font-bold text-gray-500">PayMongo Payments</span>
-                    </div>
-                </div>
-
-                {{-- Validation Errors --}}
-                @if($errors->any())
-                    <div class="bg-red-50 px-6 py-3 border-t border-red-100">
-                        <ul class="list-disc list-inside">
-                            @foreach($errors->all() as $error)
-                                <li class="text-[10px] font-bold text-red-600">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
             </div>
         </div>
     </div>
 
-    <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-        <!-- Section Title -->
-        <h2 class="text-4xl font-bold text-center mb-12 text-black">Our Service</h2>
-
-        <!-- Services Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            @php
-                $services = [
-                    ['title' => 'Restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=500'],
-                    ['title' => 'Luxurious Rooms', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=500'],
-                    ['title' => 'Inside Pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=500'],
-                    ['title' => '24 Hours Service', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=500'],
-                ];
-            @endphp
-
-            @foreach($services as $service)
-                <div class="group cursor-pointer">
-                    <!-- Image Container -->
-                    <div class="relative overflow-hidden aspect-[3/4]">
-                        <img 
-                            src="{{ $service['image'] }}" 
-                            alt="{{ $service['title'] }}" 
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        >
-                        <!-- Dark Overlay on Hover (matches image_5845f9.png) -->
-                        <div class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                    </div>
-
-                    <!-- Content Area -->
-                    <div class="pt-6 pb-8 px-2 transition-colors duration-300 group-hover:bg-black group-hover:px-6">
-                        <h3 class="text-2xl font-light mb-3 transition-colors duration-300 group-hover:text-white">
-                            {{ $service['title'] }}
-                        </h3>
-                        
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6 transition-colors duration-300 group-hover:text-gray-300">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed tellus id magna imperdiet mattis no...
-                        </p>
-
-                        <!-- Button -->
-                        <div class="inline-block">
-                            <span class="bg-black text-white px-6 py-2 text-sm font-bold uppercase tracking-wider transition-all duration-300 group-hover:bg-transparent group-hover:px-0">
-                                Read More
-                            </span>
-                        </div>
-                    </div>
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative">
+            <!-- Decorative background text -->
+            <div class="absolute -top-10 -right-20 text-[180px] font-bold text-gray-50 select-none pointer-events-none uppercase tracking-tighter">Services</div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-col items-center mb-20" data-reveal>
+                    <p class="text-sm font-bold text-[#A15D1A] uppercase tracking-[0.3em] mb-4">What we offer</p>
+                    <h2 class="text-5xl font-bold text-gray-900 text-center">World-Class Services</h2>
                 </div>
-            @endforeach
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-100">
+                    @php
+                        $services = [
+                            ['title' => 'Restaurant', 'icon' => 'restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800'],
+                            ['title' => 'Luxurious Rooms', 'icon' => 'king_bed', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800'],
+                            ['title' => 'Inside Pool', 'icon' => 'pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800'],
+                            ['title' => '24h Service', 'icon' => 'concierge', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=800'],
+                        ];
+                    @endphp
+
+                    @foreach($services as $index => $service)
+                        <div class="group relative aspect-[3/5] overflow-hidden cursor-pointer" data-reveal data-reveal-delay="{{ $index + 1 }}">
+                            <img src="{{ $service['image'] }}" alt="{{ $service['title'] }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-80"></div>
+                            
+                            <div class="absolute inset-x-0 bottom-0 p-8 transform transition-transform duration-500 group-hover:-translate-y-4">
+                                <span class="material-symbols-outlined text-4xl text-white/50 mb-6 block group-hover:text-[#B87431] transition-colors">{{ $service['icon'] }}</span>
+                                <h3 class="text-2xl font-bold text-white mb-4 uppercase tracking-wider">{{ $service['title'] }}</h3>
+                                <div class="h-0.5 w-12 bg-[#B87431] mb-6 transform scale-x-0 transition-transform origin-left duration-500 group-hover:scale-x-100"></div>
+                                <p class="text-white/60 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500">Experience the peak of luxury and comfort with our premium {{ strtolower($service['title']) }}.</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
         <img src="{{ asset('LOGO-FINAL.png') }}"
@@ -254,39 +214,41 @@
 
     {{-- Content --}}
     <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
             {{-- Left: Text --}}
             <div data-reveal>
-                <p class="text-sm font-semibold mb-4 section-label">About us</p>
+                <div class="inline-block bg-[#63360D]/5 px-4 py-2 mb-6">
+                    <p class="text-xs font-bold uppercase tracking-[0.4em] text-[#63360D]">Our Heritage</p>
+                </div>
 
-                <h2 class="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight mb-6 text-gray-900">
-                    Welcome to Cabanas<br>
-                    Beach Resort &amp; Hotel
+                <h2 class="text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-8 text-gray-900">
+                    Welcome to the<br>
+                    <span class="text-[#63360D]">Cabanas Family</span>
                 </h2>
 
-                <p class="text-base text-gray-600 leading-relaxed mb-8 max-w-md">
-                    The Cabanas Family Resort is a family-owned getaway built on land that has
-                    been passed down through generations. Nestled in Tambobong, Dasol,
-                    Pangasinan, we take pride in sharing our hidden gem with you.
+                <p class="text-lg text-gray-600 leading-relaxed mb-10 max-w-md">
+                    The Cabanas Family Resort is a family-owned getaway built on legacy land. Nestled in the heart of Tambobong, Dasol, we invite you to share in our hidden paradise.
                 </p>
 
                 {{-- Stats row --}}
-                <div class="grid grid-cols-3 gap-4 mb-8">
-                    @php $stats = [['15+','Room Types'],['5★','Guest Rating'],['10+','Years Open']]; @endphp
-                    @foreach($stats as [$val,$lbl])
-                        <div class="border border-gray-200 px-4 py-4 text-center shadow-sm bg-white">
-                            <p class="text-2xl font-bold mb-1" style="color:#63360D;">{{ $val }}</p>
-                            <p class="text-xs font-semibold text-gray-500">{{ $lbl }}</p>
+                <div class="grid grid-cols-3 gap-6 mb-12">
+                    @php $stats = [['15','Room Types','+'],['5','Guest Rating','★'],['10','Years Open','+']]; @endphp
+                    @foreach($stats as [$val,$lbl, $suffix])
+                        <div class="border border-gray-100 p-8 text-center bg-white shadow-xl shadow-gray-200/40 hover:border-[#63360D] transition-colors group">
+                            <p class="text-4xl font-bold mb-2 text-gray-900 group-hover:text-[#63360D] transition-colors">
+                                <span class="stat-value" data-value="{{ $val }}" data-suffix="{{ $suffix }}">0</span>
+                            </p>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">{{ $lbl }}</p>
                         </div>
                     @endforeach
                 </div>
 
                 <a href="{{ url('/home/amenities') }}"
-                   class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 border-b-2 pb-1 transition-all hover:text-[#63360D] hover:border-[#63360D] hover:gap-3"
+                   class="magnetic-btn inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 border-b-2 pb-2 transition-all hover:text-[#63360D] hover:border-[#63360D] group"
                    style="border-color:#63360D;">
-                    Learn More
-                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    Discover our amenities
+                    <span class="material-symbols-outlined text-lg transform transition-transform group-hover:translate-x-2">east</span>
                 </a>
             </div>
 

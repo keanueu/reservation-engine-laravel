@@ -1,80 +1,77 @@
 @extends('auth.layouts.app')
 @section('content')
 
-    <div id="app" class="min-h-screen flex flex-col lg:flex-row">
-        <div class="w-full h-1/3 min-h-[200px] lg:hidden bg-[#964B00] text-white flex flex-col items-center justify-center p-4 sm:p-12 shadow-xl">
-            <div class="flex flex-col items-center justify-center">
-                <a href="{{ url('/') }}" id="brand-name-mobile" class="flex items-center justify-center text-white flex-shrink-0">
-                    <div class="w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas Logo" class="h-full w-full object-contain filter" />
-                    </div>
-                </a>
-                <h1 class="text-2xl font-bold mt-3">Cabanas Beach Resort</h1>
-                <p class="text-xs  text-white/80">The best place to stay in Tambobong Beach!</p>
-            </div>
-        </div>
-        <!-- LEFT BRANDING COLUMN -->
-        <div class="hidden lg:flex lg:w-1/2 p-10 bg-[#964B00] text-white flex-col justify-between relative shadow-2xl">
-            <div class="flex items-center space-x-2">
-                            <a href="{{ url('/') }}" id="brand-name" class="flex items-center justify-center text-white flex-shrink-0 py-2 xl:py-3">
-                                <div class="w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center overflow-hidden ">
-                                    <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas Logo" class="h-full w-full object-contain" />
-                                </div>
-                            </a>
-            </div>
-            <div class="flex flex-col items-center justify-center space-y-12 my-auto">
-                <div class="relative">
-                        <div class="h-72 w-72 bg-white/10  flex items-center justify-center">
-                            <img src="{{ asset('LOGO-FINAL.png') }}" alt="Brand Logo" class="h-56 w-56 object-contain opacity-100">
-                        </div>
+    <div id="app" class="min-h-screen flex flex-col lg:flex-row bg-white">
+        <!-- Left Branding Column -->
+        <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden group">
+            <img src="{{ asset('images/1761967585.jpg') }}" alt="Resort" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+            <div class="absolute inset-0 branding-overlay flex flex-col justify-between p-12 text-white">
+                <div class="animate-fade-up">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-3">
+                        <img src="{{ asset('LOGO-FINAL.png') }}" alt="Logo" class="h-16 w-auto brightness-110">
+                        <span class="text-2xl font-bold tracking-tight">Cabanas</span>
+                    </a>
                 </div>
-              <blockquote class="text-center  text-md leading-tight max-w-sm mx-auto">
-                    The best place to stay in Tambobong Beach! Nature's gift to city dwellers!
-                </blockquote>
+                
+                <div class="max-w-md animate-fade-up" style="animation-delay: 0.2s">
+                    <h2 class="text-5xl font-bold leading-tight mb-6">Security & Peace of Mind.</h2>
+                    <p class="text-lg text-white/80 leading-relaxed">Don't worry, we'll help you get back to your account in no time.</p>
+                </div>
 
-                <p class="text-center  text-md leading-tight font-serif mt-0">
-                    Cabanas Beach Resort and  Hotel
-                </p>
-
-
+                <div class="animate-fade-up" style="animation-delay: 0.4s">
+                    <p class="text-sm text-white/60">&copy; 2025 Cabanas Beach Resort. All Rights Reserved.</p>
+                </div>
             </div>
-            <p class="text-sm text-white/70">&copy; 2025 Cabanas Beach Resort. All Rights Reserved.</p>
         </div>
-        <!-- RIGHT FORM COLUMN -->
-        <div class="w-full lg:w-1/2 bg-dark-bg text-white flex items-center justify-center p-6 sm:p-12">
-            <div class="w-full max-w-lg">
-                <div class="form-fade-in bg-white p-8 shadow-2xl">
-                    <h2 class="text-2xl sm:text-3xl text-black font-semibold mb-2">Forgot your password?</h2>
-                    <p class="text-gray-700 text-sm mb-6">No problem. Just let us know your email address and we will email you a
-                        password reset link that will allow you to choose a new one.</p>
-                    @if (session('status'))
-                        <div class="mb-4 font-medium text-sm text-[#964B00] dark:text-orange-400">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="mb-4 text-sm text-red-500">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-                        <div class="mt-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
-                                autocomplete="username" placeholder="Your email address"
-                                class="block w-full px-4 py-3 bg-dark-input border border-gray-700 text-sm text-gray-700 placeholder-gray-500 focus:ring-[#964B00] focus:border-[#964B00] focus:outline-none transition duration-150" />
-                        </div>
-                        <div class="mt-8">
-                            <button type="submit"
-                                class="w-full bg-[#964B00] hover:bg-[#7a3c00] text-sm text-white font-semibold py-3 transition duration-300 shadow-lg shadow-orange-600/40">Email
-                                Password Reset Link</button>
-                        </div>
-                    </form>
+
+        <!-- Right Form Column -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-gray-50">
+            <div class="w-full max-w-md animate-fade-up">
+                <div class="bg-white p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden">
+                    <div class="relative">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Reset Password</h2>
+                        <p class="text-gray-500 text-sm mb-8">Enter your email to receive a reset link.</p>
+
+                        @if (session('status'))
+                            <div class="mb-6 p-4 bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 text-sm animate-fade-up">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm animate-fade-up">
+                                <ul class="list-disc list-inside">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
+                            @csrf
+                            <div class="space-y-2">
+                                <label for="email" class="text-sm font-semibold text-gray-700">Email Address</label>
+                                <div class="relative group">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-[#964B00] transition-colors">
+                                        <span class="material-symbols-outlined text-xl">mail</span>
+                                    </span>
+                                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                                        placeholder="name@example.com"
+                                        class="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-4 focus:ring-[#964B00]/10 focus:border-[#964B00] outline-none transition-all duration-300">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 bg-[#964B00] hover:bg-[#7a3c00] text-white font-bold rounded-xl shadow-lg shadow-[#964B00]/20 transform transition-all duration-300 hover:-translate-y-1 active:scale-95">
+                                Send Reset Link
+                            </button>
+
+                            <p class="text-center text-sm text-gray-600">
+                                Remember your password? 
+                                <a href="{{ route('login') }}" class="font-bold text-[#964B00] hover:text-[#7a3c00] transition-colors underline underline-offset-4">Log In</a>
+                            </p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

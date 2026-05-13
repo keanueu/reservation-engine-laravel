@@ -1,7 +1,7 @@
 <section class="bg-white text-black py-16 font-[Inter]">
     @php
-        // Fetch all images to match frontdesk gallery, or use the $image variable if passed from controller
-        $galleryImages = $image ?? \App\Models\Images::orderBy('created_at', 'desc')->get();
+        // Fetch only general gallery images (those not linked to a specific room)
+        $galleryImages = \App\Models\Images::whereNull('room_id')->orderBy('created_at', 'desc')->get();
     @endphp
 
     <div class="max-w-7xl mx-auto px-6">
@@ -16,14 +16,15 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             @forelse($galleryImages as $index => $image)
                 <div class="group relative overflow-hidden aspect-square cursor-pointer" 
-                     onclick="openGalleryModal({{ $index }})">
+                     onclick="openGalleryModal({{ $index }})" data-reveal data-reveal-delay="{{ $index % 4 }}">
                     <img src="{{ asset('images/' . $image->image) }}" 
                          alt="Gallery Image" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            zoom_in
-                        </span>
+                         class="parallax-img w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         data-speed="0.05">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                        <div class="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                            <span class="material-symbols-outlined text-white text-5xl">zoom_in</span>
+                        </div>
                     </div>
                 </div>
             @empty
