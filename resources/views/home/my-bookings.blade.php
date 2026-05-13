@@ -312,13 +312,14 @@ function createBookingCard(booking) {
             <!-- Extension Form (Collapsible) -->
             <div id="extension-form-${booking.id}" class="hidden mt-4 pt-4 border-t border-gray-200">
                 <h4 class="text-sm text-gray-900 mb-3">Request extension</h4>
-                <form method="POST" action="/bookings/${booking.id}/extension" class="space-y-3">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <form onsubmit="handleExtensionSubmit(event, ${booking.id})" class="space-y-3">
                     <div>
                         <label class="block text-xs text-gray-700 mb-1">Additional hours</label>
-                        <input type="number" name="hours" min="1" required 
-                               class="w-full border border-gray-300 px-3 py-2 text-sm" 
-                               placeholder="Enter hours">
+                        <select name="hours" required class="w-full border border-gray-300 px-3 py-2 text-sm">
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                            <option value="5">5 Hours</option>
+                        </select>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-700 mb-1">Payment method</label>
@@ -344,7 +345,7 @@ function createBookingCard(booking) {
             <!-- Refund Form (Collapsible) -->
             <div id="refund-form-${booking.id}" class="hidden mt-4 pt-4 border-t border-gray-200">
                 <h4 class="text-sm text-gray-900 mb-3">Request refund</h4>
-                <form method="POST" action="/bookings/${booking.id}/request-refund" class="space-y-3">
+                <form onsubmit="handleRefundSubmit(event, ${booking.id})" class="space-y-3">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div>
                         <label class="block text-xs text-gray-700 mb-1">Amount (optional)</label>
@@ -457,6 +458,98 @@ function toggleRefundForm(bookingId) {
         if (extensionForm && !extensionForm.classList.contains('hidden')) {
             extensionForm.classList.add('hidden');
         }
+    }
+}
+
+async function handleExtensionSubmit(event, bookingId) {
+    event.preventDefault();
+    const form = event.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Processing...';
+    
+    try {
+        const formData = new FormData(form);
+        const data = {
+            hours: formData.get('hours'),
+            payment_method: formData.get('payment_method')
+        };
+        
+        const response = await fetch(`/bookings/${bookingId}/extension`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.error || result.message || 'Failed to request extension');
+        }
+        
+        if (result.pay_url) {
+            window.location.href = result.pay_url;
+        } else {
+            alert('Extension requested successfully via Front Desk payment.');
+            window.location.reload();
+        }
+    } catch (error) {
+        console.error('Extension error:', error);
+        alert(error.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
+}
+
+async function handleRefundSubmit(event, bookingId) {
+    event.preventDefault();
+    const form = event.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    if (!confirm('Are you sure you want to request a refund? This will cancel your booking immediately.')) {
+        return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Processing...';
+    
+    try {
+        const formData = new FormData(form);
+        const data = {
+            amount: formData.get('amount'),
+            reason: formData.get('reason')
+        };
+        
+        const response = await fetch(`/bookings/${bookingId}/request-refund`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.error || result.message || 'Failed to request refund');
+        }
+        
+        alert(result.message || 'Refund request submitted successfully. Your booking is now cancelled.');
+        window.location.reload();
+    } catch (error) {
+        console.error('Refund error:', error);
+        alert(error.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     }
 }
 @endauth
