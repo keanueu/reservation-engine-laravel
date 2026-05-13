@@ -223,7 +223,7 @@ class PageController extends Controller
         $stats = [
             'total' => $bookings->count(),
             'confirmed' => $bookings->where('status', 'confirmed')->count(),
-            'upcoming' => $bookings->whereIn('status', ['confirmed', 'pending'])
+            'upcoming' => $bookings->whereIn('status', ['confirmed', 'pending', 'waiting'])
                 ->where('start_date', '>=', now()->toDateString())->count(),
         ];
 

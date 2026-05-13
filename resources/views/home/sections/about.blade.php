@@ -194,6 +194,58 @@
         </div>
     </div>
 
+    <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+        <!-- Section Title -->
+        <h2 class="text-4xl font-bold text-center mb-12 text-black">Our Service</h2>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            @php
+                $services = [
+                    ['title' => 'Restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=500'],
+                    ['title' => 'Luxurious Rooms', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=500'],
+                    ['title' => 'Inside Pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=500'],
+                    ['title' => '24 Hours Service', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=500'],
+                ];
+            @endphp
+
+            @foreach($services as $service)
+                <div class="group cursor-pointer">
+                    <!-- Image Container -->
+                    <div class="relative overflow-hidden aspect-[3/4]">
+                        <img 
+                            src="{{ $service['image'] }}" 
+                            alt="{{ $service['title'] }}" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        >
+                        <!-- Dark Overlay on Hover (matches image_5845f9.png) -->
+                        <div class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="pt-6 pb-8 px-2 transition-colors duration-300 group-hover:bg-black group-hover:px-6">
+                        <h3 class="text-2xl font-light mb-3 transition-colors duration-300 group-hover:text-white">
+                            {{ $service['title'] }}
+                        </h3>
+                        
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6 transition-colors duration-300 group-hover:text-gray-300">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed tellus id magna imperdiet mattis no...
+                        </p>
+
+                        <!-- Button -->
+                        <div class="inline-block">
+                            <span class="bg-black text-white px-6 py-2 text-sm font-bold uppercase tracking-wider transition-all duration-300 group-hover:bg-transparent group-hover:px-0">
+                                Read More
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
         <img src="{{ asset('LOGO-FINAL.png') }}"
              class="w-[900px] h-[900px] object-contain opacity-[0.15]"

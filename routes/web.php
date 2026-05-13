@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WeatherAlertController;
 use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\AIChatController;
 use App\Http\Controllers\BookingExtensionController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\CartPageController;
@@ -115,8 +114,6 @@ Route::post('/webhooks/paymongo', [PaymongoWebhookController::class, 'handle'])
         \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
         'web',
     ]);
-Route::post('/add_booking/{id}', [HomeController::class, 'add_booking']);
-Route::post('/add_boat_booking/{id}', [HomeController::class, 'add_boat_booking']);
 
 
 // user routes
@@ -134,7 +131,6 @@ Route::middleware(['auth'])->group(function () {
     // Custom profile page (renamed to avoid conflict with Jetstream's profile.show)
     Route::get('/profile', [ProfileController::class, 'show'])->name('user.profile');
     // User bookings (personal view for guests to see their bookings and request extensions)
-    Route::get('/home/bookings', [PageController::class, 'home_bookings'])->name('home.bookings');
     // My Bookings page (dedicated page instead of modal)
     Route::get('/my-bookings', [PageController::class, 'my_bookings_page'])->name('my.bookings');
     // API: return authenticated user's bookings as JSON for the My Bookings page
@@ -312,7 +308,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::post('/ai/chat', [AIChatController::class, 'chat']);
 // web.php
 
  Route::get('/room_detailsv2/{id}', [HomeController::class, 'room_detailsv2']);

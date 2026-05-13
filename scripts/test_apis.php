@@ -48,16 +48,3 @@ if ($weatherApiKey) {
     echo "OpenWeather API: NO KEY CONFIGURED\n";
 }
 
-echo "\n--- Testing Local AI (Ollama) ---\n";
-try {
-    $response = Http::timeout(5)->post('http://localhost:11434/api/tags');
-    if ($response->successful()) {
-        echo "Ollama Local API: SUCCESS (Service is running)\n";
-        $models = array_column($response->json()['models'] ?? [], 'name');
-        echo "Available Models: " . implode(', ', $models) . "\n";
-    } else {
-        echo "Ollama Local API: FAILED (Status: " . $response->status() . ")\n";
-    }
-} catch (\Exception $e) {
-    echo "Ollama Local API: FAILED (Could not connect: " . $e->getMessage() . ")\n";
-}
