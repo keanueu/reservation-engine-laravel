@@ -1,6 +1,7 @@
 <section class="bg-white text-black py-16 font-[Inter]">
     @php
-        $galleryImages = \App\Models\Images::orderBy('created_at', 'desc')->take(12)->get();
+        // Fetch all images to match frontdesk gallery, or use the $image variable if passed from controller
+        $galleryImages = $image ?? \App\Models\Images::orderBy('created_at', 'desc')->get();
     @endphp
 
     <div class="max-w-7xl mx-auto px-6">
