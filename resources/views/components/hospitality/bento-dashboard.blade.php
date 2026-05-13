@@ -132,18 +132,18 @@
             <article class="bento-card lg:col-span-3">
                 <p class="eyebrow">Revenue</p>
                 <h2 class="section-title">High-signal admin stats</h2>
-                <div class="mt-6 grid gap-3">
-                    <div class="stat-chip">
-                        <span>Stay revenue</span>
-                        <strong>PHP 184k</strong>
+                <div class="mt-6 grid gap-4">
+                    <div class="stat-chip group p-6 border border-gray-100 hover:border-[#964B00] transition-colors bg-white shadow-sm">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-2">Stay revenue</span>
+                        <strong class="text-3xl font-bold text-gray-900 group-hover:text-[#964B00] transition-colors">
+                            PHP <span class="stat-value" data-value="184" data-suffix="k">0</span>
+                        </strong>
                     </div>
-                    <div class="stat-chip">
-                        <span>Sail revenue</span>
-                        <strong>PHP 96k</strong>
-                    </div>
-                    <div class="stat-chip">
-                        <span>Weather interruptions</span>
-                        <strong>03</strong>
+                    <div class="stat-chip group p-6 border border-gray-100 hover:border-[#964B00] transition-colors bg-white shadow-sm">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-2">Sail revenue</span>
+                        <strong class="text-3xl font-bold text-gray-900 group-hover:text-[#964B00] transition-colors">
+                            PHP <span class="stat-value" data-value="96" data-suffix="k">0</span>
+                        </strong>
                     </div>
                 </div>
             </article>
@@ -151,33 +151,33 @@
             <article class="bento-card lg:col-span-4">
                 <p class="eyebrow">Pricing</p>
                 <h2 class="section-title">Live total sidebar</h2>
-                <div class="mt-6 warm-subpanel space-y-4">
+                <div class="mt-6 warm-subpanel space-y-4 border border-gray-100 p-8 bg-gray-50">
                     <div class="flex items-center justify-between text-sm font-medium">
-                        <span>Cabana subtotal</span>
-                        <span>PHP 14,400</span>
+                        <span class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Cabana subtotal</span>
+                        <span class="font-bold text-gray-900">PHP 14,400</span>
                     </div>
                     <div class="flex items-center justify-between text-sm font-medium">
-                        <span>Boat charter</span>
-                        <span>PHP 7,500</span>
+                        <span class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Boat charter</span>
+                        <span class="font-bold text-gray-900">PHP 7,500</span>
                     </div>
                     <div class="flex items-center justify-between text-sm font-medium">
-                        <span>Taxes + fuel</span>
-                        <span>PHP 2,700</span>
+                        <span class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Taxes + fuel</span>
+                        <span class="font-bold text-gray-900">PHP 2,700</span>
                     </div>
-                    <div class="flex items-center justify-between border-t border-earth-espresso/10 pt-4 font-semibold text-earth-espresso">
-                        <span>Total</span>
-                        <span>PHP 24,600</span>
+                    <div class="flex items-center justify-between border-t border-gray-200 pt-6 font-bold text-[#964B00]">
+                        <span class="uppercase tracking-[0.2em] text-xs">Total</span>
+                        <span class="text-2xl">PHP 24,600</span>
                     </div>
                 </div>
             </article>
 
             <article class="bento-card lg:col-span-3">
                 <p class="eyebrow">Quick Actions</p>
-                <h2 class="section-title">Frontdesk actions without table overload</h2>
-                <div class="mt-6 grid gap-3">
-                    <button type="button" class="warm-action">Add reservation</button>
-                    <button type="button" class="warm-action">Check marina status</button>
-                    <button type="button" class="warm-action">Review extensions</button>
+                <h2 class="section-title">Frontdesk actions</h2>
+                <div class="mt-6 grid gap-4">
+                    <button type="button" class="magnetic-btn w-full bg-[#964B00] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#7a3c00] transition shadow-lg shadow-orange-900/10">Add reservation</button>
+                    <button type="button" class="magnetic-btn w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Check marina status</button>
+                    <button type="button" class="magnetic-btn w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Review extensions</button>
                 </div>
             </article>
         </div>

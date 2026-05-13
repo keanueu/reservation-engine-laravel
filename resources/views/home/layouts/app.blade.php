@@ -8,7 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        window.axios = axios;
+        window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -182,6 +187,7 @@
     <script src="/js/remove-modal.js"></script>
     <script src="/js/hero.js"></script>
     <script src="/js/nav.js"></script>
+    <script src="/js/guest-interactive.js"></script>
     <script>
         // Scroll-reveal
         document.addEventListener('DOMContentLoaded', () => {

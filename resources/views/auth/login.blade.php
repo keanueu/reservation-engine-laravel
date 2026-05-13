@@ -1,111 +1,108 @@
 @extends('auth.layouts.app')
 @section('content')
 
-    <div id="app" class="min-h-screen flex flex-col lg:flex-row">
+    <div id="app" class="min-h-screen flex flex-col lg:flex-row bg-white">
 
-        <div
-            class="w-full h-1/3 min-h-[200px] lg:hidden bg-[#bf6b1a] text-white flex flex-col items-center justify-center p-4 sm:p-12 shadow-xl">
-            <div class="flex flex-col items-center justify-center">
-                <a href="{{ url('/') }}" id="brand-name-mobile"
-                    class="flex items-center justify-center text-white flex-shrink-0">
-                    <div class="w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas Logo"
-                            class="h-full w-full object-contain filter brightness-110" />
-                    </div>
-                </a>
-                <h1 class="text-2xl font-bold mt-3">Cabanas Beach Resort</h1>
-                <p class="text-xs  text-white/80">The best place to stay in Tambobong Beach!</p>
-            </div>
-        </div>
-
-        <div class="hidden lg:flex lg:w-1/2 p-10 bg-[#bf6b1a] text-white flex-col justify-between relative shadow-2xl">
-            <div class="flex items-center space-x-2">
-                <a href="{{ url('/') }}" id="brand-name"
-                    class="flex items-center justify-center text-white flex-shrink-0 py-2 xl:py-3">
-                    <div
-                        class="w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas Logo" class="h-full w-full object-contain brightness-110" />
-                    </div>
-                </a>
-            </div>
-            <div class="flex flex-col items-center justify-center space-y-12 my-auto">
-                <div class="relative">
-                    <div class="h-72 w-72  flex items-center justify-center">
-                        <img src="{{ asset('LOGO-FINAL.png') }}" alt="Brand Logo"
-                            class="h-56 w-56 object-contain opacity-100 brightness-110">
-                    </div>
+        <!-- Left Branding Column -->
+        <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden group">
+            <img src="{{ asset('images/1758952332.jpg') }}" alt="Resort" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+            <div class="absolute inset-0 branding-overlay flex flex-col justify-between p-12 text-white">
+                <div class="animate-fade-up">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-3">
+                        <img src="{{ asset('LOGO-FINAL.png') }}" alt="Logo" class="h-16 w-auto brightness-110">
+                        <span class="text-2xl font-bold tracking-tight">Cabanas</span>
+                    </a>
                 </div>
-                <blockquote class="text-center  text-md leading-tight max-w-sm mx-auto">
-                    The best place to stay in Tambobong Beach! Nature's gift to city dwellers!
-                </blockquote>
-                <p class="text-center  text-md leading-tight font-serif mt-0">
-                    Cabanas Beach Resort and Hotel
-                </p>
-            </div>
-            <p class="text-sm text-white/70">&copy; 2025 Cabanas Beach Resort. All Rights Reserved.</p>
-        </div>
-        <div
-            class="w-full lg:w-1/2 bg-gray-100 text-gray-800 flex flex-col items-center justify-start lg:justify-center p-6 sm:p-12 overflow-y-auto flex-grow lg:flex-grow-0 min-h-0">
-            <div class="w-full max-w-lg">
-                <div class="form-fade-in bg-white p-8 shadow-2xl lg:p-8 lg:shadow-2xl">
-                    <h2 class="text-2xl sm:text-3xl text-black font-semibold mb-2 mt-4 lg:mt-0">Welcome Back!</h2>
+                
+                <div class="max-w-md animate-fade-up" style="animation-delay: 0.2s">
+                    <h2 class="text-5xl font-bold leading-tight mb-6">Nature's gift to city dwellers.</h2>
+                    <p class="text-lg text-white/80 leading-relaxed">Experience the pristine beauty of Tambobong Beach in comfort and style.</p>
+                </div>
 
-                    <p class="text-gray-700 text-sm mb-6">Sign in to continue to your dashboard.</p>
-
-                    @if ($errors->any())
-                        <div class="mb-4 text-sm text-red-500">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="mb-4 font-medium text-sm text-green-600">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="mt-4">
-                            <label for="email" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
-                                autocomplete="username" placeholder="Your email address"
-                                class="block w-full px-4 py-3 bg-dark-input border border-gray-700 text-sm text-gray-700 placeholder-gray-500 focus:ring-[#964B00] focus:border-[#964B00] focus:outline-none transition duration-150" />
-                        </div>
-                        <div class="mt-4">
-                            <label for="password"
-                                class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <input id="password" type="password" name="password" required autocomplete="current-password"
-                                placeholder="Your secure password"
-                                class="block w-full px-4 py-3 bg-dark-input border border-gray-700 text-sm text-gray-700 placeholder-gray-500 focus:ring-[#964B00] focus:border-[#964B00] focus:outline-none transition duration-150" />
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <label for="remember_me" class="flex items-center cursor-pointer">
-                                <input id="remember_me" type="checkbox" name="remember"
-                                    class="h-4 w-4 text-[#964B00] bg-dark-input border-gray-700 focus:ring-orange-500" />
-                                <span class="ms-2 text-xs sm:text-sm text-gray-700">Remember me</span>
-                            </label>
-                            @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}"
-                                    class="underline text-xs sm:text-sm text-gray-700">Forgot
-                                    your password?</a>
-                            @endif
-                        </div>
-                        <div class="mt-8">
-                            <button type="submit"
-                                class="w-full text-sm sm:text-md bg-[#964B00] hover:bg-[#7a3c00] text-white font-semibold py-3 transition duration-300 shadow-lg shadow-orange-600/40">Log
-                                in</button>
-                        </div>
-                        <p class="text-center mt-6 text-xs sm:text-sm text-gray-700">
-                            Don't have an account?
-                            <a href="{{ route('register') }}"
-                                class="text-[#964B00] hover:text-orange-400 font-semibold underline">Register</a>
-                        </p>
-                    </form>
+                <div class="animate-fade-up" style="animation-delay: 0.4s">
+                    <p class="text-sm text-white/60">&copy; 2025 Cabanas Beach Resort. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
+
+        <!-- Right Form Column -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-gray-50">
+            <div class="w-full max-w-md animate-fade-up">
+                <div class="bg-white p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden">
+                    <!-- Decorative Element -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#bf6b1a]/5 rounded-bl-full -mr-16 -mt-16"></div>
+
+                    <div class="relative">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+                        <p class="text-gray-500 text-sm mb-8">Please enter your details to sign in.</p>
+
+                        @if ($errors->any())
+                            <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm animate-fade-up">
+                                <ul class="list-disc list-inside">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                            @csrf
+                            <div class="space-y-2">
+                                <label for="email" class="text-sm font-semibold text-gray-700">Email Address</label>
+                                <div class="relative group">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-[#964B00] transition-colors">
+                                        <span class="material-symbols-outlined text-xl">mail</span>
+                                    </span>
+                                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                                        placeholder="name@example.com"
+                                        class="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-4 focus:ring-[#964B00]/10 focus:border-[#964B00] outline-none transition-all duration-300">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <label for="password" class="text-sm font-semibold text-gray-700">Password</label>
+                                    @if (Route::has('password.request'))
+                                        <a href="{{ route('password.request') }}" class="text-xs font-semibold text-[#964B00] hover:text-[#7a3c00] transition-colors">Forgot Password?</a>
+                                    @endif
+                                </div>
+                                <div class="relative group">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-[#964B00] transition-colors">
+                                        <span class="material-symbols-outlined text-xl">lock</span>
+                                    </span>
+                                    <input id="password" type="password" name="password" required
+                                        placeholder="••••••••"
+                                        class="block w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-4 focus:ring-[#964B00]/10 focus:border-[#964B00] outline-none transition-all duration-300">
+                                    <button type="button" data-target="password" class="password-toggle absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors">
+                                        <span class="material-symbols-outlined text-xl">visibility</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <label class="relative flex items-center cursor-pointer group">
+                                    <input id="remember_me" type="checkbox" name="remember" class="peer sr-only">
+                                    <div class="h-5 w-5 bg-gray-100 border border-gray-200 rounded-md peer-checked:bg-[#964B00] peer-checked:border-[#964B00] transition-all duration-200"></div>
+                                    <span class="absolute text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-200 left-[3px]">
+                                        <span class="material-symbols-outlined text-sm font-bold">check</span>
+                                    </span>
+                                    <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Remember me</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 bg-[#964B00] hover:bg-[#7a3c00] text-white font-bold rounded-xl shadow-lg shadow-[#964B00]/20 transform transition-all duration-300 hover:-translate-y-1 active:scale-95">
+                                Sign In
+                            </button>
+
+                            <p class="text-center text-sm text-gray-600">
+                                Don't have an account? 
+                                <a href="{{ route('register') }}" class="font-bold text-[#964B00] hover:text-[#7a3c00] transition-colors underline underline-offset-4">Create account</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

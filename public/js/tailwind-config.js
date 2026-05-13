@@ -1,11 +1,22 @@
 tailwind.config = {
     theme: {
         extend: {
-            fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+            borderRadius: {
+                'none': '0',
+                'sm': '0',
+                'DEFAULT': '0',
+                'md': '0',
+                'lg': '0',
+                'xl': '0',
+                '2xl': '0',
+                '3xl': '0',
+                'full': '0',
+            },
+            fontFamily: { sans: ['Inter', 'sans-serif'] },
             colors: {
-                'primary-green': '#ea580c', // now orange-600
-                'dark-bg': '#e5e7eb',
-                'dark-input': '#ffffffff',
+                'brand': '#964B00',
+                'brand-dark': '#63360D',
+                'dark-bg': '#faf9f7',
             }
         }
     }
