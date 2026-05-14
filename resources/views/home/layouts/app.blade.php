@@ -109,7 +109,7 @@
 
         /* ── Primary button ── */
         .btn-primary { background: var(--brand); color: #fff; transition: background .2s, transform .15s; }
-        .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
+        .btn-primary:hover { background: var(--brand-dark); }
 
         /* ── Outline button ── */
         .btn-outline { background: transparent; color: var(--brand); border: 2px solid var(--brand); transition: all .2s; }

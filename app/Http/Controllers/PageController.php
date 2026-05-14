@@ -151,18 +151,25 @@ class PageController extends Controller
         $bookings = Booking::with('room', 'extensions')
             ->where('email', $user->email)
             ->orderBy('start_date', 'desc')
-            ->get()
-            ->map(function ($b) use ($depositPercent, $depositFeePercent) {
+            ->get();
+
+        // 1. Pre-fetch all bookings associated with the group_ids of the user's bookings.
+        // This eliminates the N+1 problem where each loop iteration would query the database.
+        $groupIds = $bookings->pluck('group_id')->filter()->unique();
+        $allGroupBookings = Booking::whereIn('group_id', $groupIds)->get()->groupBy('group_id');
+
+        $bookings = $bookings->map(function ($b) use ($depositPercent, $depositFeePercent, $allGroupBookings) {
                 $total = (float) ($b->total_amount ?? 0);
                 // Use stored deposit_amount if present, otherwise compute from config percent
                 $deposit = $b->deposit_amount ?? round($total * $depositPercent, 2);
                 $depositFee = $b->deposit_fee ?? round($deposit * $depositFeePercent, 2);
                 $totalToCharge = $b->total_to_charge ?? round($deposit + $depositFee, 2);
 
-                // compute group-level totals and flags
+                // compute group-level totals and flags using the pre-fetched collection
                 $groupId = $b->group_id;
-                $groupBookings = Booking::where('group_id', $groupId)->get();
-                $groupDepositTotal = $groupBookings->reduce(function ($carry, $item) use ($depositPercent, $depositFeePercent) {
+                $groupBookings = $allGroupBookings->get($groupId, collect());
+                
+                $groupDepositTotal = $groupBookings->reduce(function ($carry, $item) use ($depositPercent) {
                     $t = (float) ($item->total_amount ?? 0);
                     $d = $item->deposit_amount ?? round($t * $depositPercent, 2);
                     return $carry + $d;

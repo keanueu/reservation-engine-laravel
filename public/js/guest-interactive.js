@@ -31,21 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     stats.forEach(stat => statsObserver.observe(stat));
 
-    // 2. Magnetic Hover Effect for Square Buttons
-    const magneticButtons = document.querySelectorAll('.magnetic-btn');
-    magneticButtons.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
-        });
-
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0px, 0px)';
-        });
-    });
 
     // 3. Parallax Image Effect
     const parallaxImages = document.querySelectorAll('.parallax-img');
