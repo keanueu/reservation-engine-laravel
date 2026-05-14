@@ -128,7 +128,7 @@
                         </select>
                     </div>
                     <div class="flex items-center px-6 py-4">
-                        <button type="submit" class="magnetic-btn bg-[#63360D] text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
+                        <button type="submit" class="bg-[#63360D] text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
                             <span class="material-symbols-outlined text-base">search</span> Search
                         </button>
                     </div>
@@ -158,7 +158,7 @@
                         </select>
                     </div>
                     <div class="flex items-center px-6 py-4">
-                        <button type="submit" class="magnetic-btn bg-[#63360D] text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
+                        <button type="submit" class="bg-[#63360D] text-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
                             <span class="material-symbols-outlined text-base">sailing</span> Find Vessel
                         </button>
                     </div>
@@ -245,7 +245,7 @@
                 </div>
 
                 <a href="{{ url('/home/amenities') }}"
-                   class="magnetic-btn inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 border-b-2 pb-2 transition-all hover:text-[#63360D] hover:border-[#63360D] group"
+                   class="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 border-b-2 pb-2 transition-all hover:text-[#63360D] hover:border-[#63360D] group"
                    style="border-color:#63360D;">
                     Discover our amenities
                     <span class="material-symbols-outlined text-lg transform transition-transform group-hover:translate-x-2">east</span>

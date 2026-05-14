@@ -175,9 +175,9 @@
                 <p class="eyebrow">Quick Actions</p>
                 <h2 class="section-title">Frontdesk actions</h2>
                 <div class="mt-6 grid gap-4">
-                    <button type="button" class="magnetic-btn w-full bg-[#964B00] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#7a3c00] transition shadow-lg shadow-orange-900/10">Add reservation</button>
-                    <button type="button" class="magnetic-btn w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Check marina status</button>
-                    <button type="button" class="magnetic-btn w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Review extensions</button>
+                    <button type="button" class="w-full bg-[#964B00] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#7a3c00] transition shadow-lg shadow-orange-900/10">Add reservation</button>
+                    <button type="button" class="w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Check marina status</button>
+                    <button type="button" class="w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Review extensions</button>
                 </div>
             </article>
         </div>

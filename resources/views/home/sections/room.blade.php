@@ -226,7 +226,7 @@
                             </a>
                             <button type="button"
                                 onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
-                                class="magnetic-btn bg-[#964B00] px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
+                                class="bg-[#964B00] px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
                                 Book now
                             </button>
                         </div>

@@ -42,7 +42,7 @@ class AdminController extends Controller
   public function home()
   {
     $rooms = Room::with(['discounts.images', 'images'])->get();
-    $boats = Boat::all();
+    $boats = Boat::all(); // Boat uses a single image column, not a relationship
     $image = Images::all();
     return view('home.index', compact('rooms', 'boats', 'image'));
   }
