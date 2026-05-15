@@ -1,13 +1,25 @@
 @extends('home.layouts.app')
 
 @section('content')
+
+<div class="relative w-full h-[35vh] md:h-[45vh]">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+        alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
+    <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-medium ">
+            Account settings
+        </h1>
+    </div>
+</div>
+
 <div class="min-h-screen bg-white py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {{-- Page Header --}}
         <div class="mb-8" data-reveal>
-            <h1 class="text-4xl text-gray-900">Account settings</h1>
-            <p class="text-base text-gray-600 mt-3 leading-relaxed">Manage your profile information and account security</p>
+            <p class="text-sm font-medium mb-4 section-label">Your account</p>
+            <h2 class="text-4xl font-medium text-black">Account settings</h2>
+            <p class="text-base text-black mt-3 leading-relaxed">Manage your profile information and account security</p>
         </div>
 
         @if (session('status'))
@@ -19,8 +31,8 @@
         {{-- Profile Information Section --}}
         <div class="bg-white border border-gray-200 shadow-sm mb-6" data-reveal data-reveal-delay="1">
             <div class="px-6 py-5">
-                <h2 class="text-lg text-gray-900">Profile information</h2>
-                <p class="text-sm text-gray-600 mt-1">Update your account's profile information and email address</p>
+                <h2 class="text-lg text-black">Profile information</h2>
+                <p class="text-sm text-black mt-1">Update your account's profile information and email address</p>
             </div>
             <div class="px-6 py-6 border-t border-gray-200">
                 @livewire('profile.update-profile-information-form')
@@ -31,8 +43,8 @@
         @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
         <div class="bg-white border border-gray-200 shadow-sm mb-6" data-reveal data-reveal-delay="2">
             <div class="px-6 py-5">
-                <h2 class="text-lg text-gray-900">Update password</h2>
-                <p class="text-sm text-gray-600 mt-1">Ensure your account is using a long, random password to stay secure</p>
+                <h2 class="text-lg text-black">Update password</h2>
+                <p class="text-sm text-black mt-1">Ensure your account is using a long, random password to stay secure</p>
             </div>
             <div class="px-6 py-6 border-t border-gray-200">
                 @livewire('profile.update-password-form')
@@ -44,8 +56,8 @@
         @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
         <div class="bg-white border border-gray-200 shadow-sm mb-6" data-reveal data-reveal-delay="3">
             <div class="px-6 py-5">
-                <h2 class="text-lg text-gray-900">Two factor authentication</h2>
-                <p class="text-sm text-gray-600 mt-1">Add additional security to your account using two factor authentication</p>
+                <h2 class="text-lg text-black">Two factor authentication</h2>
+                <p class="text-sm text-black mt-1">Add additional security to your account using two factor authentication</p>
             </div>
             <div class="px-6 py-6 border-t border-gray-200">
                 @livewire('profile.two-factor-authentication-form')
@@ -56,8 +68,8 @@
         {{-- Browser Sessions --}}
         <div class="bg-white border border-gray-200 shadow-sm mb-6" data-reveal data-reveal-delay="4">
             <div class="px-6 py-5">
-                <h2 class="text-lg text-gray-900">Browser sessions</h2>
-                <p class="text-sm text-gray-600 mt-1">Manage and log out your active sessions on other browsers and devices</p>
+                <h2 class="text-lg text-black">Browser sessions</h2>
+                <p class="text-sm text-black mt-1">Manage and log out your active sessions on other browsers and devices</p>
             </div>
             <div class="px-6 py-6 border-t border-gray-200">
                 @livewire('profile.logout-other-browser-sessions-form')

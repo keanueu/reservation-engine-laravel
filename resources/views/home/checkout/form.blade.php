@@ -1,5 +1,5 @@
         <div class="bg-white p-8 border border-gray-300 shadow-sm space-y-8">
-                <h2 class="text-xl font-normal flex items-center text-black border-b border-gray-300 pb-3">
+                <h2 class="text-xl font-medium flex items-center text-black border-b border-gray-300 pb-3">
                     Guest Contact Details
                 </h2>
 
@@ -46,7 +46,7 @@
                     @endif
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs  mb-1 text-gray-700">Full Name
+                            <label class="block text-sm  mb-1 text-black">Full Name
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="name"
@@ -54,7 +54,7 @@
                                 value="{{ Auth::id() ? Auth::user()->name : '' }}" required />
                         </div>
                         <div>
-                            <label class="block text-xs  mb-1 text-gray-700">Email
+                            <label class="block text-sm  mb-1 text-black">Email
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="email" name="email"
@@ -62,7 +62,7 @@
                                 value="{{ Auth::id() ? Auth::user()->email : '' }}" required />
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-xs  mb-1 text-gray-700">Phone
+                            <label class="block text-sm  mb-1 text-black">Phone
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="tel" name="phone"
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="pt-10">
-                        <h3 class="text-md font-normal tracking-wide flex items-center text-black">
+                        <h3 class="text-md font-medium flex items-center text-black">
                             <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -84,9 +84,9 @@
                             <div class="flex items-start space-x-3 p-4 bg-blue-50 border border-blue-300">
                                 <input type="radio" id="pay_at_hotel" name="payment_method" value="pay_at_hotel" checked
                                     class="h-4 w-4 text-blue-600 focus:ring-blue-500 cursor-pointer">
-                                <label for="pay_at_hotel" class="text-sm font-normal text-blue-800">
+                                <label for="pay_at_hotel" class="text-sm font-medium text-blue-800">
                                     Pay at Hotel / Resort
-                                    <p class="text-xs  text-blue-700">
+                                    <p class="text-sm  text-blue-700">
                                         Your reservation is secured now. The full amount (PHP{{ number_format($total, 2) }}) will
                                         be settled upon check-in.
                                     </p>
@@ -95,12 +95,12 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <p class="text-sm font-medium text-gray-800">Amount Due Now ({{ \App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50)) }}% deposit)</p>
-                        <p class="text-lg font-bold text-brand-gold">PHP {{ number_format($deposit ?? ($total * (\App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50))/100)), 2) }}</p>
-                        <p class="text-xs text-gray-600 mt-2">Total Payable at Check-in: <strong>PHP {{ number_format($total, 2) }}</strong></p>
+                        <p class="text-sm font-medium text-black">Amount Due Now ({{ \App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50)) }}% deposit)</p>
+                        <p class="text-lg font-medium text-brand-gold">PHP {{ number_format($deposit ?? ($total * (\App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50))/100)), 2) }}</p>
+                        <p class="text-sm text-black mt-2">Total Payable at Check-in: <strong>PHP {{ number_format($total, 2) }}</strong></p>
                     </div>
                     <button type="submit"
-                        class="w-full bg-[#964B00] hover:bg-black text-white text-sm font-medium tracking-widest py-3 shadow-md transition duration-300">
+                        class="w-full bg-[#964B00] hover:bg-black text-white text-sm font-medium py-3 shadow-md transition duration-300">
                         Confirm & Book Now
                     </button>
 

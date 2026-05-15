@@ -23,18 +23,18 @@
     {{-- Selection summary pill --}}
     <div class="flex items-center justify-between px-4 py-3 border border-[#964B00] bg-[#964B00]/5 mb-8">
         <div>
-            <p class="text-xs font-bold tracking-widest uppercase text-[#964B00]">
+            <p class="text-sm font-medium text-[#964B00]">
                 {{ $isBoat ? 'Boat Trip' : 'Room Stay' }}
             </p>
-            <p class="text-sm font-semibold text-gray-900 mt-0.5">{{ $name }}</p>
+            <p class="text-sm font-medium text-black mt-0.5">{{ $name }}</p>
         </div>
         <div class="text-right text-sm">
             @if($isBoat)
-                <p class="text-xs text-gray-500">{{ $step1['booking_date'] }}</p>
-                <p class="text-xs text-gray-500">{{ $step1['start_time'] }} – {{ $step1['end_time'] }}</p>
+                <p class="text-sm text-black">{{ $step1['booking_date'] }}</p>
+                <p class="text-sm text-black">{{ $step1['start_time'] }} – {{ $step1['end_time'] }}</p>
             @else
-                <p class="text-xs text-gray-500">{{ $step1['checkin'] }} → {{ $step1['checkout'] }}</p>
-                <p class="text-xs font-bold text-gray-700">{{ $step1['nights'] }} night{{ $step1['nights'] > 1 ? 's' : '' }}</p>
+                <p class="text-sm text-black">{{ $step1['checkin'] }} → {{ $step1['checkout'] }}</p>
+                <p class="text-sm font-medium text-black">{{ $step1['nights'] }} night{{ $step1['nights'] > 1 ? 's' : '' }}</p>
             @endif
         </div>
     </div>
@@ -52,37 +52,37 @@
 
         {{-- Adults --}}
         <div>
-            <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Adults</label>
+            <label class="block text-sm font-medium text-black mb-2">Adults</label>
             <div class="flex items-center border border-gray-200">
                 <button type="button" @click="adults = Math.max(1, adults - 1)"
-                        class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 text-xl font-bold transition-colors">−</button>
-                <span class="flex-1 text-center text-sm font-bold text-gray-900" x-text="adults"></span>
+                        class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 text-xl font-medium transition-colors">−</button>
+                <span class="flex-1 text-center text-sm font-medium text-black" x-text="adults"></span>
                 <button type="button" @click="adults = Math.min(maxGuests - children, adults + 1)"
-                        class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 text-xl font-bold transition-colors">+</button>
+                        class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 text-xl font-medium transition-colors">+</button>
             </div>
             <input type="hidden" name="adults" :value="adults">
         </div>
 
         {{-- Children --}}
         <div>
-            <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Children</label>
+            <label class="block text-sm font-medium text-black mb-2">Children</label>
             <div class="flex items-center border border-gray-200">
                 <button type="button" @click="children = Math.max(0, children - 1)"
-                        class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 text-xl font-bold transition-colors">−</button>
-                <span class="flex-1 text-center text-sm font-bold text-gray-900" x-text="children"></span>
+                        class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 text-xl font-medium transition-colors">−</button>
+                <span class="flex-1 text-center text-sm font-medium text-black" x-text="children"></span>
                 <button type="button" @click="children = Math.min(maxGuests - adults, children + 1)"
-                        class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 text-xl font-bold transition-colors">+</button>
+                        class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 text-xl font-medium transition-colors">+</button>
             </div>
             <input type="hidden" name="children" :value="children">
-            <p class="text-xs text-gray-400 mt-1">Max <span x-text="maxGuests"></span> guests total</p>
+            <p class="text-sm text-white mt-1">Max <span x-text="maxGuests"></span> guests total</p>
         </div>
 
         <div class="flex gap-3 pt-2">
             <a href="{{ route('booking.dates') }}"
-               class="flex-1 py-3 text-xs font-bold tracking-widest uppercase border border-gray-200 text-gray-600 hover:border-gray-400 text-center transition-colors">
+               class="flex-1 py-3 text-sm font-medium border border-gray-200 text-black hover:border-gray-400 text-center transition-colors">
                 ← Back
             </a>
-            <button type="submit" class="flex-1 btn-primary py-3 text-xs font-bold tracking-widest uppercase">
+            <button type="submit" class="flex-1 btn-primary py-3 text-sm font-medium ">
                 Review Booking →
             </button>
         </div>

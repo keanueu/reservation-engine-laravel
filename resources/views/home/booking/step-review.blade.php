@@ -24,77 +24,77 @@
     {{-- Summary card --}}
     <div class="border border-gray-200 bg-white mb-8">
         <div class="px-6 py-4 border-b border-gray-100">
-            <h2 class="text-sm font-bold text-gray-700">Booking Summary</h2>
+            <h2 class="text-sm font-medium text-black">Booking Summary</h2>
         </div>
 
         <div class="divide-y divide-gray-100">
             <div class="flex justify-between px-6 py-3 text-sm">
-                <span class="text-gray-500">Type</span>
-                <span class="font-semibold text-gray-900">{{ $isBoat ? 'Boat Trip' : 'Room Stay' }}</span>
+                <span class="text-black">Type</span>
+                <span class="font-medium text-black">{{ $isBoat ? 'Boat Trip' : 'Room Stay' }}</span>
             </div>
             <div class="flex justify-between px-6 py-3 text-sm">
-                <span class="text-gray-500">{{ $isBoat ? 'Boat' : 'Room' }}</span>
-                <span class="font-semibold text-gray-900">{{ $name }}</span>
+                <span class="text-black">{{ $isBoat ? 'Boat' : 'Room' }}</span>
+                <span class="font-medium text-black">{{ $name }}</span>
             </div>
 
             @if($isBoat)
                 <div class="flex justify-between px-6 py-3 text-sm">
-                    <span class="text-gray-500">Date</span>
-                    <span class="font-semibold text-gray-900">{{ $step1['booking_date'] }}</span>
+                    <span class="text-black">Date</span>
+                    <span class="font-medium text-black">{{ $step1['booking_date'] }}</span>
                 </div>
                 <div class="flex justify-between px-6 py-3 text-sm">
-                    <span class="text-gray-500">Time Slot</span>
-                    <span class="font-semibold text-gray-900">{{ $step1['start_time'] }} – {{ $step1['end_time'] }}</span>
+                    <span class="text-black">Time Slot</span>
+                    <span class="font-medium text-black">{{ $step1['start_time'] }} – {{ $step1['end_time'] }}</span>
                 </div>
             @else
                 <div class="flex justify-between px-6 py-3 text-sm">
-                    <span class="text-gray-500">Check-in</span>
-                    <span class="font-semibold text-gray-900">{{ $step1['checkin'] }} at {{ $step1['checkin_time'] }}</span>
+                    <span class="text-black">Check-in</span>
+                    <span class="font-medium text-black">{{ $step1['checkin'] }} at {{ $step1['checkin_time'] }}</span>
                 </div>
                 <div class="flex justify-between px-6 py-3 text-sm">
-                    <span class="text-gray-500">Check-out</span>
-                    <span class="font-semibold text-gray-900">{{ $step1['checkout'] }} at {{ $step1['checkout_time'] }}</span>
+                    <span class="text-black">Check-out</span>
+                    <span class="font-medium text-black">{{ $step1['checkout'] }} at {{ $step1['checkout_time'] }}</span>
                 </div>
                 <div class="flex justify-between px-6 py-3 text-sm">
-                    <span class="text-gray-500">Duration</span>
-                    <span class="font-semibold text-gray-900">{{ $nights }} night{{ $nights > 1 ? 's' : '' }}</span>
+                    <span class="text-black">Duration</span>
+                    <span class="font-medium text-black">{{ $nights }} night{{ $nights > 1 ? 's' : '' }}</span>
                 </div>
             @endif
 
             <div class="flex justify-between px-6 py-3 text-sm">
-                <span class="text-gray-500">Guests</span>
-                <span class="font-semibold text-gray-900">{{ $guestStr }}</span>
+                <span class="text-black">Guests</span>
+                <span class="font-medium text-black">{{ $guestStr }}</span>
             </div>
 
             @if(!$isBoat && $unitPrice < $model->price)
                 <div class="flex justify-between px-6 py-3 text-sm">
-                    <span class="text-gray-500">Original Price</span>
-                    <span class="text-gray-400 line-through">PHP {{ number_format($model->price * $nights, 2) }}</span>
+                    <span class="text-black">Original Price</span>
+                    <span class="text-white line-through">PHP {{ number_format($model->price * $nights, 2) }}</span>
                 </div>
             @endif
 
             <div class="flex justify-between px-6 py-3 text-sm bg-gray-50">
-                <span class="font-bold text-gray-700">Estimated Total</span>
-                <span class="font-bold text-[#964B00]">PHP {{ number_format($total, 2) }}</span>
+                <span class="font-medium text-black">Estimated Total</span>
+                <span class="font-medium text-[#964B00]">PHP {{ number_format($total, 2) }}</span>
             </div>
 
             <div class="flex justify-between px-6 py-3 text-sm bg-[#964B00]/5">
-                <span class="text-gray-600">Deposit Due Now ({{ $depositPercent }}%)</span>
-                <span class="font-bold text-[#964B00]">PHP {{ number_format($deposit, 2) }}</span>
+                <span class="text-black">Deposit Due Now ({{ $depositPercent }}%)</span>
+                <span class="font-medium text-[#964B00]">PHP {{ number_format($deposit, 2) }}</span>
             </div>
         </div>
     </div>
 
-    <p class="text-xs text-gray-400 mb-6">* Final price may vary. A deposit will be collected at checkout.</p>
+    <p class="text-sm text-white mb-6">* Final price may vary. A deposit will be collected at checkout.</p>
 
     <form action="{{ route('booking.review.post') }}" method="POST">
         @csrf
         <div class="flex gap-3">
             <a href="{{ route('booking.guests') }}"
-               class="flex-1 py-3 text-xs font-bold tracking-widest uppercase border border-gray-200 text-gray-600 hover:border-gray-400 text-center transition-colors">
+               class="flex-1 py-3 text-sm font-medium border border-gray-200 text-black hover:border-gray-400 text-center transition-colors">
                 ← Back
             </a>
-            <button type="submit" class="flex-1 btn-primary py-3 text-xs font-bold tracking-widest uppercase">
+            <button type="submit" class="flex-1 btn-primary py-3 text-sm font-medium ">
                 Add to Cart
             </button>
         </div>

@@ -6,7 +6,7 @@
          class="absolute inset-0 w-full h-full object-cover" />
 
     <div class="absolute inset-0 bg-black/50 flex items-end justify-center pb-12">
-        <h1 class="text-5xl  text-white font-[Inter] tracking-wide">
+        <h1 class="text-5xl  text-white font-[Inter] ">
             Promo Room Details
         </h1>
     </div>
@@ -16,12 +16,12 @@
     <div class="max-w-7xl mx-auto px-4">
 
         {{-- Back Button --}}
-        <a href="{{ url('/home/promos') }}" class="flex items-center text-sm text-gray-600 mb-4">
+        <a href="{{ url('/home/promos') }}" class="flex items-center text-sm text-black mb-4">
             <span class="material-symbols-outlined mr-1" style="font-size: 16px;">arrow_back</span>
             Back to Promos
         </a>
 
-        <h2 class="text-3xl  text-gray-900 uppercase tracking-wide">
+        <h2 class="text-3xl  text-black  ">
             {{ $room->room_name }}
         </h2>
 
@@ -46,8 +46,8 @@
 
                 {{-- DESCRIPTION --}}
                 <div>
-                    <h3 class="text-xl  text-gray-900 mb-2">Description</h3>
-                    <p class="text-sm text-gray-700 leading-relaxed ">
+                    <h3 class="text-xl  text-black mb-2">Description</h3>
+                    <p class="text-sm text-black leading-relaxed ">
                         {{ $room->description }}
                     </p>
                 </div>
@@ -60,9 +60,9 @@
                 <div class="p-5 bg-white border border-red-400 shadow-sm ">
                     <h3 class="text-xl text-red-600  mb-2">🔥 Promo Price</h3>
 
-                    <div class="text-gray-800">
+                    <div class="text-black">
                         <p class="text-sm line-through">Regular Price: ₱{{ number_format($room->price, 2) }}</p>
-                        <p class="text-3xl font-semibold text-red-600 mt-1">
+                        <p class="text-3xl font-medium text-red-600 mt-1">
                             ₱{{ number_format($room->promo_price, 2) }}
                         </p>
                     </div>
@@ -75,7 +75,7 @@
 
                 {{-- PROPERTIES --}}
                 <div class="p-5 bg-white border shadow-sm">
-                    <h3 class="text-xl  text-gray-900 mb-4">Room Details</h3>
+                    <h3 class="text-xl  text-black mb-4">Room Details</h3>
 
                     <ul class="text-sm space-y-2">
                         <li>Accommodates: {{ $room->accommodates }} guests</li>
@@ -87,9 +87,9 @@
 
                 {{-- Amenities --}}
                 <div>
-                    <h3 class="text-xl  text-gray-900">Amenities</h3>
+                    <h3 class="text-xl  text-black">Amenities</h3>
 
-                    <ul class="text-sm text-gray-700 mt-3 space-y-1">
+                    <ul class="text-sm text-black mt-3 space-y-1">
                         @foreach(explode(',', $room->amenities) as $amen)
                             <li>• {{ trim($amen) }}</li>
                         @endforeach

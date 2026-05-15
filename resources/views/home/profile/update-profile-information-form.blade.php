@@ -16,7 +16,7 @@
                                     reader.readAsDataURL($refs.photo.files[0]);
                             " />
 
-                <label for="photo" class="block text-xs font-bold text-gray-500 mb-2">Profile photo</label>
+                <label for="photo" class="block text-sm font-medium text-black mb-2">Profile photo</label>
 
                 <div class="flex items-center gap-4">
                     <div class="relative">
@@ -32,7 +32,7 @@
                     
                     <div class="flex flex-col gap-2">
                         <button type="button" x-on:click.prevent="$refs.photo.click()"
-                                class="px-4 py-2 text-xs font-bold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+                                class="px-4 py-2 text-sm font-medium border border-gray-300 text-black hover:bg-gray-50 transition-colors">
                             Select new photo
                         </button>
                     </div>
@@ -45,18 +45,18 @@
         @endif
 
         <div class="mb-6">
-            <label for="name" class="block text-xs font-bold text-gray-500 mb-2">Name</label>
+            <label for="name" class="block text-sm font-medium text-black mb-2">Name</label>
             <input id="name" type="text" name="name" value="{{ old('name', Auth::user()->name) }}" required autocomplete="name"
-                   class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
+                   class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
             @error('name')
                 <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
             @enderror
         </div>
 
         <div class="mb-6">
-            <label for="email" class="block text-xs font-bold text-gray-500 mb-2">Email</label>
+            <label for="email" class="block text-sm font-medium text-black mb-2">Email</label>
             <input id="email" type="email" name="email" value="{{ old('email', Auth::user()->email) }}" required autocomplete="username"
-                   class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
+                   class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
             @error('email')
                 <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
             @enderror
@@ -78,7 +78,7 @@
             @endif
 
             <button type="submit"
-                    class="px-6 py-3 text-xs font-bold bg-[#964B00] text-white hover:bg-[#7a3c00] transition-colors">
+                    class="px-6 py-3 text-sm font-medium bg-[#964B00] text-white hover:bg-[#7a3c00] transition-colors">
                 Save changes
             </button>
         </div>

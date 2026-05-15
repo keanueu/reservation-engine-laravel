@@ -1,55 +1,48 @@
 <style>
-    /* Senior Frontend: Performance-Optimized Motion System */
+    /* Premium Hotel Motion System: Clean, smooth, elegant transitions */
     #hero-section { height: 92vh; min-height: 600px; position: relative; overflow: hidden; background: #000; }
     
     .hero-slide { 
         position: absolute; 
         inset: 0; 
-        visibility: hidden; /* Use visibility instead of display:none for better performance */
+        visibility: hidden;
         opacity: 0;
         overflow: hidden;
         z-index: 1;
         pointer-events: none;
-        transform: translate3d(0, 0, 0) scale(1.025);
         transition:
-            opacity 1200ms cubic-bezier(0.22, 0.61, 0.36, 1),
-            transform 6500ms cubic-bezier(0.16, 1, 0.3, 1),
-            visibility 0s linear 1200ms;
-        will-change: opacity, transform; /* Hardware acceleration hint */
-        backface-visibility: hidden;
+            opacity 1500ms ease-in-out,
+            visibility 0s linear 1500ms;
+        will-change: opacity;
         contain: paint;
     }
 
-    /* Hardware Accelerated Slides */
     .hero-slide.active { 
         visibility: visible;
         opacity: 1;
         z-index: 10;
         pointer-events: auto;
-        transform: translate3d(0, 0, 0) scale(1);
         transition:
-            opacity 1200ms cubic-bezier(0.22, 0.61, 0.36, 1),
-            transform 6500ms cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 1500ms ease-in-out,
             visibility 0s linear 0s;
     }
 
-    /* Staggered Text Reveal - REMOVED for instant change */
-    .hero-h2, .hero-p, .hero-btn { opacity: 1; transform: none; }
-
-    /* Basic Styles */
+    /* Subtle, continuous slow pan/zoom */
     .hero-slide img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transform: translate3d(0, 0, 0) scale(1.04);
-        transition: transform 6500ms cubic-bezier(0.16, 1, 0.3, 1);
+        transform: scale(1.05);
+        transition: transform 8000ms ease-out;
         will-change: transform;
         backface-visibility: hidden;
     }
 
     .hero-slide.active img {
-        transform: translate3d(0, 0, 0) scale(1);
+        transform: scale(1);
     }
+
+    .hero-h2, .hero-p, .hero-btn { opacity: 1; transform: none; }
 
     @media (prefers-reduced-motion: reduce) {
         .hero-slide,
@@ -80,14 +73,14 @@
                 {{-- Slide Content --}}
                 <div class="absolute inset-0 z-10 flex justify-end items-center px-6 max-w-7xl mx-auto w-full">
                     <div class="w-full lg:max-w-2xl text-white p-8 lg:p-12 bg-black/70 shadow-2xl">
-                        <h2 class="hero-h2 text-4xl lg:text-5xl font-black mb-4 leading-tight text-white">
+                        <h2 class="hero-h2 text-4xl lg:text-5xl font-medium mb-4 leading-relaxed text-white">
                             {!! preg_replace('/(\S+)$/', '<span style="color:white;">$1</span>', $slide['label']) !!}
                         </h2>
                         <p class="hero-p text-white/90 mb-8 leading-relaxed text-lg">
                             {{ $slide['sub'] }}
                         </p>
                         <div class="hero-btn">
-                            <a href="{{ url('/home/rooms') }}" class="inline-block px-12 py-4 font-bold bg-white text-black text-[11px] uppercase tracking-[0.2em] hover:bg-[#63360D] hover:text-white transition shadow-2xl">
+                            <a href="{{ url('/home/rooms') }}" class="inline-block px-12 py-4 font-medium bg-white text-black text-[11px]  ] hover:bg-[#63360D] hover:text-white transition shadow-2xl">
                                 Explore Accommodations
                             </a>
                         </div>

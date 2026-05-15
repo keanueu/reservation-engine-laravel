@@ -64,7 +64,7 @@
         p { color: #4b5563; line-height: 1.7; margin-bottom: 1rem; }
         .text-lead { font-size: 1.125rem; color: #374151; line-height: 1.75; }
         .text-small { font-size: 0.875rem; color: #6b7280; line-height: 1.6; }
-        .text-xs { font-size: 0.75rem; color: #6b7280; line-height: 1.5; }
+        .text-sm { font-size: 0.75rem; color: #6b7280; line-height: 1.5; }
         
         /* Labels & Captions */
         label { font-size: 0.875rem; font-weight: 500; color: #374151; }
@@ -160,7 +160,7 @@
 
         @if(session('payment_returned') || request()->query('from_payment') == '1')
             <div id="payment-return-banner" class="fixed right-4 top-24 z-50 md:top-32">
-                <button id="payment-return-btn" class="btn-primary px-5 py-2.5 text-sm font-semibold shadow-lg">
+                <button id="payment-return-btn" class="btn-primary px-5 py-2.5 text-sm font-medium shadow-lg">
                     ✓ Payment received — Refresh
                 </button>
             </div>
@@ -176,6 +176,7 @@
 
         @yield('content')
         @include('home.partials.footer')
+        @include('home.partials.chatbot')
     </div>
 
     <script src="/js/home.js"></script>
@@ -194,6 +195,7 @@
     <script src="/js/hero.js"></script>
     <script src="/js/nav.js"></script>
     <script src="/js/guest-interactive.js"></script>
+    <script src="/js/chatbot.js"></script>
     <script>
         // Scroll-reveal
         document.addEventListener('DOMContentLoaded', () => {

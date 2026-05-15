@@ -17,14 +17,14 @@
 
       <div class="pb-3"> {{-- Adjusted structure for heading and back link --}}
         <a href="{{ url('/home/roomcart') }}"
-          class="flex items-center text-sm text-gray-600 hover:text-gray-900 transition mb-1 font-medium"> {{-- Color change to match room blade --}}
+          class="flex items-center text-sm text-black hover:text-black transition mb-1 font-medium"> {{-- Color change to match room blade --}}
           <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
           </svg>
           Back to Cart
         </a>
-        <h1 class="text-2xl md:text-3xl  text-gray-900"> {{-- Size and styling change to match room blade --}}
+        <h1 class="text-2xl md:text-3xl  text-black"> {{-- Size and styling change to match room blade --}}
           {{ $boat->name ?? 'Boat Details' }}
         </h1>
       </div>
@@ -42,10 +42,10 @@
 
           {{-- Overview/Description Section --}}
           <div>
-            <h2 class="text-xl  text-gray-900 pb-2 flex items-center gap-2 border-b">
+            <h2 class="text-xl  text-black pb-2 flex items-center gap-2 border-b">
               Overview
             </h2>
-            <p class="mt-2 text-gray-700 text-sm  leading-relaxed"> {{-- Matched text style from room blade --}}
+            <p class="mt-2 text-black text-sm  leading-relaxed"> {{-- Matched text style from room blade --}}
               {{ $boat->description }}
             </p>
           </div>
@@ -57,25 +57,25 @@
 
           {{-- Properties Section (Matching the look of the room blade's properties section) --}}
           <div class="p-5 bg-white shadow-sm border border-gray-300">
-            <h3 class="text-xl  text-gray-900 mb-4 flex items-center gap-2">
+            <h3 class="text-xl  text-black mb-4 flex items-center gap-2">
               Boat Specifications
             </h3>
 
-            <ul class="grid grid-cols-1 gap-y-3 text-xs text-gray-900">
+            <ul class="grid grid-cols-1 gap-y-3 text-sm text-black">
               {{-- Price --}}
               <li class="flex items-center justify-between">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-semibold text-black" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-medium text-black" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V4m0 12v-4m-6 0h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                 </svg>
-                <span class=" text-gray-900 flex-1">Rate:</span>
+                <span class=" text-black flex-1">Rate:</span>
                 <span class="">₱{{ number_format($boat->price ?? 0, 2) }}/hr</span>
               </li>
 
               {{-- Capacity --}}
               <li class="flex items-center justify-between">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-semibold text-black" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-medium text-black" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -83,40 +83,40 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 0 0-3-3.87" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
-                <span class=" text-gray-900 flex-1">Max Capacity:</span>
+                <span class=" text-black flex-1">Max Capacity:</span>
                 <span class="">{{ $boat->capacity }} Guests</span>
               </li>
 
               {{-- Type --}}
               <li class="flex items-center justify-between">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-semibold text-black" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-medium text-black" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 15.5l-2-2m0 0-2 2m2-2V4m7 11.5l-2-2m0 0-2 2m2-2V4m-5 8V4"/>
                   <path d="M11 21h2a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2zM3 12h18"/>
                 </svg>
-                <span class=" text-gray-900 flex-1">Type:</span>
+                <span class=" text-black flex-1">Type:</span>
                 <span class="">{{ $boat->type ?? 'N/A' }}</span>
               </li>
 
               {{-- Status (Using a generic boat/calendar icon since the room blade uses check-in/out icons) --}}
               <li class="flex items-center justify-between">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-semibold text-black" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-medium text-black" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M19.5 14.25v-2.25M19.5 14.25A2.25 2.25 0 0022 12V6a2.25 2.25 0 00-2.25-2.25H4.25M19.5 14.25v2.25M3 14.25v2.25M3 14.25A2.25 2.25 0 01.5 12V6a2.25 2.25 0 012.25-2.25H4.25M4.25 12V6M4.25 12h15.5M4.25 6h15.5M4.25 18H10a2.25 2.25 0 002.25 2.25h0a2.25 2.25 0 002.25-2.25H19.5m-15.25-3.75v3.75m15.5-3.75v3.75M12 18h12" />
                 </svg>
-                <span class=" text-gray-900 flex-1">Overall Status:</span>
+                <span class=" text-black flex-1">Overall Status:</span>
                 <span class="">{{ $boat->status }}</span>
               </li>
 
               {{-- Model/Make (Using a document/specs icon) --}}
               <li class="flex items-center justify-between">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-semibold text-black" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-[18px] mr-1.5 font-medium text-black" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M9 12h6m-6 4h6m-4-8h2M12 3v18M18 6h3M18 18h3M3 6h3M3 18h3M6 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2h-1"/>
                 </svg>
-                <span class=" text-gray-900 flex-1">Model/Make:</span>
+                <span class=" text-black flex-1">Model/Make:</span>
                 <span class="">{{ $boat->specs ?? 'N/A' }}</span>
               </li>
             </ul>

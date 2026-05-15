@@ -33,12 +33,12 @@
         {{-- Header --}}
         <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
             <div>
-                <h2 id="ubm-title" class="text-lg font-bold text-gray-900">
+                <h2 id="ubm-title" class="text-lg font-medium text-black">
                     Book Your Stay
                 </h2>
-                <p class="text-xs text-gray-500 mt-0.5" x-text="roomName ? 'Selected: ' + roomName : 'Choose a room and your dates'"></p>
+                <p class="text-sm text-black mt-0.5" x-text="roomName ? 'Selected: ' + roomName : 'Choose a room and your dates'"></p>
             </div>
-            <button @click="close()" class="p-2 text-gray-400 hover:text-gray-700 transition-colors">
+            <button @click="close()" class="p-2 text-white hover:text-black transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -51,14 +51,14 @@
             @foreach($steps as $si => $sl)
                 <div class="flex items-center" :class="'flex-1'">
                     <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 flex items-center justify-center text-xs font-bold transition-all"
+                        <div class="w-7 h-7 flex items-center justify-center text-sm font-medium transition-all"
                              :style="step >= {{ $si+1 }} ? 'background:var(--brand,#964B00);color:#fff;' : 'background:#e5e7eb;color:#6b7280;'">
                             <span x-show="step > {{ $si+1 }}">
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                             </span>
                             <span x-show="step <= {{ $si+1 }}">{{ $si+1 }}</span>
                         </div>
-                        <span class="text-xs font-semibold hidden sm:block"
+                        <span class="text-sm font-medium hidden sm:block"
                               :style="step >= {{ $si+1 }} ? 'color:var(--brand,#964B00);' : 'color:#9ca3af;'">{{ $sl }}</span>
                     </div>
                     @if(!$loop->last)
@@ -76,9 +76,9 @@
             <div x-show="step === 1" x-transition>
                 {{-- Room selector (shown only when no room pre-selected) --}}
                 <div x-show="!roomId" class="mb-5">
-                    <label class="block text-xs font-bold  text-gray-500 mb-2">Select Room</label>
+                    <label class="block text-sm font-medium  text-black mb-2">Select Room</label>
                     <select x-model="roomId" @change="updateRoomFromSelect($event)"
-                            class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white focus:outline-none focus:border-[#964B00] transition-colors">
+                            class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                         <option value="">— Choose a room —</option>
                         @if(isset($rooms))
                             @foreach($rooms as $r)
@@ -96,112 +96,112 @@
                 {{-- Selected room pill --}}
                 <div x-show="roomId" class="mb-5 flex items-center justify-between px-4 py-3 border border-[#964B00] bg-[#964B00]/5">
                     <div>
-                        <p class="text-xs font-bold  text-[#964B00]">Selected Room</p>
-                        <p class="text-sm font-semibold text-gray-900 mt-0.5" x-text="roomName"></p>
+                        <p class="text-sm font-medium  text-[#964B00]">Selected Room</p>
+                        <p class="text-sm font-medium text-black mt-0.5" x-text="roomName"></p>
                     </div>
                     <div class="text-right">
-                        <p class="text-xs text-gray-500">Per night</p>
-                        <p class="text-sm font-bold text-gray-900">PHP <span x-text="Number(roomPrice).toLocaleString('en-PH',{minimumFractionDigits:2})"></span></p>
+                        <p class="text-sm text-black">Per night</p>
+                        <p class="text-sm font-medium text-black">PHP <span x-text="Number(roomPrice).toLocaleString('en-PH',{minimumFractionDigits:2})"></span></p>
                     </div>
                 </div>
 
                 {{-- Date grid --}}
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-in Date</label>
+                        <label class="block text-sm font-medium  text-black mb-2">Check-in Date</label>
                         <input type="date" x-model="checkin" :min="today"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-out Date</label>
+                        <label class="block text-sm font-medium  text-black mb-2">Check-out Date</label>
                         <input type="date" x-model="checkout" :min="checkin || today"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-in Time</label>
+                        <label class="block text-sm font-medium  text-black mb-2">Check-in Time</label>
                         <input type="time" x-model="checkinTime"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold  text-gray-500 mb-2">Check-out Time</label>
+                        <label class="block text-sm font-medium  text-black mb-2">Check-out Time</label>
                         <input type="time" x-model="checkoutTime"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#964B00] transition-colors">
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                 </div>
 
                 {{-- Nights summary --}}
                 <div x-show="nights > 0" class="flex items-center gap-2 px-4 py-3 bg-gray-50 border border-gray-100 text-sm">
                     <svg class="w-4 h-4 text-[#964B00]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span class="font-semibold text-gray-700" x-text="nights + ' night' + (nights > 1 ? 's' : '')"></span>
-                    <span class="text-gray-400">·</span>
-                    <span class="text-gray-500" x-text="formatDate(checkin) + ' → ' + formatDate(checkout)"></span>
+                    <span class="font-medium text-black" x-text="nights + ' night' + (nights > 1 ? 's' : '')"></span>
+                    <span class="text-white">·</span>
+                    <span class="text-black" x-text="formatDate(checkin) + ' → ' + formatDate(checkout)"></span>
                 </div>
 
                 {{-- Step 1 error --}}
-                <p x-show="errors.step1" x-text="errors.step1" class="mt-3 text-xs font-semibold text-red-600"></p>
+                <p x-show="errors.step1" x-text="errors.step1" class="mt-3 text-sm font-medium text-red-600"></p>
             </div>
 
             {{-- STEP 2: Guests --}}
             <div x-show="step === 2" x-transition>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold  text-gray-500 mb-2">Adults</label>
+                        <label class="block text-sm font-medium  text-black mb-2">Adults</label>
                         <div class="flex items-center border border-gray-200">
                             <button @click="adults = Math.max(1, adults - 1)" type="button"
-                                    class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors text-xl font-bold">−</button>
-                            <span class="flex-1 text-center text-sm font-bold text-gray-900" x-text="adults"></span>
+                                    class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 transition-colors text-xl font-medium">−</button>
+                            <span class="flex-1 text-center text-sm font-medium text-black" x-text="adults"></span>
                             <button @click="adults = Math.min(maxGuests, adults + 1)" type="button"
-                                    class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors text-xl font-bold">+</button>
+                                    class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 transition-colors text-xl font-medium">+</button>
                         </div>
-                        <p class="text-xs text-gray-400 mt-1">Max <span x-text="maxGuests"></span> guests total for this room</p>
+                        <p class="text-sm text-white mt-1">Max <span x-text="maxGuests"></span> guests total for this room</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold  text-gray-500 mb-2">Children</label>
+                        <label class="block text-sm font-medium  text-black mb-2">Children</label>
                         <div class="flex items-center border border-gray-200">
                             <button @click="children = Math.max(0, children - 1)" type="button"
-                                    class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors text-xl font-bold">−</button>
-                            <span class="flex-1 text-center text-sm font-bold text-gray-900" x-text="children"></span>
+                                    class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 transition-colors text-xl font-medium">−</button>
+                            <span class="flex-1 text-center text-sm font-medium text-black" x-text="children"></span>
                             <button @click="children = Math.min(maxGuests - adults, children + 1)" type="button"
-                                    class="w-12 h-12 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors text-xl font-bold">+</button>
+                                    class="w-12 h-12 flex items-center justify-center text-black hover:bg-gray-50 transition-colors text-xl font-medium">+</button>
                         </div>
                     </div>
                 </div>
-                <p x-show="errors.step2" x-text="errors.step2" class="mt-3 text-xs font-semibold text-red-600"></p>
+                <p x-show="errors.step2" x-text="errors.step2" class="mt-3 text-sm font-medium text-red-600"></p>
             </div>
 
             {{-- STEP 3: Review --}}
             <div x-show="step === 3" x-transition>
                 <div class="space-y-3">
-                    <h3 class="text-sm font-bold text-gray-700 mb-4">Booking Summary</h3>
+                    <h3 class="text-sm font-medium text-black mb-4">Booking Summary</h3>
 
                     <div class="divide-y divide-gray-100 border border-gray-100">
                         <div class="flex justify-between px-4 py-3 text-sm">
-                            <span class="text-gray-500 font-medium">Room</span>
-                            <span class="font-semibold text-gray-900" x-text="roomName"></span>
+                            <span class="text-black font-medium">Room</span>
+                            <span class="font-medium text-black" x-text="roomName"></span>
                         </div>
                         <div class="flex justify-between px-4 py-3 text-sm">
-                            <span class="text-gray-500 font-medium">Check-in</span>
-                            <span class="font-semibold text-gray-900" x-text="formatDate(checkin) + ' at ' + (checkinTime || '—')"></span>
+                            <span class="text-black font-medium">Check-in</span>
+                            <span class="font-medium text-black" x-text="formatDate(checkin) + ' at ' + (checkinTime || '—')"></span>
                         </div>
                         <div class="flex justify-between px-4 py-3 text-sm">
-                            <span class="text-gray-500 font-medium">Check-out</span>
-                            <span class="font-semibold text-gray-900" x-text="formatDate(checkout) + ' at ' + (checkoutTime || '—')"></span>
+                            <span class="text-black font-medium">Check-out</span>
+                            <span class="font-medium text-black" x-text="formatDate(checkout) + ' at ' + (checkoutTime || '—')"></span>
                         </div>
                         <div class="flex justify-between px-4 py-3 text-sm">
-                            <span class="text-gray-500 font-medium">Duration</span>
-                            <span class="font-semibold text-gray-900" x-text="nights + ' night' + (nights > 1 ? 's' : '')"></span>
+                            <span class="text-black font-medium">Duration</span>
+                            <span class="font-medium text-black" x-text="nights + ' night' + (nights > 1 ? 's' : '')"></span>
                         </div>
                         <div class="flex justify-between px-4 py-3 text-sm">
-                            <span class="text-gray-500 font-medium">Guests</span>
-                            <span class="font-semibold text-gray-900" x-text="adults + ' adult' + (adults > 1 ? 's' : '') + (children > 0 ? ', ' + children + ' child' + (children > 1 ? 'ren' : '') : '')"></span>
+                            <span class="text-black font-medium">Guests</span>
+                            <span class="font-medium text-black" x-text="adults + ' adult' + (adults > 1 ? 's' : '') + (children > 0 ? ', ' + children + ' child' + (children > 1 ? 'ren' : '') : '')"></span>
                         </div>
                         <div class="flex justify-between px-4 py-3 text-sm bg-gray-50">
-                            <span class="font-bold text-gray-700">Estimated Total</span>
-                            <span class="font-bold text-[#964B00]">PHP <span x-text="(roomPrice * nights).toLocaleString('en-PH',{minimumFractionDigits:2})"></span></span>
+                            <span class="font-medium text-black">Estimated Total</span>
+                            <span class="font-medium text-[#964B00]">PHP <span x-text="(roomPrice * nights).toLocaleString('en-PH',{minimumFractionDigits:2})"></span></span>
                         </div>
                     </div>
 
-                    <p class="text-xs text-gray-400 mt-2">* Final price may vary. A deposit will be collected at checkout.</p>
+                    <p class="text-sm text-white mt-2">* Final price may vary. A deposit will be collected at checkout.</p>
                 </div>
             </div>
         </div>
@@ -209,27 +209,27 @@
         {{-- Footer actions --}}
         <div class="px-6 py-5 border-t border-gray-100 flex items-center justify-between gap-3 bg-white">
             <button x-show="step > 1" @click="step--" type="button"
-                    class="px-5 py-2.5 text-xs font-bold  border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">
+                    class="px-5 py-2.5 text-sm font-medium  border border-gray-200 text-black hover:border-gray-400 transition-colors">
                 ← Back
             </button>
-            <div x-show="step === 1" class="text-xs text-gray-400">Step 1 of 3</div>
+            <div x-show="step === 1" class="text-sm text-white">Step 1 of 3</div>
 
             {{-- Next: step 1 → 2 --}}
             <button x-show="step === 1" @click="nextStep1()" type="button"
-                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold ">
+                    class="ml-auto btn-primary px-8 py-2.5 text-sm font-medium ">
                 Continue →
             </button>
 
             {{-- Next: step 2 → 3 --}}
             <button x-show="step === 2" @click="nextStep2()" type="button"
-                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold ">
+                    class="ml-auto btn-primary px-8 py-2.5 text-sm font-medium ">
                 Review →
             </button>
 
             {{-- Submit: step 3 → cart --}}
             <button x-show="step === 3" @click="submitToCart()" type="button"
                     :disabled="loading"
-                    class="ml-auto btn-primary px-8 py-2.5 text-xs font-bold  flex items-center gap-2 disabled:opacity-60">
+                    class="ml-auto btn-primary px-8 py-2.5 text-sm font-medium  flex items-center gap-2 disabled:opacity-60">
                 <svg x-show="loading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>

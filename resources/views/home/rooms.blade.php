@@ -5,7 +5,7 @@
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-bold">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-medium">
                 Our exclusive stays
             </h1>
         </div>
@@ -22,11 +22,11 @@
 
 <div class="bg-white py-8 font-[Inter]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
   <div class="text-center mb-12">
-      <p class="text-sm font-semibold mb-4 section-label">Our accommodation</p>
-      <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] text-gray-900">
+      <p class="text-sm font-medium mb-4 section-label">Our accommodation</p>
+      <h2 class="text-4xl md:text-5xl font-medium leading-relaxed] text-black">
         Exclusive stays
       </h2>
-      <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
+      <p class="text-base text-black leading-relaxed mt-4 max-w-2xl mx-auto">
        Discover the perfect space for your getaway, designed for comfort, relaxation, and lasting memories.
       </p>
     </div>
@@ -37,7 +37,7 @@
     <div class="mb-6">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between">
         <div class="md:flex-1">
-          <div class="text-xs font-medium text-gray-500 mb-2">Filter by category</div>
+          <div class="text-sm font-medium text-black mb-2">Filter by category</div>
           <div class="mt-2 -mx-6 px-6 md:mx-0 md:px-0">
             <div class="flex items-center gap-2 overflow-x-auto md:overflow-visible py-2">
               <button @click.prevent="roomFilter='all'" :class="{ 'bg-[#964B00] text-white': roomFilter === 'all', 'bg-white text-black': roomFilter !== 'all' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">All</button>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="mt-4 md:mt-0 md:ml-6 md:flex-none">
-          <div class="text-xs font-medium text-gray-500 text-right md:text-right mb-2">Filter by location</div>
+          <div class="text-sm font-medium text-black text-right md:text-right mb-2">Filter by location</div>
           <div class="mt-2 -mx-6 px-6 md:mx-0 md:px-0">
             <div class="flex items-center gap-2 justify-end overflow-x-auto md:overflow-visible py-2">
               <button @click.prevent="roomLocation='all'" :class="{ 'bg-indigo-600 text-white': roomLocation === 'all', 'bg-white text-black': roomLocation !== 'all' }" class="flex-shrink-0 px-3 py-2  border border-gray-200 text-sm">All locations</button>
@@ -134,7 +134,7 @@
                   @endphp
                   <div class="absolute top-3 right-3 z-30">
                       <span
-                          class="inline-block bg-[#964B00] text-white text-[10px] font-bold py-1.5 px-3 shadow-xl tracking-widest uppercase">
+                          class="inline-block bg-[#964B00] text-white text-[10px] font-medium py-1.5 px-3 shadow-xl ">
                           {{ $badgeText }} OFF
                       </span>
                   </div>
@@ -142,18 +142,18 @@
 
               <div class="absolute bottom-4 left-4 z-10">
                 @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
-                    <span class="text-sm text-gray-200 line-through block mb-1">
+                    <span class="text-sm text-white line-through block mb-1">
                         PHP {{ number_format($room->price ?? 0, 2) }}
                     </span>
-                    <p class="text-white text-lg font-extrabold">
+                    <p class="text-white text-lg font-medium">
                         PHP {{ number_format($discountedPrice, 2) }}
                     </p>
                 @else
-                    <p class="text-lg font-bold text-white">
+                    <p class="text-lg font-medium text-white">
                         PHP <span class="text-white">{{ number_format($room->price ?? 0, 2) }}</span>
                     </p>
                 @endif
-                <span class="text-xs text-gray-200">Per night</span>
+                <span class="text-sm text-white">Per night</span>
               </div>
 
               <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 z-20 flex items-center gap-2">
@@ -166,36 +166,36 @@
 
           <div class="p-5 flex flex-col flex-grow">
 
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            <h3 class="text-lg font-medium text-black mb-2">
               {{ $room->room_name }}
             </h3>
 
-            <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            <p class="text-sm text-black leading-relaxed mb-4">
               A brief, enticing description of the room can go here.
             </p>
 
-            <div class="flex items-center space-x-4 text-sm text-gray-700 mb-5 pt-4 border-t border-gray-100">
+            <div class="flex items-center space-x-4 text-sm text-black mb-5 pt-4 border-t border-gray-100">
 
               <div class="flex items-center" title="Accommodates">
-                <span class="material-symbols-outlined text-base mr-1.5 text-gray-500">group</span>
-                <span class="font-medium text-xs text-gray-600">{{ $room->accommodates }}</span>
+                <span class="material-symbols-outlined text-base mr-1.5 text-black">group</span>
+                <span class="font-medium text-sm text-black">{{ $room->accommodates }}</span>
               </div>
 
               <div class="flex items-center" title="Airconditioned">
-                <span class="material-symbols-outlined text-base mr-1.5 text-gray-500">ac_unit</span>
-                <span class="font-medium text-xs text-gray-600">Aircon</span>
+                <span class="material-symbols-outlined text-base mr-1.5 text-black">ac_unit</span>
+                <span class="font-medium text-sm text-black">Aircon</span>
               </div>
 
               <div class="flex items-center" title="Seaview">
-                <span class="material-symbols-outlined text-base mr-1.5 text-gray-500">apartment</span>
-                <span class="font-medium text-xs text-gray-600">Seaview</span>
+                <span class="material-symbols-outlined text-base mr-1.5 text-black">apartment</span>
+                <span class="font-medium text-sm text-black">Seaview</span>
               </div>
             </div>
 
             <div class="mt-auto">
               <button type="button"
                 onclick="openBookingModal('{{ $room->id }}', '{{ addslashes($room->room_name) }}', {{ $room->price }}, {{ (int)$room->accommodates }})"
-                class="flex justify-center items-center w-full bg-[#964B00] p-3 text-xs font-semibold text-white border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
+                class="flex justify-center items-center w-full bg-[#964B00] p-3 text-sm font-medium text-white border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
                 Book now
               </button>
             </div>

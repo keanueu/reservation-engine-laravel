@@ -157,7 +157,7 @@
                             @endphp
                             <div class="absolute top-3 right-3 z-30">
                                 <span
-                                    class="inline-block bg-[#964B00] text-white text-[10px] font-bold py-1.5 px-3 shadow-xl tracking-widest uppercase">
+                                    class="inline-block bg-[#964B00] text-white text-[10px] font-medium py-1.5 px-3 shadow-xl ">
                                     {{ $badgeText }} OFF
                                 </span>
                             </div>
@@ -165,45 +165,45 @@
 
                         <div class="absolute bottom-4 left-4 z-20 text-white">
                             @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
-                                <span class="text-sm text-gray-200 line-through block mb-1">
+                                <span class="text-sm text-white line-through block mb-1">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </span>
-                                <p class="text-white text-lg font-extrabold">
+                                <p class="text-white text-lg font-medium">
                                     PHP {{ number_format($discountedPrice, 2) }}
                                 </p>
                             @else
-                                <p class="text-2xl font-extrabold">
+                                <p class="text-2xl font-medium">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </p>
                             @endif
-                            <span class="text-xs text-white block mt-0.5">Per night</span>
+                            <span class="text-sm text-white block mt-0.5">Per night</span>
                         </div>
 
                     </div>
 
                     <div class="p-4 flex flex-col flex-grow w-full">
 
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">
+                        <h3 class="text-lg font-medium text-black mb-2">
                             {{ $room->room_name }}
                         </h3>
 
-                        <p class="text-sm text-gray-600 leading-relaxed mb-4 flex-grow">
+                        <p class="text-sm text-black leading-relaxed mb-4 flex-grow">
                             {{ \Illuminate\Support\Str::limit($room->description ?? 'An exquisite room offering premium comfort and luxury for your stay.', 100) }}
                         </p>
 
                         @if($isActive && $expiryDate)
                             <div class="py-1 mb-2">
-                                <p class="text-xs font-normal text-[#964B00]">
+                                <p class="text-sm font-medium text-[#964B00]">
                                     Offer Ends: {{ Carbon::parse($expiryDate)->format('M d, Y') }}
                                 </p>
                             </div>
                         @endif
 
-                        <div class="flex flex-wrap gap-x-4 gap-y-3 text-gray-600 text-sm mb-4 pt-3 border-t border-gray-200">
+                        <div class="flex flex-wrap gap-x-4 gap-y-3 text-black text-sm mb-4 pt-3 border-t border-gray-200">
 
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">group</span>
-                                <span class="text-sm text-gray-600">{{ $room->accommodates }}</span>
+                                <span class="text-sm text-black">{{ $room->accommodates }}</span>
                             </div>
 
                             <div class="flex items-center gap-2">
@@ -213,12 +213,12 @@
                         </div>
 
                         <div class="mt-auto flex justify-between items-center">
-                            <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] font-bold text-xs uppercase tracking-widest hover:text-black transition-colors">
+                            <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] font-medium text-sm hover:text-black transition-colors">
                                 View details
                             </a>
                             <button type="button"
                                 onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
-                                class="bg-[#964B00] px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
+                                class="bg-[#964B00] px-8 py-3 text-[10px] font-medium ] text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
                                 Book now
                             </button>
                         </div>
@@ -228,7 +228,7 @@
                 </div>
             @empty
                 <div class="w-full text-center p-10 col-span-full">
-                    <p class="text-lg text-gray-600">No rooms available at this time.</p>
+                    <p class="text-lg text-black">No rooms available at this time.</p>
                 </div>
             @endforelse
 

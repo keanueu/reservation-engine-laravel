@@ -32,7 +32,7 @@
                     @foreach($trust as $t)
                         <div class="flex items-center gap-2 text-white/50">
                             <span class="material-symbols-outlined text-base flex-shrink-0 text-[#63360D]">{{ $t['icon'] }}</span>
-                            <span class="text-xs">{{ $t['label'] }}</span>
+                            <span class="text-sm">{{ $t['label'] }}</span>
                         </div>
                     @endforeach
                 </div>
@@ -53,7 +53,7 @@
 
             {{-- Quick Links --}}
             <div>
-                <h3 class="text-xs text-white mb-6">Quick links</h3>
+                <h3 class="text-sm text-white mb-6">Quick links</h3>
                 <ul class="space-y-3">
                     @php $links = [['Home',url('/')],['Rooms',url('/home/rooms')],['Book Now',url('/home/roomcart')],['Amenities',url('/home/amenities')],['Contact',url('/home/contact')]]; @endphp
                     @foreach($links as [$label,$url])
@@ -69,7 +69,7 @@
 
             {{-- Contact --}}
             <div>
-                <h3 class="text-xs text-white mb-6">Contact</h3>
+                <h3 class="text-sm text-white mb-6">Contact</h3>
                 <ul class="space-y-4">
                     @php $contacts = [
                         ['icon'=>'location_on','text'=>'Tambobong, Dasol, Pangasinan'],
@@ -87,7 +87,7 @@
 
             {{-- Newsletter --}}
             <div>
-                <h3 class="text-xs text-white mb-6">Stay updated</h3>
+                <h3 class="text-sm text-white mb-6">Stay updated</h3>
                 <p class="text-sm text-white/55 mb-5 leading-relaxed">Get exclusive offers, seasonal promos, and resort news.</p>
                 <form class="space-y-3" onsubmit="return false;">
                     <input type="email" placeholder="your@email.com"
@@ -95,24 +95,24 @@
                            style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);"
                            onfocus="this.style.borderColor='#63360D'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
                     <button type="submit"
-                            class="w-full btn-primary py-3 text-xs">
+                            class="w-full btn-primary py-3 text-sm">
                         Subscribe
                     </button>
                 </form>
                 {{-- Safe to sail badge --}}
                 <div class="mt-5 flex items-center gap-2 px-4 py-3" style="background:rgba(99,54,13,0.15); border:1px solid rgba(99,54,13,0.3);">
                     <span class="w-2 h-2 bg-green-400 animate-pulse flex-shrink-0"></span>
-                    <span class="text-xs text-white/70">Safe to Sail — Conditions Normal</span>
+                    <span class="text-sm text-white/70">Safe to Sail — Conditions Normal</span>
                 </div>
             </div>
         </div>
 
         {{-- Bottom bar --}}
         <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style="border-color:rgba(255,255,255,0.08);">
-            <p class="text-xs text-white/35">
+            <p class="text-sm text-white/35">
                 © {{ date('Y') }} Cabanas Beach Resort. All Rights Reserved.
             </p>
-            <div class="flex items-center gap-6 text-xs text-white/35">
+            <div class="flex items-center gap-6 text-sm text-white/35">
                 <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
                 <a href="#" class="hover:text-white/70 transition-colors">Terms of Service</a>
                 <span class="flex items-center gap-1.5">

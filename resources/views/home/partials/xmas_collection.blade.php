@@ -13,10 +13,10 @@
 
         <div class="flex items-center justify-between mb-4">
           <div>
-            <h2 class="text-xl  tracking-tight text-black">
+            <h2 class="text-xl  text-black">
               Current Promotions
             </h2>
-            <p class="mt-1 text-gray-500 text-xs ">
+            <p class="mt-1 text-black text-sm ">
               Seasonal and special offers — don't miss out on these deals!
             </p>
           </div>
@@ -84,7 +84,7 @@
 
                 <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
                   <span x-text="slides[idx].label"
-                    class="inline-block px-3 py-1 text-xs font-extrabold text-white uppercase bg-[#964B00]  shadow-lg"></span>
+                    class="inline-block px-3 py-1 text-sm font-medium text-white  bg-[#964B00]  shadow-lg"></span>
                 </div>
               </div>
 

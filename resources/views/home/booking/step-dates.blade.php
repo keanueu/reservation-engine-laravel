@@ -23,13 +23,13 @@
     {{-- Type toggle --}}
     <div class="flex border border-gray-200 mb-8">
         <button type="button" @click="type = 'room'"
-                :class="type === 'room' ? 'bg-[#964B00] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'"
-                class="flex-1 py-3 text-xs font-bold tracking-widest uppercase transition-colors">
+                :class="type === 'room' ? 'bg-[#964B00] text-white' : 'bg-white text-black hover:bg-gray-50'"
+                class="flex-1 py-3 text-sm font-medium transition-colors">
             Room Stay
         </button>
         <button type="button" @click="type = 'boat'"
-                :class="type === 'boat' ? 'bg-[#964B00] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'"
-                class="flex-1 py-3 text-xs font-bold tracking-widest uppercase transition-colors">
+                :class="type === 'boat' ? 'bg-[#964B00] text-white' : 'bg-white text-black hover:bg-gray-50'"
+                class="flex-1 py-3 text-sm font-medium transition-colors">
             Boat Adventure
         </button>
     </div>
@@ -51,9 +51,9 @@
         <input type="hidden" name="type" value="room">
 
         <div>
-            <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Select Room</label>
+            <label class="block text-sm font-medium text-black mb-2">Select Room</label>
             <select name="room_id" required
-                    class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white focus:outline-none focus:border-[#964B00] transition-colors">
+                    class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                 <option value="">— Choose a room —</option>
                 @foreach($rooms as $r)
                     <option value="{{ $r->id }}" {{ ($prefill['room_id'] ?? '') == $r->id ? 'selected' : '' }}>
@@ -65,30 +65,30 @@
 
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-in Date</label>
+                <label class="block text-sm font-medium text-black mb-2">Check-in Date</label>
                 <input type="date" name="checkin" required min="{{ $today }}"
                        value="{{ $prefill['checkin'] ?? '' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-out Date</label>
+                <label class="block text-sm font-medium text-black mb-2">Check-out Date</label>
                 <input type="date" name="checkout" required min="{{ $today }}"
                        value="{{ $prefill['checkout'] ?? '' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-in Time</label>
+                <label class="block text-sm font-medium text-black mb-2">Check-in Time</label>
                 <input type="time" name="checkin_time" value="{{ $prefill['checkin_time'] ?? '13:00' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Check-out Time</label>
+                <label class="block text-sm font-medium text-black mb-2">Check-out Time</label>
                 <input type="time" name="checkout_time" value="{{ $prefill['checkout_time'] ?? '11:00' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
         </div>
 
-        <button type="submit" class="w-full btn-primary py-3 text-xs font-bold tracking-widest uppercase">
+        <button type="submit" class="w-full btn-primary py-3 text-sm font-medium ">
             Continue to Guests →
         </button>
     </form>
@@ -99,9 +99,9 @@
         <input type="hidden" name="type" value="boat">
 
         <div>
-            <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Select Boat</label>
+            <label class="block text-sm font-medium text-black mb-2">Select Boat</label>
             <select name="boat_id" required
-                    class="w-full border border-gray-200 px-4 py-3 text-sm text-gray-700 bg-white focus:outline-none focus:border-[#964B00] transition-colors">
+                    class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                 <option value="">— Choose a boat —</option>
                 @foreach($boats as $b)
                     <option value="{{ $b->id }}" {{ ($prefill['boat_id'] ?? '') == $b->id ? 'selected' : '' }}>
@@ -113,24 +113,24 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Departure Date</label>
+                <label class="block text-sm font-medium text-black mb-2">Departure Date</label>
                 <input type="date" name="booking_date" required min="{{ $today }}"
                        value="{{ $prefill['booking_date'] ?? '' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">Start Time</label>
+                <label class="block text-sm font-medium text-black mb-2">Start Time</label>
                 <input type="time" name="start_time" value="{{ $prefill['start_time'] ?? '' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
-                <label class="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">End Time</label>
+                <label class="block text-sm font-medium text-black mb-2">End Time</label>
                 <input type="time" name="end_time" value="{{ $prefill['end_time'] ?? '' }}"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
         </div>
 
-        <button type="submit" class="w-full btn-primary py-3 text-xs font-bold tracking-widest uppercase">
+        <button type="submit" class="w-full btn-primary py-3 text-sm font-medium ">
             Continue to Guests →
         </button>
     </form>

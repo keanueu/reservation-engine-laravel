@@ -18,11 +18,11 @@
 
             <div class="pb-3 font-[Inter]">
                 <a href="{{ url('/home/rooms') }}"
-                    class="flex items-center text-sm text-gray-600 hover:text-gray-900 transition mb-1">
+                    class="flex items-center text-sm text-black hover:text-black transition mb-1">
                     <span class="material-symbols-outlined mr-1" style="font-size: 16px;">arrow_back</span>
                     Back to Rooms
                 </a>
-                <h1 class="text-2xl md:text-3xl  text-gray-900">
+                <h1 class="text-2xl md:text-3xl  text-black">
                     {{ $room->room_name ?? 'Room Details' }}
                 </h1>
             </div>
@@ -85,10 +85,10 @@
                     </div>
 
                     <div>
-                        <h2 class="text-xl  font-[Inter] text-gray-900 pb-2 flex items-center gap-2">
+                        <h2 class="text-xl  font-[Inter] text-black pb-2 flex items-center gap-2">
                             Description
                         </h2>
-                        <p class="mt-2 text-gray-700 font-[Inter] text-sm  leading-relaxed">
+                        <p class="mt-2 text-black font-[Inter] text-sm  leading-relaxed">
                             {{ $room->description }}
                         </p>
                     </div>
@@ -104,34 +104,34 @@
                         {{-- Price header --}}
                         <div class="flex items-end justify-between mb-4 pb-4 border-b border-gray-100">
                             <div>
-                                <p class="text-xs font-bold text-gray-400">Price</p>
-                                <p class="text-2xl font-bold text-gray-900 mt-1">
+                                <p class="text-sm font-medium text-white">Price</p>
+                                <p class="text-2xl font-medium text-black mt-1">
                                     PHP {{ number_format($room->price, 2) }}
-                                    <span class="text-sm font-normal text-gray-400">/ night</span>
+                                    <span class="text-sm font-medium text-white">/ night</span>
                                 </p>
                             </div>
                             {{-- Availability badge --}}
                             <div>
-                                <span x-show="status === 'idle'" class="flex items-center gap-1 text-xs font-semibold text-gray-400">
+                                <span x-show="status === 'idle'" class="flex items-center gap-1 text-sm font-medium text-white">
                                     <span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>
                                     Select dates
                                 </span>
-                                <span x-show="status === 'checking'" class="flex items-center gap-1 text-xs font-semibold text-amber-500">
+                                <span x-show="status === 'checking'" class="flex items-center gap-1 text-sm font-medium text-amber-500">
                                     <svg class="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
                                     </svg>
                                     Checking...
                                 </span>
-                                <span x-show="status === 'available'" class="flex items-center gap-1 text-xs font-semibold text-green-600">
+                                <span x-show="status === 'available'" class="flex items-center gap-1 text-sm font-medium text-green-600">
                                     <span class="material-symbols-outlined" style="font-size:16px;">check_circle</span>
                                     Available
                                 </span>
-                                <span x-show="status === 'unavailable'" class="flex items-center gap-1 text-xs font-semibold text-red-600">
+                                <span x-show="status === 'unavailable'" class="flex items-center gap-1 text-sm font-medium text-red-600">
                                     <span class="material-symbols-outlined" style="font-size:16px;">cancel</span>
                                     Not available
                                 </span>
-                                <span x-show="status === 'error'" class="flex items-center gap-1 text-xs font-semibold text-gray-400">
+                                <span x-show="status === 'error'" class="flex items-center gap-1 text-sm font-medium text-white">
                                     <span class="material-symbols-outlined" style="font-size:16px;">warning</span>
                                     Check failed
                                 </span>
@@ -141,37 +141,37 @@
                         {{-- Date inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-3">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-in</p>
+                                <p class="text-[10px] font-medium text-white mb-1">Check-in</p>
                                 <input type="date" x-model="checkin"
                                        :min="today"
                                        @change="onCheckinChange"
-                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
+                                       class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-out</p>
+                                <p class="text-[10px] font-medium text-white mb-1">Check-out</p>
                                 <input type="date" x-model="checkout"
                                        :min="minCheckout"
                                        @change="runChecks"
-                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
+                                       class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                         </div>
 
                         {{-- Time inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-in time</p>
+                                <p class="text-[10px] font-medium text-white mb-1">Check-in time</p>
                                 <input type="time" x-model="checkinTime"
-                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
+                                       class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-bold text-gray-400 mb-1">Check-out time</p>
+                                <p class="text-[10px] font-medium text-white mb-1">Check-out time</p>
                                 <input type="time" x-model="checkoutTime"
-                                       class="w-full text-xs text-gray-700 bg-transparent outline-none cursor-pointer">
+                                       class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                         </div>
 
                         {{-- Price breakdown --}}
-                        <div x-show="nights > 0" class="mb-4 p-3 bg-gray-50 border border-gray-100 text-xs space-y-1.5">
+                        <div x-show="nights > 0" class="mb-4 p-3 bg-gray-50 border border-gray-100 text-sm space-y-1.5">
 
                             {{-- Loading state --}}
                             <div x-show="priceStatus === 'loading'" class="flex items-center gap-2 text-amber-500 py-1">
@@ -186,7 +186,7 @@
                             <div x-show="priceStatus === 'done' && hasDynamicPricing"
                                  class="flex items-center gap-1 text-[#964B00] mb-2">
                                 <span class="material-symbols-outlined" style="font-size:14px;">local_offer</span>
-                                <span class="font-bold">Special rate applied</span>
+                                <span class="font-medium">Special rate applied</span>
                             </div>
 
                             {{-- Applied rules summary --}}
@@ -202,29 +202,29 @@
                             </template>
 
                             {{-- Base rate line --}}
-                            <div x-show="priceStatus === 'done'" class="flex justify-between text-gray-600">
+                            <div x-show="priceStatus === 'done'" class="flex justify-between text-black">
                                 <span x-text="'Base rate'"></span>
                                 <span x-text="formatCurrency(pricePerNight) + '/night'"></span>
                             </div>
 
                             {{-- Nights × rate --}}
-                            <div x-show="priceStatus === 'done'" class="flex justify-between text-gray-600">
+                            <div x-show="priceStatus === 'done'" class="flex justify-between text-black">
                                 <span x-text="nights + ' night' + (nights > 1 ? 's' : '')"></span>
                                 <span x-text="formatCurrency(subtotal)"></span>
                             </div>
 
                             {{-- Total --}}
                             <div x-show="priceStatus === 'done'"
-                                 class="flex justify-between font-bold text-gray-900 pt-1.5 border-t border-gray-200">
+                                 class="flex justify-between font-medium text-black pt-1.5 border-t border-gray-200">
                                 <span>Total</span>
                                 <span x-text="formatCurrency(subtotal)"></span>
                             </div>
 
-                            <p class="text-gray-400 text-[10px]">Deposit (50%) charged at checkout</p>
+                            <p class="text-white text-[10px]">Deposit (50%) charged at checkout</p>
                         </div>
 
                         {{-- Unavailability panel with blocked dates --}}
-                        <div x-show="availStatus === 'unavailable'" class="mb-3 text-xs">
+                        <div x-show="availStatus === 'unavailable'" class="mb-3 text-sm">
 
                             {{-- Header --}}
                             <div class="flex items-center gap-2 p-3 bg-red-50 border border-red-200 text-red-700 mb-2">
@@ -235,7 +235,7 @@
                             {{-- Blocked ranges list --}}
                             <template x-if="blockedRanges.length > 0">
                                 <div class="space-y-1 mb-2">
-                                    <p class="text-gray-500 mb-1">Conflicting reservations:</p>
+                                    <p class="text-black mb-1">Conflicting reservations:</p>
                                     <template x-for="(range, i) in blockedRanges" :key="i">
                                         <div class="flex items-center gap-2 px-3 py-2 bg-red-50 border border-red-100 text-red-700">
                                             <span class="material-symbols-outlined flex-shrink-0" style="font-size:14px;">block</span>
@@ -248,10 +248,10 @@
                             {{-- Blocked dates chips --}}
                             <template x-if="blockedDates.length > 0">
                                 <div>
-                                    <p class="text-gray-500 mb-1.5">Blocked dates in your range:</p>
+                                    <p class="text-black mb-1.5">Blocked dates in your range:</p>
                                     <div class="flex flex-wrap gap-1">
                                         <template x-for="date in blockedDates" :key="date">
-                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-semibold">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-medium">
                                                 <span class="material-symbols-outlined" style="font-size:11px;">close</span>
                                                 <span x-text="new Date(date + 'T00:00:00').toLocaleDateString('en-PH', { month: 'short', day: 'numeric' })"></span>
                                             </span>
@@ -260,7 +260,7 @@
                                 </div>
                             </template>
 
-                            <p class="text-gray-500 mt-2">Please select different dates to continue.</p>
+                            <p class="text-black mt-2">Please select different dates to continue.</p>
                         </div>
 
                         {{-- CTA Button --}}
@@ -269,7 +269,7 @@
                                'opacity-50 pointer-events-none cursor-not-allowed': availStatus === 'unavailable' || availStatus === 'checking',
                                'btn-primary': availStatus === 'available' || availStatus === 'idle'
                            }"
-                           class="w-full btn-primary py-3.5 text-sm font-bold flex items-center justify-center gap-2">
+                           class="w-full btn-primary py-3.5 text-sm font-medium flex items-center justify-center gap-2">
                             <span x-show="availStatus === 'checking' || priceStatus === 'loading'">
                                 <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
@@ -282,58 +282,58 @@
                             <span x-text="(availStatus === 'checking' || priceStatus === 'loading') ? 'Checking...' : 'Book This Room'"></span>
                         </a>
 
-                        <p class="text-center text-xs text-gray-400 mt-3">No charge until checkout</p>
+                        <p class="text-center text-sm text-white mt-3">No charge until checkout</p>
 
                         {{-- Trust signals --}}
                         <div class="mt-4 pt-4 border-t border-gray-100 space-y-2">
-                            <div class="flex items-center gap-2 text-xs text-gray-500">
+                            <div class="flex items-center gap-2 text-sm text-black">
                                 <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size:16px;">verified</span>
                                 Verified & Secure Booking
                             </div>
-                            <div class="flex items-center gap-2 text-xs text-gray-500">
+                            <div class="flex items-center gap-2 text-sm text-black">
                                 <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size:16px;">lock</span>
                                 Free cancellation policy
                             </div>
-                            <div class="flex items-center gap-2 text-xs text-gray-500">
+                            <div class="flex items-center gap-2 text-sm text-black">
                                 <span class="material-symbols-outlined text-[#964B00] flex-shrink-0" style="font-size:16px;">credit_card</span>
                                 PayMongo secure payment
                             </div>
                         </div>
                     </div>
                     <div class="p-5 bg-white shadow-sm border border-gray-300 font-[Inter]">
-                        <h3 class="text-xl  text-gray-900 mb-4 flex items-center gap-2">
+                        <h3 class="text-xl  text-black mb-4 flex items-center gap-2">
                             Properties
                         </h3>
 
-                        <ul class="grid grid-cols-1 gap-y-3 text-xs text-gray-900">
+                        <ul class="grid grid-cols-1 gap-y-3 text-sm text-black">
                             <li class="flex items-center justify-between sm:justify-start sm:space-x-2">
                                 <span class="material-symbols-outlined text-black mr-1.5" style="font-size: 20px;">group</span>
-                                <span class=" text-gray-900 flex-1">Accommodates:</span>
+                                <span class=" text-black flex-1">Accommodates:</span>
                                 <span class="">{{ $room->accommodates }} Guests</span>
                             </li>
                             <li class="flex items-center justify-between sm:justify-start sm:space-x-2">
                                 <span class="material-symbols-outlined text-black mr-1.5" style="font-size: 20px;">bed</span>
-                                <span class=" text-gray-900 flex-1">Beds:</span>
+                                <span class=" text-black flex-1">Beds:</span>
                                 <span class="">{{ $room->beds }}</span>
                             </li>
                             <li class="flex items-center justify-between sm:justify-start sm:space-x-2">
                                 <span class="material-symbols-outlined text-black mr-1.5" style="font-size: 20px;">login</span>
-                                <span class=" text-gray-900 flex-1">Check-in:</span>
+                                <span class=" text-black flex-1">Check-in:</span>
                                 <span
-                                    class="text-gray-900 ">{{ \Carbon\Carbon::parse($room->check_in)->format('h:i A') }}</span>
+                                    class="text-black ">{{ \Carbon\Carbon::parse($room->check_in)->format('h:i A') }}</span>
                             </li>
                             <li class="flex items-center justify-between sm:justify-start sm:space-x-2">
                                 <span class="material-symbols-outlined text-black mr-1.5" style="font-size: 20px;">logout</span>
-                                <span class=" text-gray-900 flex-1">Check-out:</span>
+                                <span class=" text-black flex-1">Check-out:</span>
                                 <span
-                                    class="text-gray-900 ">{{ \Carbon\Carbon::parse($room->check_out)->format('h:i A') }}</span>
+                                    class="text-black ">{{ \Carbon\Carbon::parse($room->check_out)->format('h:i A') }}</span>
                             </li>
                         </ul>
                     </div>
 
                     {{-- Amenities Section --}}
                     <div>
-                        <h3 class="text-xl  text-gray-900 pb-2 flex items-center gap-2 font-[Inter]">
+                        <h3 class="text-xl  text-black pb-2 flex items-center gap-2 font-[Inter]">
                             Amenities
                         </h3>
 
@@ -356,7 +356,7 @@
                             <div class="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-2 mt-2 font-[Inter]">
                                 @foreach(explode(',', $room->amenities) as $amenity)
                                     @php $name = trim($amenity); @endphp
-                                    <span class="flex items-center gap-1 bg-white text-black text-xs px-3 py-1.5 border border-gray-200 shadow-sm hover:bg-gray-100">
+                                    <span class="flex items-center gap-1 bg-white text-black text-sm px-3 py-1.5 border border-gray-200 shadow-sm hover:bg-gray-100">
                                         {!! $icons[$name] ?? '<span class="material-symbols-outlined text-black mr-1.5 inline-block align-middle" style="font-size: 20px;">check_circle</span>' !!}
                                         {{ $name }}
                                     </span>

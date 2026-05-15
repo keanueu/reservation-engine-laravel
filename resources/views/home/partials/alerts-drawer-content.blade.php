@@ -16,7 +16,7 @@
         </svg>
         <!-- Unread badge (updated in JS) -->
         <span id="alerts-unread-badge"
-            class="absolute -right-0.5 top-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium leading-none text-white bg-[#A15D1A]  hidden">0</span>
+            class="absolute -right-0.5 top-0 inline-flex items-center justify-center px-1.5 py-0.5 text-sm font-medium leading-relaxed text-white bg-[#A15D1A]  hidden">0</span>
     </button>
 
     <!-- Side Panel -->
@@ -27,18 +27,18 @@
             <div class="flex items-start justify-between mb-4">
                 <div>
                     <h2 class="text-2xl font-medium mb-1 text-black">Alerts & Status</h2>
-                    <p class="text-xs text-black">Personal and system alerts</p>
+                    <p class="text-sm text-black">Personal and system alerts</p>
                 </div>
             </div>
 
             <!-- Global banner (preserve existing Alpine bindings if available) -->
             <div id="global-alert-banner"
-                class="mb-6 shadow p-4 transition-all text-white duration-500 text-xs"
+                class="mb-6 shadow p-4 transition-all text-white duration-500 text-sm"
                 x-data="{ status: 'Normal', message: 'All clear. No current disaster warnings for Cabanas Beach Resort.', severity: 'normal' }"
                 :class="{
-                    'bg-green-500 text-md font-normal text-black': status === 'Normal',
-                    'bg-yellow-500 text-md font-normal text-gray-900': status === 'Advisory',
-                    'bg-[#7a3c00] text-md font-normal text-black': status === 'Immediate Danger',
+                    'bg-green-500 text-md font-medium text-black': status === 'Normal',
+                    'bg-yellow-500 text-md font-medium text-black': status === 'Advisory',
+                    'bg-[#7a3c00] text-md font-medium text-black': status === 'Immediate Danger',
                 }">
                 <div class="flex items-center space-x-4">
 
@@ -70,7 +70,7 @@
                     </template>
 
                     <div>
-                        <h3 class="text-lg font-bold" x-text="status + ' Status'"></h3>
+                        <h3 class="text-lg font-medium" x-text="status + ' Status'"></h3>
                         <p class="mt-1 text-sm" x-text="message"></p>
                     </div>
                 </div>
@@ -80,14 +80,14 @@
             @auth
                 <div id="personal-alerts" class="bg-white p-4 shadow-md bg-gray-200 mb-6">
                     <h4 class="text-lg font-medium text-black mb-3">My Alerts</h4>
-                    <div id="personal-alerts-list" class="space-y-3 text-sm text-gray-900">
-                        <div class="text-xs text-gray-500">Loading your alerts…</div>
+                    <div id="personal-alerts-list" class="space-y-3 text-sm text-black">
+                        <div class="text-sm text-black">Loading your alerts…</div>
                     </div>
                 </div>
             @endauth
 
 
-            <div class="text-xs text-black">System generated alerts appear here. Refreshes every 45s.</div>
+            <div class="text-sm text-black">System generated alerts appear here. Refreshes every 45s.</div>
 
         </div>
     </aside>

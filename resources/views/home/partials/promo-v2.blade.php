@@ -242,7 +242,7 @@
                         @endphp
                         <div class="absolute top-3 right-3 z-10">
                             <span
-                                class="inline-block bg-[#964B00] text-white text-sm font-bold py-1 px-3  shadow-lg">
+                                class="inline-block bg-[#964B00] text-white text-sm font-medium py-1 px-3  shadow-lg">
                                 {{ $badgeText }}
                             </span>
                         </div>
@@ -254,15 +254,15 @@
                             <span class="text-sm line-through block mb-1" style="color: #ffffff;">
                                 PHP {{ number_format($room->price ?? 0, 2) }}
                             </span>
-                            <p class="text-lg font-extrabold" style="color: #ffffff;">
+                            <p class="text-lg font-medium" style="color: #ffffff;">
                                 PHP {{ number_format($discountedPrice, 2) }}
                             </p>
                         @else
-                            <p class="text-2xl font-extrabold" style="color: #ffffff;">
+                            <p class="text-2xl font-medium" style="color: #ffffff;">
                                 PHP {{ number_format($room->price ?? 0, 2) }}
                             </p>
                         @endif
-                        <span class="text-xs block mt-0.5" style="color: #ffffff;">Per night</span>
+                        <span class="text-sm block mt-0.5" style="color: #ffffff;">Per night</span>
                     </div>
 
                 </div>
@@ -275,7 +275,7 @@
                     </h3>
 
                     <div
-                        class="flex flex-wrap gap-x-4 gap-y-3 text-gray-600 text-xs  mb-4 pt-3 border-t border-gray-200">
+                        class="flex flex-wrap gap-x-4 gap-y-3 text-black text-sm  mb-4 pt-3 border-t border-gray-200">
                         <div class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.6" stroke="currentColor">
@@ -300,7 +300,7 @@
                     {{-- Offer ends info --}}
                     @if($isActive && $expiryDate)
                         <div class="py-4">
-                            <p class="text-xs font-normal text-[#964B00]">
+                            <p class="text-sm font-medium text-[#964B00]">
                                 Offer Ends: {{ Carbon::parse($expiryDate)->format('M d, Y') }}
                             </p>
                         </div>
@@ -308,11 +308,11 @@
 
                     <div class="mt-auto flex justify-between items-center">
                         <a href="{{ url('room_detailsv2', $room->id) }}"
-                            class="text-[#964B00] underline text-xs hover:text-black">
+                            class="text-[#964B00] underline text-sm hover:text-black">
                             View Details
                         </a>
                         <button data-room-id="{{ $room->id }}" data-max-guests="{{ $room->accommodates }}"
-                            class="book-now-btn bg-[#964B00] px-6 py-2.5 text-xs text-white hover:bg-black transition  flex items-center justify-center">
+                            class="book-now-btn bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black transition  flex items-center justify-center">
                             <span class="btn-text">BOOK NOW</span>
                             <svg class="btn-loader hidden animate-spin ml-2 h-5 w-5 text-white"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -328,7 +328,7 @@
             </div>
         @empty
             <div class="w-full text-center p-10 col-span-full">
-                <p class="text-lg text-gray-600">No rooms available at this time. Please check your controller to ensure
+                <p class="text-lg text-black">No rooms available at this time. Please check your controller to ensure
                     data is
                     passed.</p>
             </div>
