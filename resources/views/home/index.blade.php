@@ -10,7 +10,7 @@
 
     {{-- All rooms: premium card grid --}}
     <section data-reveal>
-        @include('home.sections.room', ['showPromos' => false])
+        @include('home.sections.room', ['showPromos' => true])
     </section>
 
     {{-- Testimonials --}}

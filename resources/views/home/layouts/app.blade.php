@@ -141,6 +141,12 @@
             height: 100vh !important;
             padding-right: 0 !important;
         }
+        /* ── Pulse animation ── */
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+        .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
     </style>
 </head>
 <body>
