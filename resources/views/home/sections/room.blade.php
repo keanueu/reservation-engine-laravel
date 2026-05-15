@@ -104,16 +104,7 @@
                         }
                     }
 
-                    if ($showPromos) {
-                        $activeDiscounts = $room->discounts->filter(function ($d) {
-                            return (bool)($d->active ?? false);
-                        })->values();
-                        foreach ($activeDiscounts as $d) {
-                            foreach ($d->images as $image) {
-                                $imageSources[] = asset('discount/' . $image->path);
-                            }
-                        }
-                    }
+                    // No discount images in slider
 
                     $imageSources = array_values(array_unique($imageSources));
                 @endphp
@@ -159,14 +150,15 @@
                             </div>
                         @endif
 
+
                         @if ($showPromos && $isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
                             @php
                                 $badgeText = $isPercentage ? '-' . rtrim(rtrim(number_format($discountValue, 2), '0'), '.') . '%' : 'SALE';
                             @endphp
                             <div class="absolute top-3 right-3 z-30">
                                 <span
-                                    class="inline-block bg-[#964B00] text-white text-sm py-1 px-3 shadow-lg">
-                                    {{ $badgeText }}
+                                    class="inline-block bg-[#964B00] text-white text-[10px] font-bold py-1.5 px-3 shadow-xl tracking-widest uppercase">
+                                    {{ $badgeText }} OFF
                                 </span>
                             </div>
                         @endif

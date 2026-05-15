@@ -84,23 +84,42 @@
             'Sunset Rooftop w/ Sand Kubo',
           ];
           $location = in_array($room->room_name, $beachFrontNames) ? 'beach' : (in_array($room->room_name, $nonBeachFrontNames) ? 'nonbeach' : 'other');
+
+          // Discount Logic
+          $discount = $room->discounts->first();
+          $discountValue = optional($discount)->amount;
+          $isPercentage = optional($discount)->amount_type === 'percent' || optional($discount)->amount_type === 'percentage';
+          $isFixedAmount = optional($discount)->amount_type === 'fixed';
+          $isActive = optional($discount)->active;
+          $expiryDate = optional($discount)->end_date;
+
+          $discountedPrice = $room->price;
+          if ($isActive && $discountValue > 0) {
+              if ($isPercentage) {
+                  $discountedPrice = $room->price * (1 - ($discountValue / 100));
+              } elseif ($isFixedAmount) {
+                  $discountedPrice = max(0, $room->price - $discountValue);
+              }
+          }
+
+          $imageUrls = [];
+          if(isset($room->images) && $room->images->isNotEmpty()){
+              foreach($room->images as $img){
+                  $imageUrls[] = asset('room/' . ($img->image ?? 'placeholder.jpg'));
+              }
+          } else {
+              $imageUrls[] = asset('room/' . ($room->image ?? 'placeholder.jpg'));
+          }
+
+          $badgeImages = [];
+          // No discount images in slider
+          $imageUrls = array_values(array_unique($imageUrls));
         @endphp
 
         <div x-show="(roomFilter === 'all' || roomFilter === '{{ $type }}') && (roomLocation === 'all' || roomLocation === '{{ $location }}')" x-cloak
           class="group relative block bg-white border border-gray-100 shadow-lg transition duration-300 hover:shadow-xl overflow-hidden flex flex-col h-full">
 
           <div class="relative overflow-hidden h-56">
-            @php
-              $imageUrls = [];
-              if(isset($room->images) && $room->images->isNotEmpty()){
-                  foreach($room->images as $img){
-                      $imageUrls[] = asset('room/' . ($img->image ?? 'placeholder.jpg'));
-                  }
-              } else {
-                  $imageUrls[] = asset('room/' . ($room->image ?? 'placeholder.jpg'));
-              }
-            @endphp
-
             <div x-data="{ idx: 0, imagesCount: {{ count($imageUrls) }}, timer: null, next(){ this.idx = (this.idx + 1) % this.imagesCount }, go(i){ this.idx = i }, pause(){ if(this.timer){ clearInterval(this.timer); this.timer = null } }, play(){ if(!this.timer){ this.timer = setInterval(()=> this.next(), 4000) } } }" x-init="play()" @mouseenter="pause()" @mouseleave="play()" class="h-full w-full relative">
               @foreach($imageUrls as $i => $url)
                 <img x-show="idx === {{ $i }}" src="{{ $url }}" alt="{{ $room->room_name }} - image {{ $i + 1 }}" onerror="this.onerror=null;this.src='{{ $placeholderImage }}'" class="absolute inset-0 w-full h-full object-cover transition duration-500" />
@@ -108,10 +127,32 @@
 
               <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/70 to-transparent"></div>
 
+              {{-- Percentage Badge (Right) --}}
+              @if ($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
+                  @php
+                      $badgeText = $isPercentage ? '-' . rtrim(rtrim(number_format($discountValue, 2), '0'), '.') . '%' : 'SALE';
+                  @endphp
+                  <div class="absolute top-3 right-3 z-30">
+                      <span
+                          class="inline-block bg-[#964B00] text-white text-[10px] font-bold py-1.5 px-3 shadow-xl tracking-widest uppercase">
+                          {{ $badgeText }} OFF
+                      </span>
+                  </div>
+              @endif
+
               <div class="absolute bottom-4 left-4 z-10">
-                <p class="text-lg font-bold text-white">
-                  PHP <span class="text-white">{{ number_format($room->price ?? 0, 2) }}</span>
-                </p>
+                @if($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
+                    <span class="text-sm text-gray-200 line-through block mb-1">
+                        PHP {{ number_format($room->price ?? 0, 2) }}
+                    </span>
+                    <p class="text-white text-lg font-extrabold">
+                        PHP {{ number_format($discountedPrice, 2) }}
+                    </p>
+                @else
+                    <p class="text-lg font-bold text-white">
+                        PHP <span class="text-white">{{ number_format($room->price ?? 0, 2) }}</span>
+                    </p>
+                @endif
                 <span class="text-xs text-gray-200">Per night</span>
               </div>
 
