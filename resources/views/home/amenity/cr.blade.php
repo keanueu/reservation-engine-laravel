@@ -2,7 +2,7 @@
         class="flex flex-col lg:flex-row items-center bg-white shadow-md transition-shadow duration-500 overflow-hidden border border-gray-100">
         <div class="lg:w-1/2 p-10 md:p-16 lg:p-20">
           <p class="text-sm  text-yellow-600 mb-2">Convinience</p>
-          <h2 class="text-xl font-normal text-black mb-4">
+          <h2 class="text-xl font-medium text-black mb-4">
             Modern Beachside Facilities
           </h2>
           <p class="mt-4 text-sm  text-black leading-relaxed">

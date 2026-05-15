@@ -6,9 +6,9 @@
 
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-12" data-reveal>
-            <p class="text-sm font-semibold mb-4 section-label">Memories</p>
-            <h2 class="text-4xl md:text-5xl font-bold leading-[1.2] text-gray-900">Gallery</h2>
-            <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
+            <p class="text-sm font-medium mb-4 section-label">Memories</p>
+            <h2 class="text-4xl md:text-5xl font-medium leading-relaxed] text-black">Gallery</h2>
+            <p class="text-base text-black leading-relaxed mt-4 max-w-2xl mx-auto">
                 Explore our beautiful resort through stunning images
             </p>
         </div>
@@ -23,7 +23,7 @@
                 </div>
             @empty
                 <div class="col-span-full text-center py-12">
-                    <p class="text-base text-gray-500">No images available yet.</p>
+                    <p class="text-base text-black">No images available yet.</p>
                 </div>
             @endforelse
         </div>

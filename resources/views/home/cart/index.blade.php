@@ -20,10 +20,10 @@
 
     @if($cartRooms->isEmpty() && $cartBoats->isEmpty())
         <div class="text-center py-20">
-            <span class="material-symbols-outlined text-gray-300 mb-6" style="font-size: 96px;">shopping_cart</span>
-            <h2 class="text-2xl font-normal text-gray-700 mb-3 font-[Inter]">Your cart is empty</h2>
-            <p class="text-gray-500 mb-8">Start adding rooms or boats to your cart to begin your booking.</p>
-            <a href="{{ route('booking.dates') }}" class="inline-block btn-primary px-8 py-3 text-xs font-bold">
+            <span class="material-symbols-outlined text-white mb-6" style="font-size: 96px;">shopping_cart</span>
+            <h2 class="text-2xl font-medium text-black mb-3 font-[Inter]">Your cart is empty</h2>
+            <p class="text-black mb-8">Start adding rooms or boats to your cart to begin your booking.</p>
+            <a href="{{ route('booking.dates') }}" class="inline-block btn-primary px-8 py-3 text-sm font-medium">
                 Browse Rooms & Boats
             </a>
         </div>
@@ -33,10 +33,10 @@
             {{-- Cart Items --}}
             <div class="lg:col-span-2 space-y-6">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-normal text-gray-900 font-[Inter]">
+                    <h2 class="text-2xl font-medium text-black font-[Inter]">
                         Cart Items ({{ $cartRooms->count() + $cartBoats->count() }})
                     </h2>
-                    <a href="{{ route('booking.dates') }}" class="text-xs text-[#964B00] hover:text-black font-semibold">
+                    <a href="{{ route('booking.dates') }}" class="text-sm text-[#964B00] hover:text-black font-medium">
                         + Add More
                     </a>
                 </div>
@@ -70,26 +70,26 @@
                             <div class="flex-1 p-6">
                                 <div class="flex justify-between items-start mb-3">
                                     <div>
-                                        <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ $room->room_name }}</h3>
-                                        <p class="text-xs text-gray-500">Room Stay</p>
+                                        <h3 class="text-lg font-medium text-black mb-1">{{ $room->room_name }}</h3>
+                                        <p class="text-sm text-black">Room Stay</p>
                                     </div>
-                                    <button class="remove-room-btn text-gray-400 hover:text-red-600 transition-colors p-2"
+                                    <button class="remove-room-btn text-white hover:text-red-600 transition-colors p-2"
                                             data-room-id="{{ $room->id }}" title="Remove from cart">
                                         <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
                                     </button>
                                 </div>
 
-                                <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+                                <div class="grid grid-cols-2 gap-3 text-sm text-black mb-4">
                                     <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">calendar_month</span>
+                                        <span class="material-symbols-outlined text-white" style="font-size: 16px;">calendar_month</span>
                                         <span>{{ $start }} → {{ $end }}</span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">bedtime</span>
+                                        <span class="material-symbols-outlined text-white" style="font-size: 16px;">bedtime</span>
                                         <span>{{ $nights }} night{{ $nights > 1 ? 's' : '' }}</span>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-2">
-                                        <span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">group</span>
+                                        <span class="material-symbols-outlined text-white" style="font-size: 16px;">group</span>
                                         <span>{{ $adults }} adult{{ $adults > 1 ? 's' : '' }}{{ $children > 0 ? ', ' . $children . ' child' . ($children > 1 ? 'ren' : '') : '' }}</span>
                                     </div>
                                 </div>
@@ -97,10 +97,10 @@
                                 <div class="flex justify-between items-end pt-3 border-t border-gray-100">
                                     <div>
                                         @if($discountApplied && $originalUnit != $unitPrice)
-                                            <p class="text-xs text-gray-400 line-through">PHP {{ number_format($originalUnit * $nights, 2) }}</p>
-                                            <p class="text-sm font-bold text-gray-900">PHP {{ number_format($subtotal, 2) }}</p>
+                                            <p class="text-sm text-white line-through">PHP {{ number_format($originalUnit * $nights, 2) }}</p>
+                                            <p class="text-sm font-medium text-black">PHP {{ number_format($subtotal, 2) }}</p>
                                         @else
-                                            <p class="text-sm font-bold text-gray-900">PHP {{ number_format($subtotal, 2) }}</p>
+                                            <p class="text-sm font-medium text-black">PHP {{ number_format($subtotal, 2) }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -134,32 +134,32 @@
                             <div class="flex-1 p-6">
                                 <div class="flex justify-between items-start mb-3">
                                     <div>
-                                        <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ $boat->name }}</h3>
-                                        <p class="text-xs text-gray-500">Boat Adventure</p>
+                                        <h3 class="text-lg font-medium text-black mb-1">{{ $boat->name }}</h3>
+                                        <p class="text-sm text-black">Boat Adventure</p>
                                     </div>
-                                    <button class="remove-boat-btn text-gray-400 hover:text-red-600 transition-colors p-2"
+                                    <button class="remove-boat-btn text-white hover:text-red-600 transition-colors p-2"
                                             data-boat-id="{{ $boat->id }}" title="Remove from cart">
                                         <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
                                     </button>
                                 </div>
 
-                                <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+                                <div class="grid grid-cols-2 gap-3 text-sm text-black mb-4">
                                     <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">calendar_month</span>
+                                        <span class="material-symbols-outlined text-white" style="font-size: 16px;">calendar_month</span>
                                         <span>{{ $booking_date }}</span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">schedule</span>
+                                        <span class="material-symbols-outlined text-white" style="font-size: 16px;">schedule</span>
                                         <span>{{ $start_time }} – {{ $end_time }}</span>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-2">
-                                        <span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">group</span>
+                                        <span class="material-symbols-outlined text-white" style="font-size: 16px;">group</span>
                                         <span>{{ $guests }} guest{{ $guests > 1 ? 's' : '' }}</span>
                                     </div>
                                 </div>
 
                                 <div class="flex justify-between items-end pt-3 border-t border-gray-100">
-                                    <p class="text-sm font-bold text-gray-900">PHP {{ number_format($subtotal, 2) }}</p>
+                                    <p class="text-sm font-medium text-black">PHP {{ number_format($subtotal, 2) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -170,28 +170,28 @@
             {{-- Summary Sidebar --}}
             <div class="lg:col-span-1">
                 <div class="bg-white border border-gray-200 shadow-sm p-6 sticky top-28">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-6 font-[Inter]">Order Summary</h3>
+                    <h3 class="text-lg font-medium text-black mb-6 font-[Inter]">Order Summary</h3>
 
                     <div class="space-y-3 mb-6">
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Subtotal</span>
-                            <span class="font-semibold text-gray-900">PHP {{ number_format($total, 2) }}</span>
+                            <span class="text-black">Subtotal</span>
+                            <span class="font-medium text-black">PHP {{ number_format($total, 2) }}</span>
                         </div>
                         <div class="flex justify-between text-sm pt-3 border-t border-gray-100">
-                            <span class="text-gray-600">Deposit Due ({{ $depositPercent }}%)</span>
-                            <span class="font-bold text-[#964B00]">PHP {{ number_format($deposit, 2) }}</span>
+                            <span class="text-black">Deposit Due ({{ $depositPercent }}%)</span>
+                            <span class="font-medium text-[#964B00]">PHP {{ number_format($deposit, 2) }}</span>
                         </div>
                     </div>
 
-                    <p class="text-xs text-gray-400 mb-6">* Remaining balance due at check-in</p>
+                    <p class="text-sm text-white mb-6">* Remaining balance due at check-in</p>
 
                     <a href="{{ route('checkout.show', ['room_id' => $cartRooms->first()->id ?? 0]) }}"
-                       class="block w-full btn-primary py-3 text-xs font-bold text-center">
+                       class="block w-full btn-primary py-3 text-sm font-medium text-center">
                         Proceed to Checkout
                     </a>
 
                     <a href="{{ route('booking.dates') }}"
-                       class="block w-full mt-3 py-3 text-xs font-bold text-center border border-gray-200 text-gray-600 hover:border-gray-400 transition-colors">
+                       class="block w-full mt-3 py-3 text-sm font-medium text-center border border-gray-200 text-black hover:border-gray-400 transition-colors">
                         Continue Booking
                     </a>
                 </div>

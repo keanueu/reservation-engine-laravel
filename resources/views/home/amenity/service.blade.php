@@ -14,7 +14,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
 
   <div class="bg-gray-50 p-6 shadow-sm text-center">
-    <h3 class="text-lg font-normal text-black mb-4">
+    <h3 class="text-lg font-medium text-black mb-4">
       Safe, Serene Seaside
     </h3>
     <ul class="space-y-3 text-sm  text-black">
@@ -25,7 +25,7 @@
         </div>
       </li>
       <li class="flex items-start justify-center">
-        <span class="material-symbols-outlined text-xl mr-3 mt-1 text-gray-500 flex-shrink-0">schedule</span>
+        <span class="material-symbols-outlined text-xl mr-3 mt-1 text-black flex-shrink-0">schedule</span>
         <div>
           Round-the-Clock Security & Brightly Lit Beachfront for safe evening activity.
         </div>
@@ -40,7 +40,7 @@
   </div>
 
   <div class="bg-gray-50 p-6 shadow-sm text-center">
-    <h3 class="text-lg font-normal text-black mb-4">
+    <h3 class="text-lg font-medium text-black mb-4">
       Home Comforts
     </h3>
     <ul class="space-y-3 text-sm  text-black">
@@ -66,7 +66,7 @@
   </div>
 
   <div class="bg-gray-50 p-6 shadow-sm text-center">
-    <h3 class="text-lg font-normal text-black mb-4">
+    <h3 class="text-lg font-medium text-black mb-4">
       Essential Services
     </h3>
     <ul class="space-y-3 text-sm  text-black">

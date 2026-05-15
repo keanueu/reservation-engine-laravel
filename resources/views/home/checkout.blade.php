@@ -19,7 +19,7 @@
                 Back to Cart
             </a>
             
-            <h1 class="text-2xl sm:text-3xl font-normal tracking-wide text-black font-[Inter]">
+            <h1 class="text-2xl sm:text-3xl font-medium text-black font-[Inter]">
                 Confirm & Book
             </h1>
         </div>
@@ -40,7 +40,7 @@
                         Back to Cart
                     </a>
                     
-                    <h1 class="text-2xl sm:text-3xl font-normal tracking-wide text-black">
+                    <h1 class="text-2xl sm:text-3xl font-medium text-black">
                         Confirm & Book
                     </h1>
                 </div>

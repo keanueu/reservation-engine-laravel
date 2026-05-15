@@ -14,7 +14,7 @@
           <div class="p-8 lg:p-12 text-white"
             style="background-image: linear-gradient(to bottom right, #f97316, #ea580c); /* orange-500 to orange-700 */">
 
-            <h2 class="text-3xl lg:text-4xl font-normal mb-4">Contact Information</h2>
+            <h2 class="text-3xl lg:text-4xl font-medium mb-4">Contact Information</h2>
             <p class="mb-8 text-sm ">
               Explore new destinations, indulge in local cuisines, and immerse yourself in diverse cultures.
             </p>
@@ -43,7 +43,7 @@
                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 relative mb-6 flex justify-between items-center">
                 <span>{{ session()->get('message') }}</span>
                 <button onclick="document.getElementById('successAlert').style.display='none'"
-                  class="ml-4 text-green-700 hover:text-green-900 font-bold text-sm leading-none">
+                  class="ml-4 text-green-700 hover:text-green-900 font-medium text-sm leading-relaxed">
                   ×
                 </button>
               </div>
@@ -54,31 +54,31 @@
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label for="name" class="font-normal text-sm text-black block mb-1">Your Name</label>
+                  <label for="name" class="font-medium text-sm text-black block mb-1">Your Name</label>
                   <input type="text" id="name" name="name" placeholder="Enter your name here..." required
-                    class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-normal  text-sm" />
+                    class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-medium  text-sm" />
                 </div>
                 <div>
-                  <label for="email" class="font-normal text-sm text-black block mb-1">Your Email</label>
+                  <label for="email" class="font-medium text-sm text-black block mb-1">Your Email</label>
                   <input type="email" id="email" name="email" placeholder="Enter your email here..." required
-                    class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-normal  text-sm" />
+                    class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-medium  text-sm" />
                 </div>
               </div>
 
               <div>
-                <label for="phone" class="font-normal text-sm text-black block mb-1">Your Phone</label>
+                <label for="phone" class="font-medium text-sm text-black block mb-1">Your Phone</label>
                 <input type="text" id="phone" name="phone" placeholder="Enter your phone here..." required
-                  class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-normal text-sm" />
+                  class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-medium text-sm" />
               </div>
 
               <div>
-                <label for="message" class="font-normal text-sm text-black block mb-1">Message</label>
+                <label for="message" class="font-medium text-sm text-black block mb-1">Message</label>
                 <textarea id="message" name="message" placeholder="Type here..." required rows="3"
-                  class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-normal text-sm"></textarea>
+                  class="w-full border border-gray-300 focus:border-[#964B00] outline-none py-3 px-4 transition-colors font-medium text-sm"></textarea>
               </div>
 
               <button type="submit"
-                class="w-full bg-[#964B00] hover:bg-[#7a3c00] text-white py-3 font-normal text-sm transition-colors flex items-center justify-center shadow-lg hover:shadow-xl font-normal text-sm">
+                class="w-full bg-[#964B00] hover:bg-[#7a3c00] text-white py-3 font-medium text-sm transition-colors flex items-center justify-center shadow-lg hover:shadow-xl font-medium text-sm">
                 Send Message <span class="material-symbols-outlined text-base ml-2">send</span>
               </button>
             </form>

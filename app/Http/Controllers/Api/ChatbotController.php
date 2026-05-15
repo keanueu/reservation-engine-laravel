@@ -75,6 +75,11 @@ class ChatbotController extends Controller
         // Broadcast user message
         broadcast(new MessageSent($userMessage))->toOthers();
 
+        // --- API INTEGRATION PLACEHOLDER ---
+        // Here you would send the user's $request->input('message') to an external 
+        // API (like OpenAI or Anthropic) and receive the $ackText.
+        // Example: $ackText = OpenAI::chat()->create([...])->choices[0]->message->content;
+
         // Re-create a single, static acknowledgment message so users receive an
         // immediate confirmation when they send a message. This replaces the
         // earlier rule-based auto-replies and avoids generating multiple AI
@@ -124,7 +129,13 @@ class ChatbotController extends Controller
 
         // Prepare an AI reply that mirrors the quick option so it is stored server-side
         $replyText = null;
-        // Book A Room: list first few rooms
+        
+        // --- API INTEGRATION PLACEHOLDER ---
+        // Here you would typically send the user's $option (and conversation history) 
+        // to an external API (like OpenAI or Anthropic).
+        // Example: $replyText = OpenAI::chat()->create([...])->choices[0]->message->content;
+        
+        // For now, we use these fallback rule-based replies:
         if (preg_match('/book/i', $option)) {
             $rooms = \App\Models\Room::orderBy('id')->limit(6)->get();
             if ($rooms->count()) {

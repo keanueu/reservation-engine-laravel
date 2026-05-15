@@ -7,7 +7,7 @@
         {{-- Weather Icon --}}
         <span id="navbar-weather-icon" class="material-symbols-outlined text-white text-base">wb_sunny</span>
         {{-- Current Temperature --}}
-        <span id="navbar-temp" class="font-[Inter] font-semibold text-white">--°</span>
+        <span id="navbar-temp" class="font-[Inter] font-medium text-white">--°</span>
     </button>
 
     {{-- Popover Dropdown --}}
@@ -27,22 +27,22 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <span class="material-symbols-outlined text-white text-base">location_on</span>
-                    <span id="popover-city" class="text-sm font-semibold text-slate-900">Dasol</span>
-                    <span id="popover-country" class="text-xs text-slate-500">PH</span>
+                    <span id="popover-city" class="text-sm font-medium text-slate-900">Dasol</span>
+                    <span id="popover-country" class="text-sm text-slate-500">PH</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="text-right">
-                        <p id="popover-date" class="text-xs text-slate-500">Loading...</p>
-                        <p id="popover-time" class="text-xs font-medium text-slate-700">--:--</p>
+                        <p id="popover-date" class="text-sm text-slate-500">Loading...</p>
+                        <p id="popover-time" class="text-sm font-medium text-slate-700">--:--</p>
                     </div>
                     {{-- City Search --}}
                     <div class="flex gap-2">
                         <input id="popover-city-input" 
                                placeholder="Search city..." 
-                               class="w-32 px-2 py-1.5 text-xs border border-slate-200 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 outline-none transition-colors">
+                               class="w-32 px-2 py-1.5 text-sm border border-slate-200 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 outline-none transition-colors">
                         <button id="popover-city-search" 
                                 class="px-2 py-1.5 bg-slate-900 text-white hover:bg-slate-800 transition-colors">
-                            <span class="material-symbols-outlined text-xs">search</span>
+                            <span class="material-symbols-outlined text-sm">search</span>
                         </button>
                     </div>
                 </div>
@@ -53,17 +53,17 @@
         <div class="flex">
             {{-- Left Column: Current Conditions --}}
             <div class="flex-1 px-6 py-4 border-r border-slate-100">
-                <h3 class="text-sm font-semibold text-slate-900 mb-3">Current Conditions</h3>
+                <h3 class="text-sm font-medium text-slate-900 mb-3">Current Conditions</h3>
             
             {{-- Main Weather Display --}}
             <div class="flex items-center gap-6 mb-4">
                 <div class="flex-1">
                     <div class="flex items-baseline gap-2 mb-2">
-                        <span id="popover-temp" class="text-4xl font-bold text-slate-900">--</span>
+                        <span id="popover-temp" class="text-4xl font-medium text-slate-900">--</span>
                         <span class="text-xl text-slate-600">°C</span>
                     </div>
                     <p id="popover-description" class="text-sm text-slate-500 capitalize mb-2">Loading...</p>
-                    <div class="flex gap-4 text-xs text-slate-500">
+                    <div class="flex gap-4 text-sm text-slate-500">
                         <span>H: <span id="popover-high" class="font-medium text-slate-700">--°</span></span>
                         <span>L: <span id="popover-low" class="font-medium text-slate-700">--°</span></span>
                     </div>
@@ -76,20 +76,20 @@
             {{-- Weather Details Grid --}}
             <div class="grid grid-cols-2 gap-3 mb-4">
                 <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-xs text-slate-500 mb-1">Feels Like</p>
-                    <p id="popover-feels-like" class="text-sm font-semibold text-slate-900">--°C</p>
+                    <p class="text-sm text-slate-500 mb-1">Feels Like</p>
+                    <p id="popover-feels-like" class="text-sm font-medium text-slate-900">--°C</p>
                 </div>
                 <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-xs text-slate-500 mb-1">Humidity</p>
-                    <p id="popover-humidity" class="text-sm font-semibold text-slate-900">--%</p>
+                    <p class="text-sm text-slate-500 mb-1">Humidity</p>
+                    <p id="popover-humidity" class="text-sm font-medium text-slate-900">--%</p>
                 </div>
                 <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-xs text-slate-500 mb-1">Wind</p>
-                    <p id="popover-wind" class="text-sm font-semibold text-slate-900">-- m/s</p>
+                    <p class="text-sm text-slate-500 mb-1">Wind</p>
+                    <p id="popover-wind" class="text-sm font-medium text-slate-900">-- m/s</p>
                 </div>
                 <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-xs text-slate-500 mb-1">Visibility</p>
-                    <p id="popover-visibility" class="text-sm font-semibold text-slate-900">-- km</p>
+                    <p class="text-sm text-slate-500 mb-1">Visibility</p>
+                    <p id="popover-visibility" class="text-sm font-medium text-slate-900">-- km</p>
                 </div>
             </div>
 
@@ -99,22 +99,22 @@
                     <div class="flex items-center justify-center mb-2">
                         <span class="material-symbols-outlined text-orange-500 text-lg">wb_sunny</span>
                     </div>
-                    <p class="text-xs text-slate-500 mb-1">Sunrise</p>
-                    <p id="popover-sunrise" class="text-sm font-semibold text-slate-900">--:--</p>
+                    <p class="text-sm text-slate-500 mb-1">Sunrise</p>
+                    <p id="popover-sunrise" class="text-sm font-medium text-slate-900">--:--</p>
                 </div>
                 <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-3 text-center border border-purple-100">
                     <div class="flex items-center justify-center mb-2">
                         <span class="material-symbols-outlined text-purple-500 text-lg">bedtime</span>
                     </div>
-                    <p class="text-xs text-slate-500 mb-1">Sunset</p>
-                    <p id="popover-sunset" class="text-sm font-semibold text-slate-900">--:--</p>
+                    <p class="text-sm text-slate-500 mb-1">Sunset</p>
+                    <p id="popover-sunset" class="text-sm font-medium text-slate-900">--:--</p>
                 </div>
             </div>
         </div>
 
             {{-- Right Column: 5-Day Forecast --}}
             <div class="w-64 px-4 py-4">
-                <h3 class="text-sm font-semibold text-slate-900 mb-3">5-Day Forecast</h3>
+                <h3 class="text-sm font-medium text-slate-900 mb-3">5-Day Forecast</h3>
                 <div id="popover-forecast" class="space-y-2">
                     {{-- Forecast items will be populated by JavaScript --}}
                     @for($i = 0; $i < 5; $i++)
@@ -124,12 +124,12 @@
                                     <span class="material-symbols-outlined text-slate-400 text-sm">cloud</span>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-medium text-slate-900">Loading...</p>
-                                    <p class="text-xs text-slate-500">--</p>
+                                    <p class="text-sm font-medium text-slate-900">Loading...</p>
+                                    <p class="text-sm text-slate-500">--</p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-xs font-semibold text-slate-900">--°</p>
+                                <p class="text-sm font-medium text-slate-900">--°</p>
                             </div>
                         </div>
                     @endfor
@@ -371,12 +371,12 @@ function weatherPopover() {
                         <div class="flex items-center gap-2">
                             <span class="material-symbols-outlined text-zinc-400 text-sm" data-weather="${weather.main}" data-icon="${weather.icon}">${validIconName}</span>
                             <div>
-                                <p class="text-xs font-medium text-slate-900">${day}</p>
-                                <p class="text-xs text-slate-500 capitalize">${weather.description}</p>
+                                <p class="text-sm font-medium text-slate-900">${day}</p>
+                                <p class="text-sm text-slate-500 capitalize">${weather.description}</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <p class="text-xs font-semibold text-slate-900">${maxTemp}° / ${minTemp}°</p>
+                            <p class="text-sm font-medium text-slate-900">${maxTemp}° / ${minTemp}°</p>
                         </div>
                     </div>
                 `;

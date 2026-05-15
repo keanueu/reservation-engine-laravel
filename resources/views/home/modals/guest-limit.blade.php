@@ -10,13 +10,13 @@
                         guests.</span>
                     You may adjust <br> your current selection or proceed to your
                     <a href="{{ url('/home/roomcart') }}"><span
-                            class="text-yellow-500 font-normal border-b border-yellow-500 pb-1">Cart</span></a> to <br>
+                            class="text-yellow-500 font-medium border-b border-yellow-500 pb-1">Cart</span></a> to <br>
                     reserve
                     multiple
                     rooms.
                 </p>
                 <button id="closeModalBtn"
-                    class="px-5 py-2.5 bg-yellow-500 text-white  hover:bg-yellow-600 uppercase transition">
+                    class="px-5 py-2.5 bg-yellow-500 text-white  hover:bg-yellow-600  transition">
                     Close
                 </button>
             </div>

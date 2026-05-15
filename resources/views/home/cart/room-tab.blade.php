@@ -2,14 +2,14 @@
 
 
   <div class="max-w-7xl mx-auto mb-10">
-    <h2 class="text-3xl  font-[Inter] text-black tracking-wider mb-6">
+    <h2 class="text-3xl  font-[Inter] text-black mb-6">
       Check Room Availability
     </h2>
     <div
       class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 font-[Inter] bg-white p-6 border border-gray-200 shadow-sm">
 
       <div>
-        <label class="block text-sm text-gray-600 mb-1 flex items-center gap-1">
+        <label class="block text-sm text-black mb-1 flex items-center gap-1">
 
           Check-in
         </label>
@@ -17,7 +17,7 @@
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
       <div>
-        <label class="block text-sm text-gray-600 mb-1 flex items-center gap-1">
+        <label class="block text-sm text-black mb-1 flex items-center gap-1">
 
           Check-out
         </label>
@@ -25,20 +25,20 @@
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
       <div>
-        <label class="block text-sm text-gray-600 mb-1">Checkin time</label>
+        <label class="block text-sm text-black mb-1">Checkin time</label>
         <input id="room_checkin_time" type="time" required x-model="room_checkin_time"
           class="relative z-10 mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
 
 
       <div>
-        <label class="block text-sm text-gray-600 mb-1">Checkout time </label>
+        <label class="block text-sm text-black mb-1">Checkout time </label>
         <input id="room_checkout_time" type="time" required x-model="room_checkout_time"
           class="relative z-10 mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
 
       <div>
-        <label class="block text-sm text-gray-600 mb-1">Adults</label>
+        <label class="block text-sm text-black mb-1">Adults</label>
         <select id="adults" required x-model.number="room_adults"
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
           @for ($i = 1; $i <= 13; $i++)
@@ -48,7 +48,7 @@
       </div>
 
       <div>
-        <label class="block text-sm text-gray-600 mb-1">Children</label>
+        <label class="block text-sm text-black mb-1">Children</label>
         <select id="children" required x-model.number="room_children"
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
           @for ($i = 0; $i <= 13; $i++)
@@ -75,10 +75,10 @@
     <div x-cloak class="mb-4">
 
       <div class="flex items-center justify-between">
-        <div class="text-xs text-gray-500">Filter by category</div>
+        <div class="text-sm text-black">Filter by category</div>
 
         <button @click="filtersOpen = true"
-          class="group inline-flex items-center gap-2 px-4 py-2 border border-gray-300  text-sm font-normal 
+          class="group inline-flex items-center gap-2 px-4 py-2 border border-gray-300  text-sm font-medium 
          text-black bg-white hover:text-white hover:bg-[#964B00] focus:outline-none focus:ring-2 focus:ring-[#964B00] focus:ring-offset-2">
 
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-black group-hover:text-white">
@@ -109,7 +109,7 @@
 
           <div class="flex items-center justify-between p-4 border-b">
             <h2 id="filter-modal-title" class="text-lg font-medium">Filters</h2>
-            <button @click="filtersOpen = false" class="text-gray-400 hover:text-red-600" aria-label="Close filters">
+            <button @click="filtersOpen = false" class="text-white hover:text-red-600" aria-label="Close filters">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -119,7 +119,7 @@
           <div class="p-6 space-y-6 overflow-y-auto">
 
             <div>
-              <h3 class="text-sm font-normal text-black mb-2">Location</h3>
+              <h3 class="text-sm font-medium text-black mb-2">Location</h3>
               <div class="flex flex-wrap gap-2">
                 <button @click.prevent="roomLocation='all'"
                   :class="{ 'bg-[#964B00] text-white': roomLocation === 'all', 'bg-white text-black': roomLocation !== 'all' }"
@@ -137,7 +137,7 @@
             </div>
 
             <div>
-              <h3 class="text-sm font-normal text-black mb-2">Promo</h3>
+              <h3 class="text-sm font-medium text-black mb-2">Promo</h3>
               <div class="flex flex-wrap gap-2">
                 <button @click.prevent="roomPromo='all'"
                   :class="{ 'bg-[#964B00] text-white': roomPromo === 'all', 'bg-white text-black': roomPromo !== 'all' }"
@@ -159,7 +159,7 @@
             </div>
 
             <div>
-              <h3 class="text-sm font-normal text-black mb-2">Room Type</h3>
+              <h3 class="text-sm font-medium text-black mb-2">Room Type</h3>
               <div class="flex flex-wrap gap-2">
                 <button @click.prevent="roomFilter='all'"
                   :class="{ 'bg-[#964B00] text-white': roomFilter === 'all', 'bg-white text-black': roomFilter !== 'all' }"
@@ -180,7 +180,7 @@
 
           <div class="flex items-center justify-between p-4 border-t bg-gray-50 ">
             <button @click="roomLocation='all'; roomPromo='all'; roomFilter='all'"
-              class="text-sm font-normal text-black hover:text-[#964B00]">
+              class="text-sm font-medium text-black hover:text-[#964B00]">
               Clear all
             </button>
             <button @click="filtersOpen = false"
@@ -233,8 +233,8 @@
               style="-webkit-user-drag: none; -webkit-user-select: none; user-select: none;"
               class="w-full h-full object-cover transition duration-500 hover:scale-105">
             <div class="absolute bottom-4 left-4">
-              <p class="text-lg font-bold text-white">PHP {{ number_format($room->price ?? 0, 2) }}</p>
-              <span class="text-xs text-gray-200 tracking-wide">PER NIGHT</span>
+              <p class="text-lg font-medium text-white">PHP {{ number_format($room->price ?? 0, 2) }}</p>
+              <span class="text-sm text-white ">PER NIGHT</span>
             </div>
           </div>
 
@@ -242,17 +242,17 @@
             <h2 class="text-lg  text-black mb-2">{{ $room->room_name }}</h2>
 
             <div
-              class="flex flex-wrap gap-x-4 gap-y-3 text-gray-600 text-xs  mb-4 pt-3 border-t border-gray-200">
+              class="flex flex-wrap gap-x-4 gap-y-3 text-black text-sm  mb-4 pt-3 border-t border-gray-200">
 
               <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-black">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                 </svg>
                 <span>{{ $room->accommodates }} Guests</span>
               </div>
 
               <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-black">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
                 </svg>
                 <span>{{ $room->beds }}</span>
@@ -261,14 +261,14 @@
               @include('home.cart.room-tab.amenity-svgs')
 
               <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-black">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Check-in: {{ \Carbon\Carbon::parse($room->check_in)->format('h:i A') }}</span>
               </div>
 
               <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-black">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Check-out: {{ \Carbon\Carbon::parse($room->check_out)->format('h:i A') }}</span>
@@ -276,12 +276,12 @@
             </div>
 
             <div class="mt-auto flex justify-between items-center">
-              <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] underline text-xs hover:text-black">
+              <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] underline text-sm hover:text-black">
                 View Details
               </a>
               <button type="button"
                 onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
-                class="bg-[#964B00] px-6 py-2.5 text-xs text-white hover:bg-black transition flex items-center justify-center tracking-wide">
+                class="bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black transition flex items-center justify-center ">
                 BOOK NOW
               </button>
             </div>

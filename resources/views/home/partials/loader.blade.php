@@ -16,7 +16,7 @@
                 </div>
 
                 <!-- Subtitle -->
-                <div class="text-black text-xs sm:text-sm md:text-base opacity-80 animate-fadeIn space-y-1">
+                <div class="text-black text-sm sm:text-sm md:text-base opacity-80 animate-fadeIn space-y-1">
                     <p>We're getting everything ready for you...</p>
                     <p>Sit tight for just a moment.</p>
                 </div>

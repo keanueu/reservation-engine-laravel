@@ -4,7 +4,7 @@
         @php $num = $i + 1; @endphp
         <div class="flex items-center {{ !$loop->last ? 'flex-1' : '' }}">
             <div class="flex items-center gap-2 shrink-0">
-                <div class="w-7 h-7 flex items-center justify-center text-xs font-bold transition-all"
+                <div class="w-7 h-7 flex items-center justify-center text-sm font-medium transition-all"
                      style="{{ $current >= $num ? 'background:#964B00;color:#fff;' : 'background:#e5e7eb;color:#6b7280;' }}">
                     @if($current > $num)
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
@@ -14,7 +14,7 @@
                         {{ $num }}
                     @endif
                 </div>
-                <span class="text-xs font-semibold hidden sm:block"
+                <span class="text-sm font-medium hidden sm:block"
                       style="{{ $current >= $num ? 'color:#964B00;' : 'color:#9ca3af;' }}">{{ $label }}</span>
             </div>
             @if(!$loop->last)
