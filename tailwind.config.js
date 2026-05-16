@@ -38,10 +38,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        serif: ['Inter', ...defaultTheme.fontFamily.sans],
-        montserrat: ['Montserrat', 'sans-serif'],
-        display: ['Inter', ...defaultTheme.fontFamily.sans],
+        sans: ['Raleway', ...defaultTheme.fontFamily.sans],
+        serif: ['Raleway', ...defaultTheme.fontFamily.serif],
+        mono: ['Raleway', ...defaultTheme.fontFamily.mono],
+        display: ['Raleway', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'wood-glass': '0 24px 60px rgba(60, 42, 33, 0.16)',

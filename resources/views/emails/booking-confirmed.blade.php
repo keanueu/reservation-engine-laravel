@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Confirmed</title>
     <style>
-        body { margin: 0; padding: 0; background: #f5f5f5; font-family:'Inter', Arial, sans-serif; color: #111827; }
+        body { margin: 0; padding: 0; background: #f5f5f5; font-family:'Raleway', Arial, sans-serif; color: #111827; }
         .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border: 1px solid #e5e7eb; }
         .header { background: #964B00; padding: 32px 40px; text-align: center; }
         .header h1 { margin: 0; color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: 0.05em; }
         .header p { margin: 6px 0 0; color: rgba(255,255,255,0.8); font-size: 13px; }
         .body { padding: 36px 40px; }
         .greeting { font-size: 16px; margin-bottom: 20px; }
-        .status-badge { display: inline-block; background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; margin-bottom: 24px; }
-        .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
+        .status-badge { display: inline-block; background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: ; padding: 6px 14px; margin-bottom: 24px; }
+        .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: ; color: #6b7280; margin-bottom: 10px; }
         .booking-card { border: 1px solid #e5e7eb; padding: 16px 20px; margin-bottom: 12px; }
         .booking-card .room-name { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 8px; }
         .booking-card .detail-row { display: flex; justify-content: space-between; font-size: 13px; color: #4b5563; margin-bottom: 4px; }
@@ -21,7 +21,7 @@
         .total-row { border-top: 2px solid #111827; padding-top: 14px; margin-top: 20px; display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; }
         .deposit-note { font-size: 12px; color: #6b7280; margin-top: 6px; }
         .cta-section { text-align: center; margin: 32px 0; }
-        .cta-btn { display: inline-block; background: #964B00; color: #ffffff; text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 32px; }
+        .cta-btn { display: inline-block; background: #964B00; color: #ffffff; text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: ; padding: 14px 32px; }
         .footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 24px 40px; text-align: center; font-size: 12px; color: #9ca3af; }
         .footer a { color: #964B00; text-decoration: none; }
     </style>
@@ -131,3 +131,4 @@
 </div>
 </body>
 </html>
+

@@ -11,7 +11,7 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
          alt="Guests" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black/50 px-4 pb-10 md:pb-14">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center font-[Inter]">Who's Coming?</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center ">Who's Coming?</h1>
     </div>
 </div>
 
@@ -78,7 +78,7 @@
         </div>
 
         <div class="flex gap-3 pt-2">
-            <a href="{{ route('booking.dates') }}"
+            <a href="javascript:void(0)" onclick="openBookingModal()"
                class="flex-1 py-3 text-sm font-medium border border-gray-200 text-black hover:border-gray-400 text-center transition-colors">
                 ← Back
             </a>
@@ -95,3 +95,5 @@ function guestStep(adults, children, maxGuests) {
 }
 </script>
 @endsection
+
+

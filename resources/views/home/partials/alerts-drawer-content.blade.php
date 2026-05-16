@@ -1,8 +1,8 @@
-<div class="font-[Inter]">
+<div class="">
     <button id="alerts-toggle-button" aria-controls="alerts-sidebar" aria-expanded="false" class="fixed top-1/4 z-[60] transition-all duration-300 ease-in-out 
                    focus:outline-none p-3 rounded-r-lg 
-                   bg-[#63360D] text-white shadow-xl 
-                   hover:bg-[#8B4E14] active:ring-4 active:ring-[#A15D1A]/50">
+                   bg-[var(--brand)] text-white shadow-xl 
+                   hover:bg-[#8B4E14] active:ring-4 active:ring-[var(--brand-light)]/50">
         <!-- Menu Icon -->
         <svg id="alerts-menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
@@ -16,7 +16,7 @@
         </svg>
         <!-- Unread badge (updated in JS) -->
         <span id="alerts-unread-badge"
-            class="absolute -right-0.5 top-0 inline-flex items-center justify-center px-1.5 py-0.5 text-sm font-medium leading-relaxed text-white bg-[#A15D1A]  hidden">0</span>
+            class="absolute -right-0.5 top-0 inline-flex items-center justify-center px-1.5 py-0.5 text-sm font-medium leading-relaxed text-white bg-[var(--brand-light)]  hidden">0</span>
     </button>
 
     <!-- Side Panel -->
@@ -36,9 +36,9 @@
                 class="mb-6 shadow p-4 transition-all text-white duration-500 text-sm"
                 x-data="{ status: 'Normal', message: 'All clear. No current disaster warnings for Cabanas Beach Resort.', severity: 'normal' }"
                 :class="{
-                    'bg-green-500 text-md font-medium text-black': status === 'Normal',
-                    'bg-yellow-500 text-md font-medium text-black': status === 'Advisory',
-                    'bg-[#7a3c00] text-md font-medium text-black': status === 'Immediate Danger',
+                    'bg-green-500 text-base font-medium text-black': status === 'Normal',
+                    'bg-yellow-500 text-base font-medium text-black': status === 'Advisory',
+                    'bg-[#7a3c00] text-base font-medium text-black': status === 'Immediate Danger',
                 }">
                 <div class="flex items-center space-x-4">
 
@@ -93,3 +93,7 @@
     </aside>
 
 </div>
+
+
+
+

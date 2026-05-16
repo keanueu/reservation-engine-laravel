@@ -1,4 +1,4 @@
-<section class="bg-white text-black py-16 font-[Inter]">
+<section class="bg-white text-black py-16 ">
     @php
         // Fetch only general gallery images (those not linked to a specific room)
         $galleryImages = \App\Models\Images::whereNull('room_id')->orderBy('created_at', 'desc')->get();
@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-12" data-reveal>
             <p class="text-sm font-medium mb-4 section-label">Memories</p>
-            <h2 class="text-4xl md:text-5xl font-medium leading-relaxed] text-black">Gallery</h2>
+            <h2 class="text-4xl md:text-5xl font-medium leading-relaxed text-black">Gallery</h2>
             <p class="text-base text-black leading-relaxed mt-4 max-w-2xl mx-auto">
                 Explore our beautiful resort through stunning images
             </p>
@@ -29,3 +29,4 @@
         </div>
     </div>
 </section>
+

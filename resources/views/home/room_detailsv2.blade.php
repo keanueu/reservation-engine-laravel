@@ -6,7 +6,7 @@
          class="absolute inset-0 w-full h-full object-cover" />
 
     <div class="absolute inset-0 bg-black/50 flex items-end justify-center pb-12">
-        <h1 class="text-5xl  text-white font-[Inter] ">
+        <h1 class="text-5xl  text-white ">
             Promo Room Details
         </h1>
     </div>
@@ -67,7 +67,7 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('booking.dates') }}"
+                    <a href="javascript:void(0)" onclick="openBookingModal()"
                        class="block text-center mt-4 bg-red-600 text-white py-2  text-sm">
                         Book Now
                     </a>
@@ -103,3 +103,5 @@
 </section>
 
 @endsection
+
+

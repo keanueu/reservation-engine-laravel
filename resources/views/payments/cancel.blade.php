@@ -17,11 +17,11 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="{{ route('cart.show') }}" class="btn-primary px-8 py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+            <a href="{{ route('cart.show') }}" class="btn-primary px-8 py-3.5 text-sm font-bold flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined" style="font-size:16px;">shopping_cart</span>
                 Return to cart
             </a>
-            <a href="{{ url('/') }}" class="btn-outline px-8 py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+            <a href="{{ url('/') }}" class="btn-outline px-8 py-3.5 text-sm font-bold flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined" style="font-size:16px;">home</span>
                 Back to home
             </a>
@@ -30,3 +30,4 @@
     </div>
 </div>
 @endsection
+

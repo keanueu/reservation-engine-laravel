@@ -5,7 +5,7 @@
     $total = 0;
 @endphp
 
-<div class="font-[Inter] text-black w-full lg:max-w-md">
+<div class="text-black w-full lg:max-w-md">
     <h2 class="text-lg text font-medium mb-6 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#964B00]" fill="none" viewBox="0 0 24 24"
             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -167,13 +167,13 @@
     <div class="mt-6 pt-4 border-t border-gray-200">
         <div class="flex justify-between items-center mb-2">
             <p class="text-sm text-black">Deposit ({{ \App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50)) }}%):</p>
-            <p class="text-sm font-medium text-black font-[Inter]">
+            <p class="text-sm font-medium text-black ">
                 PHP {{ number_format($deposit ?? ($total * (\App\Models\Setting::get('deposit_percentage', config('booking.deposit_percentage', 50))/100)), 2) }}
             </p>
         </div>
         <div class="flex justify-between items-center mb-5">
             <p class="text-sm font-medium text-black">Total Due:</p>
-            <p class="text-sm font-medium text-black font-[Inter]">
+            <p class="text-sm font-medium text-black ">
                 PHP {{ number_format($total, 2) }}
             </p>
         </div>
@@ -192,3 +192,4 @@
         @endif
     </div>
 </div>
+

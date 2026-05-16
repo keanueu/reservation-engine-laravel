@@ -11,7 +11,7 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
          alt="Book Your Stay" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black/50 px-4 pb-10 md:pb-14">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center font-[Inter]">Book Your Experience</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center ">Book Your Experience</h1>
     </div>
 </div>
 
@@ -63,27 +63,57 @@
             </select>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4"
+             x-init="
+                flatpickr($refs.room_checkin, {
+                    minDate: 'today',
+                    dateFormat: 'Y-m-d',
+                    altInput: true,
+                    altFormat: 'M j, Y',
+                    defaultDate: '{{ $prefill['checkin'] ?? '' }}'
+                });
+                flatpickr($refs.room_checkout, {
+                    minDate: 'today',
+                    dateFormat: 'Y-m-d',
+                    altInput: true,
+                    altFormat: 'M j, Y',
+                    defaultDate: '{{ $prefill['checkout'] ?? '' }}'
+                });
+                flatpickr($refs.room_checkinTime, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: 'H:i',
+                    altInput: true,
+                    altFormat: 'h:i K',
+                    defaultDate: '{{ $prefill['checkin_time'] ?? '13:00' }}'
+                });
+                flatpickr($refs.room_checkoutTime, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: 'H:i',
+                    altInput: true,
+                    altFormat: 'h:i K',
+                    defaultDate: '{{ $prefill['checkout_time'] ?? '11:00' }}'
+                });
+             ">
             <div>
                 <label class="block text-sm font-medium text-black mb-2">Check-in Date</label>
-                <input type="date" name="checkin" required min="{{ $today }}"
-                       value="{{ $prefill['checkin'] ?? '' }}"
+                <input type="text" name="checkin" required x-ref="room_checkin"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
                 <label class="block text-sm font-medium text-black mb-2">Check-out Date</label>
-                <input type="date" name="checkout" required min="{{ $today }}"
-                       value="{{ $prefill['checkout'] ?? '' }}"
+                <input type="text" name="checkout" required x-ref="room_checkout"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
                 <label class="block text-sm font-medium text-black mb-2">Check-in Time</label>
-                <input type="time" name="checkin_time" value="{{ $prefill['checkin_time'] ?? '13:00' }}"
+                <input type="text" name="checkin_time" x-ref="room_checkinTime"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
                 <label class="block text-sm font-medium text-black mb-2">Check-out Time</label>
-                <input type="time" name="checkout_time" value="{{ $prefill['checkout_time'] ?? '11:00' }}"
+                <input type="text" name="checkout_time" x-ref="room_checkoutTime"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
         </div>
@@ -111,21 +141,45 @@
             </select>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4"
+             x-init="
+                flatpickr($refs.boat_date, {
+                    minDate: 'today',
+                    dateFormat: 'Y-m-d',
+                    altInput: true,
+                    altFormat: 'M j, Y',
+                    defaultDate: '{{ $prefill['booking_date'] ?? '' }}'
+                });
+                flatpickr($refs.boat_start, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: 'H:i',
+                    altInput: true,
+                    altFormat: 'h:i K',
+                    defaultDate: '{{ $prefill['start_time'] ?? '' }}'
+                });
+                flatpickr($refs.boat_end, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: 'H:i',
+                    altInput: true,
+                    altFormat: 'h:i K',
+                    defaultDate: '{{ $prefill['end_time'] ?? '' }}'
+                });
+             ">
             <div>
                 <label class="block text-sm font-medium text-black mb-2">Departure Date</label>
-                <input type="date" name="booking_date" required min="{{ $today }}"
-                       value="{{ $prefill['booking_date'] ?? '' }}"
+                <input type="text" name="booking_date" required x-ref="boat_date"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
                 <label class="block text-sm font-medium text-black mb-2">Start Time</label>
-                <input type="time" name="start_time" value="{{ $prefill['start_time'] ?? '' }}"
+                <input type="text" name="start_time" x-ref="boat_start"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
             <div>
                 <label class="block text-sm font-medium text-black mb-2">End Time</label>
-                <input type="time" name="end_time" value="{{ $prefill['end_time'] ?? '' }}"
+                <input type="text" name="end_time" x-ref="boat_end"
                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#964B00] transition-colors">
             </div>
         </div>
@@ -143,3 +197,5 @@ function bookingStep1(initialType) {
 }
 </script>
 @endsection
+
+

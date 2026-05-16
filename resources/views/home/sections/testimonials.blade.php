@@ -1,9 +1,9 @@
-<section class="bg-white text-black py-6 mb-2 font-[Inter]">
+<section class="bg-white text-black py-6 mb-2 ">
   <div class="max-w-7xl mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-12" data-reveal>
       <p class="text-sm font-medium mb-4 section-label">What our guests say</p>
-      <h2 class="text-4xl md:text-5xl font-medium leading-relaxed] text-black">
+      <h2 class="text-4xl md:text-5xl font-medium leading-relaxed text-black">
         Guest Testimonials
       </h2>
       <p class="text-base text-black leading-relaxed mt-4 max-w-2xl mx-auto">
@@ -28,7 +28,7 @@
           <div class="h-10 w-10 bg-gray-100 flex items-center justify-center text-[#63360D] font-medium text-sm">NP</div>
           <div>
             <h3 class="text-sm font-medium text-black ">Nona Pantaleon</h3>
-            <p class="text-[10px] font-medium text-[#A15D1A] ] mt-1">Verified Guest</p>
+            <p class="text-[10px] font-medium text-[#A15D1A] mt-1">Verified Guest</p>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
           <div class="h-10 w-10 bg-gray-100 flex items-center justify-center text-[#63360D] font-medium text-sm">IM</div>
           <div>
             <h3 class="text-sm font-medium text-black ">Isiah Mendoza</h3>
-            <p class="text-[10px] font-medium text-[#A15D1A] ] mt-1">Verified Guest</p>
+            <p class="text-[10px] font-medium text-[#A15D1A] mt-1">Verified Guest</p>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
           <div class="h-10 w-10 bg-gray-100 flex items-center justify-center text-[#63360D] font-medium text-sm">NB</div>
           <div>
             <h3 class="text-sm font-medium text-black ">Noel Banta</h3>
-            <p class="text-[10px] font-medium text-[#A15D1A] ] mt-1">Verified Guest</p>
+            <p class="text-[10px] font-medium text-[#A15D1A] mt-1">Verified Guest</p>
           </div>
         </div>
       </div>
@@ -74,3 +74,4 @@
 
   </div>
 </section>
+

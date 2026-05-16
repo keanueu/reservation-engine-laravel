@@ -17,8 +17,12 @@ class PageController extends Controller
 
     public function home_rooms()
     {
+        $today = now()->toDateString();
+        $tomorrow = now()->addDay()->toDateString();
+        $unavailableRoomIds = Booking::unavailableRoomIds($today, $tomorrow);
+
         $rooms = Room::with(['images', 'discounts.images'])->get();
-        return view('home.rooms', compact('rooms'));
+        return view('home.rooms', compact('rooms', 'unavailableRoomIds'));
     }
 
     public function home_amenities()

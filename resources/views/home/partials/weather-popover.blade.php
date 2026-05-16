@@ -1,138 +1,167 @@
-{{-- Professional Weather Navbar Popover - Original Style --}}
+{{-- Premium Weather Navbar Popover - Luxury Resort Style --}}
 <div x-data="weatherPopover()" class="relative">
     {{-- Minimalist Trigger Button --}}
     <button @click="toggle()" 
-            class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 border border-transparent hover:border-slate-200 font-[Inter]"
-            :class="{ 'bg-slate-50 border-slate-200': isOpen }">
+            class="flex items-center gap-2 px-3 py-1.5 text-[14px] font-medium text-black hover:text-[#63360D] transition-all duration-300 font-['Raleway'] group"
+            :class="{ 'text-[#63360D]': isOpen }">
         {{-- Weather Icon --}}
-        <span id="navbar-weather-icon" class="material-symbols-outlined text-white text-base">wb_sunny</span>
+        <span id="navbar-weather-icon" class="material-symbols-outlined text-base group-hover:scale-110 transition-transform duration-300">wb_sunny</span>
         {{-- Current Temperature --}}
-        <span id="navbar-temp" class="font-[Inter] font-medium text-white">--°</span>
+        <span id="navbar-temp" class="font-['Raleway'] text-md font-semibold">--°</span>
     </button>
+
+    {{-- Backdrop (Mobile only) --}}
+    <div x-show="isOpen" x-cloak class="md:hidden fixed inset-0 bg-black/20 z-[90]" @click="close()"></div>
 
     {{-- Popover Dropdown --}}
     <div x-show="isOpen" 
          x-cloak
          @click.outside="close()"
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 scale-95 translate-y-1"
-         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-         x-transition:leave-end="opacity-0 scale-95 translate-y-1"
-         class="absolute right-0 top-full mt-2 w-[600px] bg-white border border-slate-200 shadow-lg z-50 overflow-hidden">
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-4"
+         class="fixed md:absolute inset-x-4 md:inset-x-auto md:left-0 top-[60px] md:top-full mt-3 w-auto md:w-[580px] max-w-[calc(100vw-2rem)] bg-white border border-gray-100 shadow-2xl z-[100] overflow-hidden mx-auto md:mx-0">
         
         {{-- Header Section --}}
-        <div class="px-6 py-3 border-b border-slate-100 bg-slate-50">
-            <div class="flex items-center justify-between">
+        <div class="px-6 py-4 border-b border-gray-50 bg-gradient-to-r from-[#63360D] to-[#8B4E14]">
+            <div class="flex items-center justify-between text-white">
                 <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-white text-base">location_on</span>
-                    <span id="popover-city" class="text-sm font-medium text-slate-900">Dasol</span>
-                    <span id="popover-country" class="text-sm text-slate-500">PH</span>
+                    <span class="material-symbols-outlined text-white/80 text-lg">location_on</span>
+                    <span id="popover-city" class="text-sm font-semibold tracking-wide 
+">Dasol</span>
+                    <span id="popover-country" class="text-xs text-white/60">Pangasinan, PH</span>
                 </div>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-6">
                     <div class="text-right">
-                        <p id="popover-date" class="text-sm text-slate-500">Loading...</p>
-                        <p id="popover-time" class="text-sm font-medium text-slate-700">--:--</p>
-                    </div>
-                    {{-- City Search --}}
-                    <div class="flex gap-2">
-                        <input id="popover-city-input" 
-                               placeholder="Search city..." 
-                               class="w-32 px-2 py-1.5 text-sm border border-slate-200 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 outline-none transition-colors">
-                        <button id="popover-city-search" 
-                                class="px-2 py-1.5 bg-slate-900 text-white hover:bg-slate-800 transition-colors">
-                            <span class="material-symbols-outlined text-sm">search</span>
-                        </button>
+                        <p id="popover-date" class="text-[11px] text-white/70 font-medium 
+ tracking-tighter">Loading...</p>
+                        <p id="popover-time" class="text-sm font-bold">--:--</p>
                     </div>
                 </div>
             </div>
         </div>
 
         {{-- Main Content - Two Column Layout --}}
-        <div class="flex">
+        <div class="flex flex-col md:flex-row">
             {{-- Left Column: Current Conditions --}}
-            <div class="flex-1 px-6 py-4 border-r border-slate-100">
-                <h3 class="text-sm font-medium text-slate-900 mb-3">Current Conditions</h3>
+            <div class="flex-1 px-7 py-6 border-r border-gray-50">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-[11px] font-bold text-[#63360D] 
+ text-teal-800 font-bold">Current Climate</h3>
+                    <div class="flex gap-1.5">
+                        <input id="popover-city-input" 
+                               placeholder="Other city..." 
+                               class="w-28 px-2 py-1 text-[11px] border border-gray-200 focus:border-[#63360D] outline-none transition-colors">
+                        <button id="popover-city-search" 
+                                class="p-1 bg-[#63360D] text-white hover:bg-black transition-colors">
+                            <span class="material-symbols-outlined text-sm">search</span>
+                        </button>
+                    </div>
+                </div>
             
-            {{-- Main Weather Display --}}
-            <div class="flex items-center gap-6 mb-4">
-                <div class="flex-1">
-                    <div class="flex items-baseline gap-2 mb-2">
-                        <span id="popover-temp" class="text-4xl font-medium text-slate-900">--</span>
-                        <span class="text-xl text-slate-600">°C</span>
+                {{-- Main Weather Display --}}
+                <div class="flex items-center gap-8 mb-8">
+                    <div class="flex-1">
+                        <div class="flex items-baseline gap-1 mb-1">
+                            <span id="popover-temp" class="text-5xl font-bold text-black">--</span>
+                            <span class="text-lg font-medium text-black/40">°C</span>
+                        </div>
+                        <p id="popover-description" class="text-sm text-[#63360D] font-medium capitalize mb-2 tracking-wide">Loading...</p>
+                        <div class="flex gap-4 text-xs font-medium text-black/50">
+                            <span>High: <span id="popover-high" class="text-black">--°</span></span>
+                            <span>Low: <span id="popover-low" class="text-black">--°</span></span>
+                        </div>
                     </div>
-                    <p id="popover-description" class="text-sm text-slate-500 capitalize mb-2">Loading...</p>
-                    <div class="flex gap-4 text-sm text-slate-500">
-                        <span>H: <span id="popover-high" class="font-medium text-slate-700">--°</span></span>
-                        <span>L: <span id="popover-low" class="font-medium text-slate-700">--°</span></span>
+                    <div class="w-20 h-20 flex items-center justify-center bg-orange-50/50 rounded-full">
+                        <span id="weather-main-icon" class="material-symbols-outlined text-[#63360D] text-5xl">wb_sunny</span>
                     </div>
                 </div>
-                <div class="w-16 h-16 flex items-center justify-center">
-                    <span id="weather-main-icon" class="material-symbols-outlined text-white text-4xl">wb_sunny</span>
-                </div>
-            </div>
 
-            {{-- Weather Details Grid --}}
-            <div class="grid grid-cols-2 gap-3 mb-4">
-                <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-sm text-slate-500 mb-1">Feels Like</p>
-                    <p id="popover-feels-like" class="text-sm font-medium text-slate-900">--°C</p>
+                {{-- Weather Details Grid --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-50/50 p-4 border border-gray-100 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[#63360D]/60 text-lg">thermostat</span>
+                        <div>
+                            <p class="text-[10px] text-gray-400 font-bold 
+ tracking-tighter">Feels Like</p>
+                            <p id="popover-feels-like" class="text-sm font-semibold text-black">--°C</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50/50 p-4 border border-gray-100 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[#63360D]/60 text-lg">humidity_low</span>
+                        <div>
+                            <p class="text-[10px] text-gray-400 font-bold 
+ tracking-tighter">Humidity</p>
+                            <p id="popover-humidity" class="text-sm font-semibold text-black">--%</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50/50 p-4 border border-gray-100 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[#63360D]/60 text-lg">air</span>
+                        <div>
+                            <p class="text-[10px] text-gray-400 font-bold 
+ tracking-tighter">Wind Speed</p>
+                            <p id="popover-wind" class="text-sm font-semibold text-black">-- m/s</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50/50 p-4 border border-gray-100 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-[#63360D]/60 text-lg">visibility</span>
+                        <div>
+                            <p class="text-[10px] text-gray-400 font-bold 
+ tracking-tighter">Visibility</p>
+                            <p id="popover-visibility" class="text-sm font-semibold text-black">-- km</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-sm text-slate-500 mb-1">Humidity</p>
-                    <p id="popover-humidity" class="text-sm font-medium text-slate-900">--%</p>
-                </div>
-                <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-sm text-slate-500 mb-1">Wind</p>
-                    <p id="popover-wind" class="text-sm font-medium text-slate-900">-- m/s</p>
-                </div>
-                <div class="bg-slate-50 p-3 text-center">
-                    <p class="text-sm text-slate-500 mb-1">Visibility</p>
-                    <p id="popover-visibility" class="text-sm font-medium text-slate-900">-- km</p>
-                </div>
-            </div>
 
-            {{-- Sun Times --}}
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-3 text-center border border-orange-100">
-                    <div class="flex items-center justify-center mb-2">
-                        <span class="material-symbols-outlined text-orange-500 text-lg">wb_sunny</span>
+                {{-- Sun Times --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-orange-50/30 p-3 border border-orange-100 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-orange-500 text-lg">wb_sunny</span>
+                            <span class="text-[10px] font-bold text-gray-500 
+ tracking-tighter">Sunrise</span>
+                        </div>
+                        <p id="popover-sunrise" class="text-xs font-bold text-black">--:--</p>
                     </div>
-                    <p class="text-sm text-slate-500 mb-1">Sunrise</p>
-                    <p id="popover-sunrise" class="text-sm font-medium text-slate-900">--:--</p>
-                </div>
-                <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-3 text-center border border-purple-100">
-                    <div class="flex items-center justify-center mb-2">
-                        <span class="material-symbols-outlined text-purple-500 text-lg">bedtime</span>
+                    <div class="bg-indigo-50/30 p-3 border border-indigo-100 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-indigo-500 text-lg">bedtime</span>
+                            <span class="text-[10px] font-bold text-gray-500 
+ tracking-tighter">Sunset</span>
+                        </div>
+                        <p id="popover-sunset" class="text-xs font-bold text-black">--:--</p>
                     </div>
-                    <p class="text-sm text-slate-500 mb-1">Sunset</p>
-                    <p id="popover-sunset" class="text-sm font-medium text-slate-900">--:--</p>
                 </div>
             </div>
-        </div>
 
             {{-- Right Column: 5-Day Forecast --}}
-            <div class="w-64 px-4 py-4">
-                <h3 class="text-sm font-medium text-slate-900 mb-3">5-Day Forecast</h3>
-                <div id="popover-forecast" class="space-y-2">
-                    {{-- Forecast items will be populated by JavaScript --}}
+            <div class="w-full md:w-60 bg-gray-50/30 px-6 py-6">
+                <h3 class="text-[11px] font-bold text-[#63360D] 
+ text-teal-800 font-bold mb-6">Upcoming Days</h3>
+                <div id="popover-forecast" class="space-y-4">
                     @for($i = 0; $i < 5; $i++)
-                        <div class="flex items-center justify-between py-2 border-b border-slate-50 last:border-0">
-                            <div class="flex items-center gap-2">
-                                <div class="w-6 h-6 flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-slate-400 text-sm">cloud</span>
-                                </div>
+                        <div class="flex items-center justify-between group cursor-default">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-gray-300 group-hover:text-[#63360D] transition-colors text-base">cloud</span>
                                 <div>
-                                    <p class="text-sm font-medium text-slate-900">Loading...</p>
-                                    <p class="text-sm text-slate-500">--</p>
+                                    <p class="text-[11px] font-bold text-black 
+ tracking-tighter">Loading...</p>
+                                    <p class="text-[10px] text-gray-400 font-medium capitalize">--</p>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <p class="text-sm font-medium text-slate-900">--°</p>
-                            </div>
+                            <p class="text-xs font-bold text-black">--°</p>
                         </div>
                     @endfor
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-100">
+                    <p class="text-[9px] text-gray-400 font-bold 
+ leading-relaxed">
+                        Data provided by<br>OpenWeather API
+                    </p>
                 </div>
             </div>
         </div>
@@ -290,7 +319,7 @@ function weatherPopover() {
                 console.log('Setting navbar icon name:', iconName);
                 
                 navbarIcon.textContent = iconName;
-                navbarIcon.className = 'material-symbols-outlined text-zinc-400 text-base';
+                navbarIcon.className = 'material-symbols-outlined text-inherit text-base group-hover:scale-110 transition-transform duration-300';
             }
             
             // Update main weather icon with validation
@@ -300,7 +329,7 @@ function weatherPopover() {
                 console.log('Setting main icon name:', iconName);
                 
                 mainIcon.textContent = iconName;
-                mainIcon.className = 'material-symbols-outlined text-zinc-400 text-4xl';
+                mainIcon.className = 'material-symbols-outlined text-[#63360D] text-5xl';
             }
             
             // Update popover content
@@ -367,16 +396,17 @@ function weatherPopover() {
                 const validIconName = iconName || 'cloud';
                 
                 const itemHTML = `
-                    <div class="flex items-center justify-between py-1.5 border-b border-slate-50 last:border-0">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-zinc-400 text-sm" data-weather="${weather.main}" data-icon="${weather.icon}">${validIconName}</span>
+                    <div class="flex items-center justify-between py-1.5 border-b border-gray-50 last:border-0 group cursor-default">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-gray-300 group-hover:text-[#63360D] transition-colors text-base" data-weather="${weather.main}" data-icon="${weather.icon}">${validIconName}</span>
                             <div>
-                                <p class="text-sm font-medium text-slate-900">${day}</p>
-                                <p class="text-sm text-slate-500 capitalize">${weather.description}</p>
+                                <p class="text-[11px] font-bold text-black 
+ tracking-tighter">${day}</p>
+                                <p class="text-[10px] text-gray-400 font-medium capitalize">${weather.description}</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <p class="text-sm font-medium text-slate-900">${maxTemp}° / ${minTemp}°</p>
+                            <p class="text-xs font-bold text-black">${maxTemp}° / ${minTemp}°</p>
                         </div>
                     </div>
                 `;

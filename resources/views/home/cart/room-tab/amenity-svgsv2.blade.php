@@ -120,7 +120,7 @@
                             ];
                         @endphp
 
-                        <div class="flex flex-wrap gap-2 mt-2 font-[Inter]">
+                        <div class="flex flex-wrap gap-2 mt-2 ">
                             @foreach(explode(',', $room->amenities) as $amenity)
                                 @php $name = trim($amenity); @endphp
                                 <span
@@ -131,3 +131,5 @@
                             @endforeach
                         </div>
                     @endif
+
+

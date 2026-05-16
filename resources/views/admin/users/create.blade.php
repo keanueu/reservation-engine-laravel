@@ -4,14 +4,14 @@
     <!-- Page Header -->
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-white">
-            Create New User
+            Create new user
         </h1>
         <a href="{{ route('admin.users.index') }}"
-            class="inline-flex items-center px-4 py-2 bg-slate-600 border border-transparent  font-semibold text-xs text-white uppercase tracking-widest hover:bg-slate-700 active:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+            class="inline-flex items-center px-4 py-2 bg-slate-600 border border-transparent font-semibold text-xs text-white hover:bg-slate-700 active:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
             <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            Back to Users
+            Back to users
         </a>
     </div>
 
@@ -79,11 +79,12 @@
             <!-- Form Footer -->
             <div class="bg-gray-50 dark:bg-black px-6 py-4 text-right">
                 <button type="submit"
-                    class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent  font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                    Save User
+                    class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent font-semibold text-xs text-white hover:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                    Save user
                 </button>
             </div>
             
         </form>
     </div>
 @endsection
+

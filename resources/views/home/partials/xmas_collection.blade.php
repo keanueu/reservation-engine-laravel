@@ -6,7 +6,7 @@
 @endphp
 
 @if($promos->count())
-  <section data-animate class="opacity-0 will-change-transform will-change-opacity font-[Inter]">
+  <section data-animate class="opacity-0 will-change-transform will-change-opacity ">
     <div class="bg-white">
       {{-- Match room section width and padding --}}
       <div class="max-w-7xl mx-auto px-6">
@@ -119,3 +119,4 @@
     </div>
   </section>
 @endif
+

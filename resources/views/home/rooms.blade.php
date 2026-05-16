@@ -5,7 +5,7 @@
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-medium">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-medium">
                 Our exclusive stays
             </h1>
         </div>
@@ -20,7 +20,7 @@
   $placeholderImage = "https://placehold.co/400x300/f3f4f6/1f2937?text=Minimal+Suite";
 @endphp
 
-<div class="bg-white py-8 font-[Inter]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
+<div class="bg-white py-8 " x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
   <div class="text-center mb-12">
       <p class="text-sm font-medium mb-4 section-label">Our accommodation</p>
       <h2 class="text-4xl md:text-5xl font-medium leading-relaxed] text-black">
@@ -127,6 +127,17 @@
 
               <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/70 to-transparent"></div>
 
+              {{-- Availability Badge (Left) --}}
+              @php
+                  $isFullyBooked = in_array($room->id, $unavailableRoomIds ?? []);
+              @endphp
+              <div class="absolute top-3 left-3 z-30">
+                  <span
+                      class="inline-block {{ $isFullyBooked ? 'bg-red-600' : 'bg-teal-600' }} text-white text-[10px] font-medium py-1.5 px-3 shadow-xl">
+                      {{ $isFullyBooked ? 'Fully booked' : 'Available' }}
+                  </span>
+              </div>
+
               {{-- Percentage Badge (Right) --}}
               @if ($isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
                   @php
@@ -135,7 +146,7 @@
                   <div class="absolute top-3 right-3 z-30">
                       <span
                           class="inline-block bg-[#964B00] text-white text-[10px] font-medium py-1.5 px-3 shadow-xl ">
-                          {{ $badgeText }} OFF
+                          {{ $badgeText }} off
                       </span>
                   </div>
               @endif
@@ -193,11 +204,10 @@
             </div>
 
             <div class="mt-auto">
-              <button type="button"
-                onclick="openBookingModal('{{ $room->id }}', '{{ addslashes($room->room_name) }}', {{ $room->price }}, {{ (int)$room->accommodates }})"
+              <a href="{{ route('booking.dates', ['room_id' => $room->id]) }}"
                 class="flex justify-center items-center w-full bg-[#964B00] p-3 text-sm font-medium text-white border border-[#964B00] transition duration-300 hover:bg-black hover:border-black">
                 Book now
-              </button>
+              </a>
             </div>
 
           </div>
@@ -208,3 +218,4 @@
   </div>
 </div>
 @endsection
+

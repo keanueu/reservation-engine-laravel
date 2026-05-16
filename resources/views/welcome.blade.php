@@ -7,13 +7,10 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
-        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style>
             body {
-                font-family: 'Figtree', sans-serif;
+                font-family: 'Raleway', sans-serif;
                 line-height: 1.5;
             }
         </style>

@@ -142,6 +142,53 @@
   display: none;
 }
 
+/* Flatpickr Theme Overrides */
+.flatpickr-calendar { 
+  background: #fff; 
+  border-radius: 0 !important; 
+  border: none !important; 
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25) !important; 
+}
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange { 
+  background: #A15D1A !important; 
+  border-color: #A15D1A !important; 
+  border-radius: 0 !important;
+}
+.flatpickr-day.inRange { 
+  background: rgba(161, 93, 26, 0.1) !important; 
+  box-shadow: -5px 0 0 rgba(161, 93, 26, 0.1), 5px 0 0 rgba(161, 93, 26, 0.1) !important; 
+}
+.flatpickr-day:hover { 
+  background: #63360D !important; 
+  color: #fff !important; 
+  border-color: #63360D !important; 
+}
+.flatpickr-months .flatpickr-month { 
+  background: #63360D; 
+  color: #fff; 
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months { 
+  font-weight: 700; 
+}
+.flatpickr-weekday { 
+  color: rgba(0,0,0,0.5); 
+  font-weight: 700; 
+  font-size: 10px; 
+}
+
+/* Hide Default Browser Icons for date/time */
+input::-webkit-calendar-picker-indicator { 
+  display: none !important; 
+  opacity: 0; 
+  -webkit-appearance: none; 
+}
+input[type="date"], input[type="time"] { 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  appearance: none; 
+}
+
+
 
 /* --- Stylesheet (e.g., public/css/app.css) --- */
 

@@ -1,5 +1,5 @@
 <!-- Chatbot Floating Widget -->
-<div id="chatbot-widget" class="fixed bottom-6 right-6 z-[100] font-[Inter]" style="display: none;">
+<div id="chatbot-widget" class="fixed bottom-6 right-6 z-[100] " style="display: none;">
     
     <!-- Chat Window (Hidden by default) -->
     <div id="chatbot-window" class="hidden flex-col bg-white border border-gray-200 shadow-2xl w-80 sm:w-96 h-[500px] max-h-[80vh] overflow-hidden transition-all duration-300 transform translate-y-4 opacity-0 mb-4 rounded-lg">
@@ -72,3 +72,5 @@
         display: flex !important;
     }
 </style>
+
+

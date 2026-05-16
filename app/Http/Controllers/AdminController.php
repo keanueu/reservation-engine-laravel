@@ -41,10 +41,14 @@ class AdminController extends Controller
   // home page all rooms
   public function home()
   {
+    $today = now()->toDateString();
+    $tomorrow = now()->addDay()->toDateString();
+    $unavailableRoomIds = Booking::unavailableRoomIds($today, $tomorrow);
+
     $rooms = Room::with(['discounts.images', 'images'])->get();
     $boats = Boat::all(); // Boat uses a single image column, not a relationship
     $image = Images::all();
-    return view('home.index', compact('rooms', 'boats', 'image'));
+    return view('home.index', compact('rooms', 'boats', 'image', 'unavailableRoomIds'));
   }
 
   // admin dashboard

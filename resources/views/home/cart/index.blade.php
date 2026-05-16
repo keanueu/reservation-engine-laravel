@@ -5,7 +5,7 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
          alt="Your Cart" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black/50 px-4 pb-10 md:pb-14">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center font-[Inter]">Your Cart</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center ">Your Cart</h1>
     </div>
 </div>
 
@@ -21,9 +21,9 @@
     @if($cartRooms->isEmpty() && $cartBoats->isEmpty())
         <div class="text-center py-20">
             <span class="material-symbols-outlined text-white mb-6" style="font-size: 96px;">shopping_cart</span>
-            <h2 class="text-2xl font-medium text-black mb-3 font-[Inter]">Your cart is empty</h2>
+            <h2 class="text-2xl font-medium text-black mb-3 ">Your cart is empty</h2>
             <p class="text-black mb-8">Start adding rooms or boats to your cart to begin your booking.</p>
-            <a href="{{ route('booking.dates') }}" class="inline-block btn-primary px-8 py-3 text-sm font-medium">
+            <a href="javascript:void(0)" onclick="openBookingModal()" class="inline-block btn-primary px-8 py-3 text-sm font-medium">
                 Browse Rooms & Boats
             </a>
         </div>
@@ -33,10 +33,10 @@
             {{-- Cart Items --}}
             <div class="lg:col-span-2 space-y-6">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-medium text-black font-[Inter]">
+                    <h2 class="text-2xl font-medium text-black ">
                         Cart Items ({{ $cartRooms->count() + $cartBoats->count() }})
                     </h2>
-                    <a href="{{ route('booking.dates') }}" class="text-sm text-[#964B00] hover:text-black font-medium">
+                    <a href="javascript:void(0)" onclick="openBookingModal()" class="text-sm text-[#964B00] hover:text-black font-medium">
                         + Add More
                     </a>
                 </div>
@@ -170,7 +170,7 @@
             {{-- Summary Sidebar --}}
             <div class="lg:col-span-1">
                 <div class="bg-white border border-gray-200 shadow-sm p-6 sticky top-28">
-                    <h3 class="text-lg font-medium text-black mb-6 font-[Inter]">Order Summary</h3>
+                    <h3 class="text-lg font-medium text-black mb-6 ">Order Summary</h3>
 
                     <div class="space-y-3 mb-6">
                         <div class="flex justify-between text-sm">
@@ -190,7 +190,7 @@
                         Proceed to Checkout
                     </a>
 
-                    <a href="{{ route('booking.dates') }}"
+                    <a href="javascript:void(0)" onclick="openBookingModal()"
                        class="block w-full mt-3 py-3 text-sm font-medium text-center border border-gray-200 text-black hover:border-gray-400 transition-colors">
                         Continue Booking
                     </a>
@@ -253,3 +253,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 @endsection
+

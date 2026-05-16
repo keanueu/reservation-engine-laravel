@@ -8,9 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Payment Received</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root{--green:#34d399;--bg:#ffffff;--muted:#6b7280}
-        html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:#f3f4f6}
+        html,body{height:100%;margin:0;font-family:'Raleway',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:#f3f4f6}
         .center{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
         .card{background:var(--bg);padding:32px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.08);text-align:center;max-width:640px;width:100%}
         .check{width:96px;height:96px;border-radius:9999px;background:linear-gradient(180deg,var(--green),#10b981);display:inline-flex;align-items:center;justify-content:center;margin:0 auto 18px}

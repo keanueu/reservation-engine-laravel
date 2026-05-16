@@ -10,7 +10,8 @@
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
     style="display: none;"
-    {{ $attributes->merge(['class' => 'text-[10px] font-bold uppercase tracking-widest text-[#964B00] flex items-center gap-2']) }}>
+    {{ $attributes->merge(['class' => 'text-[10px] font-bold text-[#964B00] flex items-center gap-2']) }}>
     <span class="h-1 w-1 bg-[#964B00] animate-pulse"></span>
-    {{ $slot->isEmpty() ? 'Changes Saved.' : $slot }}
+    {{ $slot->isEmpty() ? 'Changes saved' : $slot }}
 </div>
+

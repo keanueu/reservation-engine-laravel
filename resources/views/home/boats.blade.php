@@ -5,13 +5,13 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
       alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-medium ">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-medium ">
         Our exclusive boats
       </h1>
     </div>
   </div>
 
-  <div class="bg-white py-8 font-[Inter]">
+  <div class="bg-white py-8 ">
     <div class="text-center mb-12">
       <p class="text-sm font-medium mb-4 section-label">Our fleet</p>
       <h2 class="text-4xl md:text-5xl font-medium leading-relaxed] text-black">
@@ -70,3 +70,5 @@
   </div>
 
 @endsection
+
+

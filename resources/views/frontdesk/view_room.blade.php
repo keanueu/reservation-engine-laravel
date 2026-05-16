@@ -14,16 +14,16 @@
                 <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                             Room & Image</th>
                         <th
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                             Type & Price (₱)</th>
                         <th
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                             Specs (Guests/Beds)</th>
                         <th
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                             Actions</th>
                         <th class="relative px-6 py-3">
                             <span class="sr-only">Details</span>
@@ -163,3 +163,4 @@
     </div>
 
 @endsection
+

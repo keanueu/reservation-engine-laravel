@@ -5,7 +5,7 @@
     $showPromos = $showPromos ?? true;
 @endphp
 
-<div class="bg-white py-8 font-[Inter]" x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
+<div class="bg-white py-8 " x-data="{ roomFilter: 'all', roomLocation: 'all' }" x-cloak>
 
     @include('home.partials.xmas_collection')
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -151,6 +151,17 @@
                         @endif
 
 
+                        {{-- Availability Badge (Left) --}}
+                        @php
+                            $isFullyBooked = in_array($room->id, $unavailableRoomIds ?? []);
+                        @endphp
+                        <div class="absolute top-3 left-3 z-30">
+                            <span
+                                class="inline-block {{ $isFullyBooked ? 'bg-red-600' : 'bg-teal-600' }} text-white text-[10px] font-medium py-1.5 px-3 shadow-xl">
+                                {{ $isFullyBooked ? 'Fully booked' : 'Available' }}
+                            </span>
+                        </div>
+
                         @if ($showPromos && $isActive && $discountValue > 0 && ($isPercentage || $isFixedAmount))
                             @php
                                 $badgeText = $isPercentage ? '-' . rtrim(rtrim(number_format($discountValue, 2), '0'), '.') . '%' : 'SALE';
@@ -158,7 +169,7 @@
                             <div class="absolute top-3 right-3 z-30">
                                 <span
                                     class="inline-block bg-[#964B00] text-white text-[10px] font-medium py-1.5 px-3 shadow-xl ">
-                                    {{ $badgeText }} OFF
+                                    {{ $badgeText }} off
                                 </span>
                             </div>
                         @endif
@@ -216,11 +227,10 @@
                             <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] font-medium text-sm hover:text-black transition-colors">
                                 View details
                             </a>
-                            <button type="button"
-                                onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
-                                class="bg-[#964B00] px-8 py-3 text-[10px] font-medium ] text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
+                            <a href="{{ route('booking.dates', ['room_id' => $room->id]) }}"
+                                class="bg-[#964B00] px-8 py-3 text-[10px] font-medium text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
                                 Book now
-                            </button>
+                            </a>
                         </div>
 
                     </div>
@@ -235,3 +245,4 @@
         </div>
     </div>
 </div>
+

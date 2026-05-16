@@ -74,7 +74,7 @@
 
           {{-- 5. Start Time --}}
           <div class="relative z-0 w-full mb-5 group">
-            <input type="time" name="start_time" id="start_time_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
+            <input type="text" name="start_time" id="start_time_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
                                      border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->start_time }}" />
@@ -89,7 +89,7 @@
 
           {{-- 6. End Time --}}
           <div class="relative z-0 w-full mb-5 group">
-            <input type="time" name="end_time" id="end_time_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
+            <input type="text" name="end_time" id="end_time_input" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
                                      border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black 
                                      dark:focus:border-blue-500 focus:outline-none focus:ring-0 
                                      focus:border-blue-600 peer" placeholder=" " value="{{ $boat->end_time }}" />
@@ -152,4 +152,24 @@
     </form>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#start_time_input", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            altInput: true,
+            altFormat: "h:i K",
+            defaultDate: "{{ $boat->start_time }}"
+        });
+        flatpickr("#end_time_input", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            altInput: true,
+            altFormat: "h:i K",
+            defaultDate: "{{ $boat->end_time }}"
+        });
+    });
+  </script>
 @endsection

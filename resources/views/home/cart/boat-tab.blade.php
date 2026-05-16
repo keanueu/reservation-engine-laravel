@@ -1,14 +1,39 @@
 <div x-show="tab === 'boats'" x-transition>
 
-  <div class="max-w-7xl font-[Inter] mx-auto mb-10">
+  <div class="max-w-7xl mx-auto mb-10">
     <h2 class="text-3xl  text-black mb-6">
       Schedule Your Boat Trip
     </h2>
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 border border-gray-200 shadow-sm">
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 border border-gray-200 shadow-sm"
+         x-init="
+            flatpickr($refs.cart_boat_date, {
+                minDate: 'today',
+                dateFormat: 'Y-m-d',
+                altInput: true,
+                altFormat: 'M j, Y',
+                onChange: (selectedDates, dateStr) => { boat_booking_date = dateStr; }
+            });
+            flatpickr($refs.cart_boat_start, {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: 'H:i',
+                altInput: true,
+                altFormat: 'h:i K',
+                onChange: (selectedDates, dateStr) => { boat_start_time = dateStr; }
+            });
+            flatpickr($refs.cart_boat_end, {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: 'H:i',
+                altInput: true,
+                altFormat: 'h:i K',
+                onChange: (selectedDates, dateStr) => { boat_end_time = dateStr; }
+            });
+         ">
       <div>
-        <label for="booking_date" class="block text-sm font-medium text-black mb-1">Date</label>
-        <input id="booking_date" type="date" name="booking_date" min="{{ \Carbon\Carbon::today()->format('Y-m-d') }}"
-          x-model="boat_booking_date" class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3" required>
+        <label class="block text-sm font-medium text-black mb-1">Date</label>
+        <input type="text" x-ref="cart_boat_date" placeholder="Select Date"
+          class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
       <div>
         <label for="guests" class="block text-sm font-medium text-black mb-1">Guests</label>
@@ -16,14 +41,14 @@
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3" required>
       </div>
       <div>
-        <label for="start_time" class="block text-sm font-medium text-black mb-1">Start Time</label>
-        <input id="start_time" type="time" name="start_time" x-model="boat_start_time"
-          class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3" required>
+        <label class="block text-sm font-medium text-black mb-1">Start Time</label>
+        <input type="text" x-ref="cart_boat_start" placeholder="Set Time"
+          class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
       <div>
-        <label for="end_time" class="block text-sm font-medium text-black mb-1">End Time</label>
-        <input id="end_time" type="time" name="end_time" x-model="boat_end_time"
-          class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3" required>
+        <label class="block text-sm font-medium text-black mb-1">End Time</label>
+        <input type="text" x-ref="cart_boat_end" placeholder="Set Time"
+          class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
     </div>
   </div>
@@ -37,7 +62,7 @@
     <input type="hidden" name="end_time" id="boat_end_time_input">
   </form>
 
-  <div class="mt-6 space-y-8 font-[Inter] text-black">
+  <div class="mt-6 space-y-8 text-black">
     @foreach ($boats as $boat)
       <div class="group bg-white border border-gray-200 shadow-sm overflow-hidden flex flex-col md:flex-row h-full">
         <div class="relative overflow-hidden h-56 md:h-auto md:w-2/5">
@@ -52,7 +77,7 @@
 
               PHP <span class="text-white">{{ number_format($boat->price ?? 0, 2) }}</span>
             </p>
-            <span class="text-sm  text-white ">PER TRIP</span>
+            <span class="text-sm  text-white ">Per trip</span>
           </div>
         </div>
 
@@ -99,7 +124,7 @@
             <button data-boat-id="{{ $boat->id }}"
               @click.prevent="submitBoatBooking({{ $boat->id }}, {{ $boat->capacity }})"
               class="book-now-btn bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black  transition flex items-center justify-center ">
-              <span class="btn-text">BOOK NOW</span>
+              <span class="btn-text">Book now</span>
               <svg class="btn-loader hidden animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -113,3 +138,5 @@
     @endforeach
   </div>
 </div>
+
+

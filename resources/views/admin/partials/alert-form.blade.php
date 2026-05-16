@@ -56,18 +56,39 @@
       
       <div class="flex flex-1 gap-3 flex-col xs:flex-row">
         <input 
-          type="datetime-local" 
+          type="text" 
           name="starts_at" 
+          id="alert_starts_at"
           aria-label="Alert Start Time"
+          placeholder="Start Time"
           class="flex-1 border border-gray-300 dark:border-black p-3  bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-orange-500 focus:border-orange-500" 
         />
         <input 
-          type="datetime-local" 
+          type="text" 
           name="ends_at" 
+          id="alert_ends_at"
           aria-label="Alert End Time"
+          placeholder="End Time"
           class="flex-1 border border-gray-300 dark:border-black p-3  bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-orange-500 focus:border-orange-500" 
         />
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("#alert_starts_at", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                altInput: true,
+                altFormat: "M j, Y h:i K"
+            });
+            flatpickr("#alert_ends_at", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                altInput: true,
+                altFormat: "M j, Y h:i K"
+            });
+        });
+      </script>
 
       <button 
         type="submit" 

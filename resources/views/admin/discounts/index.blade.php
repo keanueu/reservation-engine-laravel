@@ -11,8 +11,7 @@
       </div>
       <div>
         <a href="{{ route('admin.discounts.create') }}"
-          class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium ">New
-          Discount</a>
+          class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium ">New discount</a>
       </div>
     </div>
 
@@ -27,14 +26,14 @@
         <table class="w-full min-w-max divide-y divide-gray-200 dark:divide-black">
           <thead class="bg-gray-50 dark:bg-black">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Dates</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Images</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Assigned To</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Active</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Name</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Type</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Amount</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Dates</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Images</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Assigned To</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Active</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 ">Actions</th>
             </tr>
           </thead>
 
@@ -100,3 +99,4 @@
   </div>
 
 @endsection
+

@@ -1,8 +1,8 @@
 <div class="p-10 lg:p-12 bg-white border-b border-gray-100">
     <div class="flex items-center gap-4 mb-8">
         <div class="h-12 w-1 bg-[#964B00]"></div>
-        <h1 class="text-3xl font-bold text-gray-900 uppercase tracking-widest">
-            Welcome to <span class="text-[#964B00]">Cabanas</span> Dashboard
+        <h1 class="text-3xl font-bold text-gray-900">
+            Welcome to <span class="text-[#964B00]">Cabanas</span> dashboard
         </h1>
     </div>
 
@@ -92,3 +92,4 @@
         </p>
     </div>
 </div>
+

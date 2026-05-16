@@ -142,7 +142,7 @@
         {{-- 1. Primary Button (Download All) --}}
         <a href="{{ route('admin.export.sales') }}"
           class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-sm font-medium  transition duration-150 ease-in-out">
-          Download All Sales (.xlsx)
+          Download all sales (.xlsx)
         </a>
 
         {{-- 2. Filtered Exports Group --}}
@@ -150,27 +150,26 @@
           {{-- Preset Buttons --}}
           <a href="{{ route('admin.export.sales', ['from' => $weekStart->toDateString(), 'to' => $weekEnd->toDateString()]) }}"
             class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
-            Week</a>
+            week</a>
           <a href="{{ route('admin.export.sales', ['from' => $monthStart->toDateString(), 'to' => $monthEnd->toDateString()]) }}"
             class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
-            Month</a>
+            month</a>
           <a href="{{ route('admin.export.sales', ['from' => $quarterStart->toDateString(), 'to' => $quarterEnd->toDateString()]) }}"
             class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
-            Quarter</a>
+            quarter</a>
           <a href="{{ route('admin.export.sales', ['from' => $yearStart->toDateString(), 'to' => $yearEnd->toDateString()]) }}"
             class="px-3 py-2 bg-gray-100 dark:bg-black text-sm text-gray-700 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-900 transition">This
-            Year</a>
+            year</a>
 
-          {{-- Custom Form --}}
           <form method="GET" action="{{ route('admin.export.sales') }}" class="ml-2 inline-flex items-center gap-2">
-            <input type="date" name="from"
-              class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+            <input type="text" name="from" id="sales_from" placeholder="From Date"
+              class="border border-gray-300 dark:border-black px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
               required>
-            <input type="date" name="to"
-              class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+            <input type="text" name="to" id="sales_to" placeholder="To Date"
+              class="border border-gray-300 dark:border-black px-2 py-1 text-sm max-w-[11rem] bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
               required>
             <button type="submit"
-              class="px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white rounded text-sm transition duration-150 ease-in-out">Export</button>
+              class="px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white text-sm transition duration-150 ease-in-out">Export</button>
           </form>
         </div>
       </div>
@@ -179,7 +178,7 @@
         <summary
           class="px-3 py-2 bg-indigo-600 dark:bg-indigo-500 text-white rounded inline-flex items-center gap-2 cursor-pointer
                                     group-open:bg-indigo-700 dark:group-open:bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-150 ease-in-out">
-          Export Sales
+          Export sales
         </summary>
         <div
           class="absolute right-0 z-10 mt-2 p-3 bg-white dark:bg-black border border-gray-200 dark:border-black rounded shadow-lg w-64 text-gray-800 dark:text-white">
@@ -187,37 +186,36 @@
             {{-- All Sales Button --}}
             <a href="{{ route('admin.export.sales') }}"
               class="px-3 py-2 bg-indigo-50 dark:bg-black rounded text-sm text-center font-medium text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-gray-900">
-              Download ALL Sales (.xlsx)</a>
+              Download all sales (.xlsx)</a>
 
             <div class="h-px bg-gray-200 dark:bg-black my-0"></div>
 
             {{-- Preset Buttons --}}
             <a href="{{ route('admin.export.sales', ['from' => $weekStart->toDateString(), 'to' => $weekEnd->toDateString()]) }}"
               class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
-              Week</a>
+              week</a>
             <a href="{{ route('admin.export.sales', ['from' => $monthStart->toDateString(), 'to' => $monthEnd->toDateString()]) }}"
               class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
-              Month</a>
+              month</a>
             <a href="{{ route('admin.export.sales', ['from' => $quarterStart->toDateString(), 'to' => $quarterEnd->toDateString()]) }}"
               class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
-              Quarter</a>
+              quarter</a>
             <a href="{{ route('admin.export.sales', ['from' => $yearStart->toDateString(), 'to' => $yearEnd->toDateString()]) }}"
               class="px-3 py-2 bg-gray-50 dark:bg-black rounded text-sm text-center hover:bg-gray-100 dark:hover:bg-gray-900">This
-              Year</a>
+              year</a>
 
-            {{-- Custom Form --}}
             <form method="GET" action="{{ route('admin.export.sales') }}"
               class="mt-2 flex flex-col gap-2 border-t border-gray-200 dark:border-black pt-2">
               <p class="text-xs font-semibold text-gray-500 dark:text-gray-300">Custom Range:</p>
-              <input type="date" name="from"
-                class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+              <input type="text" name="from" id="sales_from_mobile" placeholder="From Date"
+                class="border border-gray-300 dark:border-black px-2 py-1 text-sm bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 required>
-              <input type="date" name="to"
-                class="border border-gray-300 dark:border-black rounded px-2 py-1 text-sm bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+              <input type="text" name="to" id="sales_to_mobile" placeholder="To Date"
+                class="border border-gray-300 dark:border-black px-2 py-1 text-sm bg-white dark:bg-black text-gray-800 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                 required>
               <button type="submit"
-                class="px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white rounded text-sm transition duration-150 ease-in-out">Export
-                Range</button>
+                class="px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white text-sm transition duration-150 ease-in-out">Export
+                range</button>
             </form>
           </div>
         </div>
@@ -301,22 +299,22 @@
           <thead class="bg-gray-50 dark:bg-black">
             <tr>
               <th scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                 Guest</th>
               <th scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                 Booking Dates</th>
               <th scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                 Room</th>
               <th scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                 Payment</th>
               <th scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                 Status</th>
               <th scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                 Actions</th>
               <th scope="col" class="relative px-6 py-3">
                 <span class="sr-only">Details</span>
@@ -481,6 +479,19 @@
   </div>
 
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fpOptions = {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "M j, Y",
+        };
+        flatpickr("#sales_from", fpOptions);
+        flatpickr("#sales_to", fpOptions);
+        flatpickr("#sales_from_mobile", fpOptions);
+        flatpickr("#sales_to_mobile", fpOptions);
+    });
+  </script>
 @endsection
 
 @push('admin-scripts')
@@ -488,3 +499,4 @@
   <script src="/js/admin-map.js"></script>
   <script src="/js/admin-dashboard.js"></script>
 @endpush
+

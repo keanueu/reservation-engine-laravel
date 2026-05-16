@@ -6,7 +6,7 @@
             alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
         <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
             <h1
-                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter]">
+                class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center ">
                 Our Exclusive Stays
             </h1>
         </div>
@@ -16,7 +16,7 @@
     <section class="pt-12 pb-12">
         <div class="max-w-7xl mx-auto px-4" id="booking-section">
 
-            <div class="pb-3 font-[Inter]">
+            <div class="pb-3 ">
                 <a href="{{ url('/home/rooms') }}"
                     class="flex items-center text-sm text-black hover:text-black transition mb-1">
                     <span class="material-symbols-outlined mr-1" style="font-size: 16px;">arrow_back</span>
@@ -85,10 +85,10 @@
                     </div>
 
                     <div>
-                        <h2 class="text-xl  font-[Inter] text-black pb-2 flex items-center gap-2">
+                        <h2 class="text-xl  text-black pb-2 flex items-center gap-2">
                             Description
                         </h2>
-                        <p class="mt-2 text-black font-[Inter] text-sm  leading-relaxed">
+                        <p class="mt-2 text-black text-sm  leading-relaxed">
                             {{ $room->description }}
                         </p>
                     </div>
@@ -141,17 +141,15 @@
                         {{-- Date inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-3">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-medium text-white mb-1">Check-in</p>
-                                <input type="date" x-model="checkin"
-                                       :min="today"
-                                       @change="onCheckinChange"
+                                <p class="text-[10px] font-medium text-black mb-1">Check-in</p>
+                                <input type="text" x-ref="checkin"
+                                       placeholder="Select Date"
                                        class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-medium text-white mb-1">Check-out</p>
-                                <input type="date" x-model="checkout"
-                                       :min="minCheckout"
-                                       @change="runChecks"
+                                <p class="text-[10px] font-medium text-black mb-1">Check-out</p>
+                                <input type="text" x-ref="checkout"
+                                       placeholder="Select Date"
                                        class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                         </div>
@@ -159,13 +157,15 @@
                         {{-- Time inputs --}}
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-medium text-white mb-1">Check-in time</p>
-                                <input type="time" x-model="checkinTime"
+                                <p class="text-[10px] font-medium text-black mb-1">Check-in time</p>
+                                <input type="text" x-ref="checkinTime"
+                                       placeholder="Set Time"
                                        class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                             <div class="border border-gray-200 px-3 py-2.5">
-                                <p class="text-[10px] font-medium text-white mb-1">Check-out time</p>
-                                <input type="time" x-model="checkoutTime"
+                                <p class="text-[10px] font-medium text-black mb-1">Check-out time</p>
+                                <input type="text" x-ref="checkoutTime"
+                                       placeholder="Set Time"
                                        class="w-full text-sm text-black bg-transparent outline-none cursor-pointer">
                             </div>
                         </div>
@@ -300,7 +300,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-5 bg-white shadow-sm border border-gray-300 font-[Inter]">
+                    <div class="p-5 bg-white shadow-sm border border-gray-300 ">
                         <h3 class="text-xl  text-black mb-4 flex items-center gap-2">
                             Properties
                         </h3>
@@ -333,7 +333,7 @@
 
                     {{-- Amenities Section --}}
                     <div>
-                        <h3 class="text-xl  text-black pb-2 flex items-center gap-2 font-[Inter]">
+                        <h3 class="text-xl  text-black pb-2 flex items-center gap-2 ">
                             Amenities
                         </h3>
 
@@ -353,7 +353,7 @@
                                 ];
                             @endphp
 
-                            <div class="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-2 mt-2 font-[Inter]">
+                            <div class="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-2 mt-2 ">
                                 @foreach(explode(',', $room->amenities) as $amenity)
                                     @php $name = trim($amenity); @endphp
                                     <span class="flex items-center gap-1 bg-white text-black text-sm px-3 py-1.5 border border-gray-200 shadow-sm hover:bg-gray-100">
@@ -372,6 +372,54 @@
 <script>
 function roomBookingWidget(roomId, pricePerNight) {
     return {
+        init() {
+            // Checkin Date
+            flatpickr(this.$refs.checkin, {
+                minDate: 'today',
+                dateFormat: 'Y-m-d',
+                altInput: true,
+                altFormat: 'M j, Y',
+                onChange: (selectedDates, dateStr) => {
+                    this.checkin = dateStr;
+                    this.onCheckinChange();
+                }
+            });
+            // Checkout Date
+            flatpickr(this.$refs.checkout, {
+                minDate: 'today',
+                dateFormat: 'Y-m-d',
+                altInput: true,
+                altFormat: 'M j, Y',
+                onChange: (selectedDates, dateStr) => {
+                    this.checkout = dateStr;
+                    this.runChecks();
+                }
+            });
+            // Checkin Time
+            flatpickr(this.$refs.checkinTime, {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: 'H:i',
+                altInput: true,
+                altFormat: 'h:i K',
+                onChange: (selectedDates, dateStr) => {
+                    this.checkinTime = dateStr;
+                    this.runChecks();
+                }
+            });
+            // Checkout Time
+            flatpickr(this.$refs.checkoutTime, {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: 'H:i',
+                altInput: true,
+                altFormat: 'h:i K',
+                onChange: (selectedDates, dateStr) => {
+                    this.checkoutTime = dateStr;
+                    this.runChecks();
+                }
+            });
+        },
         roomId:        roomId,
         pricePerNight: pricePerNight,
 
@@ -539,3 +587,4 @@ function roomBookingWidget(roomId, pricePerNight) {
 }
 </script>
 @endsection
+

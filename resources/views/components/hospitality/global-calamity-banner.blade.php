@@ -29,8 +29,8 @@
 >
     <div class="mx-auto flex max-w-6xl flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div class="flex items-start gap-3">
-            <span class="mt-0.5 inline-flex border border-current/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] {{ $badgeMap[$normalizedStatus] ?? $badgeMap['green'] }}">
-                {{ strtoupper($normalizedStatus) }}
+            <span class="mt-0.5 inline-flex border border-current/10 px-3 py-1 text-[11px] font-bold  tracking-[0.18em] {{ $badgeMap[$normalizedStatus] ?? $badgeMap['green'] }}">
+                {{ ucfirst($normalizedStatus) }}
             </span>
             <div class="space-y-1">
                 <p class="font-serif text-base font-semibold sm:text-lg">{{ $title }}</p>
@@ -51,4 +51,5 @@
         </div>
     </div>
 </section>
+
 

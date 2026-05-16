@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="{{ asset('LOGO-FINAL.png') }}" type="image/x-icon">
     <title>{{ config('app.name') }} — Luxury Beach & Boat Resort</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -15,6 +15,19 @@
         window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Raleway', 'sans-serif'],
+                        serif: ['Raleway', 'serif'],
+                        mono: ['Raleway', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -50,7 +63,7 @@
         html { scroll-behavior: smooth; }
 
         /* ── Typography System ── */
-        body { font-family:'Inter', sans-serif; background: var(--off-white); color: #1f2937; line-height: 1.6; }
+        body { font-family: 'Raleway', sans-serif; background: var(--off-white); color: #1f2937; line-height: 1.6; }
         
         /* Headings Hierarchy */
         h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: #111827; }
@@ -72,7 +85,7 @@
         .section-label { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; color: #964B00; }
         
         /* Form Elements */
-        input, select, textarea, button { font-family:'Inter', sans-serif; }
+        input, select, textarea, button { font-family: 'Raleway', sans-serif; }
         input::placeholder, textarea::placeholder { color: #9ca3af; }
         
         /* Responsive Typography */
@@ -218,3 +231,4 @@
     </script>
 </body>
 </html>
+

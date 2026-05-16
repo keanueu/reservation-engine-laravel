@@ -2,12 +2,20 @@
      @keydown.escape.window="mobileOpen = false; weatherOpen = false;">
      <div class="w-full bg-white border-b">
         <div class="max-w-7xl mx-auto py-2 px-6 flex justify-between items-center text-sm md:text-sm">
-            <div class="text-black font-medium"> <span class="flex items-center gap-1.5 text-black">
-                        <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+            <div class="flex items-center gap-4">
+                <div class="text-black font-semibold text-md"> 
+                    <span class="flex items-center gap-1.5 text-black">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">location_on</span>
                         Tambobong, Dasol, Pangasinan
-                    </span></div>
+                    </span>
+                </div>
+                <div class="h-4 w-px bg-gray-300 text-md font-semibold"></div>
+                <div class="flex items-center">
+                    @include('home.partials.weather-popover')
+                </div>
+            </div>
             <div class="flex items-center gap-2">
-                <span class="text-black font-medium">Use Code <span class="bg-[#4ade80] text-white px-2 py-0.5 font-medium">"QUICKBUY"</span> and Get Extra <span class="text-green-500 font-medium">15%</span> Discount Today!</span>
+                <span class="text-black font-semibold">Use code <span class="bg-[#4ade80] text-white px-2 py-0.5 font-semibold">"Quickbuy"</span> and get extra <span class="text-green-500 font-medium">15%</span> discount today!</span>
             </div>
             <div class="flex items-center gap-6">
                 <div class="flex items-center gap-5 text-black font-medium">
@@ -38,14 +46,14 @@
                                 </div>
                             </div>
                         @else
-                            <a href="{{ url('login') }}" class="hover:text-black transition-opacity">Login</a>
-                            <a href="{{ url('register') }}" class="hover:text-black transition-opacity border-l pl-4 border-gray-200">Register</a>
+                            <a href="{{ url('login') }}" class="text-black text-md font-semibold transition-opacity ">Login</a>
+                            <a href="{{ url('register') }}" class="text-black text-md font-semibold transition-opacity border-l pl-4 border-gray-200">Register</a>
                         @endauth
                     @endif
                 </div>
 
-                <a href="{{ route('cart.show') }}" class="bg-[#ff5a3c] text-white px-4 py-1 rounded flex items-center gap-1 hover:bg-red-600 transition text-sm font-medium">
-                    <span class="material-symbols-outlined text-sm">shopping_bag</span>
+                <a href="{{ route('cart.show') }}" class="bg-[#ff5a3c] text-white px-4 py-1 rounded flex items-center gap-1 hover:bg-red-600 transition text-md font-semibold">
+                    <span class="material-symbols-outlined text-white" style="font-size: 18px;">shopping_bag</span>
                     Cart
                 </a>
             </div>
@@ -75,25 +83,20 @@
                 </a>
 
                 <div class="flex items-center gap-6">
-                    {{-- Right actions (Weather) --}}
-                    <div class="hidden lg:flex items-center gap-3">
-                        @include('home.partials.weather-popover')
-                    </div>
 
                     {{-- Main Nav --}}
                     <nav class="hidden lg:flex items-center bg-[#63360D] text-white rounded-sm overflow-hidden shadow-md">
                         @foreach($navLinks as $link)
                             <a href="{{ $link['url'] }}"
-                               class="px-6 py-3 hover:text-white transition-colors text-sm">
+                               class="px-6 py-3 text-white transition-colors text-md font-semibold">
                                 {{ $link['label'] }}
                             </a>
                         @endforeach
-                        <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black font-medium hover:bg-gray-100 transition">Book Now</a>
+                        <a href="{{ route('booking.dates') }}" class="px-8 py-3 bg-white text-black text-md font-semibold hover:bg-gray-100 transition">Book now</a>
                     </nav>
 
                     {{-- Mobile Toggle --}}
                     <div class="lg:hidden flex items-center gap-4">
-                         @include('home.partials.weather-popover')
                          <button @click="mobileOpen = true" class="p-2 text-white hover:text-white transition-colors">
                             <span class="material-symbols-outlined text-3xl">menu</span>
                         </button>
@@ -231,7 +234,7 @@
                    @click="mobileOpen = false"
                    class="block w-full bg-[#63360D] py-3.5 text-center text-sm text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#4D290A] hover:shadow-lg">
                     <span class="material-symbols-outlined text-xl inline-block mr-2 -mt-1">calendar_month</span>
-                    Book Now
+                    Book now
                 </a>
                 @guest
                     <div class="flex gap-2">

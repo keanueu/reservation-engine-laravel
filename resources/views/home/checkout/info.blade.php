@@ -34,7 +34,7 @@
 </div>
 
 <div id="policy-modal"
-    class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50 transition-opacity font-[Inter]"
+    class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50 transition-opacity "
     role="dialog" aria-modal="true" tabindex="-1">
     <div class="bg-white w-full max-w-lg mx-4 p-6 relative shadow-2xl transform transition-transform duration-300">
         <button type="button" class="absolute top-4 right-4 text-white hover:text-black text-3xl  p-1"
@@ -42,7 +42,7 @@
             &times;
         </button>
 
-        <h3 class="text-2xl font-medium mb-4 border-b pb-2 text-black font-[Inter]">Hotel Policy & Terms</h3>
+        <h3 class="text-2xl font-medium mb-4 border-b pb-2 text-black ">Hotel Policy & Terms</h3>
         <div class="text-sm text-black  max-h-96 overflow-y-auto pr-2 custom-scrollbar">
             {{ $room->terms ?? 'No specific terms found for this selection. Please contact the hotel directly for their reservation and cancellation policy.' }}
         </div>
@@ -53,3 +53,5 @@
         </div>
     </div>
 </div>
+
+

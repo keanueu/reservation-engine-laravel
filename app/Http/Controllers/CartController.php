@@ -99,25 +99,26 @@ class CartController extends Controller
             'line_total'            => $unitPrice * $nights,
         ];
 
-        // Update existing cart entry for same room+dates, or append
-        $updated = false;
-        foreach ($cart as &$item) {
-            if (
-                isset($item['room_id'], $item['start_date'], $item['end_date']) &&
-                $item['room_id'] == $room->id &&
-                $item['start_date'] == $startDate &&
-                $item['end_date']   == $endDate
-            ) {
-                $item    = $newItem;
-                $updated = true;
-                break;
+        // Check for overlapping dates in the user's cart
+        foreach ($cart as $item) {
+            if (isset($item['room_id'], $item['start_date'], $item['end_date']) && $item['room_id'] == $room->id) {
+                $existingStart = Carbon::parse($item['start_date']);
+                $existingEnd   = Carbon::parse($item['end_date']);
+                $newStart      = Carbon::parse($startDate);
+                $newEnd        = Carbon::parse($endDate);
+
+                // Check overlap: Start A < End B AND End A > Start B
+                if ($newStart < $existingEnd && $newEnd > $existingStart) {
+                    return response()->json([
+                        'status'  => 'error',
+                        'message' => 'This room is already in your cart for these dates. Please remove the existing item from your cart if you wish to modify the booking.',
+                    ], 409);
+                }
             }
         }
-        unset($item);
 
-        if (!$updated) {
-            $cart[] = $newItem;
-        }
+        // If no overlap, append to cart
+        $cart[] = $newItem;
 
         session(['cart' => $cart]);
 
@@ -127,6 +128,11 @@ class CartController extends Controller
             'cart_html' => CartHelper::renderPartial('home.partials.cart-summary', $cart),
             'cart_count' => count($cart),
         ]);
+    }
+
+    public function getItems()
+    {
+        return response()->json(['items' => session('cart', [])]);
     }
 
     public function remove($room_id)
