@@ -240,16 +240,6 @@
     </div>
 </div>
 
-{{-- Hidden form for cart submission --}}
-<form id="ubm-cart-form" method="POST" class="hidden">
-    @csrf
-    <input type="hidden" name="startDate"   id="ubm-startDate">
-    <input type="hidden" name="endDate"     id="ubm-endDate">
-    <input type="hidden" name="start_time"  id="ubm-startTime">
-    <input type="hidden" name="end_time"    id="ubm-endTime">
-    <input type="hidden" name="adults"      id="ubm-adults">
-    <input type="hidden" name="children"    id="ubm-children">
-</form>
 
 <script>
 function universalBooking() {
@@ -330,17 +320,85 @@ function universalBooking() {
             this.step = 3;
         },
 
-        submitToCart() {
+        async submitToCart() {
             this.loading = true;
-            const form = document.getElementById('ubm-cart-form');
-            form.action = '/add-to-cart/' + this.roomId;
-            document.getElementById('ubm-startDate').value  = this.checkin;
-            document.getElementById('ubm-endDate').value    = this.checkout;
-            document.getElementById('ubm-startTime').value  = this.checkinTime;
-            document.getElementById('ubm-endTime').value    = this.checkoutTime;
-            document.getElementById('ubm-adults').value     = this.adults;
-            document.getElementById('ubm-children').value   = this.children;
-            form.submit();
+            
+            try {
+                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}';
+                const res = await fetch('/add-to-cart/' + this.roomId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        startDate: this.checkin,
+                        endDate: this.checkout,
+                        start_time: this.checkinTime,
+                        end_time: this.checkoutTime,
+                        adults: parseInt(this.adults),
+                        children: parseInt(this.children)
+                    })
+                });
+                
+                const data = await res.json();
+                this.loading = false;
+                
+                if (data.status === 'success') {
+                    // Close the modal
+                    this.close();
+                    
+                    // Show success
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Added to Cart!',
+                            text: 'Room has been successfully added to your cart.',
+                            confirmButtonColor: '#964B00',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Redirect to checkout since it's a quick book modal
+                            window.location.href = '/checkout/' + this.roomId;
+                        });
+                    } else {
+                        window.location.href = '/checkout/' + this.roomId;
+                    }
+                    
+                    // Update cart HTML if needed globally
+                    if (data.cart_html) {
+                        const cartSummary = document.getElementById('cart-summary');
+                        if (cartSummary) {
+                            cartSummary.innerHTML = data.cart_html;
+                        }
+                    }
+                } else {
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message || 'Failed to add room to cart.',
+                            confirmButtonColor: '#964B00'
+                        });
+                    } else {
+                        alert(data.message || 'Failed to add room to cart.');
+                    }
+                }
+            } catch (error) {
+                this.loading = false;
+                console.error('Error adding to cart:', error);
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while adding the room to cart.',
+                        confirmButtonColor: '#964B00'
+                    });
+                } else {
+                    alert('An error occurred.');
+                }
+            }
         },
 
         formatDate(d) {
