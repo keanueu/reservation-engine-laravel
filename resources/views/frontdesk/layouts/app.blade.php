@@ -12,13 +12,15 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link href="{{ asset('css/output.css') }}" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-[Inter] bg-gray-100 dark:bg-black text-gray-900 dark:text-white transition-colors duration-200">
+<body class="font-['Raleway'] bg-gray-100 dark:bg-black text-gray-900 dark:text-white transition-colors duration-200">
     <div class="flex min-h-screen">
         @include('frontdesk.partials.sidebar')
         <main class="flex-1 flex flex-col h-screen overflow-y-auto lg:ml-64 transition-all duration-200 ease-in-out bg-gray-100 dark:bg-black">

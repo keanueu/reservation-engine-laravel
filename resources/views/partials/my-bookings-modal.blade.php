@@ -1,5 +1,5 @@
 <div id="my-bookings-modal"
-     class="fixed inset-0 hidden items-center justify-end z-[9999] font-[Inter]"
+     class="fixed inset-0 hidden items-center justify-end z-[9999] font-['Raleway']"
      style="background:rgba(0,0,0,0.55);">
 
     {{-- Slide-over panel --}}
@@ -23,11 +23,11 @@
         {{-- Filter tabs --}}
         <div class="flex border-b border-gray-100 flex-shrink-0 px-6">
             <button id="tab-all"    onclick="filterBookings('all')"
-                    class="booking-tab active-tab px-4 py-3 text-xs font-bold tracking-widest uppercase border-b-2 transition-colors mr-4">All</button>
+                    class="booking-tab active-tab px-4 py-3 text-xs font-bold border-b-2 transition-colors mr-4">All</button>
             <button id="tab-upcoming" onclick="filterBookings('upcoming')"
-                    class="booking-tab px-4 py-3 text-xs font-bold tracking-widest uppercase border-b-2 border-transparent text-gray-400 hover:text-gray-700 transition-colors mr-4">Upcoming</button>
+                    class="booking-tab px-4 py-3 text-xs font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-700 transition-colors mr-4">Upcoming</button>
             <button id="tab-past"   onclick="filterBookings('past')"
-                    class="booking-tab px-4 py-3 text-xs font-bold tracking-widest uppercase border-b-2 border-transparent text-gray-400 hover:text-gray-700 transition-colors">Past</button>
+                    class="booking-tab px-4 py-3 text-xs font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-700 transition-colors">Past</button>
         </div>
 
         {{-- Content --}}
@@ -46,7 +46,7 @@
         <div class="flex-shrink-0 px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-gray-50">
             <p class="text-xs text-gray-400">Need help? <a href="{{ url('/home/contact') }}" class="font-semibold underline" style="color:#964B00;">Contact us</a></p>
             <button data-close-mybookings
-                    class="px-5 py-2.5 text-xs font-bold tracking-widest uppercase text-white transition-colors"
+                    class="px-5 py-2.5 text-xs font-bold text-white transition-colors"
                     style="background:#964B00;"
                     onmouseover="this.style.background='#6b3500'" onmouseout="this.style.background='#964B00'">
                 Close
@@ -64,7 +64,7 @@
     .booking-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
 
     /* Status badges */
-    .badge { display:inline-flex; align-items:center; gap:4px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; }
+    .badge { display:inline-flex; align-items:center; gap:4px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:; }
     .badge-green  { background:#dcfce7; color:#15803d; }
     .badge-yellow { background:#fef9c3; color:#a16207; }
     .badge-red    { background:#fee2e2; color:#b91c1c; }
@@ -77,3 +77,4 @@
     .accordion-chevron { transition:transform .25s ease; }
     .accordion-chevron.open { transform:rotate(180deg); }
 </style>
+

@@ -106,26 +106,58 @@
                 </div>
 
                 {{-- Date grid --}}
-                <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-2 gap-4 mb-4"
+                     x-init="
+                        flatpickr($refs.u_checkin, {
+                            minDate: 'today',
+                            dateFormat: 'Y-m-d',
+                            altInput: true,
+                            altFormat: 'M j, Y',
+                            onChange: (selectedDates, dateStr) => { checkin = dateStr; }
+                        });
+                        flatpickr($refs.u_checkout, {
+                            minDate: 'today',
+                            dateFormat: 'Y-m-d',
+                            altInput: true,
+                            altFormat: 'M j, Y',
+                            onChange: (selectedDates, dateStr) => { checkout = dateStr; }
+                        });
+                        flatpickr($refs.u_checkinTime, {
+                            enableTime: true,
+                            noCalendar: true,
+                            dateFormat: 'H:i',
+                            altInput: true,
+                            altFormat: 'h:i K',
+                            onChange: (selectedDates, dateStr) => { checkinTime = dateStr; }
+                        });
+                        flatpickr($refs.u_checkoutTime, {
+                            enableTime: true,
+                            noCalendar: true,
+                            dateFormat: 'H:i',
+                            altInput: true,
+                            altFormat: 'h:i K',
+                            onChange: (selectedDates, dateStr) => { checkoutTime = dateStr; }
+                        });
+                     ">
                     <div>
                         <label class="block text-sm font-medium  text-black mb-2">Check-in Date</label>
-                        <input type="date" x-model="checkin" :min="today"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
+                        <input type="text" x-ref="u_checkin" placeholder="Select Date"
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium  text-black mb-2">Check-out Date</label>
-                        <input type="date" x-model="checkout" :min="checkin || today"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
+                        <input type="text" x-ref="u_checkout" placeholder="Select Date"
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium  text-black mb-2">Check-in Time</label>
-                        <input type="time" x-model="checkinTime"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
+                        <input type="text" x-ref="u_checkinTime" placeholder="Set Time"
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium  text-black mb-2">Check-out Time</label>
-                        <input type="time" x-model="checkoutTime"
-                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black focus:outline-none focus:border-[#964B00] transition-colors">
+                        <input type="text" x-ref="u_checkoutTime" placeholder="Set Time"
+                               class="w-full border border-gray-200 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-[#964B00] transition-colors">
                     </div>
                 </div>
 
@@ -216,8 +248,13 @@
 
             {{-- Next: step 1 → 2 --}}
             <button x-show="step === 1" @click="nextStep1()" type="button"
-                    class="ml-auto btn-primary px-8 py-2.5 text-sm font-medium ">
-                Continue →
+                    :disabled="loading"
+                    class="ml-auto btn-primary px-8 py-2.5 text-sm font-medium flex items-center gap-2 disabled:opacity-60">
+                <svg x-show="loading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                <span x-text="loading ? 'Checking...' : 'Continue →'"></span>
             </button>
 
             {{-- Next: step 2 → 3 --}}
@@ -302,12 +339,41 @@ function universalBooking() {
             this.maxGuests = parseInt(opt?.dataset?.max   || 13);
         },
 
-        nextStep1() {
+        async nextStep1() {
             this.errors.step1 = '';
             if (!this.roomId)   { this.errors.step1 = 'Please select a room.'; return; }
             if (!this.checkin)  { this.errors.step1 = 'Please select a check-in date.'; return; }
             if (!this.checkout) { this.errors.step1 = 'Please select a check-out date.'; return; }
             if (this.nights < 1){ this.errors.step1 = 'Check-out must be after check-in.'; return; }
+
+            // Fetch the latest cart state to ensure overlap check is accurate
+            try {
+                this.loading = true;
+                const response = await fetch('/api/cart/items');
+                const data = await response.json();
+                this.loading = false;
+                
+                const cartItems = data.items || [];
+                const newStart = new Date(this.checkin + 'T00:00:00');
+                const newEnd = new Date(this.checkout + 'T00:00:00');
+
+                for (let i = 0; i < cartItems.length; i++) {
+                    const item = cartItems[i];
+                    if (item.type === 'room' && item.room_id == this.roomId) {
+                        const exStart = new Date(item.start_date + 'T00:00:00');
+                        const exEnd = new Date(item.end_date + 'T00:00:00');
+
+                        if (newStart < exEnd && newEnd > exStart) {
+                            this.errors.step1 = 'This room is already in your cart for overlapping dates. Please remove it first to modify.';
+                            return;
+                        }
+                    }
+                }
+            } catch (error) {
+                this.loading = false;
+                console.error('Failed to fetch cart state for validation', error);
+            }
+
             this.step = 2;
         },
 
@@ -357,7 +423,8 @@ function universalBooking() {
                             text: 'Room has been successfully added to your cart.',
                             confirmButtonColor: '#964B00',
                             timer: 2000,
-                            showConfirmButton: false
+                            showConfirmButton: false,
+                            customClass: { container: 'z-[99999]' }
                         }).then(() => {
                             // Redirect to checkout since it's a quick book modal
                             window.location.href = '/checkout/' + this.roomId;
@@ -379,10 +446,14 @@ function universalBooking() {
                             icon: 'error',
                             title: 'Error',
                             text: data.message || 'Failed to add room to cart.',
-                            confirmButtonColor: '#964B00'
+                            confirmButtonColor: '#964B00',
+                            customClass: { container: 'z-[99999]' }
+                        }).then(() => {
+                            this.close(); // Close modal on error confirmation
                         });
                     } else {
                         alert(data.message || 'Failed to add room to cart.');
+                        this.close();
                     }
                 }
             } catch (error) {
@@ -393,10 +464,14 @@ function universalBooking() {
                         icon: 'error',
                         title: 'Error',
                         text: 'An error occurred while adding the room to cart.',
-                        confirmButtonColor: '#964B00'
+                        confirmButtonColor: '#964B00',
+                        customClass: { container: 'z-[99999]' }
+                    }).then(() => {
+                        this.close(); // Close modal on error confirmation
                     });
                 } else {
                     alert('An error occurred.');
+                    this.close();
                 }
             }
         },

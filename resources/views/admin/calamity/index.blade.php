@@ -122,7 +122,7 @@
                                         <path d="M6 14h.01M18 14h.01" />
                                         <path d="M12 18v2" />
                                     </svg>
-                                    Wind Speed
+                                    Wind speed
                                 </div>
                                 <p class="text-base sm:text-lg text-gray-900 dark:text-white font-semibold" id="wind-speed-value">3.3 <span
                                     class="text-gray-600 dark:text-white ">m/s</span></p>
@@ -168,7 +168,7 @@
                                         <path
                                             d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
                                     </svg>
-                                    Feels Like
+                                    Feels like
                                 </div>
                                 <p class="text-base sm:text-lg text-gray-900 dark:text-white font-semibold" id="feels-like-value">17<span
                                     class="text-gray-600 dark:text-white ">°C</span></p>
@@ -231,7 +231,7 @@
                                 <line x1="8" x2="8" y1="2" y2="6" />
                                 <line x1="3" x2="21" y1="10" y2="10" />
                             </svg>
-                            Monthly Forecast - November 2025
+                            Monthly forecast - November 2025
                         </h3>
 
                         <div id="monthly-forecast-list" class="space-y-2">
@@ -322,7 +322,7 @@
                         <line x1="8" x2="8" y1="2" y2="6" />
                         <line x1="3" x2="21" y1="10" y2="10" />
                     </svg>
-                    5 Day Forecast (Summary)
+                    5 day forecast (summary)
                 </h3>
 
                 <!-- Forecast Item Loop -->

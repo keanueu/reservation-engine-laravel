@@ -56,12 +56,12 @@
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Start Date</label>
-                    <input type="date" name="start_date" value="{{ old('start_date', $discount->start_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
+                    <input type="text" name="start_date" id="discount_start_date" placeholder="Select Date" value="{{ old('start_date', $discount->start_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                   </div>
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">End Date</label>
-                    <input type="date" name="end_date" value="{{ old('end_date', $discount->end_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
+                    <input type="text" name="end_date" id="discount_end_date" placeholder="Select Date" value="{{ old('end_date', $discount->end_date) }}" class="w-full  border-gray-200 p-2 bg-white dark:bg-black">
                   </div>
 
                   <div class="md:col-span-2">
@@ -117,4 +117,20 @@
             </div>
 
           </div>
-@endsection     
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#discount_start_date", {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "M j, Y",
+            defaultDate: "{{ $discount->start_date }}"
+        });
+        flatpickr("#discount_end_date", {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "M j, Y",
+            defaultDate: "{{ $discount->end_date }}"
+        });
+    });
+  </script>
+@endsection

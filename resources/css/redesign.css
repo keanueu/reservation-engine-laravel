@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
@@ -18,7 +18,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-semibold tracking-tight text-coastal-900;
+    @apply font-sans font-semibold tracking-tight text-coastal-900;
   }
 
   h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
@@ -116,7 +116,7 @@
   }
 
   .stat-label {
-    @apply text-sm font-medium text-coastal-500 uppercase tracking-wide;
+    @apply text-sm font-medium text-coastal-500 tracking-wide;
   }
 
   .stat-icon {
@@ -133,7 +133,7 @@
   }
 
   .table-modern th {
-    @apply px-6 py-4 text-left text-xs font-semibold text-coastal-700 uppercase tracking-wider first:rounded-tl-xl last:rounded-tr-xl;
+    @apply px-6 py-4 text-left text-xs font-semibold text-coastal-700 tracking-wider first:rounded-tl-xl last:rounded-tr-xl;
   }
 
   .table-modern td {

@@ -150,6 +150,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/remove-boat-from-cart/{boat_id}', [CartController::class, 'removeBoatFromCart']);
     Route::post('/add-to-cart/{room_id}', [CartController::class, 'add'])->name('cart.add');
     Route::get('/remove-from-cart/{room_id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/api/cart/items', [CartController::class, 'getItems'])->name('cart.items');
 
     // Booking & Availability
     Route::get('/check_availability', [AdminController::class, 'checkAvailability'])->name('check_availability');

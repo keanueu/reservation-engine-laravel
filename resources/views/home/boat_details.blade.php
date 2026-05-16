@@ -6,13 +6,13 @@
       alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter]">
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center ">
         Our Exclusive Stays
       </h1>
     </div>
   </div>
 
-  <section class="pt-12 pb-12 font-[Inter] bg-white"> {{-- Adjusted padding to match room blade --}}
+  <section class="pt-12 pb-12 bg-white"> {{-- Adjusted padding to match room blade --}}
     <div class="max-w-7xl mx-auto px-4" id="boat-details-section">
 
       <div class="pb-3"> {{-- Adjusted structure for heading and back link --}}
@@ -130,3 +130,5 @@
   </section>
 
 @endsection
+
+

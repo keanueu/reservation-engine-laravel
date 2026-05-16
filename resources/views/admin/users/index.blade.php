@@ -18,7 +18,7 @@
                         stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
                     </svg>
-                    Add New User
+                    Add new user
                 </a>
             </div>
         </div>
@@ -32,13 +32,13 @@
                     <thead class="bg-gray-50 dark:bg-black">
                         <tr>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                                 User</th>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                                 Role</th>
                             <th scope="col"
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300  tracking-wider">
                                 Actions</th>
                         </tr>
                     </thead>
@@ -141,3 +141,4 @@
         </div>
     </div>
 @endsection
+

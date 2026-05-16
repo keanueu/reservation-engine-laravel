@@ -12,26 +12,26 @@
                 <thead class="bg-gray-50 dark:bg-black">
                     <tr>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Guest</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Booking Dates</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Room</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Payment</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Status</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Refund</th>
                         {{-- REDUCED PADDING: Changed px-6 to px-2 for tighter action column header --}}
                         <th scope="col"
-                            class="px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            class="px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300">
                             Actions</th>
                         {{-- REDUCED PADDING: Changed px-6 to px-2 for the final empty header --}}
                         <th scope="col" class="relative px-2 py-3">
@@ -127,36 +127,36 @@
                                                     <svg class="mr-1 w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                                     </svg>
-                                                    REFUNDED
+                                                    Refunded
                                                 </span>
                                                 <span class="text-sm font-bold text-gray-900">₱{{ number_format($data->refund_amount, 2) }}</span>
-                                                <span class="text-[10px] text-gray-400 font-medium uppercase">{{ $data->refunded_at ? \Carbon\Carbon::parse($data->refunded_at)->format('M d, Y') : '' }}</span>
+                                                <span class="text-[10px] text-gray-400 font-medium ">{{ $data->refunded_at ? \Carbon\Carbon::parse($data->refunded_at)->format('M d, Y') : '' }}</span>
                                             </div>
                                         @elseif($data->refund_status === 'requested')
                                             <div class="flex flex-col items-start space-y-2">
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 animate-pulse">
-                                                    REQUESTED
+                                                    Requested
                                                 </span>
                                                 <div class="text-xs font-semibold text-gray-700">Amt: ₱{{ number_format($data->refund_amount, 2) }}</div>
                                                 <div class="flex space-x-1">
                                                     <form method="POST" action="{{ route('admin.bookings.refund.approve', $data->id) }}">
                                                         @csrf
-                                                        <button class="px-2 py-1 bg-emerald-600 text-white rounded-md text-[10px] font-bold hover:bg-emerald-700 shadow-sm transition-all">APPROVE</button>
+                                                        <button class="px-2 py-1 bg-emerald-600 text-white rounded-md text-[10px] font-bold hover:bg-emerald-700 shadow-sm transition-all">Approve</button>
                                                     </form>
                                                     <form method="POST" action="{{ route('admin.bookings.refund.reject', $data->id) }}">
                                                         @csrf
-                                                        <button class="px-2 py-1 bg-rose-600 text-white rounded-md text-[10px] font-bold hover:bg-rose-700 shadow-sm transition-all">REJECT</button>
+                                                        <button class="px-2 py-1 bg-rose-600 text-white rounded-md text-[10px] font-bold hover:bg-rose-700 shadow-sm transition-all">Reject</button>
                                                     </form>
                                                 </div>
                                             </div>
                                         @else
                                             <div class="flex flex-col">
-                                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{{ $data->refund_status }}</span>
+                                                <span class="text-[10px] font-bold text-gray-500  tracking-wider">{{ $data->refund_status }}</span>
                                                 <span class="text-xs font-medium text-gray-700">₱{{ number_format($data->refund_amount ?? 0, 2) }}</span>
                                             </div>
                                         @endif
                                     @else
-                                        <span class="text-gray-300 text-[10px] uppercase tracking-widest font-medium">No activity</span>
+                                        <span class="text-gray-300 text-[10px]  tracking-widest font-medium">No activity</span>
                                     @endif
                                 </td>
 
@@ -330,8 +330,8 @@
                                             <dd class=" text-gray-600 dark:text-gray-300 mt-1">
                                                 <form method="POST" action="{{ route('admin.bookings.set_actual_times', $data->id) }}" class="flex flex-col space-y-2">
                                                     @csrf
-                                                    <input type="datetime-local" name="actual_checkin_at" class="px-2 py-1 border rounded text-xs" placeholder="Actual check-in" />
-                                                    <input type="datetime-local" name="actual_checkout_at" class="px-2 py-1 border rounded text-xs" placeholder="Actual check-out" />
+                                                    <input type="text" name="actual_checkin_at" id="actual_checkin_{{ $data->id }}" class="px-2 py-1 border rounded text-xs" placeholder="Actual check-in" />
+                                                    <input type="text" name="actual_checkout_at" id="actual_checkout_{{ $data->id }}" class="px-2 py-1 border rounded text-xs" placeholder="Actual check-out" />
                                                     <div class="flex space-x-2">
                                                         <button type="submit" class="px-3 py-1 bg-green-600 text-white text-xs rounded">Save</button>
                                                         <a href="{{ url('bookings/check-in', $data->id) }}" class="px-3 py-1 bg-blue-600 text-white text-xs rounded">Set Check-in Now</a>
@@ -407,4 +407,19 @@
         </div>
     </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fpOptions = {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            altInput: true,
+            altFormat: "M j, Y h:i K"
+        };
+        @foreach($datas as $data)
+            flatpickr("#actual_checkin_{{ $data->id }}", fpOptions);
+            flatpickr("#actual_checkout_{{ $data->id }}", fpOptions);
+        @endforeach
+    });
+  </script>
 @endsection
+

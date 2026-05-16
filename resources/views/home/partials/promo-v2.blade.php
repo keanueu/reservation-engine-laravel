@@ -18,7 +18,7 @@
     sm:overflow-visible sm:snap-none sm:space-x-0
     sm:grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1
     sm:gap-6 items-stretch
-    mt-6 overscroll-auto font-[Inter]" style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
+    mt-6 overscroll-auto " style="-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;">
 
 
         {{-- Only show rooms that currently have an active promotion (admin can remove promos) --}}
@@ -337,3 +337,5 @@
     </div>
 </div>
 </div>
+
+

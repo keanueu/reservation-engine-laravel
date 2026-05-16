@@ -40,8 +40,8 @@
         else if (s === 'checked-out')                           cls = 'background:#e0e7ff;color:#4338ca;';
         else if (s === 'waiting' || s === 'pending')            cls = 'background:#fef9c3;color:#a16207;';
         else if (s === 'rejected' || s === 'cancelled')         cls = 'background:#fee2e2;color:#b91c1c;';
-        const label = status ? status.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase()) : 'N/A';
-        return `<span style="display:inline-block;padding:2px 10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;${cls}">${label}</span>`;
+        const label = status ? status.replace(/-/g,' ').charAt(0).toUpperCase() + status.replace(/-/g,' ').slice(1).toLowerCase() : 'N/A';
+        return `<span style="display:inline-block;padding:2px 10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;${cls}">${label}</span>`;
     }
 
     function paymentBadge(status) {
@@ -50,8 +50,8 @@
         if (s === 'paid')    cls = 'background:#dcfce7;color:#15803d;';
         else if (s === 'pending') cls = 'background:#fef9c3;color:#a16207;';
         else if (s === 'failed')  cls = 'background:#fee2e2;color:#b91c1c;';
-        const label = status ? status.replace(/\b\w/g, c => c.toUpperCase()) : 'Pending';
-        return `<span style="display:inline-block;padding:2px 10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;${cls}">${label}</span>`;
+        const label = status ? status.charAt(0).toUpperCase() + status.slice(1).toLowerCase() : 'Pending';
+        return `<span style="display:inline-block;padding:2px 10px;font-size:.68rem;font-weight:700;letter-spacing:.06em;${cls}">${label}</span>`;
     }
 
     function fmt(dtStr) {
@@ -99,7 +99,7 @@
         <!-- Header -->
         <div style="background:#964B00;padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;">
             <div>
-                <p style="font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px;">Booking #${b.id}</p>
+                <p style="font-size:.65rem;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.65);margin-bottom:3px;">Booking #${b.id}</p>
                 <p style="font-size:.95rem;font-weight:800;color:#fff;line-height:1.3;">${b.room_name || 'Room'}</p>
             </div>
             <div style="text-align:right;">
@@ -111,7 +111,7 @@
         <!-- Date strip -->
         <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px 16px;background:#faf9f7;border-bottom:1px solid #e5e7eb;">
             <div>
-                <p style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ca3af;">Check-in</p>
+                <p style="font-size:.6rem;font-weight:700;letter-spacing:.12em;color:#9ca3af;">Check-in</p>
                 <p style="font-size:.8rem;font-weight:700;color:#111827;margin-top:2px;">${checkinDate}</p>
                 <p style="font-size:.7rem;color:#6b7280;">${b.scheduled_checkin_at ? fmt(b.scheduled_checkin_at).split(',').slice(-1)[0].trim() : '—'}</p>
             </div>
@@ -121,7 +121,7 @@
                 <svg style="width:16px;height:16px;color:#9ca3af;margin:0 auto;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </div>
             <div style="text-align:right;">
-                <p style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ca3af;">Check-out</p>
+                <p style="font-size:.6rem;font-weight:700;letter-spacing:.12em;color:#9ca3af;">Check-out</p>
                 <p style="font-size:.8rem;font-weight:700;color:#111827;margin-top:2px;">${checkoutDate}</p>
                 <p style="font-size:.7rem;color:#6b7280;">${b.scheduled_checkout_at ? fmt(b.scheduled_checkout_at).split(',').slice(-1)[0].trim() : '—'}</p>
             </div>
@@ -129,7 +129,7 @@
 
         <!-- Pricing -->
         <div style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
-            <p style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:8px;">Pricing</p>
+            <p style="font-size:.65rem;font-weight:700;letter-spacing:.12em;color:#9ca3af;margin-bottom:8px;">Pricing</p>
             ${row('Total Amount', `<span style="color:#964B00;font-weight:800;">${php(b.total_amount)}</span>`)}
             ${row('Deposit Paid', php(b.deposit_amount))}
             ${b.paid_amount ? row('Amount Paid', `<span style="color:#15803d;">${php(b.paid_amount)}</span>`) : ''}
@@ -144,12 +144,12 @@
         <!-- Action buttons -->
         <div style="padding:12px 16px;display:flex;gap:8px;background:#faf9f7;">
             <button data-open-extension data-booking-id="${b.id}"
-                style="flex:1;padding:9px 0;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#111827;color:#fff;border:none;cursor:pointer;transition:background .2s;"
+                style="flex:1;padding:9px 0;font-size:.7rem;font-weight:700;letter-spacing:.1em;background:#111827;color:#fff;border:none;cursor:pointer;transition:background .2s;"
                 onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#111827'">
                 + Request Extension
             </button>
             <button data-open-refund data-booking-id="${b.id}"
-                style="flex:1;padding:9px 0;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#964B00;color:#fff;border:none;cursor:pointer;transition:background .2s;"
+                style="flex:1;padding:9px 0;font-size:.7rem;font-weight:700;letter-spacing:.1em;background:#964B00;color:#fff;border:none;cursor:pointer;transition:background .2s;"
                 onmouseover="this.style.background='#6b3500'" onmouseout="this.style.background='#964B00'">
                 ↩ Request Refund
             </button>
@@ -158,7 +158,7 @@
         <!-- Inline extension form (hidden by default) -->
         <div id="extension-form-${b.id}" class="extension-form"
              style="display:none;padding:16px;background:#f0f9ff;border-top:2px solid #111827;">
-            <p style="font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#111827;margin-bottom:12px;">Request Extension</p>
+            <p style="font-size:.7rem;font-weight:800;letter-spacing:.12em;color:#111827;margin-bottom:12px;">Request Extension</p>
             <div style="margin-bottom:10px;">
                 <label style="display:block;font-size:.7rem;font-weight:700;color:#374151;margin-bottom:4px;">Additional Hours</label>
                 <select name="ext_hours"
@@ -178,11 +178,11 @@
             </div>
             <div style="display:flex;gap:8px;justify-content:flex-end;">
                 <button class="ext-cancel"
-                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#f3f4f6;color:#374151;border:none;cursor:pointer;">
+                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:#f3f4f6;color:#374151;border:none;cursor:pointer;">
                     Cancel
                 </button>
                 <button class="ext-submit"
-                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#111827;color:#fff;border:none;cursor:pointer;">
+                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:#111827;color:#fff;border:none;cursor:pointer;">
                     Submit
                 </button>
             </div>
@@ -195,7 +195,7 @@
              data-group-deposit="${Number(b.group_deposit_total||0).toFixed(2)}"
              data-group-has-refund="${b.group_has_refund ? '1' : '0'}"
              style="display:none;padding:16px;background:#fff8f5;border-top:2px solid #964B00;">
-            <p style="font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#964B00;margin-bottom:12px;">Refund Request</p>
+            <p style="font-size:.7rem;font-weight:800;letter-spacing:.12em;color:#964B00;margin-bottom:12px;">Refund Request</p>
             <div style="margin-bottom:10px;">
                 <label style="display:block;font-size:.7rem;font-weight:700;color:#374151;margin-bottom:4px;">Amount <span style="color:#9ca3af;font-weight:400;">(optional — leave blank for full deposit)</span></label>
                 <input type="number" step="0.01" name="amount"
@@ -219,11 +219,11 @@
             </div>
             <div style="display:flex;gap:8px;justify-content:flex-end;">
                 <button class="refund-cancel"
-                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#f3f4f6;color:#374151;border:none;cursor:pointer;">
+                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:#f3f4f6;color:#374151;border:none;cursor:pointer;">
                     Cancel
                 </button>
                 <button class="refund-submit"
-                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#964B00;color:#fff;border:none;cursor:pointer;">
+                        style="padding:7px 16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:#964B00;color:#fff;border:none;cursor:pointer;">
                     Submit Request
                 </button>
             </div>
@@ -272,7 +272,7 @@
             if (s === 'approved' || s === 'paid') badgeStyle = 'background:#dcfce7;color:#15803d;';
             else if (s === 'pending' || s === 'pending_payment') badgeStyle = 'background:#fef9c3;color:#a16207;';
             else if (s === 'rejected') badgeStyle = 'background:#fee2e2;color:#b91c1c;';
-            const label = (e.status || 'Pending').replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+            const label = (e.status || 'Pending').replace(/_/g,' ').charAt(0).toUpperCase() + (e.status || 'Pending').replace(/_/g,' ').slice(1).toLowerCase();
             const checkBtn = s === 'pending_payment'
                 ? `<button data-ext-id="${e.id}" class="my-ext-refresh"
                        style="padding:3px 8px;font-size:.65rem;font-weight:700;background:#964B00;color:#fff;border:none;cursor:pointer;margin-left:6px;">
@@ -293,7 +293,7 @@
 
         return `
         <div style="padding:10px 16px;border-bottom:1px solid #e5e7eb;">
-            <p style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:6px;">
+            <p style="font-size:.65rem;font-weight:700;letter-spacing:.12em;color:#9ca3af;margin-bottom:6px;">
                 Extensions (${extensions.length})
             </p>
             ${items}

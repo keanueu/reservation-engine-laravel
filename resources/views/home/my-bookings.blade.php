@@ -6,7 +6,7 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
         alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-[Inter] font-medium ">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white text-center font-medium ">
             My bookings
         </h1>
     </div>
@@ -23,7 +23,7 @@
                     <h2 class="text-4xl font-medium text-black">My bookings</h2>
                     <p class="text-base text-black mt-3 leading-relaxed">Manage your reservations and booking history</p>
                 </div>
-                <a href="{{ route('booking.dates') }}" 
+                <a href="javascript:void(0)" onclick="openBookingModal()" 
                    class="btn-primary px-6 py-3 text-sm">
                     New booking
                 </a>
@@ -119,7 +119,7 @@
                         <h3 class="mt-4 text-xl text-black">No bookings found</h3>
                         <p class="mt-3 text-base text-black">You haven't made any bookings yet.</p>
                         <div class="mt-6">
-                            <a href="{{ route('booking.dates') }}" class="btn-primary px-6 py-3 text-sm">
+                            <a href="javascript:void(0)" onclick="openBookingModal()" class="btn-primary px-6 py-3 text-sm">
                                 Make your first booking
                             </a>
                         </div>
@@ -567,3 +567,4 @@ async function handleRefundSubmit(event, bookingId) {
 @endauth
 </script>
 @endsection
+

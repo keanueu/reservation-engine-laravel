@@ -11,7 +11,7 @@
       alt="Luxury Beach Resort" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black bg-opacity-50 px-4 pb-12 md:pb-16">
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center font-[Inter] ">
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  text-white text-center ">
         Explore Our Offerings
       </h1>
     </div>
@@ -21,12 +21,12 @@
 
     <div class="lg:hidden space-y-2 mb-8">
       <a href="{{ url('/') }}"
-        class="flex items-center text-sm text-black hover:text-yellow-700 transition font-[Inter]">
+        class="flex items-center text-sm text-black hover:text-yellow-700 transition ">
         <span class="material-symbols-outlined mr-2" style="font-size: 16px;">arrow_back</span>
         Back to Home
       </a>
 
-      <h1 class="text-2xl sm:text-3xl font-medium text-black font-[Inter]">
+      <h1 class="text-2xl sm:text-3xl font-medium text-black ">
         Review and Select
       </h1>
     </div>
@@ -72,11 +72,11 @@
 
         <div class="hidden lg:block space-y-2">
           <a href="{{ url('/') }}"
-            class="flex items-center text-sm font-[Inter] text-black hover:text-yellow-700 transition">
+            class="flex items-center text-sm text-black hover:text-yellow-700 transition">
             <span class="material-symbols-outlined mr-2" style="font-size: 16px;">arrow_back</span>
             Back to Home
           </a>
-          <h1 class="text-2xl sm:text-3xl font-medium text-black font-[Inter]">
+          <h1 class="text-2xl sm:text-3xl font-medium text-black ">
             Review & Select
           </h1>
         </div>
@@ -85,12 +85,12 @@
           <nav class="-mb-px flex space-x-8" aria-label="Tabs">
             <button @click="tab = 'rooms'"
               :class="{ 'border-[#964B00] text-[#964B00]': tab === 'rooms', 'border-transparent text-black hover:text-black  hover:border-gray-300': tab !== 'rooms' }"
-              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium font-[Inter] text-md transition-colors duration-200">
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base transition-colors duration-200">
               Book Your Stay
             </button>
             <button @click="tab = 'boats'"
               :class="{ 'border-[#964B00] text-[#964B00]': tab === 'boats', 'border-transparent text-black hover:text-black  hover:border-gray-300': tab !== 'boats' }"
-              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium font-[Inter] text-md transition-colors duration-200">
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-base transition-colors duration-200">
               Book an Adventure
             </button>
           </nav>
@@ -107,3 +107,5 @@
   </div>
 
 @endsection
+
+

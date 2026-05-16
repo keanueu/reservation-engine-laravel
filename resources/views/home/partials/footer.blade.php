@@ -16,8 +16,8 @@
                         <img src="{{ asset('LOGO-FINAL.png') }}" alt="Cabanas" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <p class="text-base text-white">CABANAS</p>
-                        <p class="text-[10px] text-white/40 mt-0.5">HOTEL & RESORT</p>
+                        <p class="text-base text-white">Cabanas</p>
+                        <p class="text-[10px] text-white/40 mt-0.5">Hotel & Resort</p>
                     </div>
                 </div>
                 <p class="text-sm text-white/60 leading-relaxed mb-6">
@@ -31,7 +31,7 @@
                     ]; @endphp
                     @foreach($trust as $t)
                         <div class="flex items-center gap-2 text-white/50">
-                            <span class="material-symbols-outlined text-base flex-shrink-0 text-[#63360D]">{{ $t['icon'] }}</span>
+                            <span class="material-symbols-outlined text-base flex-shrink-0 text-[var(--brand)]">{{ $t['icon'] }}</span>
                             <span class="text-sm">{{ $t['label'] }}</span>
                         </div>
                     @endforeach
@@ -59,7 +59,7 @@
                     @foreach($links as [$label,$url])
                         <li>
                             <a href="{{ $url }}" class="flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors group">
-                                <span class="w-0 h-px bg-[#63360D] transition-all duration-300 group-hover:w-4"></span>
+                                <span class="w-0 h-px bg-[var(--brand)] transition-all duration-300 group-hover:w-4"></span>
                                 {{ $label }}
                             </a>
                         </li>
@@ -78,7 +78,7 @@
                     ]; @endphp
                     @foreach($contacts as $c)
                         <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-base mt-0.5 flex-shrink-0 text-[#63360D]">{{ $c['icon'] }}</span>
+                            <span class="material-symbols-outlined text-base mt-0.5 flex-shrink-0 text-[var(--brand)]">{{ $c['icon'] }}</span>
                             <span class="text-sm text-white/55 leading-relaxed">{{ $c['text'] }}</span>
                         </li>
                     @endforeach
@@ -93,7 +93,7 @@
                     <input type="email" placeholder="your@email.com"
                            class="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
                            style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);"
-                           onfocus="this.style.borderColor='#63360D'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                           onfocus="this.style.borderColor='var(--brand)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
                     <button type="submit"
                             class="w-full btn-primary py-3 text-sm">
                         Subscribe
@@ -116,10 +116,11 @@
                 <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
                 <a href="#" class="hover:text-white/70 transition-colors">Terms of Service</a>
                 <span class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-base text-[#63360D]">location_on</span>
+                    <span class="material-symbols-outlined text-base text-[var(--brand)]">location_on</span>
                     Dasol, Pangasinan
                 </span>
             </div>
         </div>
     </div>
 </footer>
+

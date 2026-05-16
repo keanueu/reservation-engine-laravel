@@ -2,38 +2,62 @@
 
 
   <div class="max-w-7xl mx-auto mb-10">
-    <h2 class="text-3xl  font-[Inter] text-black mb-6">
+    <h2 class="text-3xl  text-black mb-6">
       Check Room Availability
     </h2>
     <div
-      class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 font-[Inter] bg-white p-6 border border-gray-200 shadow-sm">
+      class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 border border-gray-200 shadow-sm"
+      x-init="
+        flatpickr($refs.cart_room_start, {
+            minDate: 'today',
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'M j, Y',
+            onChange: (selectedDates, dateStr) => { room_startDate = dateStr; }
+        });
+        flatpickr($refs.cart_room_end, {
+            minDate: 'today',
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'M j, Y',
+            onChange: (selectedDates, dateStr) => { room_endDate = dateStr; }
+        });
+        flatpickr($refs.cart_room_checkinTime, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: 'H:i',
+            altInput: true,
+            altFormat: 'h:i K',
+            onChange: (selectedDates, dateStr) => { room_checkin_time = dateStr; }
+        });
+        flatpickr($refs.cart_room_checkoutTime, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: 'H:i',
+            altInput: true,
+            altFormat: 'h:i K',
+            onChange: (selectedDates, dateStr) => { room_checkout_time = dateStr; }
+        });
+      ">
 
       <div>
-        <label class="block text-sm text-black mb-1 flex items-center gap-1">
-
-          Check-in
-        </label>
-        <input id="startDate" type="date" required x-model="room_startDate"
+        <label class="block text-sm text-black mb-1 flex items-center gap-1">Check-in</label>
+        <input type="text" x-ref="cart_room_start" placeholder="Select Date"
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
       <div>
-        <label class="block text-sm text-black mb-1 flex items-center gap-1">
-
-          Check-out
-        </label>
-        <input id="endDate" type="date" required x-model="room_endDate"
+        <label class="block text-sm text-black mb-1 flex items-center gap-1">Check-out</label>
+        <input type="text" x-ref="cart_room_end" placeholder="Select Date"
           class="mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
       <div>
-        <label class="block text-sm text-black mb-1">Checkin time</label>
-        <input id="room_checkin_time" type="time" required x-model="room_checkin_time"
+        <label class="block text-sm text-black mb-1">Check-in time</label>
+        <input type="text" x-ref="cart_room_checkinTime" placeholder="Set Time"
           class="relative z-10 mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
-
-
       <div>
-        <label class="block text-sm text-black mb-1">Checkout time </label>
-        <input id="room_checkout_time" type="time" required x-model="room_checkout_time"
+        <label class="block text-sm text-black mb-1">Check-out time </label>
+        <input type="text" x-ref="cart_room_checkoutTime" placeholder="Set Time"
           class="relative z-10 mt-1 block w-full border-gray-300 shadow-sm sm:text-sm h-11 px-3">
       </div>
 
@@ -71,7 +95,7 @@
     <input type="hidden" name="children" id="room_children_input">
   </form>
 
-  <div class="mt-6 font-[Inter] text-black">
+  <div class="mt-6 text-black">
     <div x-cloak class="mb-4">
 
       <div class="flex items-center justify-between">
@@ -234,7 +258,7 @@
               class="w-full h-full object-cover transition duration-500 hover:scale-105">
             <div class="absolute bottom-4 left-4">
               <p class="text-lg font-medium text-white">PHP {{ number_format($room->price ?? 0, 2) }}</p>
-              <span class="text-sm text-white ">PER NIGHT</span>
+              <span class="text-sm text-white ">Per night</span>
             </div>
           </div>
 
@@ -280,9 +304,9 @@
                 View Details
               </a>
               <button type="button"
-                onclick="location.href='{{ route('booking.dates', ['room_id' => $room->id, 'type' => 'room']) }}'"
+                onclick="openBookingModal('{{ $room->id }}', '{{ addslashes($room->room_name) }}', {{ $room->price }}, {{ (int)$room->accommodates }})"
                 class="bg-[#964B00] px-6 py-2.5 text-sm text-white hover:bg-black transition flex items-center justify-center ">
-                BOOK NOW
+                Book now
               </button>
             </div>
           </div>
@@ -293,3 +317,5 @@
 
   </div>
 </div>
+
+

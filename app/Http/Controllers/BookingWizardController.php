@@ -52,6 +52,17 @@ class BookingWizardController extends Controller
                 'end_time'     => 'required',
             ]);
 
+            // Database Availability Check
+            $overlap = \App\Models\BoatBooking::where('boat_id', $request->boat_id)
+                ->where('booking_date', $request->booking_date)
+                ->whereNotIn('status', ['cancelled', 'rejected'])
+                ->where(fn($q) => $q->where('start_time', '<', $request->end_time)->where('end_time', '>', $request->start_time))
+                ->exists();
+
+            if ($overlap) {
+                return back()->withErrors(['boat_id' => 'This boat is already booked for the selected time.'])->withInput();
+            }
+
             session(['booking_wizard' => [
                 'step1' => [
                     'type'         => 'boat',
@@ -67,6 +78,30 @@ class BookingWizardController extends Controller
                 'checkin'  => 'required|date|after_or_equal:today',
                 'checkout' => 'required|date|after:checkin',
             ]);
+
+            // Database Availability Check
+            $conflict = \App\Models\Booking::availableBetween($request->checkin, $request->checkout)
+                ->where('room_id', $request->room_id)
+                ->exists();
+
+            if ($conflict) {
+                return back()->withErrors(['room_id' => 'This room is already booked for the selected dates.'])->withInput();
+            }
+
+            // Cart Overlap Check
+            $cart = session('cart', []);
+            foreach ($cart as $item) {
+                if (isset($item['room_id'], $item['start_date'], $item['end_date']) && $item['room_id'] == $request->room_id) {
+                    $existingStart = Carbon::parse($item['start_date']);
+                    $existingEnd   = Carbon::parse($item['end_date']);
+                    $newStart      = Carbon::parse($request->checkin);
+                    $newEnd        = Carbon::parse($request->checkout);
+
+                    if ($newStart < $existingEnd && $newEnd > $existingStart) {
+                        return back()->withErrors(['room_id' => 'This room is already in your cart for overlapping dates. Please remove it first to modify.'])->withInput();
+                    }
+                }
+            }
 
             session(['booking_wizard' => [
                 'step1' => [

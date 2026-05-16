@@ -69,7 +69,7 @@
                 
                 {{-- Check-in Time (Input Type Time) --}}
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="time" name="check_in" id="check_in_input"
+                    <input type="text" name="check_in" id="check_in_input"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
                     <label for="check_in_input"
@@ -80,7 +80,7 @@
 
                 {{-- Check-out Time (Input Type Time) --}}
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="time" name="check_out" id="check_out_input"
+                    <input type="text" name="check_out" id="check_out_input"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-black dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
                     <label for="check_out_input"
@@ -145,4 +145,22 @@
     </form>
 </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#check_in_input", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            altInput: true,
+            altFormat: "h:i K"
+        });
+        flatpickr("#check_out_input", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            altInput: true,
+            altFormat: "h:i K"
+        });
+    });
+  </script>
 @endsection

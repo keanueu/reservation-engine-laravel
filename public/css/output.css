@@ -154,7 +154,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Raleway, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -3200,15 +3200,15 @@ select {
 }
 
 .font-\[\'Playfair_Display\'\] {
-  font-family: 'Playfair Display';
+  font-family: 'Raleway';
 }
 
 .font-\[\'Poppins\'\] {
-  font-family: 'Poppins';
+  font-family: 'Raleway';
 }
 
 .font-\[Poppins\] {
-  font-family: Poppins;
+  font-family: Raleway;
 }
 
 .font-mono {
@@ -3216,7 +3216,7 @@ select {
 }
 
 .font-sans {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Raleway, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-serif {

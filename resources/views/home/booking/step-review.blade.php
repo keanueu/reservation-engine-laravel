@@ -12,7 +12,7 @@
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
          alt="Review" class="absolute inset-0 object-cover w-full h-full">
     <div class="relative z-10 flex items-end justify-center w-full h-full bg-black/50 px-4 pb-10 md:pb-14">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center font-[Inter]">Review Your Booking</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white text-center ">Review Your Booking</h1>
     </div>
 </div>
 
@@ -87,7 +87,7 @@
 
     <p class="text-sm text-white mb-6">* Final price may vary. A deposit will be collected at checkout.</p>
 
-    <form action="{{ route('booking.review.post') }}" method="POST">
+    <form id="review-form" action="{{ route('booking.review.post') }}" method="POST">
         @csrf
         <div class="flex gap-3">
             <a href="{{ route('booking.guests') }}"
@@ -101,4 +101,37 @@
     </form>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('review-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Added to Cart!',
+                text: 'Your selection has been successfully added to your cart.',
+                confirmButtonColor: '#964B00',
+                timer: 1800,
+                showConfirmButton: false,
+                customClass: {
+                    container: 'z-[99999]',
+                    popup: 'rounded-none',
+                    confirmButton: 'rounded-none'
+                }
+            }).then(() => {
+                form.submit();
+            });
+        } else {
+            form.submit();
+        }
+    });
+});
+</script>
+
 @endsection
+
+

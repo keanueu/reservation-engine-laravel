@@ -58,8 +58,9 @@ if (isset($response['data']['attributes']['checkout_url'])) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Proceed to Payment</title>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <style>
-            body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;display:flex;align-items:center;justify-content:center;height:100vh;background:#f7fafc}
+            body{font-family:'Raleway',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;display:flex;align-items:center;justify-content:center;height:100vh;background:#f7fafc}
             .card{background:#fff;padding:28px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08);text-align:center;width:360px}
             .btn{display:inline-block;margin:8px;padding:10px 16px;border-radius:6px;border:none;cursor:pointer;text-decoration:none}
             .btn-pay{background:#059669;color:#fff}

@@ -280,6 +280,8 @@ class PaymentController extends Controller
 
     private function returnUrl(?string $configuredUrl, string $fallbackUrl, array $query): string
     {
+        // Favor dynamic fallbackUrl (generated via route()) over hardcoded .env config
+        // to prevent session logout caused by host mismatches (e.g., localhost vs 127.0.0.1).
         $url = $configuredUrl ?: $fallbackUrl;
         $filteredQuery = array_filter($query, fn ($value) => $value !== null && $value !== '');
 

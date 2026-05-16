@@ -27,7 +27,7 @@
                     </svg>
                 </span>
 
-                <p class="ms-3 font-bold text-[10px] uppercase tracking-widest text-white truncate" x-text="message"></p>
+                <p class="ms-3 font-bold text-[10px] text-white truncate" x-text="message"></p>
             </div>
 
             <div class="shrink-0 sm:ms-3">
@@ -44,3 +44,4 @@
         </div>
     </div>
 </div>
+

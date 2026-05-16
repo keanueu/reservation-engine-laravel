@@ -1,4 +1,4 @@
-<section class="relative font-[Inter] pb-20">
+<section class="relative font-['Raleway'] pb-20">
     <style>
         @keyframes ribbonSlideUp {
             from { transform: translateY(50px); opacity: 0; }
@@ -8,18 +8,6 @@
             animation: ribbonSlideUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        /* ── Flatpickr Theme Overrides ── */
-        .flatpickr-calendar { background: #fff; border-radius: 0; border: none; shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange { background: #A15D1A !important; border-color: #A15D1A !important; }
-        .flatpickr-day.inRange { background: rgba(161, 93, 26, 0.1) !important; box-shadow: -5px 0 0 rgba(161, 93, 26, 0.1), 5px 0 0 rgba(161, 93, 26, 0.1) !important; }
-        .flatpickr-day:hover { background: #63360D !important; color: #fff !important; border-color: #63360D !important; }
-        .flatpickr-months .flatpickr-month { background: #63360D; color: #fff; }
-        .flatpickr-current-month .flatpickr-monthDropdown-months { font-weight: 700; }
-        .flatpickr-weekday { color: rgba(0,0,0,0.5); font-weight: 700; font-size: 10px; }
-
-        /* ── Hide Default Browser Icons ── */
-        input::-webkit-calendar-picker-indicator { display: none !important; opacity: 0; -webkit-appearance: none; }
-        input[type="date"], input[type="time"] { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
 
         /* ── Minimal Selects ── */
         .minimal-select { 
@@ -44,8 +32,8 @@
                 <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
                     <span class="material-symbols-outlined text-6xl text-white/90">schedule</span>
                 </div>
-                <h3 class="text-2xl font-medium mb-4 text-white">Check-in & Check-out</h3>
-                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Experience seamless transitions with our flexible scheduling.</p>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Check-in & Check-out</h3>
+                <p class="text-white text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Experience seamless transitions with our flexible scheduling.</p>
             </div>
 
             {{-- Card 2 --}}
@@ -53,8 +41,8 @@
                 <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
                     <span class="material-symbols-outlined text-6xl text-white/90">wifi</span>
                 </div>
-                <h3 class="text-2xl font-medium mb-4 text-white">High Speed Internet</h3>
-                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Stay connected in paradise with our dedicated fiber network.</p>
+                <h3 class="text-2xl font-semibold mb-4 text-white">High Speed Internet</h3>
+                <p class="text-white text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Stay connected in paradise with our dedicated fiber network.</p>
             </div>
 
             {{-- Card 3 --}}
@@ -62,8 +50,8 @@
                 <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
                     <span class="material-symbols-outlined text-6xl text-white/90">calendar_month</span>
                 </div>
-                <h3 class="text-2xl font-medium mb-4 text-white">Simple Booking</h3>
-                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Book your dream vacation in just a few simple clicks.</p>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Simple Booking</h3>
+                <p class="text-white text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Book your dream vacation in just a few simple clicks.</p>
             </div>
 
             {{-- Card 4 --}}
@@ -71,16 +59,17 @@
                 <div class="mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
                     <span class="material-symbols-outlined text-6xl text-white/90">support_agent</span>
                 </div>
-                <h3 class="text-2xl font-medium mb-4 text-white">Helpful Staff</h3>
-                <p class="text-white/70 text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Our professional team is here to assist you 24/7.</p>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Helpful Staff</h3>
+                <p class="text-white text-md leading-relaxed max-w-xs transition-colors group-hover:text-white">Our professional team is here to assist you 24/7.</p>
             </div>
         </div>
     </div>
 
     {{-- Rest of Content in White Background --}}
-    <div class="bg-white py-32">
+    <div class="bg-white py-24">
         {{-- Search Form Section --}}
-        <div class="max-w-7xl mx-auto px-6 -mt-16 relative z-40 mb-20">
+        <div class="max-w-7xl mx-auto px-6 -mt-12 relative z-40 mb-6">
+            <h1 class="text-center text-6xl font-bold mb-8 text-[#63360D]"> Book a Room</h1>
             {{-- Search bar container --}}
             <div class="w-full bg-white shadow-2xl overflow-hidden mb-6 border border-gray-100">
                 {{-- Tabs --}}
@@ -88,11 +77,11 @@
                     <style>
                         .booking-tab.active { border-bottom-color: #A15D1A !important; color: #A15D1A !important; background: #fdfaf7; }
                     </style>
-                    <button id="tab-stay" class="booking-tab flex-1 py-6 text-sm font-medium flex items-center justify-center gap-3 border-b-2 border-transparent transition-all active hover:bg-gray-50" onclick="setMode('stay')">
-                        <span class="material-symbols-outlined text-lg">home</span> Stay
+                    <button id="tab-stay" class="booking-tab flex-1 py-6 text-md font-semibold flex items-center justify-center gap-1 border-b-2 border-transparent transition-all active hover:bg-gray-50" onclick="setMode('stay')">
+                        <span class="material-symbols-outlined text-xl">home</span> Stay
                     </button>
-                    <button id="tab-sail" class="booking-tab flex-1 py-6 text-sm font-medium flex items-center justify-center gap-3 border-b-2 border-transparent transition-all hover:bg-gray-50" onclick="setMode('sail')">
-                        <span class="material-symbols-outlined text-lg">sailing</span> Sail
+                    <button id="tab-sail" class="booking-tab flex-1 py-6 text-md font-semibold flex items-center justify-center gap-1 border-b-2 border-transparent transition-all hover:bg-gray-50" onclick="setMode('sail')">
+                        <span class="material-symbols-outlined text-2xl">sailing</span> Sail
                     </button>
                 </div>
 
@@ -100,11 +89,11 @@
                 <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ route('search.stay') }}" method="POST">
                     @csrf
                     <div class="flex-[2] flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Stay Duration</label>
+                        <label class="text-[10px] font-semibold text-white mb-1">Stay Duration</label>
                         <input type="text" id="stay-range" name="date_range" class="search-input cursor-pointer font-medium text-black" placeholder="Select Dates..." readonly>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Check-in</label>
+                        <label class="text-[10px] font-semibold text-white mb-1">Check-in</label>
                         <select name="checkin_time" class="search-input minimal-select bg-transparent cursor-pointer font-medium text-black">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
@@ -112,7 +101,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Check-out</label>
+                        <label class="text-[10px] font-semibold text-white mb-1">Check-out</label>
                         <select name="checkout_time" class="search-input minimal-select bg-transparent cursor-pointer font-medium text-black">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
@@ -120,16 +109,16 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Guests</label>
-                        <select class="search-input font-medium text-black" id="hero-guests" name="guests">
+                        <label class="text-[10px] font-semibold text-white mb-1">Guests</label>
+                        <select class="search-input font-semibold text-black" id="hero-guests" name="guests">
                             @for($i=1;$i<=10;$i++)
                                 <option value="{{ $i }}">{{ $i }} Guest{{ $i>1?'s':'' }}</option>
                             @endfor
                         </select>
                     </div>
                     <div class="flex items-center px-6 py-4">
-                        <button type="submit" class="bg-[#63360D] text-white px-10 py-4 text-[11px] font-medium ] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
-                            <span class="material-symbols-outlined text-base">search</span> Search
+                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3 text-md font-semibold flex items-center gap-1 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
+                            <span class="material-symbols-outlined text-xl">search</span> Find Rooms
                         </button>
                     </div>
                 </form>
@@ -158,8 +147,8 @@
                         </select>
                     </div>
                     <div class="flex items-center px-6 py-4">
-                        <button type="submit" class="bg-[#63360D] text-white px-10 py-4 text-[11px] font-medium ] flex items-center gap-2 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
-                            <span class="material-symbols-outlined text-base">sailing</span> Find Vessel
+                        <button type="submit" class="bg-[#63360D] text-white px-8 py-3 text-md font-semibold flex items-center gap-1 justify-center whitespace-nowrap hover:bg-[#4D290A] transition shadow-xl shadow-orange-900/10">
+                            <span class="material-symbols-outlined text-md">sailing</span> Find Vessel
                         </button>
                     </div>
                 </form>
@@ -175,16 +164,16 @@
             <div class="relative z-10">
                 <div class="flex flex-col items-center mb-20" data-reveal>
                     <p class="text-sm font-medium text-[#A15D1A] ] mb-4">What we offer</p>
-                    <h2 class="text-5xl font-medium text-black text-center">World-Class Services</h2>
+                    <h2 class="text-5xl font-medium text-black text-center">World-class services</h2>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-100">
                     @php
                         $services = [
                             ['title' => 'Restaurant', 'icon' => 'restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800'],
-                            ['title' => 'Luxurious Rooms', 'icon' => 'king_bed', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800'],
-                            ['title' => 'Inside Pool', 'icon' => 'pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800'],
-                            ['title' => '24h Service', 'icon' => 'concierge', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=800'],
+                            ['title' => 'Luxurious rooms', 'icon' => 'king_bed', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800'],
+                            ['title' => 'Inside pool', 'icon' => 'pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800'],
+                            ['title' => '24h service', 'icon' => 'concierge', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=800'],
                         ];
                     @endphp
 
@@ -224,7 +213,7 @@
 
                 <h2 class="text-5xl md:text-6xl font-medium leading-relaxed] mb-8 text-black">
                     Welcome to the<br>
-                    <span class="text-[#63360D]">Cabanas Family</span>
+                    <span class="text-[#63360D]">Cabanas family</span>
                 </h2>
 
                 <p class="text-lg text-black leading-relaxed mb-10 max-w-md">
@@ -233,7 +222,7 @@
 
                 {{-- Stats row --}}
                 <div class="grid grid-cols-3 gap-6 mb-12">
-                    @php $stats = [['15','Room Types','+'],['5','Guest Rating','★'],['10','Years Open','+']]; @endphp
+                    @php $stats = [['15','Room types','+'],['5','Guest rating','★'],['10','Years open','+']]; @endphp
                     @foreach($stats as [$val,$lbl, $suffix])
                         <div class="border border-gray-100 p-8 text-center bg-white shadow-xl shadow-gray-200/40 hover:border-[#63360D] transition-colors group">
                             <p class="text-4xl font-medium mb-2 text-black group-hover:text-[#63360D] transition-colors">

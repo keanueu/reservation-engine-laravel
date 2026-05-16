@@ -23,7 +23,7 @@
                         <div class="grid h-full grid-cols-7 gap-2 text-center text-xs sm:text-sm">
                             @for ($day = 1; $day <= 35; $day++)
                                 <div class="border border-earth-espresso/8 bg-white/35 px-2 py-3 text-earth-espresso/75 {{ in_array($day, [9,10,11,12]) ? 'bg-gradient-to-r from-earth-ochre/75 to-earth-bronze/75 text-earth-espresso shadow-wood-glow' : '' }} {{ in_array($day, [18,19]) ? 'bg-gradient-to-r from-earth-walnut/80 to-earth-teak/70 text-earth-sand' : '' }}">
-                                    <div class="text-[11px] font-semibold uppercase tracking-[0.14em]">{{ $day }}</div>
+                                    <div class="text-[11px] font-semibold  tracking-[0.14em]">{{ $day }}</div>
                                     <div class="mt-3 opacity-70">{{ in_array($day, [18,19]) ? 'Sail' : (in_array($day, [9,10,11,12]) ? 'Stay' : 'Open') }}</div>
                                 </div>
                             @endfor
@@ -77,8 +77,8 @@
                 <div class="mt-6 space-y-4">
                     <div class="status-panel status-{{ strtolower($weatherStatus) }}">
                         <div>
-                            <p class="text-xs uppercase tracking-[0.26em]">Current status</p>
-                            <p class="mt-2 font-serif text-2xl">{{ strtoupper($weatherStatus) }}</p>
+                            <p class="text-xs  tracking-[0.26em]">Current status</p>
+                            <p class="mt-2 font-serif text-2xl">{{ ucfirst($weatherStatus) }}</p>
                         </div>
                         <p class="text-sm font-medium leading-7 opacity-80">
                             Red disables sail selection and swaps Reserve for Safety Advisory messaging.
@@ -134,13 +134,13 @@
                 <h2 class="section-title">High-signal admin stats</h2>
                 <div class="mt-6 grid gap-4">
                     <div class="stat-chip group p-6 border border-gray-100 hover:border-[#964B00] transition-colors bg-white shadow-sm">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-2">Stay revenue</span>
+                        <span class="text-[10px] font-bold text-gray-400 block mb-2">Stay revenue</span>
                         <strong class="text-3xl font-bold text-gray-900 group-hover:text-[#964B00] transition-colors">
                             PHP <span class="stat-value" data-value="184" data-suffix="k">0</span>
                         </strong>
                     </div>
                     <div class="stat-chip group p-6 border border-gray-100 hover:border-[#964B00] transition-colors bg-white shadow-sm">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 block mb-2">Sail revenue</span>
+                        <span class="text-[10px] font-bold text-gray-400 block mb-2">Sail revenue</span>
                         <strong class="text-3xl font-bold text-gray-900 group-hover:text-[#964B00] transition-colors">
                             PHP <span class="stat-value" data-value="96" data-suffix="k">0</span>
                         </strong>
@@ -153,19 +153,19 @@
                 <h2 class="section-title">Live total sidebar</h2>
                 <div class="mt-6 warm-subpanel space-y-4 border border-gray-100 p-8 bg-gray-50">
                     <div class="flex items-center justify-between text-sm font-medium">
-                        <span class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Cabana subtotal</span>
+                        <span class="text-gray-500 text-[10px] font-bold">Cabana subtotal</span>
                         <span class="font-bold text-gray-900">PHP 14,400</span>
                     </div>
                     <div class="flex items-center justify-between text-sm font-medium">
-                        <span class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Boat charter</span>
+                        <span class="text-gray-500 text-[10px] font-bold">Boat charter</span>
                         <span class="font-bold text-gray-900">PHP 7,500</span>
                     </div>
                     <div class="flex items-center justify-between text-sm font-medium">
-                        <span class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Taxes + fuel</span>
+                        <span class="text-gray-500 text-[10px] font-bold">Taxes + fuel</span>
                         <span class="font-bold text-gray-900">PHP 2,700</span>
                     </div>
                     <div class="flex items-center justify-between border-t border-gray-200 pt-6 font-bold text-[#964B00]">
-                        <span class="uppercase tracking-[0.2em] text-xs">Total</span>
+                        <span class="text-xs">Total</span>
                         <span class="text-2xl">PHP 24,600</span>
                     </div>
                 </div>
@@ -175,9 +175,9 @@
                 <p class="eyebrow">Quick Actions</p>
                 <h2 class="section-title">Frontdesk actions</h2>
                 <div class="mt-6 grid gap-4">
-                    <button type="button" class="w-full bg-[#964B00] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#7a3c00] transition shadow-lg shadow-orange-900/10">Add reservation</button>
-                    <button type="button" class="w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Check marina status</button>
-                    <button type="button" class="w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition">Review extensions</button>
+                    <button type="button" class="w-full bg-[#964B00] text-white py-4 text-[10px] font-bold  tracking-[0.2em] hover:bg-[#7a3c00] transition shadow-lg shadow-orange-900/10">Add reservation</button>
+                    <button type="button" class="w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold  tracking-[0.2em] hover:bg-gray-50 transition">Check marina status</button>
+                    <button type="button" class="w-full bg-white border border-gray-200 text-gray-700 py-4 text-[10px] font-bold  tracking-[0.2em] hover:bg-gray-50 transition">Review extensions</button>
                 </div>
             </article>
         </div>
@@ -185,7 +185,7 @@
 
     <div class="sticky-booking-bar mt-6 lg:hidden">
         <div>
-            <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-earth-sand/70">Live total</p>
+            <p class="text-[11px] font-semibold  tracking-[0.16em] text-earth-sand/70">Live total</p>
             <p class="font-serif text-2xl font-bold text-earth-parchment">PHP 24,600</p>
         </div>
         <button type="button" class="reserve-button" @if($boatBookingDisabled) title="Safety advisory is active." @endif>
@@ -193,4 +193,5 @@
         </button>
     </div>
 </section>
+
 

@@ -13,7 +13,7 @@
 
         {{-- Heading --}}
         <div class="text-center mb-8">
-            <h1 class="text-4xl text-gray-900 tracking-tight mb-3">Thank you for your payment!</h1>
+            <h1 class="text-4xl text-gray-900 tracking-tight mb-3">Thank you for your payment</h1>
             <p class="text-base text-gray-600 leading-relaxed">
                 Your booking is being confirmed. You will receive a confirmation email shortly.
             </p>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="text-right flex-shrink-0 ml-4">
                             <p class="text-sm text-gray-900">₱{{ number_format($booking->total_amount, 2) }}</p>
-                            <span class="inline-block mt-1 px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase
+                            <span class="inline-block mt-1 px-2 py-0.5 text-[10px] font-bold tracking-wide 
                                 {{ $booking->payment_status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
                                 {{ $booking->payment_status === 'paid' ? 'Paid' : 'Processing' }}
                             </span>
@@ -103,11 +103,11 @@
 
         {{-- Action buttons --}}
         <div class="flex flex-col sm:flex-row gap-3 justify-center" data-reveal data-reveal-delay="3">
-            <a href="{{ url('/') }}" class="btn-primary px-8 py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+            <a href="{{ url('/') }}" class="btn-primary px-8 py-3.5 text-sm font-bold flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined" style="font-size:16px;">home</span>
                 Back to home
             </a>
-            <a href="{{ route('my.bookings') }}" class="btn-outline px-8 py-3.5 text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+            <a href="{{ route('my.bookings') }}" class="btn-outline px-8 py-3.5 text-sm font-bold flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined" style="font-size:16px;">calendar_month</span>
                 View my bookings
             </a>
@@ -116,3 +116,4 @@
     </div>
 </div>
 @endsection
+

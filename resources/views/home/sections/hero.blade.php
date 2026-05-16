@@ -73,14 +73,14 @@
                 {{-- Slide Content --}}
                 <div class="absolute inset-0 z-10 flex justify-end items-center px-6 max-w-7xl mx-auto w-full">
                     <div class="w-full lg:max-w-2xl text-white p-8 lg:p-12 bg-black/70 shadow-2xl">
-                        <h2 class="hero-h2 text-4xl lg:text-5xl font-medium mb-4 leading-relaxed text-white">
+                        <h2 class="hero-h2 text-4xl lg:text-6xl font-extrabold mb-4 leading-relaxed text-white">
                             {!! preg_replace('/(\S+)$/', '<span style="color:white;">$1</span>', $slide['label']) !!}
                         </h2>
-                        <p class="hero-p text-white/90 mb-8 leading-relaxed text-lg">
+                        <p class="hero-p text-white font-medium mb-8 leading-relaxed text-lg">
                             {{ $slide['sub'] }}
                         </p>
                         <div class="hero-btn">
-                            <a href="{{ url('/home/rooms') }}" class="inline-block px-12 py-4 font-medium bg-white text-black text-[11px]  ] hover:bg-[#63360D] hover:text-white transition shadow-2xl">
+                            <a href="{{ url('/home/rooms') }}" class="inline-block px-8 py-4 font-semibold bg-white text-black text-lg hover:bg-[#63360D] hover:text-white transition shadow-2xl">
                                 Explore Accommodations
                             </a>
                         </div>

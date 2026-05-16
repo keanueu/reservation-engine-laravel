@@ -12,7 +12,11 @@ tailwind.config = {
                 '3xl': '0',
                 'full': '0',
             },
-            fontFamily: { sans: ['Inter', 'sans-serif'] },
+            fontFamily: { 
+                sans: ['Raleway', 'sans-serif'],
+                serif: ['Raleway', 'serif'],
+                mono: ['Raleway', 'monospace'] 
+            },
             colors: {
                 'brand': '#964B00',
                 'brand-dark': '#63360D',
