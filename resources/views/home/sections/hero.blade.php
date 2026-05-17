@@ -66,6 +66,9 @@
         @foreach($slides as $i => $slide)
             <div class="hero-slide {{ $i===0?'active':'' }}" data-index="{{ $i }}">
                 <img src="{{ $slide['img'] }}"
+                     @if($i === 0) fetchpriority="high" @else loading="lazy" @endif
+                     decoding="async"
+                     class="transform-gpu"
                      onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80'"
                      alt="{{ $slide['label'] }}">
                 <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.25) 55%, rgba(0,0,0,.1) 100%);"></div>

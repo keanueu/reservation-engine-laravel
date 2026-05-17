@@ -1,119 +1,114 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const chatbotWidget = document.getElementById('chatbot-widget');
-    const chatbotWindow = document.getElementById('chatbot-window');
-    const toggleBtn = document.getElementById('chatbot-toggle-btn');
-    const closeBtn = document.getElementById('chatbot-close-btn');
-    const toggleIcon = document.getElementById('chatbot-toggle-icon');
-    const messagesContainer = document.getElementById('chatbot-messages');
-    const chatForm = document.getElementById('chatbot-form');
-    const chatInput = document.getElementById('chatbot-input');
-    const quickReplyBtns = document.querySelectorAll('.chatbot-quick-btn');
+/**
+ * Modern Chatbot Logic
+ * Optimized for the new Speed Dial UI with natural word streaming UX
+ */
 
-    let isOpen = false;
-    let pollInterval = null;
+document.addEventListener('DOMContentLoaded', () => {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    
+    // Check if we are in the guest home view where the widget exists
+    if (!messagesContainer) return;
+
     let lastMessageCount = 0;
 
-    // Show widget with a small delay so it doesn't pop instantly on load
-    setTimeout(() => {
-        chatbotWidget.style.display = 'block';
-    }, 1000);
-
-    function toggleChat() {
-        isOpen = !isOpen;
-        if (isOpen) {
-            chatbotWindow.classList.add('chatbot-enter');
-            toggleIcon.textContent = 'close';
-            chatInput.focus();
-            fetchMessages(); // Fetch on open to get latest
-            startPolling();
-        } else {
-            chatbotWindow.classList.remove('chatbot-enter');
-            toggleIcon.textContent = 'chat';
-            stopPolling();
-        }
-    }
-
-    toggleBtn.addEventListener('click', toggleChat);
-    closeBtn.addEventListener('click', toggleChat);
-
-    function scrollToBottom() {
+    // Helper: Scroll to bottom
+    const scrollToBottom = () => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+    };
 
-    function renderMessage(msg) {
+    // Helper: Render a message bubble with dynamic progressive typing effect
+    const renderMessage = (msg, animate = false) => {
         const isUser = msg.sender === 'user';
-        
         const wrapper = document.createElement('div');
-        wrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+        wrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`;
         
         const bubble = document.createElement('div');
         if (isUser) {
-            bubble.className = 'bg-[#964B00] text-white text-xs py-2 px-3 rounded-2xl rounded-tr-sm shadow-sm max-w-[85%] leading-relaxed';
+            bubble.className = 'bg-black text-white text-sm py-3 px-4 rounded-2xl rounded-tr-none shadow-md max-w-[85%] leading-relaxed';
+            bubble.textContent = msg.message;
         } else {
-            bubble.className = 'bg-white border border-gray-100 text-gray-800 text-xs py-2 px-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] leading-relaxed whitespace-pre-wrap';
+            bubble.className = 'bg-white border border-gray-100 text-black text-sm py-4 px-5 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] leading-relaxed whitespace-pre-wrap';
+            
+            if (animate) {
+                // Progressive streaming word-by-word rendering
+                const words = msg.message.split(' ');
+                let currentWordIndex = 0;
+                bubble.textContent = '';
+                
+                const timer = setInterval(() => {
+                    if (currentWordIndex < words.length) {
+                        bubble.textContent += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex];
+                        currentWordIndex++;
+                        scrollToBottom();
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 30); // 30ms per word is the perfect natural reading speed
+            } else {
+                bubble.textContent = msg.message;
+            }
         }
         
-        bubble.textContent = msg.message;
         wrapper.appendChild(bubble);
         return wrapper;
-    }
+    };
 
-    function appendMessages(messages, isHistory = false) {
+    // Helper: Append messages
+    const appendMessages = (messages, isHistory = false, animate = false) => {
         if (isHistory) {
-            // Keep the initial welcome message, append the rest
             const welcomeMsg = messagesContainer.firstElementChild;
             messagesContainer.innerHTML = '';
             if (welcomeMsg) messagesContainer.appendChild(welcomeMsg);
-            
-            messages.forEach(msg => {
-                messagesContainer.appendChild(renderMessage(msg));
-            });
-        } else {
-            messages.forEach(msg => {
-                messagesContainer.appendChild(renderMessage(msg));
-            });
         }
+        
+        messages.forEach(msg => {
+            messagesContainer.appendChild(renderMessage(msg, animate));
+        });
         scrollToBottom();
-    }
+    };
 
-    async function fetchMessages() {
+    // Core: Fetch messages from API
+    window.fetchChatbotMessages = async () => {
         try {
-            const res = await fetch('/api/chat/fetch');
+            const res = await fetch('/chat/fetch');
             const data = await res.json();
-            if (data.messages) {
-                if (data.messages.length > lastMessageCount) {
-                    appendMessages(data.messages, true);
-                    lastMessageCount = data.messages.length;
+            if (data.messages && data.messages.length > lastMessageCount) {
+                const newMessages = data.messages.slice(lastMessageCount);
+                const shouldAnimate = lastMessageCount > 0;
+                
+                appendMessages(newMessages, false, shouldAnimate);
+                lastMessageCount = data.messages.length;
+
+                // Sync suggested quick replies of the latest AI message
+                const lastAiMsg = [...newMessages].reverse().find(msg => msg.sender === 'bot' || msg.sender === 'ai' || msg.sender === 'admin');
+                if (lastAiMsg && lastAiMsg.meta && lastAiMsg.meta.quick_replies && lastAiMsg.meta.quick_replies.length > 0) {
+                    const event = new CustomEvent('chatbot-quick-replies', { detail: lastAiMsg.meta.quick_replies });
+                    window.dispatchEvent(event);
                 }
             }
         } catch (error) {
-            console.error('Failed to fetch messages:', error);
+            console.error('Chatbot: Fetch failed', error);
         }
-    }
+    };
 
-    async function sendMessage(text) {
+    // Core: Send message to API
+    window.sendChatbotMessage = async (text) => {
         if (!text.trim()) return;
 
-        // Optimistically render user message
-        const tempMsg = { sender: 'user', message: text };
-        appendMessages([tempMsg]);
-        chatInput.value = '';
-        lastMessageCount++; // Increment optimistically
+        // Optimistic render
+        appendMessages([{ sender: 'user', message: text }]);
+        lastMessageCount++;
 
-        // Show typing indicator (optional but good UX)
-        const typingIndicator = document.createElement('div');
-        typingIndicator.id = 'typing-indicator';
-        typingIndicator.className = 'flex justify-start';
-        typingIndicator.innerHTML = `
-            <div class="bg-white border border-gray-100 text-gray-500 text-[10px] py-1.5 px-3 rounded-full shadow-sm">
-                typing...
-            </div>
-        `;
-        messagesContainer.appendChild(typingIndicator);
+        // Typing indicator
+        const typing = document.createElement('div');
+        typing.id = 'chatbot-typing';
+        typing.className = 'flex justify-start animate-pulse';
+        typing.innerHTML = `<div class="bg-gray-100 text-[#63360D] text-[10px] font-bold uppercase px-3 py-1.5 rounded-full tracking-wider">Assistant is thinking...</div>`;
+        messagesContainer.appendChild(typing);
         scrollToBottom();
 
         try {
-            const res = await fetch('/api/chat/send', {
+            const res = await fetch('/chat/send', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,91 +118,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             
-            // Remove typing indicator
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) indicator.remove();
+            document.getElementById('chatbot-typing')?.remove();
 
-            if (data.success && data.messages) {
-                // The API returns [userMessage, aiMessage]. We already rendered the user message optimistically.
-                // We just need to render the AI message (index 1).
-                if (data.messages.length > 1) {
-                    appendMessages([data.messages[1]]);
-                    lastMessageCount++; 
+            if (data.success && data.messages && data.messages.length > 0) {
+                const aiMsg = data.messages[data.messages.length - 1];
+                if (aiMsg.sender === 'bot' || aiMsg.sender === 'ai' || aiMsg.sender === 'admin') {
+                    appendMessages([aiMsg], false, true);
+                    lastMessageCount++;
+
+                    // Sync suggested quick replies of the latest AI message
+                    if (aiMsg.meta && aiMsg.meta.quick_replies && aiMsg.meta.quick_replies.length > 0) {
+                        const event = new CustomEvent('chatbot-quick-replies', { detail: aiMsg.meta.quick_replies });
+                        window.dispatchEvent(event);
+                    }
                 }
             }
         } catch (error) {
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) indicator.remove();
-            console.error('Send failed:', error);
+            document.getElementById('chatbot-typing')?.remove();
+            console.error('Chatbot: Send failed', error);
         }
-    }
+    };
 
-    async function sendQuickReply(option) {
-        const tempMsg = { sender: 'user', message: option };
-        appendMessages([tempMsg]);
-        lastMessageCount++;
-
-        const typingIndicator = document.createElement('div');
-        typingIndicator.id = 'typing-indicator';
-        typingIndicator.className = 'flex justify-start';
-        typingIndicator.innerHTML = `
-            <div class="bg-white border border-gray-100 text-gray-500 text-[10px] py-1.5 px-3 rounded-full shadow-sm">
-                typing...
-            </div>
-        `;
-        messagesContainer.appendChild(typingIndicator);
-        scrollToBottom();
-
-        try {
-            const res = await fetch('/api/chat/quick-reply', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: JSON.stringify({ option: option })
-            });
-            const data = await res.json();
-            
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) indicator.remove();
-
-            if (data.success && data.messages && data.messages.length > 1) {
-                appendMessages([data.messages[1]]);
-                lastMessageCount++;
-            }
-        } catch (error) {
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) indicator.remove();
-            console.error('Quick reply failed:', error);
+    // Start polling when window is visible and open
+    setInterval(() => {
+        const messagesArea = document.getElementById('chatbot-messages');
+        if (messagesArea && messagesArea.offsetParent !== null && !document.hidden) {
+            window.fetchChatbotMessages();
         }
-    }
+    }, 15000);
 
-    chatForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        sendMessage(chatInput.value);
-    });
-
-    quickReplyBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            sendQuickReply(btn.textContent);
-        });
-    });
-
-    // Simple short-polling mechanism to check for admin replies when chat is open
-    function startPolling() {
-        if (pollInterval) clearInterval(pollInterval);
-        pollInterval = setInterval(() => {
-            if (isOpen) {
-                fetchMessages();
-            }
-        }, 5000); // Check every 5 seconds
-    }
-
-    function stopPolling() {
-        if (pollInterval) {
-            clearInterval(pollInterval);
-            pollInterval = null;
-        }
-    }
+    // Initial fetch
+    window.fetchChatbotMessages();
 });

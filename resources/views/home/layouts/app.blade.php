@@ -23,6 +23,14 @@
                         sans: ['Raleway', 'sans-serif'],
                         serif: ['Raleway', 'serif'],
                         mono: ['Raleway', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            primary: '#63360D',
+                            secondary: '#A15D1A',
+                            dark: '#4D290A',
+                            light: '#B87431',
+                        }
                     }
                 }
             }
@@ -39,9 +47,9 @@
     <style>
         /* ── Design Tokens ── */
         :root {
-            --brand:       #964B00;
-            --brand-dark:  #6b3500;
-            --brand-light: #bf6b1a;
+            --brand:       #63360D;
+            --brand-dark:  #4D290A;
+            --brand-light: #A15D1A;
             --white:       #ffffff;
             --off-white:   #faf9f7;
             --gray-50:     #f9fafb;
@@ -154,12 +162,30 @@
             height: 100vh !important;
             padding-right: 0 !important;
         }
-        /* ── Pulse animation ── */
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.05); }
-        }
         .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+
+        /* ── Performance Optimizations ── */
+        [data-reveal] {
+            will-change: transform, opacity;
+            transform-gpu: translateZ(0);
+        }
+        .revealed {
+            transform-gpu: translateZ(0);
+        }
+        
+        /* content-visibility for heavy sections (improves initial load & scroll) */
+        section[data-animate], 
+        #chatbot-window,
+        #alerts-sidebar {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 500px;
+        }
+
+        /* Smooth image loading */
+        img {
+            content-visibility: auto;
+            image-rendering: -webkit-optimize-contrast;
+        }
     </style>
 </head>
 <body>
@@ -196,8 +222,6 @@
     <script src="/js/room-tab.js"></script>
     <script src="/js/room-cart.js"></script>
     <script src="/js/weather.js"></script>
-    <script src="/js/alert.js"></script>
-    <script src="/js/alert-v2.js"></script>
     <script src="/js/amenities.js"></script>
     <script src="/js/contact.js"></script>
     <script src="/js/index.js"></script>
@@ -217,14 +241,20 @@
             }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
             document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
 
-            // Lazy images
+            // Lazy images with async decoding
             const imgObs = new IntersectionObserver((entries) => {
                 entries.forEach(e => {
                     if(e.isIntersecting){
                         const img = e.target;
-                        if(img.dataset.src){ img.src = img.dataset.src; img.classList.add('loaded'); imgObs.unobserve(img); }
+                        img.decoding = 'async';
+                        if(img.dataset.src){ 
+                            img.src = img.dataset.src; 
+                            img.classList.add('loaded'); 
+                            imgObs.unobserve(img); 
+                        }
                     }
                 });
+            }, { rootMargin: '100px' });
             });
             document.querySelectorAll('img.lazy').forEach(img => imgObs.observe(img));
         });

@@ -66,12 +66,22 @@
     </div>
 
     {{-- Rest of Content in White Background --}}
-    <div class="bg-white py-24">
+    <div class="bg-white py-32 relative overflow-hidden">
+        {{-- Logo Watermark --}}
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+            <img src="{{ asset('LOGO-FINAL.png') }}"
+                 class="w-[850px] h-[850px] object-contain opacity-[0.15]"
+                 aria-hidden="true" />
+        </div>
+
         {{-- Search Form Section --}}
-        <div class="max-w-7xl mx-auto px-6 -mt-12 relative z-40 mb-6">
-            <h1 class="text-center text-6xl font-bold mb-8 text-[#63360D]"> Book a Room</h1>
+        <div class="max-w-7xl mx-auto px-6 relative z-40 mb-6">
+             <div class="flex flex-col items-center mb-12" data-reveal>
+                    <p class="text-md font-semibold text-[#A15D1A] mb-2">Dream Vacation</p>
+                    <h2 class="text-6xl font-extrabold text-[#63360D] text-center">Book Your Staycation</h2>
+                </div>
             {{-- Search bar container --}}
-            <div class="w-full bg-white shadow-2xl overflow-hidden mb-6 border border-gray-100">
+            <div class="w-full bg-white shadow-md overflow-hidden mb-6 border border-gray-100">
                 {{-- Tabs --}}
                 <div class="flex border-b border-gray-100">
                     <style>
@@ -89,11 +99,11 @@
                 <form id="stay-bar" class="flex flex-col md:flex-row items-stretch" action="{{ route('search.stay') }}" method="POST">
                     @csrf
                     <div class="flex-[2] flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-semibold text-white mb-1">Stay Duration</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Stay Duration</label>
                         <input type="text" id="stay-range" name="date_range" class="search-input cursor-pointer font-medium text-black" placeholder="Select Dates..." readonly>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-semibold text-white mb-1">Check-in</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Check-in</label>
                         <select name="checkin_time" class="search-input minimal-select bg-transparent cursor-pointer font-medium text-black">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
@@ -101,7 +111,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-semibold text-white mb-1">Check-out</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Check-out</label>
                         <select name="checkout_time" class="search-input minimal-select bg-transparent cursor-pointer font-medium text-black">
                             @for($h=8;$h<=20;$h++)
                                 <option value="{{ sprintf('%02d:00',$h) }}">{{ date('h:i A', strtotime("$h:00")) }}</option>
@@ -109,7 +119,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-semibold text-white mb-1">Guests</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Guests</label>
                         <select class="search-input font-semibold text-black" id="hero-guests" name="guests">
                             @for($i=1;$i<=10;$i++)
                                 <option value="{{ $i }}">{{ $i }} Guest{{ $i>1?'s':'' }}</option>
@@ -127,11 +137,11 @@
                 <form id="sail-bar" class="hidden flex-col md:flex-row items-stretch" action="{{ route('search.sail') }}" method="POST">
                     @csrf
                     <div class="flex-[2] flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Departure Date</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Departure Date</label>
                         <input type="text" id="sail-date" name="departure_date" class="search-input cursor-pointer font-medium text-black" placeholder="Select Date..." readonly>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Duration</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Duration</label>
                         <select class="search-input font-medium text-black" id="hero-boat-duration" name="duration" required>
                             <option value="half">Half Day (4h)</option>
                             <option value="full">Full Day (8h)</option>
@@ -139,7 +149,7 @@
                         </select>
                     </div>
                     <div class="flex-1 flex flex-col px-6 py-5 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-gray-50 transition-colors">
-                        <label class="text-[10px] font-medium text-white mb-1">Passengers</label>
+                        <label class="text-lg font-semibold text-[#63360D] mb-1">Passengers</label>
                         <select class="search-input font-medium text-black" id="hero-boat-passengers" name="passengers" required>
                             @for($i=1;$i<=20;$i++)
                                 <option value="{{ $i }}">{{ $i }} Passenger{{ $i>1?'s':'' }}</option>
@@ -156,18 +166,16 @@
         </div>
     </div>
 
-    <section class="py-24 bg-white overflow-hidden">
+
+    <section class="py-16 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 relative">
-            <!-- Decorative background text -->
-            <div class="absolute -top-10 -right-20 text-[180px] font-medium text-white select-none pointer-events-none ">Services</div>
-            
             <div class="relative z-10">
-                <div class="flex flex-col items-center mb-20" data-reveal>
-                    <p class="text-sm font-medium text-[#A15D1A] ] mb-4">What we offer</p>
-                    <h2 class="text-5xl font-medium text-black text-center">World-class services</h2>
+                <div class="flex flex-col items-center mb-16" data-reveal>
+                    <p class="text-md font-semibold text-[#A15D1A] mb-2">What we offer</p>
+                    <h2 class="text-6xl font-extrabold text-[#63360D] text-center">World-class services</h2>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-100">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-100 mb-10">
                     @php
                         $services = [
                             ['title' => 'Restaurant', 'icon' => 'restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800'],
@@ -195,78 +203,61 @@
         </div>
     </section>
 
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <img src="{{ asset('LOGO-FINAL.png') }}"
-             class="w-[900px] h-[900px] object-contain opacity-[0.15]"
-             aria-hidden="true" />
-    </div>
-
+   
     {{-- Content --}}
     <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-
-            {{-- Left: Text --}}
-            <div data-reveal>
-                <div class="inline-block bg-[#63360D]/5 px-4 py-2 mb-6">
-                    <p class="text-sm font-medium ] text-[#63360D]">Our Heritage</p>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center">
+            
+            {{-- Left: Image with Overlapping Badge --}}
+            <div class="lg:col-span-5 relative" data-reveal>
+                <div class="relative h-[600px] overflow-hidden shadow-2xl transform-gpu">
+                    <img src="{{ asset('images/1758952332.jpg') }}"
+                         class="w-full h-full object-cover transition-transform duration-700 hover:scale-105 transform-gpu"
+                         loading="lazy" decoding="async"
+                         alt="Cabanas Resort Heritage" />
                 </div>
+                {{-- Overlapping Badge --}}
+                <div class="absolute top-1/2 -right-4 lg:-right-20 -translate-y-1/2 bg-white px-8 lg:px-14 py-4 lg:py-6 shadow-xl z-20 border border-gray-50 hidden md:block">
+                    <p class="text-xl lg:text-3xl font-bold text-black tracking-tight">About Us</p>
+                </div>
+            </div>
 
-                <h2 class="text-5xl md:text-6xl font-medium leading-relaxed] mb-8 text-black">
-                    Welcome to the<br>
-                    <span class="text-[#63360D]">Cabanas family</span>
+            {{-- Right: Content Area --}}
+            <div class="lg:col-span-7 lg:pl-32 py-12" data-reveal data-reveal-delay="2">
+                <h2 class="text-4xl lg:text-6xl font-extrabold text-black mb-8 leading-[1.2]">
+                    We Invite Guests To<br>
+                    <span class="text-[#63360D]">Celebrate Life</span>
                 </h2>
 
-                <p class="text-lg text-black leading-relaxed mb-10 max-w-md">
-                    The Cabanas Family Resort is a family-owned getaway built on legacy land. Nestled in the heart of Tambobong, Dasol, we invite you to share in our hidden paradise.
+                <p class="text-black font-medium text-lg leading-relaxed mb-10">
+                    The Cabanas Family Resort is a family-owned getaway built on legacy land. Nestled in the heart of Tambobong, Dasol, we invite you to share in our hidden paradise where every moment becomes a cherished memory.
                 </p>
 
-                {{-- Stats row --}}
-                <div class="grid grid-cols-3 gap-6 mb-12">
-                    @php $stats = [['15','Room types','+'],['5','Guest rating','★'],['10','Years open','+']]; @endphp
-                    @foreach($stats as [$val,$lbl, $suffix])
-                        <div class="border border-gray-100 p-8 text-center bg-white shadow-xl shadow-gray-200/40 hover:border-[#63360D] transition-colors group">
-                            <p class="text-4xl font-medium mb-2 text-black group-hover:text-[#63360D] transition-colors">
-                                <span class="stat-value" data-value="{{ $val }}" data-suffix="{{ $suffix }}">0</span>
-                            </p>
-                            <p class="text-[10px] font-medium text-white">{{ $lbl }}</p>
-                        </div>
-                    @endforeach
+                {{-- Feature Grid --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 mb-12">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-black text-xl">star</span>
+                        <span class="text-lg font-semibold text-black tracking-wider">15 Premium Room types</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-black text-xl">star</span>
+                        <span class="text-lg font-semibold text-black tracking-wider">5-Star Guest rating</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-black text-xl">star</span>
+                        <span class="text-lg font-semibold text-black tracking-wider">Well Garden Area</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-black text-xl">star</span>
+                        <span class="text-lg font-semibold text-black tracking-wider">Hidden Beach Paradise</span>
+                    </div>
                 </div>
 
                 <a href="{{ url('/home/amenities') }}"
-                   class="inline-flex items-center gap-4 text-sm font-medium ] text-black border-b-2 pb-2 transition-all hover:text-[#63360D] hover:border-[#63360D] group"
-                   style="border-color:#63360D;">
-                    Discover our amenities
-                    <span class="material-symbols-outlined text-lg transform transition-transform group-hover:translate-x-2">east</span>
+                   class="inline-block bg-[#63360D] text-white px-10 py-3 text-lg font-semibold transition-all hover:bg-[#261405] hover:-translate-y-1">
+                    Read More
                 </a>
             </div>
-
-            {{-- Right: Images --}}
-            <div class="grid grid-cols-2 gap-4" data-reveal data-reveal-delay="2">
-                {{-- Tall left image --}}
-                <div class="col-span-2 h-56 overflow-hidden shadow-md">
-                    <img src="{{ asset('images/1758952332.jpg') }}"
-                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                         alt="Cabanas Resort" />
-                </div>
-                {{-- Two smaller images --}}
-                <div class="h-44 overflow-hidden shadow-md">
-                    <img src="{{ asset('images/1758952350.jpg') }}"
-                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                         alt="Cabanas Beach" />
-                </div>
-                <div class="h-44 overflow-hidden shadow-md relative">
-                    <img src="{{ asset('images/1758952017.jpg') }}"
-                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                         alt="Cabanas Sign" />
-                    {{-- Location badge --}}
-                    <div class="absolute bottom-0 left-0 right-0 px-3 py-2" style="background:rgba(99,54,13,0.85);">
-                        <p class="text-white text-sm font-medium">Tambobong, Dasol</p>
-                        <p class="text-white/70 text-[11px]">Pangasinan, Philippines</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
