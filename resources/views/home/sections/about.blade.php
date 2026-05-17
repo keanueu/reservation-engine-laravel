@@ -178,16 +178,20 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-100 mb-10">
                     @php
                         $services = [
-                            ['title' => 'Restaurant', 'icon' => 'restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800'],
-                            ['title' => 'Luxurious rooms', 'icon' => 'king_bed', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800'],
-                            ['title' => 'Inside pool', 'icon' => 'pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800'],
-                            ['title' => '24h service', 'icon' => 'concierge', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=800'],
+                            ['title' => 'Restaurant', 'icon' => 'restaurant', 'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fm=webp'],
+                            ['title' => 'Luxurious rooms', 'icon' => 'king_bed', 'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fm=webp'],
+                            ['title' => 'Inside pool', 'icon' => 'pool', 'image' => 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fm=webp'],
+                            ['title' => '24h service', 'icon' => 'concierge', 'image' => 'https://images.unsplash.com/photo-1563330232-57114bb0823c?q=80&w=800&auto=format&fm=webp'],
                         ];
                     @endphp
 
                     @foreach($services as $index => $service)
                         <div class="group relative aspect-[3/5] overflow-hidden cursor-pointer" data-reveal data-reveal-delay="{{ $index + 1 }}">
-                            <img src="{{ $service['image'] }}" alt="{{ $service['title'] }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img src="{{ $service['image'] }}" 
+                                 alt="{{ $service['title'] }}" 
+                                 loading="lazy"
+                                 decoding="async"
+                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-80"></div>
                             
                             <div class="absolute inset-x-0 bottom-0 p-8 transform transition-transform duration-500 group-hover:-translate-y-4">

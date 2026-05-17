@@ -14,19 +14,26 @@ class HomeController extends Controller
     // Boat details page
     public function boat_details($id)
     {
-        $boat = Boat::findOrFail($id);
+        $boat = Boat::select('id', 'name', 'description', 'price', 'capacity', 'image', 'quantity', 'status', 'start_time', 'end_time')->findOrFail($id);
         return view('home.boat_details', compact('boat'));
     }
 
     public function room_details($id)
     {
-        $room = Room::findOrFail($id); // use findOrFail to avoid null
+        // Eager load images to prevent N+1 queries inside room_details view
+        $room = Room::with(['images' => function ($q) {
+            $q->select('id', 'room_id', 'image');
+        }])->findOrFail($id);
+        
         return view('home.room_details', compact('room'));
     }
 
     public function room_detailsv2($id)
     {
-        $room = Room::with('images')->findOrFail($id);
+        // Eager load images to prevent N+1 queries inside room_detailsv2 view
+        $room = Room::with(['images' => function ($q) {
+            $q->select('id', 'room_id', 'image');
+        }])->findOrFail($id);
 
         // Check promo exists
         if (!$room->promo_price) {

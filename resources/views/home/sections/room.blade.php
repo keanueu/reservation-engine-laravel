@@ -126,11 +126,22 @@
                                 }
                             }" class="relative room-image-container overflow-hidden h-56 w-full flex-shrink-0">
 
+                        @php
+                            $isAboveFold = $loop->index < 4;
+                        @endphp
                         <div class="h-full w-full relative">
-                            <img draggable="false" x-bind:src="images[currentIndex]"
+                            <img draggable="false" 
+                                src="{{ $imageSources[0] ?? $placeholderImage }}"
+                                x-bind:src="images[currentIndex]"
                                 :alt="`{{ addslashes($room->room_name) }} image ${currentIndex + 1}`"
                                 style="-webkit-user-drag: none; -webkit-user-select: none; user-select: none;"
                                 class="absolute inset-0 w-full h-full object-cover transition duration-500 transform group-hover:scale-105"
+                                @if($isAboveFold)
+                                    fetchpriority="high"
+                                @else
+                                    loading="lazy"
+                                @endif
+                                decoding="async"
                                 x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0"
                                 x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-500"
                                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" />
