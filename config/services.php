@@ -36,12 +36,14 @@ return [
     ],
 
     'paymongo' => [
-    'key' => env('PAYMONGO_SECRET'),
-    'webhook_secret' => env('PAYMONGO_WEBHOOK_SECRET'),
-    'base' => env('PAYMONGO_API_BASE', 'https://api.paymongo.com/v1'),
-    'success_url' => env('PAYMONGO_SUCCESS_URL'),
-    'cancel_url' => env('PAYMONGO_CANCEL_URL'),
-],
-
-
+        'key' => env('PAYMONGO_SECRET'),
+        'webhook_secret' => env('PAYMONGO_WEBHOOK_SECRET'),
+        'base' => env('PAYMONGO_API_BASE', 'https://api.paymongo.com/v1'),
+        'success_url' => env('PAYMONGO_SUCCESS_URL'),
+        'cancel_url' => env('PAYMONGO_CANCEL_URL'),
+    ],
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'model' => env('GEMINI_MODEL', 'gemini-2.5-pro'),
+    ],
 ];

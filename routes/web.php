@@ -262,18 +262,17 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/admin/chat', [ChatController::class, 'index']);
 
 // chatbot
+Route::prefix('chat')->group(function () {
+    Route::get('/fetch', [ChatbotController::class, 'fetchMessages']);
+    Route::post('/send', [ChatbotController::class, 'sendMessage'])->middleware('throttle:20,1');
+    Route::post('/quick-reply', [ChatbotController::class, 'quickReply'])->middleware('throttle:20,1');
+    // Chat helper endpoints for quick replies
+    Route::get('/rooms', [AdminController::class, 'chatRooms']);
+    Route::get('/amenities', [AdminController::class, 'chatAmenities']);
+    Route::get('/contact-info', [AdminController::class, 'chatContactInfo']);
+});
+
 Route::middleware(['auth'])->group(function () {
-
-    Route::prefix('chat')->group(function () {
-        Route::get('/fetch', [ChatbotController::class, 'fetchMessages']);
-        Route::post('/send', [ChatbotController::class, 'sendMessage']);
-        Route::post('/quick-reply', [ChatbotController::class, 'quickReply']);
-        // Chat helper endpoints for quick replies
-        Route::get('/rooms', [AdminController::class, 'chatRooms']);
-        Route::get('/amenities', [AdminController::class, 'chatAmenities']);
-        Route::get('/contact-info', [AdminController::class, 'chatContactInfo']);
-    });
-
     Route::get('/calamity', [AdminController::class, 'calamityIndex'])->name('admin.calamity.index');
 
     // Form submissions
@@ -281,7 +280,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/calamity/item/add', [AdminController::class, 'addItem'])->name('admin.calamity.add_item');
     Route::post('/calamity/item/{id}/toggle', [AdminController::class, 'toggleItem'])->name('admin.calamity.toggle_item');
     Route::delete('/calamity/item/{id}/delete', [AdminController::class, 'deleteItem'])->name('admin.calamity.delete_item');
-
 });
 
 Route::get('/preparedness-hub', [AdminController::class, 'showPublicHub'])->name('public.hub');

@@ -1,47 +1,58 @@
 @props(['style' => session('flash.bannerStyle', 'success'), 'message' => session('flash.banner')])
 
 <div x-data="{{ json_encode(['show' => true, 'style' => $style, 'message' => $message]) }}"
-    :class="{ 'bg-[#964B00]': style == 'success', 'bg-red-700': style == 'danger', 'bg-yellow-500': style == 'warning', 'bg-gray-800': style != 'success' && style != 'danger' && style != 'warning'}"
-            style="display: none;"
-            x-show="show && message"
-            x-transition:enter="transition ease-out duration-500"
-            x-transition:enter-start="opacity-0 -translate-y-full"
-            x-transition:enter-end="opacity-100 translate-y-0"
-            x-on:banner-message.window="
-                style = event.detail.style;
-                message = event.detail.message;
-                show = true;
-            ">
-    <div class="max-w-screen-xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between flex-wrap">
-            <div class="w-0 flex-1 flex items-center min-w-0">
-                <span class="flex p-2" :class="{ 'bg-black/10': style == 'success' || style == 'danger' || style == 'warning' }">
-                    <svg x-show="style == 'success'" class="size-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <svg x-show="style == 'danger'" class="size-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                    </svg>
-                    <svg x-show="style != 'success' && style != 'danger' && style != 'warning'" class="size-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                    </svg>
-                </span>
+     class="fixed top-24 md:top-28 right-4 md:right-8 z-[100] max-w-sm w-full"
+     style="display: none;"
+     x-show="show && message"
+     x-init="setTimeout(() => show = false, 8000)"
+     x-transition:enter="transition ease-out duration-500"
+     x-transition:enter-start="opacity-0 translate-x-12"
+     x-transition:enter-end="opacity-100 translate-x-0"
+     x-transition:leave="transition ease-in duration-300"
+     x-transition:leave-start="opacity-100 scale-100"
+     x-transition:leave-end="opacity-0 scale-90"
+     x-on:banner-message.window="
+         style = event.detail.style;
+         message = event.detail.message;
+         show = true;
+         setTimeout(() => show = false, 8000);
+     ">
+    
+    <div class="relative overflow-hidden rounded-2xl shadow-xl border border-white/10"
+         :class="{ 
+            'bg-[#63360D] text-white': style == 'success', 
+            'bg-red-700 text-white': style == 'danger', 
+            'bg-amber-600 text-white': style == 'warning', 
+            'bg-[#1a1a1a] text-white': style != 'success' && style != 'danger' && style != 'warning'
+         }">
+        
+        {{-- Progress Bar (Autoclose timer) --}}
+        <div class="absolute bottom-0 left-0 h-1 bg-white/30 w-full animate-[progress_8s_linear_forwards]"></div>
 
-                <p class="ms-3 font-bold text-[10px] text-white truncate" x-text="message"></p>
+        <div class="p-4 pr-12 flex items-start gap-4">
+            {{-- Icon --}}
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-xl" 
+                      x-text="style == 'success' ? 'check_circle' : (style == 'danger' ? 'dangerous' : 'info')"></span>
             </div>
 
-            <div class="shrink-0 sm:ms-3">
-                <button
-                    type="button"
-                    class="-me-1 flex p-2 focus:outline-none sm:-me-2 transition hover:bg-black/10"
-                    aria-label="Dismiss"
-                    x-on:click="show = false">
-                    <svg class="size-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+            {{-- Text --}}
+            <div class="flex-1 min-w-0 pt-1">
+                <p class="text-[10px] font-bold uppercase tracking-widest opacity-60 mb-0.5" x-text="style"></p>
+                <p class="text-sm font-semibold leading-relaxed" x-text="message"></p>
             </div>
+
+            {{-- Close Button --}}
+            <button @click="show = false" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-lg">close</span>
+            </button>
         </div>
     </div>
 </div>
 
+<style>
+    @keyframes progress {
+        from { width: 100%; }
+        to { width: 0%; }
+    }
+</style>

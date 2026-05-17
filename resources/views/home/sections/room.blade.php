@@ -157,7 +157,7 @@
                         @endphp
                         <div class="absolute top-3 left-3 z-30">
                             <span
-                                class="inline-block {{ $isFullyBooked ? 'bg-red-600' : 'bg-teal-600' }} text-white text-[10px] font-medium py-1.5 px-3 shadow-xl">
+                                class="inline-block {{ $isFullyBooked ? 'bg-red-600' : 'bg-green-600' }} text-white text-xs font-medium py-1.5 px-3 shadow-xl">
                                 {{ $isFullyBooked ? 'Fully booked' : 'Available' }}
                             </span>
                         </div>
@@ -168,7 +168,7 @@
                             @endphp
                             <div class="absolute top-3 right-3 z-30">
                                 <span
-                                    class="inline-block bg-[#964B00] text-white text-[10px] font-medium py-1.5 px-3 shadow-xl ">
+                                    class="inline-block bg-[#63360D] text-white text-xs font-medium py-1.5 px-3 shadow-xl ">
                                     {{ $badgeText }} off
                                 </span>
                             </div>
@@ -179,11 +179,11 @@
                                 <span class="text-sm text-white line-through block mb-1">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </span>
-                                <p class="text-white text-lg font-medium">
+                                <p class="text-white text-lg font-bold">
                                     PHP {{ number_format($discountedPrice, 2) }}
                                 </p>
                             @else
-                                <p class="text-2xl font-medium">
+                                <p class="text-2xl font-bold">
                                     PHP {{ number_format($room->price ?? 0, 2) }}
                                 </p>
                             @endif
@@ -194,17 +194,17 @@
 
                     <div class="p-4 flex flex-col flex-grow w-full">
 
-                        <h3 class="text-lg font-medium text-black mb-2">
+                        <h3 class="text-lg font-bold text-[#63360D] mb-2">
                             {{ $room->room_name }}
                         </h3>
 
-                        <p class="text-sm text-black leading-relaxed mb-4 flex-grow">
+                        <p class="text-sm font-medium text-black leading-relaxed mb-4 flex-grow">
                             {{ \Illuminate\Support\Str::limit($room->description ?? 'An exquisite room offering premium comfort and luxury for your stay.', 100) }}
                         </p>
 
                         @if($isActive && $expiryDate)
                             <div class="py-1 mb-2">
-                                <p class="text-sm font-medium text-[#964B00]">
+                                <p class="text-sm font-normal text-red-600">
                                     Offer Ends: {{ Carbon::parse($expiryDate)->format('M d, Y') }}
                                 </p>
                             </div>
@@ -214,21 +214,21 @@
 
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">group</span>
-                                <span class="text-sm text-black">{{ $room->accommodates }}</span>
+                                <span class="text-sm text-black font-normal">{{ $room->accommodates }}</span>
                             </div>
 
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">bed</span>
-                                <span class="text-sm">{{ $room->beds }}</span>
+                                <span class="text-sm text-black font-normal">{{ $room->beds }}</span>
                             </div>
                         </div>
 
                         <div class="mt-auto flex justify-between items-center">
-                            <a href="{{ url('room_details', $room->id) }}" class="text-[#964B00] font-medium text-sm hover:text-black transition-colors">
+                            <a href="{{ url('room_details', $room->id) }}" class="text-[#63360D] font-semibold text-sm hover:text-black transition-colors">
                                 View details
                             </a>
                             <a href="{{ route('booking.dates', ['room_id' => $room->id]) }}"
-                                class="bg-[#964B00] px-8 py-3 text-[10px] font-medium text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
+                                class="bg-[#63360D] px-8 py-3 text-sm font-semibold text-white hover:bg-black transition flex items-center justify-center shadow-lg shadow-orange-900/10">
                                 Book now
                             </a>
                         </div>

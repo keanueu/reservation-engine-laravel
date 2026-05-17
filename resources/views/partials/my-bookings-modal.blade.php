@@ -34,7 +34,7 @@
         <div id="my-bookings-content" class="flex-1 overflow-y-auto px-6 py-5 space-y-4">
             {{-- Populated by JS --}}
             <div class="flex flex-col items-center justify-center py-16 text-center">
-                <svg class="animate-spin w-8 h-8 mb-4" style="color:#964B00;" fill="none" viewBox="0 0 24 24">
+                <svg class="animate-spin w-8 h-8 mb-4 text-[#63360D]" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
                 </svg>
@@ -44,11 +44,9 @@
 
         {{-- Footer --}}
         <div class="flex-shrink-0 px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-gray-50">
-            <p class="text-xs text-gray-400">Need help? <a href="{{ url('/home/contact') }}" class="font-semibold underline" style="color:#964B00;">Contact us</a></p>
+            <p class="text-xs text-gray-400">Need help? <a href="{{ url('/home/contact') }}" class="font-bold underline text-[#63360D]">Contact us</a></p>
             <button data-close-mybookings
-                    class="px-5 py-2.5 text-xs font-bold text-white transition-colors"
-                    style="background:#964B00;"
-                    onmouseover="this.style.background='#6b3500'" onmouseout="this.style.background='#964B00'">
+                    class="px-6 py-2.5 text-[10px] font-bold text-white transition-all rounded-lg uppercase tracking-widest bg-[#63360D] hover:bg-[#261405] shadow-lg">
                 Close
             </button>
         </div>
@@ -56,20 +54,20 @@
 </div>
 
 <style>
-    .booking-tab.active-tab { color:#964B00; border-bottom-color:#964B00; }
+    .booking-tab.active-tab { color:#63360D; border-bottom-color:#63360D; }
     .booking-tab:not(.active-tab) { border-bottom-color:transparent; color:#9ca3af; }
 
     /* Booking card */
     .booking-card { background:#fff; border:1px solid #e5e7eb; transition:box-shadow .2s; }
     .booking-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
 
-    /* Status badges */
-    .badge { display:inline-flex; align-items:center; gap:4px; padding:2px 10px; font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:; }
-    .badge-green  { background:#dcfce7; color:#15803d; }
-    .badge-yellow { background:#fef9c3; color:#a16207; }
-    .badge-red    { background:#fee2e2; color:#b91c1c; }
-    .badge-blue   { background:#dbeafe; color:#1d4ed8; }
-    .badge-gray   { background:#f3f4f6; color:#4b5563; }
+    /* Status badges - Modern Soft Style */
+    .badge { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; font-size:.65rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; border-radius:100px; }
+    .badge-green  { background:#ecfdf5; color:#059669; border: 1px solid #d1fae5; }
+    .badge-yellow { background:#fffbeb; color:#d97706; border: 1px solid #fef3c7; }
+    .badge-red    { background:#fef2f2; color:#dc2626; border: 1px solid #fee2e2; }
+    .badge-blue   { background:#eff6ff; color:#2563eb; border: 1px solid #dbeafe; }
+    .badge-gray   { background:#f9fafb; color:#4b5563; border: 1px solid #f3f4f6; }
 
     /* Accordion */
     .accordion-body { max-height:0; overflow:hidden; transition:max-height .3s ease; }
