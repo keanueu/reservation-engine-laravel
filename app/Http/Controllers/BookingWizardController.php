@@ -7,14 +7,25 @@ use App\Models\Room;
 use App\Models\Boat;
 use App\Models\Setting;
 use Carbon\Carbon;
+use App\Helpers\BookingHelper;
 
 class BookingWizardController extends Controller
 {
     // Step 1 — Dates & Selection
     public function stepDates(Request $request)
     {
-        $rooms = Room::with(['images', 'discounts.images'])->get();
-        $boats = Boat::all();
+        $rooms = \Illuminate\Support\Facades\Cache::remember('wizard_rooms', 900, function () {
+            return Room::select('id', 'room_name', 'price', 'description', 'accommodates', 'beds', 'room_type', 'image')
+                ->with([
+                    'images' => function($q) { $q->select('id', 'room_id', 'image'); },
+                    'discounts' => function($q) { $q->select('discounts.id', 'amount', 'amount_type', 'active', 'end_date'); },
+                    'discounts.images' => function($q) { $q->select('id', 'discount_id', 'filename'); }
+                ])->get();
+        });
+        
+        $boats = \Illuminate\Support\Facades\Cache::remember('wizard_boats', 900, function () {
+            return Boat::select('id', 'name', 'capacity', 'price', 'image')->get();
+        });
 
         // Pre-fill from query string (e.g. from "Book Now" buttons or hero search)
         $prefill = [
@@ -52,11 +63,8 @@ class BookingWizardController extends Controller
                 'end_time'     => 'required',
             ]);
 
-            // Database Availability Check
-            $overlap = \App\Models\BoatBooking::where('boat_id', $request->boat_id)
-                ->where('booking_date', $request->booking_date)
-                ->whereNotIn('status', ['cancelled', 'rejected'])
-                ->where(fn($q) => $q->where('start_time', '<', $request->end_time)->where('end_time', '>', $request->start_time))
+            $overlap = \App\Models\BoatBooking::overlappingTime($request->booking_date, $request->start_time, $request->end_time)
+                ->where('boat_id', $request->boat_id)
                 ->exists();
 
             if ($overlap) {
@@ -72,49 +80,50 @@ class BookingWizardController extends Controller
                     'end_time'     => $request->end_time,
                 ],
             ]]);
-        } else {
-            $request->validate([
-                'room_id'  => 'required|exists:rooms,id',
-                'checkin'  => 'required|date|after_or_equal:today',
-                'checkout' => 'required|date|after:checkin',
-            ]);
+            
+            return redirect()->route('booking.guests');
+        }
 
-            // Database Availability Check
-            $conflict = \App\Models\Booking::availableBetween($request->checkin, $request->checkout)
-                ->where('room_id', $request->room_id)
-                ->exists();
+        // Handle Room Type (Guard Clauses)
+        $request->validate([
+            'room_id'  => 'required|exists:rooms,id',
+            'checkin'  => 'required|date|after_or_equal:today',
+            'checkout' => 'required|date|after:checkin',
+        ]);
 
-            if ($conflict) {
-                return back()->withErrors(['room_id' => 'This room is already booked for the selected dates.'])->withInput();
-            }
+        $conflict = \App\Models\Booking::availableBetween($request->checkin, $request->checkout)
+            ->where('room_id', $request->room_id)
+            ->exists();
 
-            // Cart Overlap Check
-            $cart = session('cart', []);
-            foreach ($cart as $item) {
-                if (isset($item['room_id'], $item['start_date'], $item['end_date']) && $item['room_id'] == $request->room_id) {
-                    $existingStart = Carbon::parse($item['start_date']);
-                    $existingEnd   = Carbon::parse($item['end_date']);
-                    $newStart      = Carbon::parse($request->checkin);
-                    $newEnd        = Carbon::parse($request->checkout);
+        if ($conflict) {
+            return back()->withErrors(['room_id' => 'This room is already booked for the selected dates.'])->withInput();
+        }
 
-                    if ($newStart < $existingEnd && $newEnd > $existingStart) {
-                        return back()->withErrors(['room_id' => 'This room is already in your cart for overlapping dates. Please remove it first to modify.'])->withInput();
-                    }
+        $cart = session('cart', []);
+        foreach ($cart as $item) {
+            if (isset($item['room_id'], $item['start_date'], $item['end_date']) && $item['room_id'] == $request->room_id) {
+                $existingStart = Carbon::parse($item['start_date']);
+                $existingEnd   = Carbon::parse($item['end_date']);
+                $newStart      = Carbon::parse($request->checkin);
+                $newEnd        = Carbon::parse($request->checkout);
+
+                if ($newStart < $existingEnd && $newEnd > $existingStart) {
+                    return back()->withErrors(['room_id' => 'This room is already in your cart for overlapping dates. Please remove it first to modify.'])->withInput();
                 }
             }
-
-            session(['booking_wizard' => [
-                'step1' => [
-                    'type'          => 'room',
-                    'room_id'       => $request->room_id,
-                    'checkin'       => $request->checkin,
-                    'checkout'      => $request->checkout,
-                    'checkin_time'  => $request->checkin_time  ?? '13:00',
-                    'checkout_time' => $request->checkout_time ?? '11:00',
-                    'nights'        => Carbon::parse($request->checkin)->diffInDays(Carbon::parse($request->checkout)) ?: 1,
-                ],
-            ]]);
         }
+
+        session(['booking_wizard' => [
+            'step1' => [
+                'type'          => 'room',
+                'room_id'       => $request->room_id,
+                'checkin'       => $request->checkin,
+                'checkout'      => $request->checkout,
+                'checkin_time'  => $request->checkin_time  ?? '13:00',
+                'checkout_time' => $request->checkout_time ?? '11:00',
+                'nights'        => Carbon::parse($request->checkin)->diffInDays(Carbon::parse($request->checkout)) ?: 1,
+            ],
+        ]]);
 
         return redirect()->route('booking.guests');
     }
@@ -129,8 +138,8 @@ class BookingWizardController extends Controller
 
         $step1 = $wizard['step1'];
         $model = $step1['type'] === 'boat'
-            ? Boat::findOrFail($step1['boat_id'])
-            : Room::findOrFail($step1['room_id']);
+            ? Boat::select('id', 'capacity')->findOrFail($step1['boat_id'])
+            : Room::select('id', 'accommodates')->findOrFail($step1['room_id']);
 
         $maxGuests = $step1['type'] === 'boat'
             ? (int) $model->capacity
@@ -193,28 +202,24 @@ class BookingWizardController extends Controller
         $step2 = $wizard['step2'];
 
         $model = $step1['type'] === 'boat'
-            ? Boat::findOrFail($step1['boat_id'])
-            : Room::with('discounts')->findOrFail($step1['room_id']);
+            ? Boat::select('id', 'name', 'price', 'capacity', 'image')->findOrFail($step1['boat_id'])
+            : Room::select('id', 'room_name', 'price', 'room_type', 'image', 'accommodates')
+                ->with(['discounts' => function($q) { $q->select('discounts.id', 'amount', 'amount_type', 'active', 'end_date'); }])
+                ->findOrFail($step1['room_id']);
 
-        // Compute price
         if ($step1['type'] === 'boat') {
             $unitPrice = $model->price;
             $total     = $unitPrice;
             $nights    = null;
         } else {
             $discount  = $model->discounts->first();
-            $unitPrice = $model->price;
-            if ($discount && ($discount->active ?? false) && $discount->amount > 0) {
-                $unitPrice = $discount->amount_type === 'percent'
-                    ? $model->price * (1 - $discount->amount / 100)
-                    : max(0, $model->price - $discount->amount);
-            }
-            $nights = $step1['nights'];
+            $unitPrice = BookingHelper::calculateUnitPrice($model->price, $discount);
+            $nights = $step1['nights'] ?? 1;
             $total  = $unitPrice * $nights;
         }
 
         $depositPercent = (float) Setting::get('deposit_percentage', config('booking.deposit_percentage', 50));
-        $deposit        = round($total * ($depositPercent / 100), 2);
+        $deposit        = BookingHelper::calculateDeposit($total);
 
         return view('home.booking.step-review', compact(
             'step1', 'step2', 'model', 'unitPrice', 'total', 'nights', 'deposit', 'depositPercent'
@@ -234,7 +239,7 @@ class BookingWizardController extends Controller
         $cart  = session('cart', []);
 
         if ($step1['type'] === 'boat') {
-            $boat = Boat::findOrFail($step1['boat_id']);
+            $boat = Boat::select('id', 'price')->findOrFail($step1['boat_id']);
             $cart[] = [
                 'type'         => 'boat',
                 'boat_id'      => $boat->id,
@@ -245,15 +250,10 @@ class BookingWizardController extends Controller
                 'price'        => $boat->price,
             ];
         } else {
-            $room     = Room::with('discounts')->findOrFail($step1['room_id']);
+            $room     = Room::select('id', 'price')->with(['discounts' => function($q) { $q->select('discounts.id', 'amount', 'amount_type', 'active', 'end_date'); }])->findOrFail($step1['room_id']);
             $discount = $room->discounts->first();
-            $unitPrice = $room->price;
-            if ($discount && ($discount->active ?? false) && $discount->amount > 0) {
-                $unitPrice = $discount->amount_type === 'percent'
-                    ? $room->price * (1 - $discount->amount / 100)
-                    : max(0, $room->price - $discount->amount);
-            }
-            $nights = $step1['nights'];
+            $unitPrice = BookingHelper::calculateUnitPrice($room->price, $discount);
+            $nights = $step1['nights'] ?? 1;
 
             $cart[] = [
                 'type'                  => 'room',

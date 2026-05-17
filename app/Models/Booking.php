@@ -171,6 +171,22 @@ class Booking extends Model
     }
 
     /**
+     * Get the total deposit amount for the entire booking group.
+     */
+    public function getTotalGroupDeposit(): float
+    {
+        $depositPercent = (float) config('booking.deposit_percentage', 50) / 100;
+        
+        if (empty($this->group_id)) {
+            return (float) ($this->deposit_amount ?? ($this->total_amount * $depositPercent));
+        }
+
+        return (float) self::where('group_id', $this->group_id)
+            ->get(['deposit_amount', 'total_amount'])
+            ->sum(fn($b) => $b->deposit_amount ?? round(($b->total_amount ?? 0) * $depositPercent, 2));
+    }
+
+    /**
      * Set expires_at when creating a pending booking.
      * Call this after creating a waiting booking.
      */
