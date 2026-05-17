@@ -45,4 +45,11 @@ class BoatBooking extends Model
     {
         return $query->whereBetween($column, [$from, $to]);
     }
+
+    public function scopeOverlappingTime($query, $date, $start, $end)
+    {
+        return $query->where('booking_date', $date)
+                     ->whereNotIn('status', ['cancelled', 'rejected'])
+                     ->where(fn($q) => $q->where('start_time', '<', $end)->where('end_time', '>', $start));
+    }
 }

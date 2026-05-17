@@ -18,7 +18,9 @@ class CartController extends Controller
 
     public function add(Request $request, $room_id)
     {
-        $room = Room::with('discounts')->findOrFail($room_id);
+        $room = Room::select('id', 'price', 'accommodates')
+            ->with(['discounts' => function($q) { $q->select('discounts.id', 'amount', 'amount_type', 'active', 'end_date'); }])
+            ->findOrFail($room_id);
         $cart = session('cart', []);
 
         $startDate  = $request->input('startDate');
@@ -162,7 +164,7 @@ class CartController extends Controller
 
     public function checkBoatAvailability(Request $request)
     {
-        $boat = Boat::find($request->input('boat_id'));
+        $boat = Boat::select('id', 'capacity')->find($request->input('boat_id'));
         if (!$boat) {
             return response()->json(['available' => false, 'message' => 'Boat not found.'], 404);
         }
@@ -190,7 +192,7 @@ class CartController extends Controller
 
     public function addBoatToCart(Request $request, $boat_id)
     {
-        $boat = Boat::find($boat_id);
+        $boat = Boat::select('id', 'capacity', 'price', 'name')->find($boat_id);
         if (!$boat) {
             return response()->json(['status' => 'error', 'message' => 'Boat not found.'], 404);
         }

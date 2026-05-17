@@ -15,7 +15,7 @@ class RoomController extends Controller
 
     public function index()
     {
-        return view('frontdesk.view_room', ['datas' => Room::all()]);
+        return view('frontdesk.view_room', ['datas' => Room::select('id', 'room_name', 'description', 'price', 'accommodates', 'room_type', 'beds', 'image')->get()]);
     }
 
     public function store(Request $request)
