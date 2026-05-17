@@ -284,7 +284,9 @@ class BookingController extends Controller
 
         // Enforce one refund per booking group: if any booking in the same group already has a refund requested/processing/refunded, disallow another
         if (!empty($booking->group_id)) {
-            $groupBookings = Booking::where('group_id', $booking->group_id)->get();
+            $groupBookings = Booking::where('group_id', $booking->group_id)
+                ->select('id', 'group_id', 'refund_status')
+                ->get();
             $groupHasRefund = $groupBookings->contains(function ($item) {
                 return in_array(strtolower($item->refund_status ?? ''), ['requested', 'processing', 'refunded']);
             });
@@ -317,7 +319,9 @@ class BookingController extends Controller
         $depositPercent = (float) config('booking.deposit_percentage', 50) / 100;
         $groupDepositTotal = 0;
         if (!empty($booking->group_id)) {
-            $groupBookings = Booking::where('group_id', $booking->group_id)->get();
+            $groupBookings = Booking::where('group_id', $booking->group_id)
+                ->select('id', 'group_id', 'deposit_amount', 'total_amount')
+                ->get();
             foreach ($groupBookings as $gb) {
                 $bDeposit = $gb->deposit_amount ?? round(($gb->total_amount ?? 0) * $depositPercent, 2);
                 $groupDepositTotal += (float) $bDeposit;

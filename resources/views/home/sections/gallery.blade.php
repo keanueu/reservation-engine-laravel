@@ -1,7 +1,7 @@
 <section class="bg-white text-black py-16 ">
     @php
-        // Fetch only general gallery images (those not linked to a specific room)
-        $galleryImages = \App\Models\Images::whereNull('room_id')->orderBy('created_at', 'desc')->get();
+        // Access pre-fetched gallery images passed from the controller, falling back to query if not loaded
+        $galleryImagesList = $galleryImages ?? \App\Models\Images::whereNull('room_id')->select('id', 'image')->orderBy('created_at', 'desc')->get();
     @endphp
 
     <div class="max-w-7xl mx-auto px-6">
@@ -14,11 +14,13 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            @forelse($galleryImages as $index => $image)
+            @forelse($galleryImagesList as $index => $image)
                 <div class="relative overflow-hidden aspect-square" 
                      data-reveal data-reveal-delay="{{ $index % 4 }}">
                     <img src="{{ asset('images/' . $image->image) }}" 
                          alt="Gallery Image" 
+                         loading="lazy"
+                         decoding="async"
                          class="w-full h-full object-cover">
                 </div>
             @empty

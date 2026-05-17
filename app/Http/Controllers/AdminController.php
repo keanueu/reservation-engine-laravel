@@ -45,10 +45,29 @@ class AdminController extends Controller
     $tomorrow = now()->addDay()->toDateString();
     $unavailableRoomIds = Booking::unavailableRoomIds($today, $tomorrow);
 
-    $rooms = Room::with(['discounts.images', 'images'])->get();
-    $boats = Boat::all(); // Boat uses a single image column, not a relationship
-    $image = Images::all();
-    return view('home.index', compact('rooms', 'boats', 'image', 'unavailableRoomIds'));
+    // 1. Column-targeted SELECT query with specifically-filtered eager loads
+    $rooms = Room::select('id', 'room_name', 'price', 'description', 'accommodates', 'beds', 'room_type', 'image')
+      ->with([
+        'discounts' => function ($q) {
+          $q->select('discounts.id', 'discounts.amount', 'discounts.amount_type', 'discounts.active', 'discounts.end_date');
+        },
+        'images' => function ($q) {
+          $q->select('images.id', 'images.room_id', 'images.image');
+        }
+      ])
+      ->get();
+
+    // 2. Cache stable boat definitions to reduce database overhead
+    $boats = \Illuminate\Support\Facades\Cache::remember('home_boats', 900, function () {
+      return Boat::select('id', 'name', 'description', 'price', 'capacity', 'image')->get();
+    });
+
+    // 3. Move gallery query from Blade view into controller and cache
+    $galleryImages = \Illuminate\Support\Facades\Cache::remember('home_gallery_images', 900, function () {
+      return Images::whereNull('room_id')->select('id', 'image')->orderBy('created_at', 'desc')->get();
+    });
+
+    return view('home.index', compact('rooms', 'boats', 'galleryImages', 'unavailableRoomIds'));
   }
 
   // admin dashboard
